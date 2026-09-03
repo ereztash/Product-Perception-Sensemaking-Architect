@@ -1,0 +1,30 @@
+{
+  "claim_id": "W1-TEST-001",
+  "wave": "WAVE1",
+  "recursive_parent_id": null,
+  "capability_family": "W4",
+  "candidate_wording": "A complaint that a control feels unresponsive may arise from missing acknowledgement even when system latency is low.",
+  "observable_construct": "acknowledgement after an action",
+  "neighboring_explanations": [
+    "actual response latency",
+    "weak state transition salience",
+    "action-state ambiguity"
+  ],
+  "supporting_source_ids": [],
+  "independence_families": [],
+  "counterevidence_search_completed": false,
+  "counterevidence_strategy": "",
+  "contradiction_ids": [],
+  "culture_relevance": "plausible",
+  "culture_relevance_rationale": "The basic mechanism may be broad, but conventions for visible acknowledgement and animation can vary by platform and context.",
+  "represented_contexts": [],
+  "missing_contexts": ["not yet researched"],
+  "boundary_conditions": [],
+  "discriminator": "Measure action-to-acknowledgement time separately from action-to-completion time and inspect the visible state change.",
+  "reversal_condition": "If acknowledgement is immediate and salient while users still report the same failure, missing acknowledgement is not sufficient to explain the complaint.",
+  "fixture_path": null,
+  "vector": {"G": 1, "C": 0, "A": 0, "O": 2},
+  "status": "QUARANTINE",
+  "prompt_rule_candidate": null,
+  "neighbor_behavior_at_risk": null
+}

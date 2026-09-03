@@ -22,10 +22,13 @@ jobs:
           python-version: '3.12'
 
       - name: Compile validators
-        run: python -m py_compile scripts/validate_finding.py scripts/check_contract.py
+        run: python -m py_compile scripts/validate_finding.py scripts/check_contract.py scripts/check_research_contract.py
 
       - name: Validate canonical finding
         run: python scripts/validate_finding.py fixtures/valid-finding.json
 
-      - name: Run contract gate and positive controls
+      - name: Run Neta agent contract and positive controls
         run: python scripts/check_contract.py
+
+      - name: Run research quarantine contract and positive controls
+        run: python scripts/check_research_contract.py

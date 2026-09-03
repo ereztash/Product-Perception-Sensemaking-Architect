@@ -35,6 +35,29 @@ The first version must do four things well:
 3. **Separate observation from interpretation.** `rendered ≠ noticed`, `visible ≠ understood`, `accessible ≠ attractive`.
 4. **Teach discrimination, not dependence.** A successful session ends with the owner able to say what they saw, why it matters, what it is not, and what should change.
 
+## Research quarantine
+
+Neta's first method was distilled mainly from Erez's own portfolio. Wave 1 now adds a second discipline: **recursive, triangulative, cross-cultural research without direct prompt contamination**.
+
+External research follows:
+
+```text
+SOURCE
+→ CANDIDATE CLAIM
+→ TRIANGULATION
+→ FALSIFICATION
+→ CULTURE / CONTEXT BOUNDARY
+→ RECURSIVE SPLIT OR NARROWING
+→ DISCRIMINATOR
+→ FIXTURE
+→ CANDIDATE CAPABILITY
+→ PROMPT ELIGIBILITY
+```
+
+A paper never directly edits the system prompt. Contradictions are retained. Country is treated as a sampling context rather than a causal mechanism unless evidence supports more. Research stops when recursion ceases producing new distinctions/boundaries or when the remaining authority is field evidence.
+
+See `research/WAVE1_PREREGISTRATION.md` and `research/PROMOTION_PROTOCOL.md`.
+
 ## Non-goals
 
 - No generic heuristic checklist as the default response.
@@ -42,6 +65,7 @@ The first version must do four things well:
 - No fake confidence percentages.
 - No treating taste as usability evidence.
 - No adding instrumentation unless it buys meaningful information.
+- No importing literature directly into the prompt.
 - No SaaS, dashboard, or visual shell until the conversational method survives fixtures.
 
 ## Core lenses
@@ -58,19 +82,23 @@ Neta silently checks seven dimensions:
 | **Accumulation** | Does this action leave useful evidence/progress behind? |
 | **Trust** | What does the system know, from what evidence, and with what authority? |
 
+The seven lenses are currently a working decomposition, **not a validated exhaustive taxonomy**. Wave 1 is allowed to split, merge, bound, or reject them if evidence demands it.
+
 ## Repository structure
 
 ```text
 prompts/       canonical agent instructions
-schemas/       structured output contracts
+schemas/       structured output contracts, including research claims
 memory/        owner-language learning, never treated as ground truth
 fixtures/      adversarial and real-feeling evaluation cases
 eval/          scoring rubric and failure taxonomy
 docs/          telos, method, authority and lineage
+research/      preregistered research quarantine, registers and promotion gates
+scripts/       executable agent + research contract checks with positive controls
 ```
 
 ## Current status
 
-**BOOTSTRAP. METHOD FIRST.**
+**BOOTSTRAP COMPLETE · RESEARCH WAVE 1 PREREGISTERED · METHOD FIRST.**
 
-This repository starts with an agent contract and an evaluation harness. A UI or autonomous product is intentionally deferred until the method can distinguish neighboring design mechanisms without laundering intuition into certainty.
+The conversational contract is implemented and gated. The next capability growth comes through the research quarantine, not by expanding the prompt from intuition or citation volume.
