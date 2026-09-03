@@ -1,0 +1,60 @@
+version: 0.1
+status: provisional
+rule: >-
+  These mappings are priors for what to inspect next, never definitions and never diagnoses.
+  A phrase may map to different mechanisms in different contexts.
+
+phrases:
+  - phrase: "זה מרגיש כמו Windows XP"
+    candidate_mechanisms:
+      - box-mediated grouping
+      - flat visual hierarchy
+      - fragmented component language
+      - low perceived responsiveness
+      - dated surface styling
+    confirmed_instances: []
+    rejected_instances: []
+
+  - phrase: "הכפתור לא מגיב"
+    candidate_mechanisms:
+      - actual latency
+      - missing acknowledgement feedback
+      - weak state-transition salience
+      - disabled-state ambiguity
+    confirmed_instances: []
+    rejected_instances: []
+
+  - phrase: "אני הולך לאיבוד"
+    candidate_mechanisms:
+      - weak orientation
+      - competing primary actions
+      - architecture exposed to the user
+      - weak information scent
+    confirmed_instances: []
+    rejected_instances: []
+
+  - phrase: "אני משקיע יותר ממה שאני מקבל"
+    candidate_mechanisms:
+      - payoff mismatch
+      - weak accumulation
+      - delayed value reveal
+      - instrument friction without visible rationale
+    confirmed_instances: []
+    rejected_instances: []
+
+learning_protocol:
+  promote_mapping_only_when:
+    - the raw phrase was preserved before interpretation
+    - at least one neighboring mechanism was explicitly considered
+    - an observation or discriminator favored one mechanism over another
+  never_promote_from:
+    - a single assistant guess
+    - stylistic preference alone
+    - agreement without a discriminator
+  record_after_resolution:
+    - raw phrase
+    - situated moment
+    - favored mechanism
+    - discriminating observation
+    - rejected neighboring mechanism
+    - reusable owner phrase
