@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/finding.schema.json",
+  "title": "Neta Finding v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "raw_signal",
+    "observations",
+    "candidate_mechanisms",
+    "authority",
+    "evidence_state",
+    "next_step"
+  ],
+  "properties": {
+    "status": {
+      "enum": ["DISCRIMINATE_FIRST", "BUILD_READY", "FIELD_STOP"]
+    },
+    "raw_signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "candidate_mechanisms": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "explains", "does_not_explain", "discriminator"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "explains": {"type": "string", "minLength": 1},
+          "does_not_explain": {"type": "string", "minLength": 1},
+          "discriminator": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "design_distinction": {
+      "type": ["string", "null"]
+    },
+    "rejected_explanations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authority": {
+      "enum": ["OWNER", "REPO", "DESIGN_MECHANISM", "FIELD"]
+    },
+    "evidence_state": {
+      "enum": [
+        "OWNER_SIGNAL",
+        "REPRODUCED",
+        "MECHANISM_SUPPORTED",
+        "MEASURED",
+        "FIELD_REQUIRED",
+        "FIELD_REPLICATED"
+      ]
+    },
+    "intervention": {
+      "type": ["string", "null"]
+    },
+    "must_not_change": {
+      "type": ["string", "null"]
+    },
+    "perceptual_success_criterion": {
+      "type": ["string", "null"]
+    },
+    "check": {
+      "type": ["string", "null"]
+    },
+    "reversal_condition": {
+      "type": ["string", "null"]
+    },
+    "next_step": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
