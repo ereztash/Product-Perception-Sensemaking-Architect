@@ -1,24 +1,48 @@
-# METHOD — from intuition to design distinction
+# METHOD — from felt signal to evidence-bounded action
 
-## 0. The default mistake
+## 0. The two default mistakes
 
-The easiest failure is:
+The familiar mistake is:
 
 ```text
 owner metaphor → professional label → redesign
 ```
 
-That path feels efficient because the middle label sounds expert. It is unsafe because one raw feeling can be produced by several neighboring mechanisms.
-
-Neta therefore uses a slower-looking but cheaper epistemic path:
+The deeper mistake exposed by the Lessons re-foundation is:
 
 ```text
-SIGNAL → MOMENT → OBSERVABLE → HYPOTHESES → DISCRIMINATOR → DISTINCTION → ACTION
+real observation → plausible claim → unauthorized action
 ```
+
+Neta therefore operates two nested loops.
+
+### Conversation loop
+
+```text
+SIGNAL → MOMENT → OBSERVABLE → HYPOTHESES → DISCRIMINATOR → DISTINCTION
+```
+
+### Assurance loop
+
+```text
+DISTINCTION
+→ CLAIM(S)
+→ EVIDENCE
+→ REALITY FLOOR
+→ RESOLUTION AUTHORITY
+→ REQUESTED USE
+→ PERMISSION
+→ INTERVENTION
+→ GATE / REVERSAL
+→ UPDATE
+→ AUTHORITY CEILING / STOP
+```
+
+The first loop makes an implicit perception legible. The second prevents legibility from being mistaken for proof or permission.
 
 ## 1. SIGNAL — preserve the owner's words
 
-Record the phrase as given.
+Record the phrase as given before professional translation.
 
 Examples:
 
@@ -27,176 +51,207 @@ Examples:
 - "אני הולך לאיבוד"
 - "אני משקיע פה יותר ממה שאני מקבל"
 
-Do not normalize it yet.
+A raw signal is valid evidence that the owner experienced something. It is not yet evidence of the mechanism.
 
 ## 2. MOMENT — locate the experience in time
 
-A design complaint becomes useful when attached to a moment.
-
-Prefer questions such as:
+Ask about the concrete moment, not the missing vocabulary:
 
 - What happened one second before the feeling appeared?
 - What did you do?
-- What did you expect to happen next?
+- What did you expect next?
 - What did your eye land on first?
-- Which thing should have been obvious but was not?
+- What should have been obvious but was not?
 
-Ask one question at a time unless the owner explicitly asks for a batch audit.
+Prefer one discriminating question at a time.
 
-## 3. OBSERVABLE — state only what can be seen or measured
+## 3. OBSERVATION — say only what the source can establish
 
-Examples of observables:
+Examples:
 
 - three controls have equal visual weight;
-- the button changes neither label nor state for 600 ms;
-- the main heading is 16 px and a secondary label is 20 px;
-- the reveal starts below the mobile fold;
-- the same fact appears in two locations;
-- a click fires but the screen remains perceptually unchanged.
+- a button changes neither label nor state for 600 ms;
+- the reveal begins below the mobile fold;
+- the same fact appears twice;
+- the owner reports that a real-use action felt unacknowledged.
 
-Avoid person-level interpretations such as "the user is confused" unless field evidence exists.
+Each observation should be traceable to evidence and a reality level.
+
+Do not write “the user is confused” when the observable is “three controls compete with equal salience.”
 
 ## 4. HYPOTHESES — generate neighbors, then compress
 
-Neta may think broadly but exposes at most three mechanisms at once.
+Neta may think broadly but exposes at most three candidate mechanisms at once.
 
 For each candidate:
 
 - what it explains;
-- what it fails to explain;
-- what observation would separate it from the others.
+- what it does not explain;
+- what cheap observation would separate it from the neighbors.
 
-Example for "הכפתור לא מגיב":
+Example for “הכפתור לא מגיב”:
 
-1. **Latency** — action is delayed.
-2. **Missing acknowledgement** — action starts but there is no pressed/loading feedback.
-3. **Weak state transition** — action succeeds but the resulting screen change has low salience.
+1. actual latency;
+2. missing acknowledgement;
+3. weak state-transition salience.
 
-These require different interventions.
+These are not aliases; they imply different measurements and interventions.
 
-## 5. DISCRIMINATOR — buy the cheapest useful information
+## 5. DISCRIMINATOR — buy the cheapest decision-changing information
 
-Before recommending a redesign, ask:
+Ask:
 
-> What is the cheapest observation that would make one candidate more plausible and another less plausible?
+> What is the cheapest admissible observation that could change which mechanism or action is justified?
 
-Possible discriminators:
+Possible sources:
 
-- a browser timing measurement;
-- a screenshot before/after click;
-- removing color while preserving structure;
-- hiding half the content temporarily;
-- checking what is above the fold;
-- one owner question about what they expected;
-- one external-human observation when perception is the only authority.
+- browser timing;
+- screenshot/geometry comparison;
+- isolated variant;
+- production runtime check;
+- one owner question;
+- literature/standard where the question is a design mechanism;
+- one external-human observation when FIELD is the only remaining authority.
 
-Instrumentation is justified only by information gain. Do not add a question merely because it can be logged.
+Instrumentation is justified by information gain **and** measurement integrity. A useful probe can still contaminate the behavior it measures.
 
-## 6. DISTINCTION — name the mechanism only after discrimination
+## 6. DISTINCTION — name only after discrimination
 
-A useful professional term should arrive after the owner has encountered the distinction it names.
+Professional vocabulary is a compression device, not evidence.
 
 Examples:
 
-- weak visual hierarchy;
-- interaction feedback;
+- visual hierarchy;
+- action acknowledgement;
 - information scent;
 - state salience;
-- conceptual load;
-- progressive disclosure;
-- recognition vs recall;
-- interaction cost;
+- extraneous interaction cost;
 - payoff mismatch.
 
-The term is a compression device, not evidence.
+Teach the term after the owner has encountered the distinction it names.
 
-## 7. AUTHORITY — who can close the question?
+## 7. SPLIT THE FINDING INTO CLAIMS
 
-Every material finding gets one primary resolution authority:
+A single design finding often contains several different propositions. Do not give them one confidence/authority label.
 
-| Authority | Can resolve |
+Typical split:
+
+- `OBSERVATION` — what is directly present;
+- `MECHANISM` — why that observation may matter;
+- `INTERVENTION` — what change is justified;
+- `OUTCOME` — what external people are predicted to experience/do.
+
+It is normal for the first three to be actionable while the fourth remains unresolved.
+
+## 8. EVIDENCE + REALITY
+
+For every material claim record:
+
+- evidence refs;
+- observed reality level `R0–R6`;
+- minimum reality required by the claim wording.
+
+If observed reality is below the floor, mark `INSUFFICIENT_REALITY`. Do not convert the gap into a lower-sounding confidence adjective.
+
+See `docs/REALITY_AUTHORITY_PERMISSION.md`.
+
+## 9. RESOLUTION AUTHORITY
+
+Assign one primary resolution authority per claim:
+
+| Authority | Typical questions |
 |---|---|
-| `OWNER` | taste, intent, product tradeoffs, deliberate constraints |
-| `REPO` | code path, state, geometry, timing, implementation facts |
-| `DESIGN_MECHANISM` | well-supported structural design mechanism that does not require preference data |
-| `FIELD` | what external people notice, understand, prefer, value or do |
+| `OWNER` | intent, taste, tradeoff, accepted risk |
+| `REPO` | code, geometry, integrated state, instrumentation |
+| `ENVIRONMENT` | deployed/runtime/config reality |
+| `RESEARCH` | supported external design mechanism and its bounds |
+| `FIELD` | external notice, comprehension, preference, value, behavior |
 
-A compound finding should be split rather than assigned two authorities.
+Split compound questions instead of laundering one authority into another.
 
-## 8. ACTION — smallest structural intervention
+## 10. REQUESTED USE + PERMISSION
 
-Prefer the smallest change that makes the current state legible.
+Do not ask only “is the claim supported?” Ask:
 
-Before proposing surface styling, ask:
+> What are we trying to do with it?
 
-> If the colors, shadows and radii changed while the structure stayed identical, would the complaint remain?
+Requested uses:
 
-If yes, do not start with skin.
+- `HYPOTHESIZE`
+- `DISCRIMINATE`
+- `PROTOTYPE`
+- `BUILD_REVERSIBLE`
+- `CHANGE_PRODUCTION`
+- `ASSERT_FIELD_OUTCOME`
+- `DEFER`
 
-Likewise, do not delete friction until determining whether it is part of the measurement instrument.
+Then record `ALLOW`, `DENY`, or `DEFER`.
 
-## 9. SUCCESS CRITERION — perceptual, not merely technical
+Evidence quality and permission are different objects.
 
-A technical check can establish that a change exists. A perceptual criterion states what should become obvious.
+## 11. ACTION — smallest intervention that current permission buys
 
-Example:
+Prefer the smallest structural intervention capable of changing the decision or making the state legible.
 
-- Technical: submit button receives `.loading` within 100 ms.
-- Perceptual: after pressing submit, the action should no longer feel unacknowledged.
+Before skin work ask:
 
-If only a stranger can establish the second, mark it `FIELD`.
+> If colors, shadows and radii changed while structure stayed identical, would the complaint remain?
 
-## 10. REVERSAL CONDITION
+Before removing friction ask whether it participates in measurement.
 
-Every build-ready finding should state what would make Neta change her mind.
+Before building a new feature ask whether **encodability is masquerading as evidence**.
+
+## 12. GATE + REVERSAL
+
+Every `BUILD_READY` finding requires:
+
+- a falsifier;
+- a deliberate positive control where an executable/structural gate is possible;
+- a reversal condition.
+
+A green rule that has never been challenged is not evidence that the rule discriminates.
+
+## 13. WAIVER
+
+An OWNER may explicitly accept bounded risk.
+
+A waiver records:
+
+- reason;
+- scope;
+- revisit/expiry condition.
+
+It never upgrades evidence, reality, authority or a denied field claim.
+
+## 14. AUTHORITY CEILING
+
+After each pass ask:
+
+> Which authority could still change the decision?
+
+If every material uncertainty lies outside the current authority, stop work at that layer.
 
 Examples:
 
-- If latency is <100 ms and a clear acknowledgement renders immediately, latency is not the active mechanism.
-- If removing competing regions does not change what the owner sees as primary, information density is not sufficient to explain the complaint.
-- If external users consistently identify the intended primary action without hesitation, the owner-observed hierarchy issue may be taste rather than task legibility.
+- repository evidence exhausted and the question is what strangers notice → FIELD;
+- literature exhausted and the question is whether this mechanism is active here → local REPO/ENVIRONMENT/FIELD evidence;
+- field-only uncertainty remains → stop internal research/build.
+
+This is the primary anti-build rule.
 
 ## Conversation modes
 
-### Mode A — vague discomfort
+### `DISCRIMINATE_FIRST`
+Ambiguity remains. Return raw signal, available observation, max three mechanisms and one discriminator. No allowed build claim may be smuggled into the result.
 
-Return:
+### `BUILD_READY`
+At least one `INTERVENTION` claim is supported, meets its reality floor and has explicit build permission. Field outcome claims may remain denied/unresolved.
 
-1. raw signal;
-2. one observable if available;
-3. at most three candidate mechanisms;
-4. one discriminating question/test.
+### `FIELD_STOP`
+A material unresolved FIELD claim controls the next decision. State what is known, the exact unresolved claim and the smallest field observation required. Then stop.
 
-Do not redesign yet.
-
-### Mode B — evidence already discriminates
-
-Return a structured finding:
-
-- RAW SIGNAL
-- OBSERVATION
-- DESIGN DISTINCTION
-- COMPETING EXPLANATIONS REJECTED
-- AUTHORITY
-- INTERVENTION
-- WHAT MUST NOT CHANGE
-- PERCEPTUAL SUCCESS CRITERION
-- TECHNICAL / BEHAVIORAL CHECK
-- REVERSAL CONDITION
-
-### Mode C — field boundary reached
-
-State:
-
-- what is known;
-- what is still uncertain;
-- why internal reasoning cannot close it;
-- the smallest field observation that could.
-
-Then stop.
-
-## Anti-build rule
+## Stopping rule
 
 Do not manufacture another design problem because the current one is interesting.
 
-When remaining uncertainty is preference or external-human perception, more internal analysis is not rigor. It is field debt in disguise.
+Progress is uncertainty removed. When the remaining uncertainty belongs to another authority, route it or stop.
