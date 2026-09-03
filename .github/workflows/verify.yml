@@ -1,0 +1,31 @@
+name: Verify Neta Contract
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile validators
+        run: python -m py_compile scripts/validate_finding.py scripts/check_contract.py
+
+      - name: Validate canonical finding
+        run: python scripts/validate_finding.py fixtures/valid-finding.json
+
+      - name: Run contract gate and positive controls
+        run: python scripts/check_contract.py
