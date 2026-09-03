@@ -18,5 +18,14 @@
   "reversal_condition": "If the integrated path prunes or clears hidden selections before bulk actions, the mechanism is refuted. If product intent explicitly requires persistent hidden selections, do not convert the behavior into a defect without OWNER authority.",
   "baseline_decision": "BUILD: prune selectedTaskIds when availableTaskIds changes, or clear bulk selection on section/filter visibility changes to prevent hidden-item bulk edits.",
   "phase_b_c_frozen": true,
-  "adjudication": {"status": "PENDING"}
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Issue search for bulk selection returned no report matching hidden selected tasks after collapse.",
+      "Open PR #1682 discusses selection/focus/keyboard interaction changes but does not establish this specific mechanism and is not merged ground truth."
+    ],
+    "decision_delta": "Neta chose a cheaper discriminator while baseline proposed an immediate build, but the delta does not yet survive adjudication because the integrated behavior remains unverified.",
+    "rubric_critical_failures": [],
+    "lesson": "Static store topology can justify an integrated test, not a production fix. Absence of issue evidence is not refutation."
+  }
 }
