@@ -57,6 +57,10 @@ def require(condition: bool, msg: str) -> None:
         fail(msg)
 
 
+def nonempty_text(value: object) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
 def validate_vector(vector: dict) -> None:
     require(set(vector) == {"G", "C", "A", "O"}, "vector must contain exactly G/C/A/O")
     require(isinstance(vector["G"], int) and 1 <= vector["G"] <= 7, "G out of range")
@@ -79,17 +83,16 @@ def validate_claim(c: dict) -> None:
     require(c["wave"] == "WAVE1", "wave must be WAVE1")
     require(c["capability_family"] in CAPABILITIES, "unknown capability family")
     require(c["status"] in STATUSES, "unknown status")
-    require(isinstance(c["candidate_wording"], str) and len(c["candidate_wording"].strip()) >= 8,
+    require(nonempty_text(c["candidate_wording"]) and len(c["candidate_wording"].strip()) >= 8,
             "candidate wording too short")
-    require(isinstance(c["observable_construct"], str) and c["observable_construct"].strip(),
-            "observable construct required")
+    require(nonempty_text(c["observable_construct"]), "observable construct required")
     require(isinstance(c["neighboring_explanations"], list) and len(c["neighboring_explanations"]) <= 5,
             "neighboring explanations must be a list of at most five")
     require(c["culture_relevance"] in {"material", "plausible", "low"},
             "culture_relevance must be material/plausible/low")
-    require(isinstance(c["culture_relevance_rationale"], str) and c["culture_relevance_rationale"].strip(),
+    require(nonempty_text(c["culture_relevance_rationale"]),
             "culture relevance needs a rationale")
-    require(isinstance(c["reversal_condition"], str) and c["reversal_condition"].strip(),
+    require(nonempty_text(c["reversal_condition"]),
             "every claim needs a reversal condition")
     validate_vector(c["vector"])
 
@@ -116,7 +119,7 @@ def validate_claim(c: dict) -> None:
     if i >= 2:  # ADVERSARIAL+
         require(c["counterevidence_search_completed"] is True,
                 "ADVERSARIAL+ requires completed counterevidence search")
-        require(bool(str(c.get("counterevidence_strategy", "")).strip()),
+        require(nonempty_text(c.get("counterevidence_strategy")),
                 "ADVERSARIAL+ requires counterevidence strategy")
         require(len(c["neighboring_explanations"]) >= 1,
                 "ADVERSARIAL+ requires a neighboring explanation")
@@ -135,9 +138,9 @@ def validate_claim(c: dict) -> None:
                     "low culture relevance may not be justified by saying universal")
 
     if i >= 4:  # FIXTURE_READY+
-        require(bool(str(c.get("discriminator", "")).strip()),
+        require(nonempty_text(c.get("discriminator")),
                 "FIXTURE_READY+ requires a discriminator")
-        require(bool(str(c.get("fixture_path", "")).strip()),
+        require(nonempty_text(c.get("fixture_path")),
                 "FIXTURE_READY+ requires fixture_path")
         require(c["vector"]["O"] >= 3, "FIXTURE_READY+ requires O>=3")
 
@@ -149,9 +152,9 @@ def validate_claim(c: dict) -> None:
                 "candidate capability cannot carry unresolved material contradiction")
 
     if i >= 6:  # PROMPT_ELIGIBLE
-        require(bool(str(c.get("prompt_rule_candidate", "")).strip()),
+        require(nonempty_text(c.get("prompt_rule_candidate")),
                 "PROMPT_ELIGIBLE requires smallest prompt rule candidate")
-        require(bool(str(c.get("neighbor_behavior_at_risk", "")).strip()),
+        require(nonempty_text(c.get("neighbor_behavior_at_risk")),
                 "PROMPT_ELIGIBLE requires neighboring behavior at risk")
 
 
