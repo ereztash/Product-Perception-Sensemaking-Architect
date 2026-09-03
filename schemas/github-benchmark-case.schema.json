@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/neta/github-benchmark-case.schema.json",
+  "title": "Neta GitHub Benchmark Case v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "repository",
+    "pinned_sha",
+    "stratum",
+    "corpus",
+    "selection",
+    "prior_exposure_risk",
+    "phase_b_neta",
+    "phase_c_baseline",
+    "phase_d_adjudication",
+    "case_result"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^OSS-[0-9]{4}$"},
+    "repository": {"type": "string", "pattern": "^[^/]+/[^/]+$"},
+    "pinned_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "stratum": {
+      "enum": ["web_app", "desktop_native", "mobile", "developer_tool", "dashboard_analytics", "knowledge_productivity"]
+    },
+    "corpus": {"enum": ["TRAIN", "HOLDOUT", "ADVERSARIAL"]},
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query", "selected_at", "eligibility_checked_before_review"],
+      "properties": {
+        "query": {"type": "string", "minLength": 1},
+        "selected_at": {"type": "string", "format": "date-time"},
+        "eligibility_checked_before_review": {"const": true}
+      }
+    },
+    "deployment_url": {"type": ["string", "null"]},
+    "prior_exposure_risk": {"enum": ["LOW", "MEDIUM", "HIGH", "UNKNOWN"]},
+    "phase_b_neta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_boundary_frozen", "findings"],
+      "properties": {
+        "evidence_boundary_frozen": {"const": true},
+        "findings": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {"$ref": "#/$defs/finding"}
+        }
+      }
+    },
+    "phase_c_baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["same_evidence_boundary", "recommendations"],
+      "properties": {
+        "same_evidence_boundary": {"const": true},
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["summary", "action"],
+            "properties": {
+              "summary": {"type": "string"},
+              "action": {"enum": ["BUILD", "TEST", "OWNER", "FIELD", "STOP", "NONE"]}
+            }
+          }
+        }
+      }
+    },
+    "phase_d_adjudication": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_id", "result", "independent_evidence", "authority_adjudicated"],
+        "properties": {
+          "finding_id": {"type": "string"},
+          "result": {"enum": ["CONFIRMED_LOCAL", "PARTIALLY_SUPPORTED", "UNRESOLVED", "REFUTED", "AUTHORITY_CORRECT_STOP"]},
+          "independent_evidence": {"type": "array", "items": {"type": "string"}},
+          "authority_adjudicated": {"enum": ["OWNER", "REPO", "ENVIRONMENT", "RESEARCH", "FIELD"]},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "rubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "passed": {"type": "array", "items": {"pattern": "^R([1-9]|1[0-2])$"}},
+        "failed": {"type": "array", "items": {"pattern": "^R([1-9]|1[0-2])$"}},
+        "critical_failures": {"type": "array", "items": {"pattern": "^CF([1-9]|1[0-2])$"}}
+      }
+    },
+    "case_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_delta", "neta_better_than_baseline"],
+      "properties": {
+        "decision_delta": {
+          "enum": [
+            "prevented_unjustified_build",
+            "found_justified_build",
+            "cheaper_discriminator",
+            "correct_authority_route",
+            "no_material_difference",
+            "worse_than_baseline"
+          ]
+        },
+        "neta_better_than_baseline": {"type": "boolean"},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "observation",
+        "claim_type",
+        "observed_reality",
+        "required_reality",
+        "authority",
+        "requested_use",
+        "permission",
+        "next_move",
+        "reversal_condition"
+      ],
+      "properties": {
+        "finding_id": {"type": "string"},
+        "raw_signal": {"type": ["string", "null"]},
+        "observation": {"type": "string"},
+        "claim_type": {"enum": ["OBSERVATION", "MECHANISM", "INTERVENTION", "OUTCOME"]},
+        "observed_reality": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]},
+        "required_reality": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]},
+        "authority": {"enum": ["OWNER", "REPO", "ENVIRONMENT", "RESEARCH", "FIELD"]},
+        "requested_use": {"enum": ["HYPOTHESIZE", "DISCRIMINATE", "PROTOTYPE", "BUILD_REVERSIBLE", "CHANGE_PRODUCTION", "ASSERT_FIELD_OUTCOME", "DEFER"]},
+        "permission": {"enum": ["ALLOW", "DENY", "DEFER"]},
+        "next_move": {"type": "string"},
+        "reversal_condition": {"type": "string"}
+      }
+    }
+  }
+}
