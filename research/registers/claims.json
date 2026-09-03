@@ -3,5 +3,363 @@
   "wave": "WAVE1",
   "preregistration": "research/WAVE1_PREREGISTRATION.md",
   "source_collection_started": true,
-  "claims": []
+  "claims": [
+    {
+      "claim_id": "W1-TAC-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W1",
+      "candidate_wording": "When eliciting a vague design perception, begin with a concrete description of the moment before introducing explanatory vocabulary; directed explanation can alter the process being observed and should not be treated as neutral elicitation.",
+      "observable_construct": "whether the distinction appears before or only after explanatory vocabulary is introduced",
+      "neighboring_explanations": [
+        "simple concurrent description",
+        "directed explanation",
+        "vocabulary teaching",
+        "retrospective rationalization"
+      ],
+      "supporting_source_ids": ["S001", "S002", "S003", "S004"],
+      "independence_families": ["FOX-TA-2011", "SCHON-REFLECTION", "CLEMMENSEN-TA-CULTURE", "SOCIOCULTURAL-REVIEW-2024"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search specifically for verbal-report reactivity, evaluator effects and cross-cultural limitations of think-aloud/elicitation rather than only work supporting reflective dialogue.",
+      "contradiction_ids": ["C001", "C002"],
+      "culture_relevance": "material",
+      "culture_relevance_rationale": "The method depends on language, evaluator-participant relationship and what counts as natural verbalization, all of which can vary with communication context and culture.",
+      "represented_contexts": [
+        "meta-analysis across verbal-report tasks",
+        "design reflective-practice theory",
+        "Western/East-Asian cross-cultural usability-evaluation literature",
+        "multi-study socio-cultural HCI review"
+      ],
+      "missing_contexts": [
+        "external replication with a Hebrew-speaking owner-builder",
+        "nonverbal-first design critique contexts",
+        "community-led validation outside academic usability testing"
+      ],
+      "boundary_conditions": [
+        "Evidence supports separating simple description from directed explanation; it does not prove Neta improves design diagnosis.",
+        "Think-aloud findings concern task performance and reporting; transfer to design sensemaking remains a candidate mechanism.",
+        "East/West categories in older literature are too coarse to become Neta rules."
+      ],
+      "discriminator": "Ask for the concrete action, expectation and observed moment before terminology; record whether the eventual distinction was already present in the owner's description or appeared only after a label was supplied.",
+      "reversal_condition": "If repeated clean-context cases show the same useful distinctions are articulated without a moment-first elicitation step, or the step systematically obscures rather than clarifies the signal, this capability should be narrowed or removed.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w1--tacit--explicit-without-planting-the-answer",
+      "vector": {"G": 3, "C": 2, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-HIE-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W2",
+      "candidate_wording": "When an owner reports that a screen has 'too much', Neta should keep information quantity and perceptual organization as competing explanations: grouping and visual rank can change perceived structure without changing content count, while preferred visual complexity is context-dependent.",
+      "observable_construct": "independent effects of content quantity versus grouping and visual rank",
+      "neighboring_explanations": [
+        "information quantity",
+        "weak grouping",
+        "flat visual hierarchy",
+        "task-irrelevant salience"
+      ],
+      "supporting_source_ids": ["S005", "S006", "S010"],
+      "independence_families": ["PALMER-COMMON-REGION", "REINECKE-GAJOS-2014", "KHASHMAN-ARAB-WEB"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search for evidence that visual complexity preferences vary across people and that culture models fail to predict interface form, so grouping findings are not laundered into universal density preferences.",
+      "contradiction_ids": ["C003", "C004"],
+      "culture_relevance": "material",
+      "culture_relevance_rationale": "Basic grouping mechanisms and preferred visual complexity are different questions; preference and interface conventions show substantial contextual and cultural variation.",
+      "represented_contexts": [
+        "controlled perceptual grouping",
+        "large international visual-preference sample",
+        "Arabic government web interfaces across 10 countries"
+      ],
+      "missing_contexts": [
+        "CJK product interfaces",
+        "Hebrew/RTL consumer products",
+        "expert dense professional tools"
+      ],
+      "boundary_conditions": [
+        "Common-region evidence supports grouping, not a universal spacing token or card style.",
+        "Cross-cultural preference evidence concerns liking/complexity, not a direct measure of task hierarchy.",
+        "A country or region may describe the sample but is not the causal mechanism."
+      ],
+      "discriminator": "Hold information quantity constant and change grouping/rank; then hold hierarchy constant and change quantity. Observe which manipulation changes the reported overload.",
+      "reversal_condition": "If quantity changes reliably affect the complaint while hierarchy/grouping-preserving manipulations do not, weak hierarchy is insufficient and the candidate must narrow to quantity-sensitive cases.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w2--too-much-information-vs-weak-hierarchygrouping",
+      "vector": {"G": 3, "C": 3, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-AES-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W3",
+      "candidate_wording": "An aesthetic complaint should first remain an aesthetic/perceived-craft signal rather than a usability diagnosis: order/clarity, expressive originality, perceived modernity and task usability are separable constructs whose relationships vary by context.",
+      "observable_construct": "whether aesthetic appraisal changes independently from task usability and task legibility",
+      "neighboring_explanations": [
+        "classical order and clarity",
+        "expressive originality",
+        "perceived modernity or craft",
+        "task usability",
+        "familiarity"
+      ],
+      "supporting_source_ids": ["S006", "S007", "S008", "S009", "S010"],
+      "independence_families": ["REINECKE-GAJOS-2014", "LAVIE-TRACTINSKY-2004", "TRACTINSKY-2000", "TUCH-2012", "KHASHMAN-ARAB-WEB"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search both for the beautiful-is-usable relationship and experimental work reversing or failing that relationship, plus cross-cultural preference variation.",
+      "contradiction_ids": ["C005", "C006"],
+      "culture_relevance": "material",
+      "culture_relevance_rationale": "Visual preference, familiarity and conventions of perceived craft vary with background even when structural usability mechanisms are held separate.",
+      "represented_contexts": [
+        "web aesthetics scale-development studies",
+        "ATM-like application aesthetics/usability experiment",
+        "controlled online-shop usability/aesthetics experiment",
+        "large international visual-preference sample",
+        "Arabic government web interfaces"
+      ],
+      "missing_contexts": [
+        "Hebrew/Israeli contemporary-product aesthetics",
+        "native mobile app aesthetics",
+        "longitudinal effects after repeated expert use"
+      ],
+      "boundary_conditions": [
+        "Aesthetic-usability correlations do not establish causal direction.",
+        "Perceived modernity is not directly measured by the classical/expressive aesthetics scales.",
+        "Owner dislike can be real product evidence without proving external users share the preference."
+      ],
+      "discriminator": "Test whether a skin-only transformation changes the complaint while task structure remains fixed, and separately whether structural task legibility changes without aesthetic modernization.",
+      "reversal_condition": "If aesthetic changes alone leave the complaint unchanged across repeated cases, aesthetic/craft mechanisms are insufficient and Neta should return to structural hypotheses.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w3--windows-xp-is-not-a-usability-diagnosis",
+      "vector": {"G": 3, "C": 3, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-FBK-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W4",
+      "candidate_wording": "A complaint that a control 'doesn't respond' should be decomposed into actual completion latency, action acknowledgement/status feedback, progress uncertainty and state-transition salience; feedback can change perceived waiting without changing actual latency.",
+      "observable_construct": "action-to-acknowledgement, action-to-completion and perceptual discoverability of the resulting state",
+      "neighboring_explanations": [
+        "actual response latency",
+        "missing acknowledgement",
+        "progress ambiguity",
+        "weak state-transition salience"
+      ],
+      "supporting_source_ids": ["S011", "S012", "S013"],
+      "independence_families": ["CHEN-LI-WAIT", "W3C-STATUS", "W3C-G199"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search for cases where feedback changes perceived wait but not experience, and for accessibility guidance warning that excessive status feedback can itself become disruptive.",
+      "contradiction_ids": ["C007", "C008"],
+      "culture_relevance": "plausible",
+      "culture_relevance_rationale": "The core event sequence is technical/perceptual, but expectations for animation, status verbosity, modality, device and infrastructure can change what acknowledgement is appropriate.",
+      "represented_contexts": [
+        "mobile application waits at 2/5/10 seconds",
+        "web status messages and assistive technology",
+        "web success feedback"
+      ],
+      "missing_contexts": [
+        "native non-web applications",
+        "low-connectivity settings",
+        "cross-cultural feedback conventions"
+      ],
+      "boundary_conditions": [
+        "W3C guidance is normative accessibility evidence, not empirical proof of preference.",
+        "Changing perceived duration is not identical to improving user experience.",
+        "No universal response-time threshold is asserted."
+      ],
+      "discriminator": "Measure action-to-acknowledgement and action-to-completion separately, then inspect whether the new state is above the fold/salient enough to register without search.",
+      "reversal_condition": "If acknowledgement is immediate and salient, completion is fast, and the complaint persists, feedback latency is insufficient and another mechanism must explain the signal.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w4--the-button-doesnt-respond",
+      "vector": {"G": 3, "C": 1, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-COG-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W5",
+      "candidate_wording": "Cognitive economy should optimize extraneous interaction cost relative to the task, the user's existing knowledge and the information value received; it must not be reduced to minimum information, minimum choice or minimum friction.",
+      "observable_construct": "task-required processing versus presentation-imposed processing and the value gained from the information",
+      "neighboring_explanations": [
+        "intrinsic task complexity",
+        "extraneous interaction cost",
+        "expertise mismatch",
+        "information value",
+        "instrument friction"
+      ],
+      "supporting_source_ids": ["S014", "S015", "S016", "S017"],
+      "independence_families": ["SWELLER-1988", "MAYER-MORENO-LOAD", "PIROLLI-CARD-1999", "SCHEIBEHENNE-CHOICE-2010"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search for evidence where less choice/information fails to help and where expertise or task complexity changes the effect of cognitive-load interventions.",
+      "contradiction_ids": ["C009"],
+      "culture_relevance": "plausible",
+      "culture_relevance_rationale": "Core capacity constraints are not being claimed as culturally specific, but expertise, literacy, language, domain norms and information expectations can change what counts as extraneous.",
+      "represented_contexts": [
+        "learning/problem-solving",
+        "multimedia learning",
+        "information seeking",
+        "consumer choice meta-analysis"
+      ],
+      "missing_contexts": [
+        "low-literacy product users",
+        "neurodivergent users",
+        "multilingual/RTL product tasks",
+        "high-expertise professional tools"
+      ],
+      "boundary_conditions": [
+        "Cognitive load theory is primarily a learning theory and does not directly validate every product-UX application.",
+        "More information can be valuable when it raises task-relevant understanding or trust calibration.",
+        "Friction that is part of a measurement instrument cannot be removed under this capability without a separate validity decision."
+      ],
+      "discriminator": "For each demanded interaction, state what processing is inherent to the task, what processing is imposed only by the interface, and what durable/immediate value the extra information buys.",
+      "reversal_condition": "If removing a supposedly extraneous element reduces task-relevant understanding, calibration or decision quality more than it reduces effort, the element is not extraneous for that state.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w5--less-is-not-automatically-cognitively-cheaper",
+      "vector": {"G": 3, "C": 1, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-NAV-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W6",
+      "candidate_wording": "One-primary-action is a conditional rule for execution states with a dominant task, not a universal rule for exploration or choice: the cost of visible alternatives depends on choice complexity, task difficulty, preference uncertainty and the user's goal.",
+      "observable_construct": "whether alternatives are competitors to an already chosen task or the legitimate object of comparison",
+      "neighboring_explanations": [
+        "execution-mode action competition",
+        "exploration-mode legitimate choice",
+        "choice-set complexity",
+        "preference uncertainty",
+        "information scent"
+      ],
+      "supporting_source_ids": ["S016", "S017", "S018", "S019"],
+      "independence_families": ["PIROLLI-CARD-1999", "SCHEIBEHENNE-CHOICE-2010", "GREIFENEDER-2010", "CHERNEV-2015"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search specifically for failures of choice-overload replication and moderators showing when more options help rather than harm.",
+      "contradiction_ids": ["C010", "C011"],
+      "culture_relevance": "plausible",
+      "culture_relevance_rationale": "Choice and navigation costs are moderated by task and preference structure; professional/tool cultures and learned conventions may further alter the benefit of exposed alternatives.",
+      "represented_contexts": [
+        "consumer choice meta-analyses",
+        "controlled choice-complexity experiments",
+        "information-seeking theory"
+      ],
+      "missing_contexts": [
+        "expert productivity tools",
+        "cross-cultural navigation studies tied to the same mechanism",
+        "RTL product exploration"
+      ],
+      "boundary_conditions": [
+        "Consumer assortment findings do not directly prove UI-navigation behavior; they establish that option count effects are conditional.",
+        "Execution/exploration mode is a Neta operational distinction that still needs product-field replication.",
+        "One primary action may remain a strong local law in a measured execution loop such as Lichess."
+      ],
+      "discriminator": "Classify the current interaction as execution or exploration, then ask whether the visible alternatives are the task itself or competing calls to action; record preference certainty and comparison complexity.",
+      "reversal_condition": "If peer-weight alternatives reliably improve completion or decision quality in a dominant execution state without material search cost, the one-primary-action intervention should not be presumed there.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w6--one-primary-action-is-mode-conditional",
+      "vector": {"G": 3, "C": 1, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-TRU-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W7",
+      "candidate_wording": "Neta should optimize for calibrated reliance and evidence/decision authority rather than maximal trust: subjective trust, behavioral reliance, system accuracy, explanation quality and context can diverge and must not be collapsed into one confidence or trust signal.",
+      "observable_construct": "whether reliance changes appropriately with evidence quality and output correctness rather than merely increasing",
+      "neighboring_explanations": [
+        "subjective trust",
+        "behavioral reliance",
+        "system accuracy",
+        "explanation plausibility",
+        "decision authority"
+      ],
+      "supporting_source_ids": ["S020", "S021", "S022", "S023", "S024"],
+      "independence_families": ["LEE-SEE-2004", "HOFF-BASHIR-2015", "HUNSICKER-XAI-2026", "AI-ROBOT-US-CHINA-2023", "WANG-DING-XAI-2024"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search for cases where explanations/transparency raise trust or reliance without improving correctness and for cultural/task-capacity moderators of trust.",
+      "contradiction_ids": ["C012", "C013", "C014"],
+      "culture_relevance": "material",
+      "culture_relevance_rationale": "Trust is explicitly situational/dispositional/learned and cross-national/individual cultural studies show moderation, while the mechanism should be described at the individual/context level rather than by nationality.",
+      "represented_contexts": [
+        "broad human-automation literature",
+        "AI-supported hiring decisions",
+        "US/China service-robot adoption",
+        "human-AI explanation studies"
+      ],
+      "missing_contexts": [
+        "Hebrew/RTL high-stakes AI decision support",
+        "longitudinal repeated-use calibration",
+        "Neta-specific design recommendations where no automated decision is made"
+      ],
+      "boundary_conditions": [
+        "Trust research does not imply every design critique should be framed as automation trust.",
+        "Explanations can improve some outcomes in some contexts and harm calibration in others.",
+        "Self-reported trust is not a substitute for behavioral calibration or decision quality."
+      ],
+      "discriminator": "Compare subjective trust with correctness-sensitive reliance: does the user rely more when the system is right and appropriately deviate when evidence is weak or wrong? Keep authority/permission separate from confidence.",
+      "reversal_condition": "If a proposed trust intervention improves subjective trust but worsens or does not improve correctness-sensitive reliance, it is not successful under this capability.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w7--trust-is-not-the-target-variable",
+      "vector": {"G": 3, "C": 2, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    },
+    {
+      "claim_id": "W1-INS-001",
+      "wave": "WAVE1",
+      "recursive_parent_id": null,
+      "capability_family": "W8",
+      "candidate_wording": "An additional diagnostic probe is justified only when its expected discrimination/information value is worth its response burden and measurement-reactivity risk; adaptive efficiency is not free, and a question can become part of the intervention.",
+      "observable_construct": "incremental hypothesis discrimination gained by a probe versus response effort and change in the target behavior",
+      "neighboring_explanations": [
+        "information gain",
+        "response burden",
+        "measurement reactivity",
+        "adaptive efficiency",
+        "intervention contamination"
+      ],
+      "supporting_source_ids": ["S001", "S025", "S026", "S027", "S028"],
+      "independence_families": ["FOX-TA-2011", "WOOD-QBE-2016", "MILES-QBE-2020", "CAT-SYMPTOM-2010", "CAT-UX-2024"],
+      "counterevidence_search_completed": true,
+      "counterevidence_strategy": "Search both for adaptive-testing efficiency and for measurement-reactivity evidence showing that asking can change later behavior or increase effort.",
+      "contradiction_ids": ["C015", "C016", "C017", "C018"],
+      "culture_relevance": "plausible",
+      "culture_relevance_rationale": "The information-theoretic logic is not inherently national, but burden, verbalization norms, subgroup measurement equivalence and the naturalness of the target behavior can vary across populations and contexts.",
+      "represented_contexts": [
+        "verbal-report meta-analysis",
+        "intention/self-prediction behavior meta-analysis",
+        "health-behavior randomized studies",
+        "clinical adaptive assessment review",
+        "online adaptive psychometric experiment"
+      ],
+      "missing_contexts": [
+        "live chess decision measurement",
+        "cross-cultural adaptive probe equivalence",
+        "Hebrew conversational design-sensemaking probes"
+      ],
+      "boundary_conditions": [
+        "Question-behavior effects are small on average and heterogeneous; reactivity is a risk to measure, not a reason to ban probes.",
+        "Adaptive testing evidence assumes calibrated item banks/constructs; Neta's open-ended hypotheses are not equivalent to IRT items.",
+        "A probe asked after the target behavior may have a different contamination profile from one asked before/during it."
+      ],
+      "discriminator": "Before adding a probe, state the two or more live hypotheses it separates, the expected update from each answer, the burden, and whether asking before/during the target behavior can alter that behavior.",
+      "reversal_condition": "Remove or defer the probe if it does not materially discriminate live hypotheses or if its reactivity changes the target behavior enough that the original measurement question is no longer valid.",
+      "fixture_path": "fixtures/research-wave1-pass1.md#r-w8--a-useful-question-can-contaminate-the-thing-it-measures",
+      "vector": {"G": 3, "C": 1, "A": 2, "O": 3},
+      "status": "CANDIDATE_CAPABILITY",
+      "prompt_rule_candidate": null,
+      "neighbor_behavior_at_risk": null
+    }
+  ]
 }
