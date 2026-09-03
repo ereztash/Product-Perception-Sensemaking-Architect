@@ -1,0 +1,22 @@
+{
+  "case_id": "OSS-0001",
+  "repository": "usekaneo/kaneo",
+  "pinned_sha": "ee36e499a9d4e8520d8f8cdf5cd685e48fae48f9",
+  "corpus": "TRAIN",
+  "stratum": "web_app",
+  "prior_exposure_risk": "UNKNOWN",
+  "frozen_evidence_boundary": ["repository metadata", "README", "product source", "tests/static repository evidence"],
+  "raw_signal_observation": "Bulk selection keeps selectedTaskIds separately from availableTaskIds. setAvailableTasks replaces the available list without pruning selectedTaskIds; collapsing list sections changes availableTaskIds, while bulk operations act on selectedTaskIds.",
+  "material_claim": "A task can remain selected after it becomes hidden by a section-collapse/visibility change, so a later bulk action may include a task that is no longer visible.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DENY",
+  "neta_next_move": "Run an integrated store/view test: select a task, change availableTaskIds via section collapse or equivalent visibility update, then assert whether selectedTaskIds is pruned and whether the bulk-action payload still contains the hidden task.",
+  "reversal_condition": "If the integrated path prunes or clears hidden selections before bulk actions, the mechanism is refuted. If product intent explicitly requires persistent hidden selections, do not convert the behavior into a defect without OWNER authority.",
+  "baseline_decision": "BUILD: prune selectedTaskIds when availableTaskIds changes, or clear bulk selection on section/filter visibility changes to prevent hidden-item bulk edits.",
+  "phase_b_c_frozen": true,
+  "adjudication": {"status": "PENDING"}
+}
