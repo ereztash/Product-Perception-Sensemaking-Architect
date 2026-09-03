@@ -1,0 +1,28 @@
+{
+  "status": "BUILD_READY",
+  "raw_signal": "יש רק CTA אחד, אבל העין שלי הולכת קודם לכפתור המשני.",
+  "observations": [
+    "The secondary control is filled while the intended primary action is outlined.",
+    "The secondary region appears above the intended primary action."
+  ],
+  "candidate_mechanisms": [
+    {
+      "name": "visual salience mismatch",
+      "explains": "The eye ranks a secondary action above the product's intended next action.",
+      "does_not_explain": "It does not establish that external users actually fail the task.",
+      "discriminator": "Normalize fill and placement while preserving actions; check whether the intended action becomes perceptually primary."
+    }
+  ],
+  "design_distinction": "Visual salience does not match product-state priority.",
+  "rejected_explanations": [
+    "The problem is not multiple logical primary actions; the conflict is perceptual ranking."
+  ],
+  "authority": "DESIGN_MECHANISM",
+  "evidence_state": "MECHANISM_SUPPORTED",
+  "intervention": "Rebalance fill, size and placement so the intended action is visually dominant without adding navigation.",
+  "must_not_change": "Do not change the number of actions or the underlying state transition.",
+  "perceptual_success_criterion": "The intended next action should be the first actionable element the eye ranks on entry.",
+  "check": "Render the state before and after the salience change and compare the perceptual centre; field-test task discovery separately if needed.",
+  "reversal_condition": "If the intended action is already visually dominant after controlling for fill and placement, salience mismatch is not sufficient to explain the complaint.",
+  "next_step": "Implement the smallest salience rebalance and re-render the same state."
+}
