@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/neta/research-claim.schema.json",
+  "title": "Neta research claim",
+  "type": "object",
+  "required": [
+    "claim_id",
+    "wave",
+    "capability_family",
+    "candidate_wording",
+    "observable_construct",
+    "neighboring_explanations",
+    "supporting_source_ids",
+    "independence_families",
+    "counterevidence_search_completed",
+    "contradiction_ids",
+    "culture_relevance",
+    "represented_contexts",
+    "missing_contexts",
+    "boundary_conditions",
+    "reversal_condition",
+    "vector",
+    "status"
+  ],
+  "properties": {
+    "claim_id": {"type": "string", "pattern": "^W1-[A-Z]{2,5}-[0-9]{3}$"},
+    "wave": {"const": "WAVE1"},
+    "recursive_parent_id": {"type": ["string", "null"]},
+    "capability_family": {"enum": ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"]},
+    "candidate_wording": {"type": "string", "minLength": 8},
+    "observable_construct": {"type": "string", "minLength": 4},
+    "neighboring_explanations": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
+    "supporting_source_ids": {"type": "array", "items": {"type": "string"}},
+    "independence_families": {"type": "array", "items": {"type": "string"}},
+    "counterevidence_search_completed": {"type": "boolean"},
+    "counterevidence_strategy": {"type": "string"},
+    "contradiction_ids": {"type": "array", "items": {"type": "string"}},
+    "culture_relevance": {"enum": ["material", "plausible", "low"]},
+    "culture_relevance_rationale": {"type": "string"},
+    "represented_contexts": {"type": "array", "items": {"type": "string"}},
+    "missing_contexts": {"type": "array", "items": {"type": "string"}},
+    "boundary_conditions": {"type": "array", "items": {"type": "string"}},
+    "discriminator": {"type": ["string", "null"]},
+    "reversal_condition": {"type": "string", "minLength": 4},
+    "fixture_path": {"type": ["string", "null"]},
+    "vector": {
+      "type": "object",
+      "required": ["G", "C", "A", "O"],
+      "properties": {
+        "G": {"type": "integer", "minimum": 1, "maximum": 7},
+        "C": {"type": "integer", "minimum": 0, "maximum": 4},
+        "A": {"type": "integer", "minimum": 0, "maximum": 4},
+        "O": {"type": "integer", "minimum": 0, "maximum": 5}
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": [
+        "QUARANTINE",
+        "TRIANGULATED",
+        "ADVERSARIAL",
+        "BOUNDED",
+        "FIXTURE_READY",
+        "CANDIDATE_CAPABILITY",
+        "PROMPT_ELIGIBLE",
+        "DEFER_FIELD",
+        "REJECTED"
+      ]
+    },
+    "prompt_rule_candidate": {"type": ["string", "null"]},
+    "neighbor_behavior_at_risk": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}
