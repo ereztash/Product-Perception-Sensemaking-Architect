@@ -1,28 +1,101 @@
 {
+  "contract_version": "0.2",
   "status": "BUILD_READY",
   "raw_signal": "יש רק CTA אחד, אבל העין שלי הולכת קודם לכפתור המשני.",
-  "observations": [
-    "The secondary control is filled while the intended primary action is outlined.",
-    "The secondary region appears above the intended primary action."
-  ],
   "candidate_mechanisms": [
     {
       "name": "visual salience mismatch",
-      "explains": "The eye ranks a secondary action above the product's intended next action.",
-      "does_not_explain": "It does not establish that external users actually fail the task.",
-      "discriminator": "Normalize fill and placement while preserving actions; check whether the intended action becomes perceptually primary."
+      "explains": "The interface visually ranks a secondary action above the owner's intended next action.",
+      "does_not_explain": "It does not establish that external users fail to find the intended action.",
+      "discriminator": "Normalize fill and placement while preserving the actions and compare which element becomes perceptually primary."
     }
   ],
-  "design_distinction": "Visual salience does not match product-state priority.",
-  "rejected_explanations": [
-    "The problem is not multiple logical primary actions; the conflict is perceptual ranking."
+  "evidence": [
+    {
+      "id": "E1",
+      "type": "REPO_MEASUREMENT",
+      "description": "In the integrated screen, the secondary control is filled and positioned above the intended outlined primary action.",
+      "reality_level": "R3"
+    },
+    {
+      "id": "E2",
+      "type": "RESEARCH_SOURCE",
+      "description": "External design/perception evidence supports treating fill, placement and visual rank as salience mechanisms without equating salience with task success.",
+      "reality_level": "R1"
+    },
+    {
+      "id": "E3",
+      "type": "OWNER_SIGNAL",
+      "description": "During real use, the owner reports that their eye goes to the secondary control first and confirms the intended product priority is the other action.",
+      "reality_level": "R5"
+    },
+    {
+      "id": "E4",
+      "type": "ENVIRONMENT_CHECK",
+      "description": "The current visual state can be rendered in the deployed product, but no third-party perception has yet been observed.",
+      "reality_level": "R4"
+    }
   ],
-  "authority": "DESIGN_MECHANISM",
-  "evidence_state": "MECHANISM_SUPPORTED",
-  "intervention": "Rebalance fill, size and placement so the intended action is visually dominant without adding navigation.",
-  "must_not_change": "Do not change the number of actions or the underlying state transition.",
-  "perceptual_success_criterion": "The intended next action should be the first actionable element the eye ranks on entry.",
-  "check": "Render the state before and after the salience change and compare the perceptual centre; field-test task discovery separately if needed.",
-  "reversal_condition": "If the intended action is already visually dominant after controlling for fill and placement, salience mismatch is not sufficient to explain the complaint.",
-  "next_step": "Implement the smallest salience rebalance and re-render the same state."
+  "claims": [
+    {
+      "id": "C1",
+      "kind": "OBSERVATION",
+      "statement": "The secondary control has stronger visual salience cues than the intended primary action in the integrated screen.",
+      "resolution_authority": "REPO",
+      "required_reality": "R3",
+      "observed_reality": "R3",
+      "evidence_refs": ["E1"],
+      "state": "SUPPORTED",
+      "requested_use": "DISCRIMINATE",
+      "permission": "ALLOW"
+    },
+    {
+      "id": "C2",
+      "kind": "MECHANISM",
+      "statement": "Fill and placement are plausible mechanisms for the observed salience mismatch; this mechanism does not imply external task failure.",
+      "resolution_authority": "RESEARCH",
+      "required_reality": "R1",
+      "observed_reality": "R1",
+      "evidence_refs": ["E2"],
+      "state": "SUPPORTED",
+      "requested_use": "PROTOTYPE",
+      "permission": "ALLOW"
+    },
+    {
+      "id": "C3",
+      "kind": "INTERVENTION",
+      "statement": "A reversible rebalance of fill and placement is justified while preserving the action set and state transition.",
+      "resolution_authority": "OWNER",
+      "required_reality": "R5",
+      "observed_reality": "R5",
+      "evidence_refs": ["E1", "E3"],
+      "state": "SUPPORTED",
+      "requested_use": "BUILD_REVERSIBLE",
+      "permission": "ALLOW"
+    },
+    {
+      "id": "C4",
+      "kind": "OUTCOME",
+      "statement": "External users will identify the intended action first after the salience rebalance.",
+      "resolution_authority": "FIELD",
+      "required_reality": "R6",
+      "observed_reality": "R4",
+      "evidence_refs": ["E4"],
+      "state": "INSUFFICIENT_REALITY",
+      "requested_use": "ASSERT_FIELD_OUTCOME",
+      "permission": "DENY"
+    }
+  ],
+  "design_distinction": "Visual salience can conflict with product-state priority without yet establishing external task failure.",
+  "intervention": "Rebalance fill and placement so the owner's intended primary action is visually dominant, without changing the number of actions or the state transition.",
+  "must_not_change": "Do not change the action set, navigation or underlying transition while testing the salience intervention.",
+  "perceptual_success_criterion": "For the owner in the same real-use state, the intended action becomes the first actionable element their eye ranks; external-user discovery remains a separate field claim.",
+  "gate": {
+    "falsifier": "If normalizing fill and placement does not change the owner's perceptual ranking, salience mismatch is insufficient to explain the signal.",
+    "positive_control": "Create a deliberate reverse-salience variant in which the secondary action is even more visually dominant; the comparison must detect the ranking change rather than remaining green regardless of styling."
+  },
+  "reversal_condition": "If the intended action is already perceptually primary after controlling fill and placement, or if the complaint persists unchanged, reopen neighboring mechanisms instead of escalating the same diagnosis.",
+  "field_requirement": "If the product decision depends on stranger task discovery, observe external users entering this state without prompting and record which actionable element they identify or choose first.",
+  "waiver": null,
+  "next_step": "Implement the reversible salience variant and run the specified owner/repo discriminator; do not claim external-user improvement yet."
 }

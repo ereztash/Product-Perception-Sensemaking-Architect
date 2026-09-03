@@ -1,10 +1,8 @@
 # Neta — Product Perception & Sensemaking Architect
 
-Neta is an AI design-sensemaking partner for turning an owner's raw product intuition into evidence-bounded design distinctions.
+Neta helps an owner-builder turn a raw product intuition into a defensible design decision **without letting the claim or the action outrun the evidence, reality level and authority that actually exist**.
 
-Her job is **not** to produce generic UX audits, aesthetic opinions, or long redesign backlogs.
-
-Her job is to preserve a raw signal such as:
+The presenting state can be as vague as:
 
 > "זה מרגיש כמו Windows XP"
 >
@@ -12,7 +10,11 @@ Her job is to preserve a raw signal such as:
 >
 > "אני משקיע בהחלטה ולא מקבל מספיק בחזרה"
 
-and move it through a disciplined chain:
+Neta first preserves that language, then discriminates among neighboring mechanisms. v0.2 adds a deeper assurance layer learned from the Lessons re-foundation.
+
+## Two nested loops
+
+### Sensemaking
 
 ```text
 RAW SIGNAL
@@ -21,84 +23,108 @@ RAW SIGNAL
 → COMPETING MECHANISMS
 → CHEAP DISCRIMINATOR
 → DESIGN DISTINCTION
-→ INTERVENTION / DEFER / FIELD
 ```
 
-## v0.1 goal
+### Assurance
 
-Build a reproducible agent method before building a product around it.
+```text
+CLAIM
+→ EVIDENCE
+→ REALITY LEVEL
+→ RESOLUTION AUTHORITY
+→ REQUESTED USE
+→ PERMISSION
+→ INTERVENTION
+→ GATE / REVERSAL
+→ AUTHORITY CEILING / STOP
+```
 
-The first version must do four things well:
+The first loop helps name what is happening. The second prevents a good explanation from becoming an unauthorized conclusion.
 
-1. **Preserve intuition before naming it.** A metaphor is evidence of felt friction, not yet a diagnosis.
-2. **Compress the hypothesis space.** Think broadly; present at most three competing mechanisms.
-3. **Separate observation from interpretation.** `rendered ≠ noticed`, `visible ≠ understood`, `accessible ≠ attractive`.
-4. **Teach discrimination, not dependence.** A successful session ends with the owner able to say what they saw, why it matters, what it is not, and what should change.
+## v0.2 re-foundation
+
+A finding is now a **claim/evidence ledger**, not one confidence label.
+
+The same finding may legitimately contain:
+
+- a repository observation that is established;
+- a design mechanism that has external research support;
+- a reversible intervention that the owner is allowed to try;
+- a predicted external-user outcome that remains unresolved and denied until FIELD evidence exists.
+
+This is not indecision. It is epistemic separation.
+
+See:
+
+- `docs/NETA_ASSURANCE_THESIS.md`
+- `docs/REALITY_AUTHORITY_PERMISSION.md`
+- `docs/LESSONS_COVERAGE_AUDIT.md`
+- `docs/FAILURE_LINEAGE.md`
+
+## v0.1 baseline is frozen
+
+The v0.1 prompt remains unchanged as a clean-model comparator. CI checks its Git blob hash.
+
+The re-foundation does **not** earn a prompt edit by being conceptually better. A prompt change still requires a demonstrated clean-model failure, the missing hidden judgment, a smallest repair and a neighboring control.
+
+See `docs/V0_1_FREEZE.md`.
 
 ## Research quarantine
 
-Neta's first method was distilled mainly from Erez's own portfolio. Wave 1 now adds a second discipline: **recursive, triangulative, cross-cultural research without direct prompt contamination**.
+Wave 1 already collected external evidence under a frozen preregistration. Its original G/C/A/O vectors and promotion states remain historical truth.
 
-External research follows:
+v0.2 does not rewrite them. It adds a prospective question:
 
-```text
-SOURCE
-→ CANDIDATE CLAIM
-→ TRIANGULATION
-→ FALSIFICATION
-→ CULTURE / CONTEXT BOUNDARY
-→ RECURSIVE SPLIT OR NARROWING
-→ DISCRIMINATOR
-→ FIXTURE
-→ CANDIDATE CAPABILITY
-→ PROMPT ELIGIBILITY
-```
+> Given this research state, what concrete use is actually permitted in a Neta finding?
 
-A paper never directly edits the system prompt. Contradictions are retained. Country is treated as a sampling context rather than a causal mechanism unless evidence supports more. Research stops when recursion ceases producing new distinctions/boundaries or when the remaining authority is field evidence.
+External research still cannot edit the prompt directly.
 
-See `research/WAVE1_PREREGISTRATION.md` and `research/PROMOTION_PROTOCOL.md`.
+See `research/WAVE1_ASSURANCE_REVIEW.md` and `research/AMENDMENTS.md`.
 
-## Non-goals
+## Core working lenses
 
-- No generic heuristic checklist as the default response.
-- No automatic redesign from a vague complaint.
-- No fake confidence percentages.
-- No treating taste as usability evidence.
-- No adding instrumentation unless it buys meaningful information.
-- No importing literature directly into the prompt.
-- No SaaS, dashboard, or visual shell until the conversational method survives fixtures.
-
-## Core lenses
-
-Neta silently checks seven dimensions:
+Neta silently checks:
 
 | Lens | Question |
 |---|---|
-| **Perception** | What does the eye rank first before reading? |
-| **Orientation** | Is the current state obvious? |
-| **Action** | Does the state nearly dictate the next action? |
-| **Feedback** | Did the system visibly acknowledge the action and transition? |
-| **Payoff** | Is the cognitive reward proportional to the effort requested? |
-| **Accumulation** | Does this action leave useful evidence/progress behind? |
-| **Trust** | What does the system know, from what evidence, and with what authority? |
+| **Perception** | What does the eye rank first? |
+| **Orientation** | Is the current state legible? |
+| **Action** | Does the current mode make the next move discoverable? |
+| **Feedback** | Did the system acknowledge the action and make the transition perceptible? |
+| **Payoff** | Does cognitive reward justify cognitive cost? |
+| **Accumulation** | Does the interaction leave useful evidence/progress behind? |
+| **Trust** | What is known, from what evidence/reality, and what does it authorize? |
 
-The seven lenses are currently a working decomposition, **not a validated exhaustive taxonomy**. Wave 1 is allowed to split, merge, bound, or reject them if evidence demands it.
+These are working lenses, not a validated exhaustive taxonomy.
+
+## Non-goals
+
+- no generic heuristic checklist as the default response;
+- no automatic redesign from a metaphor;
+- no fake confidence percentages;
+- no treating taste as usability or owner taste as market preference;
+- no field claims from repo/research evidence alone;
+- no adding probes merely because they are measurable;
+- no removing instrument friction without a validity decision;
+- no SaaS/UI/dashboard until a measured failure earns it;
+- no source 29 merely to increase citation count;
+- no feature justified only by encodability.
 
 ## Repository structure
 
 ```text
-prompts/       canonical agent instructions
-schemas/       structured output contracts, including research claims
-memory/        owner-language learning, never treated as ground truth
-fixtures/      adversarial and real-feeling evaluation cases
-eval/          scoring rubric and failure taxonomy
-docs/          telos, method, authority and lineage
-research/      preregistered research quarantine, registers and promotion gates
-scripts/       executable agent + research contract checks with positive controls
+prompts/       frozen v0.1 baseline until clean-model failure earns change
+schemas/       v0.2 claim/evidence finding contract + research claim contract
+memory/        owner-language priors, never ground truth
+fixtures/      conversational/research/assurance cases
+eval/          behavior rubric and critical epistemic failures
+docs/          telos, method, assurance, authority, lineage, failure history
+research/      frozen Wave 1 quarantine + prospective assurance review
+scripts/       executable gates and deliberate positive controls
 ```
 
 ## Current status
 
-**BOOTSTRAP COMPLETE · RESEARCH WAVE 1 PREREGISTERED · METHOD FIRST.**
+**v0.2 ASSURANCE RE-FOUNDATION · METHOD FIRST · PROMPT FROZEN · NO UI · NO SOURCE 29.**
 
-The conversational contract is implemented and gated. The next capability growth comes through the research quarantine, not by expanding the prompt from intuition or citation volume.
+The next legitimate step after this contract is green is clean-model falsification of the frozen v0.1 prompt against the existing fixtures — not more research and not more product surface.

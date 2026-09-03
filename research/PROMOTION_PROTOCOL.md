@@ -6,7 +6,7 @@ This file is the authority for moving a research candidate toward Neta behavior.
 
 A source does not become a prompt rule.
 
-The shortest allowed path is:
+The shortest allowed research path remains:
 
 ```text
 SOURCE
@@ -22,9 +22,38 @@ SOURCE
 
 Any skipped arrow is a defect.
 
-## Required claim fields
+## v0.2 clarification — research promotion is not general action permission
 
-Every claim must preserve:
+This clarification is prospective and is logged in `research/AMENDMENTS.md`.
+
+The original promotion state answers what the **research quarantine** permits Neta developers to do with a research candidate.
+
+It does **not** by itself authorize every downstream product/design claim or action.
+
+For a concrete Neta finding, downstream use is now separately evaluated through:
+
+```text
+Claim
+→ Evidence
+→ Reality floor
+→ Resolution Authority
+→ Requested Use
+→ ALLOW / DENY / DEFER
+```
+
+See `docs/REALITY_AUTHORITY_PERMISSION.md`.
+
+Examples:
+
+- `CANDIDATE_CAPABILITY` may authorize use in an evaluation fixture while still denying a universal design prescription.
+- `PROMPT_ELIGIBLE` permits proposing a prompt change; it does not prove the changed Neta improves field outcomes.
+- strong RESEARCH evidence may support a mechanism while FIELD permission to assert external-user behavior remains denied.
+
+This clarification does not change any frozen Wave 1 threshold or original claim status.
+
+## Required research-claim fields
+
+Every research claim preserves:
 
 - exact candidate wording;
 - capability family;
@@ -43,15 +72,15 @@ Every claim must preserve:
 
 ## Promotion is not confidence
 
-Promotion state answers **what Neta is allowed to do with the claim**.
+G/C/A/O answers what kinds of evidence the research claim has.
 
-G/C/A/O answers **what kinds of evidence the claim has**.
+Promotion state answers what the research workflow permits next.
 
-Neither is a probability of truth.
+Neither is a probability of truth. Neither is a substitute for the per-finding Reality/Authority/Permission contract.
 
 ## Source independence
 
-The following do **not** count as independent triangulation by themselves:
+The following do not count as independent triangulation by themselves:
 
 - two papers using the same dataset;
 - a review and one of the studies it summarizes;
@@ -59,33 +88,33 @@ The following do **not** count as independent triangulation by themselves:
 - translations of the same guidance;
 - three papers from one lab operationalizing the same construct identically.
 
-Record the common lineage in `independence_family`.
+Record common lineage in `independence_family`.
 
 ## Counterevidence search
 
 Before `ADVERSARIAL`, record at least:
 
-1. one query or strategy designed to find contrary/null results;
-2. one competing mechanism or alternative explanation;
-3. what evidence would force narrowing, splitting, or rejection.
+1. one query/strategy designed to find contrary or null results;
+2. one competing mechanism;
+3. what would force narrowing, splitting or rejection.
 
-"No contradictions found" is permitted only if the search itself is recorded.
+“No contradictions found” is allowed only if the search itself is recorded.
 
 ## Culture/context gate
 
-`culture_relevance` is one of:
+`culture_relevance` is:
 
-- `material` — the construct plausibly changes with local convention, language, script, communication practice, or social meaning;
-- `plausible` — possible context interaction, insufficient evidence to dismiss;
-- `low` — primarily physical/technical mechanism with a written rationale.
+- `material`
+- `plausible`
+- `low`
 
-For `material` or `plausible`, promotion to `BOUNDED` requires explicit represented and missing contexts.
+For material/plausible candidates, `BOUNDED` requires explicit represented and missing contexts. For low relevance, record why; “universal” is not an admissible rationale.
 
-For `low`, promotion requires a short reason; "universal" is not an allowed substitute.
+Country is a sample/context unless evidence establishes a mechanism.
 
 ## Contradiction dispositions
 
-Every material contradiction gets exactly one disposition:
+Every material contradiction gets exactly one:
 
 - `REFUTES`
 - `NARROWS`
@@ -94,9 +123,9 @@ Every material contradiction gets exactly one disposition:
 - `MEASUREMENT_CONFLICT`
 - `NO_MATERIAL_EFFECT`
 
-`SPLITS` creates child claims. The parent is frozen from further promotion until all surviving children have been evaluated.
+`SPLITS` creates child claims and freezes the parent from further promotion until surviving children are evaluated.
 
-`MEASUREMENT_CONFLICT` prevents synthesis into one effect until the constructs are separated.
+`MEASUREMENT_CONFLICT` prevents synthesis into one effect until constructs are separated.
 
 ## Prompt gate
 
@@ -104,17 +133,17 @@ Research alone cannot directly edit `prompts/SYSTEM.md`.
 
 A claim may reach `PROMPT_ELIGIBLE` only if:
 
-- the research gates are satisfied;
-- a fixture exposes a Neta failure/blind spot without the capability;
+- research gates are satisfied;
+- a clean-model fixture exposes a Neta failure/blind spot without the capability;
 - the smallest prompt change is specified;
 - a neighboring behavior that could be damaged is named;
 - a control fixture protects that neighbor.
 
-This retains the Agent Architect rule: teach only hidden judgment that a failure demonstrated was missing.
+The v0.1 prompt is frozen during the v0.2 architectural re-foundation. Re-foundation elegance is not a fixture failure.
 
 ## Demotion
 
-Later evidence can:
+Later evidence may:
 
 - narrow wording;
 - add a boundary;
@@ -123,3 +152,11 @@ Later evidence can:
 - reject a claim.
 
 History is retained. Do not rewrite a failed candidate as if it was never proposed.
+
+## Research authority ceiling
+
+Do not continue reading merely to increase citation count.
+
+Additional research is justified when a named unresolved `RESEARCH` question can change a concrete discriminator, boundary, fixture or promotion decision.
+
+If the remaining material question belongs to REPO, ENVIRONMENT, OWNER or FIELD, route it there instead of paying more literature to answer the wrong question.

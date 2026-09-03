@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Neta contract gate with deliberate positive controls.
+"""Neta v0.2 assurance gate with deliberate epistemic positive controls.
 
-A green validator that has never been demonstrated to fail is not evidence of a gate.
-This script first checks the canonical valid fixture, then injects defects that MUST be rejected.
+The canonical finding must be green. Each injected authority/reality/permission defect
+must go red in the same run. The v0.1 prompt hash is also frozen so architectural
+re-foundation cannot silently contaminate the clean-model baseline.
 """
 
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 
@@ -16,65 +18,126 @@ from validate_finding import ContractError, validate
 ROOT = Path(__file__).resolve().parents[1]
 VALID_FIXTURE = ROOT / "fixtures" / "valid-finding.json"
 SYSTEM_PROMPT = ROOT / "prompts" / "SYSTEM.md"
-METHOD = ROOT / "docs" / "METHOD.md"
-AUTHORITY_MAP = ROOT / "docs" / "AUTHORITY_MAP.md"
+FROZEN_PROMPT_BLOB = "339b9a1be2fd0f1f6f6c7960e5be58e5566d3691"
 
-REQUIRED_PROMPT_ANCHORS = (
-    "RAW SIGNAL",
-    "COMPETING MECHANISMS",
-    "DISCRIMINATE_FIRST",
-    "BUILD_READY",
-    "FIELD_STOP",
-    "rendered ≠ noticed",
-    "Do not change intervention and measurement silently at the same time.",
+REQUIRED_DOCS = (
+    ROOT / "docs" / "V0_1_FREEZE.md",
+    ROOT / "docs" / "NETA_ASSURANCE_THESIS.md",
+    ROOT / "docs" / "REALITY_AUTHORITY_PERMISSION.md",
+    ROOT / "docs" / "LESSONS_COVERAGE_AUDIT.md",
+    ROOT / "docs" / "FAILURE_LINEAGE.md",
+    ROOT / "docs" / "METHOD.md",
+    ROOT / "docs" / "AUTHORITY_MAP.md",
+    ROOT / "research" / "WAVE1_ASSURANCE_REVIEW.md",
 )
+
+
+def git_blob_sha(data: bytes) -> str:
+    header = f"blob {len(data)}\0".encode("utf-8")
+    return hashlib.sha1(header + data).hexdigest()
 
 
 def must_fail(name: str, payload: dict) -> None:
     try:
         validate(payload)
-    except ContractError:
-        print(f"CONTROL RED: {name}")
+    except ContractError as exc:
+        print(f"CONTROL RED: {name} :: {exc}")
         return
     raise SystemExit(f"NOT-A-GATE: positive control stayed green: {name}")
 
 
+def claim(payload: dict, cid: str) -> dict:
+    return next(c for c in payload["claims"] if c["id"] == cid)
+
+
 def main() -> int:
-    with VALID_FIXTURE.open("r", encoding="utf-8") as handle:
-        valid = json.load(handle)
-
+    valid = json.loads(VALID_FIXTURE.read_text(encoding="utf-8"))
     validate(valid)
-    print("FIXTURE GREEN: canonical valid finding")
+    print("FIXTURE GREEN: canonical v0.2 finding")
 
-    too_many = copy.deepcopy(valid)
-    too_many["candidate_mechanisms"] = too_many["candidate_mechanisms"] * 4
-    must_fail("more than three mechanisms", too_many)
+    controls: list[tuple[str, dict]] = []
 
-    fake_precision = copy.deepcopy(valid)
-    fake_precision["confidence"] = 87
-    must_fail("fake numeric confidence field", fake_precision)
+    # 1. Conversational compression still matters.
+    broken = copy.deepcopy(valid)
+    broken["candidate_mechanisms"] = broken["candidate_mechanisms"] * 4
+    controls.append(("more-than-three-mechanisms", broken))
 
-    field_mismatch = copy.deepcopy(valid)
-    field_mismatch["status"] = "FIELD_STOP"
-    field_mismatch["authority"] = "REPO"
-    field_mismatch["evidence_state"] = "FIELD_REQUIRED"
-    must_fail("FIELD_STOP with non-FIELD authority", field_mismatch)
+    # 2. No scalar confidence theatre anywhere in the ledger.
+    broken = copy.deepcopy(valid)
+    claim(broken, "C2")["confidence"] = 0.91
+    controls.append(("fake-confidence-field", broken))
 
-    no_reversal = copy.deepcopy(valid)
-    no_reversal["reversal_condition"] = None
-    must_fail("BUILD_READY without reversal condition", no_reversal)
+    # 3. Reality laundering: a claim cannot be SUPPORTED below its own floor.
+    broken = copy.deepcopy(valid)
+    c = claim(broken, "C1")
+    c["required_reality"] = "R4"
+    c["observed_reality"] = "R3"
+    c["state"] = "SUPPORTED"
+    controls.append(("supported-below-reality-floor", broken))
 
-    prompt = SYSTEM_PROMPT.read_text(encoding="utf-8")
-    for anchor in REQUIRED_PROMPT_ANCHORS:
-        if anchor not in prompt:
-            raise SystemExit(f"PROMPT CONTRACT MISSING: {anchor}")
+    # 4. Field outcome cannot borrow REPO authority.
+    broken = copy.deepcopy(valid)
+    claim(broken, "C4")["resolution_authority"] = "REPO"
+    controls.append(("field-outcome-with-repo-authority", broken))
 
-    for required_file in (METHOD, AUTHORITY_MAP):
-        if not required_file.exists() or required_file.stat().st_size < 200:
-            raise SystemExit(f"MISSING OR EMPTY CONTRACT FILE: {required_file.relative_to(ROOT)}")
+    # 5. Deployed evidence still cannot authorize a field assertion.
+    broken = copy.deepcopy(valid)
+    c = claim(broken, "C4")
+    c["state"] = "SUPPORTED"
+    c["permission"] = "ALLOW"
+    c["observed_reality"] = "R4"
+    controls.append(("field-assertion-from-r4", broken))
 
-    print("PROMPT CONTRACT GREEN")
-    print("Neta v0.1 contract: PASS")
+    # 6. Strong wording cannot turn unresolved into permission.
+    broken = copy.deepcopy(valid)
+    c = claim(broken, "C3")
+    c["state"] = "UNRESOLVED"
+    c["permission"] = "ALLOW"
+    controls.append(("allow-unresolved-intervention", broken))
+
+    # 7. Build-ready work must leave a falsifier/control/reversal.
+    broken = copy.deepcopy(valid)
+    broken["gate"] = None
+    controls.append(("build-ready-without-gate", broken))
+
+    # 8. FIELD_STOP is a real authority boundary, not a status label.
+    broken = copy.deepcopy(valid)
+    broken["status"] = "FIELD_STOP"
+    broken["claims"] = [c for c in broken["claims"] if c["id"] != "C4"]
+    broken["field_requirement"] = "Ask a stranger."
+    # Remove the allowed build intervention so the test targets missing FIELD claim.
+    claim(broken, "C3")["permission"] = "DENY"
+    controls.append(("field-stop-without-field-claim", broken))
+
+    # 9. A waiver may accept risk but never impersonate another authority.
+    broken = copy.deepcopy(valid)
+    broken["waiver"] = {
+        "accepted_by": "SYSTEM",
+        "reason": "ship anyway",
+        "scope": "all field claims",
+        "revisit": "never",
+    }
+    controls.append(("non-owner-waiver", broken))
+
+    for name, payload in controls:
+        must_fail(name, payload)
+
+    # Freeze the clean-model v0.1 prompt during re-foundation.
+    prompt_bytes = SYSTEM_PROMPT.read_bytes()
+    observed_blob = git_blob_sha(prompt_bytes)
+    if observed_blob != FROZEN_PROMPT_BLOB:
+        raise SystemExit(
+            "BASELINE CONTAMINATION: prompts/SYSTEM.md changed during re-foundation "
+            f"(expected {FROZEN_PROMPT_BLOB}, got {observed_blob})"
+        )
+    print(f"PROMPT BASELINE FROZEN: {observed_blob}")
+
+    for path in REQUIRED_DOCS:
+        if not path.exists() or path.stat().st_size < 300:
+            raise SystemExit(f"MISSING OR EMPTY RE-FOUNDATION ARTIFACT: {path.relative_to(ROOT)}")
+
+    print(f"positive controls: {len(controls)}/{len(controls)} correctly failed")
+    print("Neta Assurance v0.2 contract: PASS")
     return 0
 
 
