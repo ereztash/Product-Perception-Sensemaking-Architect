@@ -2,6 +2,6 @@
   "schema_version": "1.0",
   "wave": "WAVE1",
   "preregistration": "research/WAVE1_PREREGISTRATION.md",
-  "source_collection_started": false,
+  "source_collection_started": true,
   "claims": []
 }
