@@ -1,0 +1,32 @@
+{
+  "case_id": "OSS-0009",
+  "repository": "chrisvel/tududi",
+  "pinned_sha": "8681ffd65de7506ee9a508ed947f6d46a8369060",
+  "corpus": "TRAIN",
+  "stratum": "web_app_saas",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": ["repository metadata", "README", "PWA/offline docs", "public/sw.js", "authUtils.ts", "tasksService.ts", "offline-related source/tests only; no issues/PRs before freeze"],
+  "raw_signal_observation": "The service worker queues non-GET API mutations offline and marks queued responses; handleAuthResponse converts those responses into OfflineQueuedError. Some task mutation flows explicitly handle queued-offline state, while deleteTask propagates OfflineQueuedError and several callers await it without an offline-specific branch.",
+  "material_claim": "The pinned source establishes heterogeneous handling of the same queued-offline mutation state. It does not by itself establish whether task deletion produces a misleading error, intentionally stays visible until replay, or otherwise causes a user-facing defect.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3 for the integrated delete-offline interaction; FIELD only for user interpretation/value",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Add or run one integrated/component fixture for deleting a task while the service worker returns X-Tududi-Queued=1, and observe local state plus visible error/toast behavior before changing delete semantics.",
+  "reversal_condition": "If the integrated fixture shows a clear false-error or contradictory local state, promote the smallest caller-level handling change to BUILD_READY. If the queued state is intentionally represented and no false error occurs, retain behavior.",
+  "baseline_decision": "BUILD: standardize all task mutation callers to catch OfflineQueuedError, optimistically update local state, and show a queued-for-sync success message instead of propagating an error.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Post-freeze issue #1417 is a confirmed user-reported offline-write failure: task/project creation errored because CSRF fetching prevented mutations from reaching the service-worker queue.",
+      "The pinned source and tests show that #1417's CSRF mechanism has since been repaired, so that historical issue confirms the importance of offline-queue integration but does not confirm the specific delete-caller mechanism under review.",
+      "Post-freeze issue search found no direct report establishing that offline task deletion currently surfaces the hypothesized false-error state."
+    ],
+    "decision_delta": "Neta chose a narrower integrated discriminator rather than the baseline's cross-cutting refactor. Adjudication supports caution: offline mutation handling has produced real field failures, but the specific current delete-path claim remains unresolved.",
+    "rubric_critical_failures": [],
+    "lesson": "Historical field evidence can validate the importance of an interaction boundary without proving a new adjacent mechanism in the pinned build. The cheapest integrated discriminator should precede a broad consistency refactor."
+  }
+}
