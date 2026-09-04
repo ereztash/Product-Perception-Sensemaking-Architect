@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0022",
+  "repository": "usememos/memos",
+  "pinned_sha": "dfa0fda76602d49dfbb68a6683ef20b068c8d45b",
+  "corpus": "TRAIN",
+  "stratum": "web_knowledge_productivity",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "web/src/components/MemoActionMenu/hooks.ts",
+    "web/src/hooks/useMemoQueries.ts",
+    "repository source search limited to current pinned source; no issues/PRs opened before Phase D"
+  ],
+  "raw_signal_observation": "The pin/unpin handler uses an optimistic update that rolls back on mutation failure, but its local catch block intentionally does nothing. Neighboring archive/delete/task actions surface success or error toasts. A user can therefore see a pin state revert or appear ineffective without a local explanation.",
+  "material_claim": "The source establishes a silent pin error path but does not establish that every apparently ineffective pin is a defect. Before changing pin semantics or adding behavior-specific UI, distinguish transport/mutation failure from intentional visibility semantics; a no-effect report can belong to OWNER policy rather than REPO failure.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "REPO",
+  "requested_use": "DISCRIMINATE",
+  "permission": "ALLOW",
+  "neta_next_move": "Add a focused rejected-update fixture around the pin handler to prove rollback plus absence of feedback, and keep that technical failure separate from whether pinned content is supposed to surface in each product context.",
+  "reversal_condition": "If a failing mutation already produces a global user-visible error, or explicit product intent says pinning must visibly reorder every surface, revise the local intervention accordingly.",
+  "baseline_decision": "BUILD: add an error toast/refetch to the silent pin catch and make the pinned state visibly consistent anywhere the pin action is exposed.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Post-freeze issue #5223 reports that pinning from Explore appears to have no effect.",
+      "A project member explicitly closed the semantic question as working as intended: pinned content is displayed only on Home and User Profile pages.",
+      "This external evidence supports Neta's distinction between apparent no-effect and actual mutation failure, but it does not reproduce the silent rejected-mutation path itself."
+    ],
+    "decision_delta": "PARTIALLY_SUPPORTED_CHEAPER_DISCRIMINATOR: the baseline would have treated visible inconsistency as a build target; maintainer intent shows at least one such no-effect state is deliberate. Neta's separation was directionally correct, but the exact silent-error mechanism remains unconfirmed.",
+    "rubric_critical_failures": [],
+    "lesson": "An apparently ineffective action can combine two different questions: whether the mutation failed and where successful state is meant to become visible. Do not let local error-handling asymmetry silently define product semantics."
+  }
+}
