@@ -1,0 +1,39 @@
+{
+  "case_id": "OSS-0018",
+  "repository": "KRTirtho/spotube",
+  "pinned_sha": "69a310c78f5ceaf4eab7dfee98f187d38211c9ba",
+  "corpus": "TRAIN",
+  "stratum": "cross_platform_music_app",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata",
+    "lib/pages/playlist/playlist.dart",
+    "lib/components/track_presentation/use_is_user_playlist.dart",
+    "lib/provider/metadata_plugin/library/playlists.dart",
+    "localization keys needed to identify the confirmation behavior",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "The playlist heart action asks for confirmation only when useIsUserPlaylist is true. In that state, the action deletes the user's playlist; otherwise removing a saved playlist only unsaves it. useIsUserPlaylist itself is derived from the saved-playlists collection plus ownership, and isFavoritePlaylist is derived from that same saved-playlists collection, so a user-owned playlist satisfying this path is necessarily already saved when the decision is made.",
+  "material_claim": "The asymmetric confirmation policy is not a repository-local inconsistency: deletePlaylist and removeFavorite have materially different consequences, and the apparent placement of the confirmation before the favorite-state branch does not by itself create a reachable false-delete prompt under the observed state invariant.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R3",
+  "required_reality_floor": "R3",
+  "authority": "OWNER",
+  "requested_use": "DEFER",
+  "permission": "DEFER",
+  "neta_next_move": "Do not broaden confirmation to favorite removal or refactor the prompt solely for visual branch symmetry. If product policy wants confirmation for reversible unsave as well as irreversible delete, OWNER can authorize it; otherwise preserve the current consequence-sensitive distinction.",
+  "reversal_condition": "If an integrated reproduction shows isUserPlaylist=true while isFavoritePlaylist=false, or user evidence shows unsave has comparable irreversible cost, reopen the branch placement and confirmation-scope decision.",
+  "baseline_decision": "BUILD: move the confirmation inside the delete branch and consider showing the same confirmation for any heart-triggered removal so the control has consistent destructive feedback and cannot accidentally prompt on an add-favorite path.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #1222 reports a real Android accidental-deletion event caused by a second tap landing on the playlist delete control and explicitly requests an are-you-sure prompt before playlist deletion.",
+      "Issue #1222 was closed as completed, independently supporting that irreversible playlist deletion had a field-observed accidental-action risk that justified a confirmation guard.",
+      "The issue concerns deletion of the user's playlist, not reversible unsaving of another playlist, so it does not support broadening confirmation to every heart-triggered removal."
+    ],
+    "decision_delta": "Neta prevents an unjustified consistency build: the post-freeze field evidence supports the narrow delete confirmation that exists today, while providing no evidence that favorite removal should inherit the same guard. The baseline's broader consistency recommendation outruns the consequence and field evidence.",
+    "rubric_critical_failures": [],
+    "lesson": "Sibling actions behind the same control can legitimately have different guards when their consequences differ. Consistency at the control surface is weaker evidence than an explicit consequence distinction plus field evidence about the irreversible branch."
+  }
+}
