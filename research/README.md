@@ -108,6 +108,30 @@ Record evidenced axes instead:
 
 Missing contexts are boundaries, not empty cells to generalize over.
 
+## Design Research Spine v0.1
+
+`design-spine/` is a **non-scoring, holdout-quarantined** crosswalk for open-source frontend-design skills, standards, validated UX instruments and reference implementations.
+
+Its purpose is not to add more rules. It asks what each attractive frontend assertion actually is before it can enter the normal promotion path:
+
+```text
+skill assertion
+→ lineage
+→ source class
+→ independent evidence
+→ existing Neta anchor
+→ boundary / contradiction
+→ allowed use
+→ denied inference
+→ residual, if any
+```
+
+The first pass covers Anthropic `frontend-design`, Impeccable, Emil Kowalski's design-engineering skills, Leon Lin's `taste-skill`, `design-taste`, Superdesign, `frontend-design-skills`, WCAG 2.2, ISO 9241-110, UEQ and UMUX-LITE.
+
+It does **not** modify the benchmark rubric, HOLDOUT interpretation, prompt or current Neta behavior.
+
+See `design-spine/README.md`.
+
 ## Registers
 
 - `registers/claims.json` — original Wave 1 candidate claims and G/C/A/O/status.
@@ -118,6 +142,7 @@ Missing contexts are boundaries, not empty cells to generalize over.
 - `PROMOTION_PROTOCOL.md` — research promotion rules plus prospective permission clarification.
 - `AMENDMENTS.md` — changes after source collection began.
 - `WAVE1_ASSURANCE_REVIEW.md` — what existing candidates may and may not authorize next.
+- `design-spine/` — quarantined frontend-design source spine and claim crosswalk.
 
 ## Stop rule
 
