@@ -1,0 +1,35 @@
+{
+  "case_id": "OSS-0028",
+  "repository": "ever-co/ever-gauzy",
+  "pinned_sha": "b9fe83364bede214117cccfb676c23212a4802c3",
+  "corpus": "HOLDOUT",
+  "stratum": "web_business_management_platform",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "apps/api/src/load-env.ts",
+    "apps/api/src/main.ts",
+    "direct directory listings for repository root, apps and apps/api/src",
+    "no issue/PR/discussion body opened before freeze"
+  ],
+  "raw_signal_observation": "The README makes an operational startup promise: production must use strong unique auth/session secrets and the API refuses to start with shipped blank/default secrets. The visible API entrypoint loads .env/.env.local and then calls @gauzy/core bootstrap; the local entrypoint itself contains no visible secret validation, so the enforcement may exist deeper in core bootstrap/configuration but has not been observed in the frozen boundary.",
+  "material_claim": "The README promise plus a thin startup entrypoint are insufficient to conclude either that fail-closed validation is absent or that it works. The exact enforcement path must be located or exercised before asserting a security defect or operational guarantee.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "REPO",
+  "requested_use": "DISCRIMINATE",
+  "permission": "ALLOW",
+  "neta_next_move": "Trace the bootstrap/config path for the four named secrets or run an isolated startup fixture with a shipped/default secret. The discriminator must turn startup red if the README guarantee is real.",
+  "reversal_condition": "If the deeper bootstrap path or a startup fixture proves the process exits on blank/default secrets, retain the promise and do not build; if startup succeeds, permit the narrow fail-closed repair and a positive control.",
+  "baseline_decision": "VERIFY FIRST: the README already documents fail-closed secret validation, but because the API entrypoint delegates startup to @gauzy/core, trace or test the bootstrap path before changing code.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [],
+    "decision_delta": "PENDING_PHASE_D",
+    "rubric_critical_failures": [],
+    "lesson": "HOLDOUT score only until Wave 1 closes."
+  }
+}
