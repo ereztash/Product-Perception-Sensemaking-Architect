@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-005",
+  "last_batch": "BATCH-006",
   "insights": [
     {
       "insight_id": "I-001",
@@ -24,9 +24,9 @@
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "PRELIMINARY_TRAIN_5_PLUS_2_HOLDOUT_SCORE_ONLY",
+      "evidence_state": "PRELIMINARY_TRAIN_5_PLUS_3_HOLDOUT_SCORE_ONLY",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. Dnote and Freeplane HOLDOUT both show that a real neighboring bug does not confirm the exact mechanism under adjudication."
+      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. Dnote and Freeplane HOLDOUT both show that a real neighboring bug does not confirm the exact mechanism under adjudication; OSS-0017 adds another HOLDOUT example where broad localization PRs support the contract without independently confirming the exact hard-coded string."
     },
     {
       "insight_id": "I-003",
@@ -85,13 +85,13 @@
       "failure_family": "inferred_sibling_contract_laundering",
       "insight": "Equivalent-looking sibling paths do not establish a shared product contract. Before turning asymmetry into BUILD permission, distinguish an explicit invariant from a consistency preference or interaction-policy tradeoff that belongs to OWNER.",
       "first_seen": "OSS-0014",
-      "replications": [],
+      "replications": ["OSS-0018"],
       "counterexamples": ["OSS-0007"],
       "neta_failed": true,
-      "baseline_decision_delta": false,
-      "evidence_state": "CLEAN_TRAIN_FAILURE_WITH_EXISTING_NEIGHBOR",
+      "baseline_decision_delta": true,
+      "evidence_state": "CLEAN_TRAIN_FAILURE_PLUS_ONE_SUPPORTED_TRAIN_REPLICATION_WITH_EXISTING_NEIGHBOR",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "The clean failure identifies a missing judgment and OSS-0007 supplies a useful neighbor where the contract was explicit, but the candidate still lacks an executable discrimination gate, deliberate red positive control and unseen HOLDOUT success."
+      "promotion_reason": "OSS-0018 strengthens the missing judgment identified by OSS-0014: the same control surface can legitimately apply different guards when the underlying consequences differ. Historical field evidence supported confirmation for irreversible playlist deletion but not reversible unsave. The candidate still lacks an executable discrimination gate, deliberate red positive control and unseen HOLDOUT success, so it remains memory only."
     },
     {
       "insight_id": "I-008",
@@ -111,40 +111,40 @@
     "decision_modes": {
       "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
       "signal": "COVERED_NOT_SATURATED",
-      "note": "All target routing modes remain represented. BATCH-005 is more informative because BUILD_READY itself failed once rather than adding another routing mode."
+      "note": "All target routing modes remain represented. BATCH-006 adds no new mode; its information gain is a supported replication of the inferred-contract boundary plus one unresolved repair-direction case."
     },
     "failure_families": {
       "observed_count": 8,
       "signal": "OPEN",
-      "note": "One new clean failure family emerged: inferred sibling consistency can be mistaken for an explicit product contract. No rule is promotable yet."
+      "note": "No new family added. I-007 now has one supported independent TRAIN replication, but remains below promotion requirements."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
       "errors": 1,
-      "signal": "FIRST_CLEAN_FAILURE",
-      "note": "OSS-0014 is the first adjudicated authority error: REPO evidence was allowed to close an OWNER-owned confirmation-versus-undo policy question."
+      "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
+      "note": "No new Neta authority error in BATCH-006. OSS-0018 supports OWNER restraint when sibling actions differ in consequence; OSS-0016 remains unresolved because the intended filter contract is not independently established."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 13,
-      "fully_survived_adjudication": 6,
+      "neta_vs_baseline_build_restraint_cases": 15,
+      "fully_survived_adjudication": 7,
       "partially_supported": 5,
-      "unresolved": 2,
+      "unresolved": 3,
       "signal": "NOT_SATURATED",
-      "note": "OSS-0015 adds a fully surviving ENVIRONMENT-routing delta. OSS-0014 is equally important in the opposite direction: Neta offered no advantage over baseline and overbuilt the same inferred-consistency claim."
+      "note": "OSS-0018 adds the seventh fully surviving delta by preventing a consistency build not supported by the field evidence. OSS-0016 adds one unresolved restraint delta; OSS-0017 shows no material difference from baseline."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 15,
+    "adjudicated_repos": 18,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform"],
-    "holdout_repos": 4,
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app"],
+    "holdout_repos": 5,
     "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
     "clean_neta_failures": 1,
-    "surviving_baseline_deltas": 6,
+    "surviving_baseline_deltas": 7,
     "partially_supported_baseline_deltas": 5,
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
-  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was also rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. No contaminated or ineligible repository entered BATCH-005 cases.",
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. No contaminated or ineligible repository entered BATCH-006.",
   "protocol_stop_condition": null
 }
