@@ -1,0 +1,40 @@
+{
+  "batch_id": "BATCH-005",
+  "cases": ["OSS-0013", "OSS-0014", "OSS-0015"],
+  "repositories": ["freeplane/freeplane", "actualbudget/actual", "AppFlowy-IO/AppFlowy"],
+  "corpora": {"HOLDOUT": 1, "TRAIN": 2, "ADVERSARIAL": 0},
+  "results": {
+    "authority_correct_stop": 1,
+    "unresolved": 0,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 1,
+    "critical_failures": 1,
+    "fully_surviving_baseline_deltas_added": 1,
+    "clean_neta_failures_added": 1
+  },
+  "new_or_changed_insights": [
+    "I-005 gained a second counterexample and its first clean Neta failure: Actual Budget shows that sibling destructive paths can intentionally differ when undo changes the policy tradeoff.",
+    "I-007 added: inferred sibling consistency is not an explicit product contract and cannot by itself grant REPO-owned BUILD permission.",
+    "I-008 added as a concrete ENVIRONMENT-authority transfer case: operational recovery promises cannot be confirmed or removed from static UI/source reachability alone.",
+    "OSS-0013 adds HOLDOUT score-only evidence for static-topology and neighboring-ground-truth boundaries; it is not used to teach Neta before the wave closes."
+  ],
+  "saturation": {
+    "decision_modes": "All four target routing modes remain represented; this batch adds a BUILD_READY failure rather than a new mode.",
+    "failure_families": "Still open; one new clean failure family emerged around inferred sibling contracts.",
+    "authority_boundaries": "First adjudicated Neta authority error observed: REPO→OWNER laundering in OSS-0014.",
+    "baseline_deltas": "Not saturated; AppFlowy adds one fully surviving ENVIRONMENT-routing delta, while Actual Budget shows a case where Neta offered no advantage over baseline."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 15,
+    "holdout_repos": 4,
+    "surviving_baseline_deltas": 6,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [
+    "meetfranz/franz: excluded after README inspection showed the repository is the inactive Franz 5 predecessor while Franz 6 is the current product.",
+    "manuelernestog/weektodo: excluded because repository metadata showed the last push was 2025-07-20, outside the protocol's 12-month activity window on the current 2026-09-04 run."
+  ],
+  "protocol_stop_condition": null
+}
