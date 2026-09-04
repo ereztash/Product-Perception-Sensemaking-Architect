@@ -1,0 +1,42 @@
+{
+  "case_id": "OSS-0044",
+  "repository": "tasks/tasks",
+  "product_domain": "Tasks.org cross-platform task-management application with CalDAV synchronization",
+  "pinned_sha": "2647c20045d8757a92abc9e3da1d901c6a5395f5",
+  "corpus": "HOLDOUT",
+  "stratum": "mobile_application_productivity_sync",
+  "sampling_query": "stars:1000..20000 pushed:>=2025-09-04 archived:false android tasks caldav",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "kmp/src/commonMain/kotlin/org/tasks/service/TaskDeleter.kt at pinned SHA",
+    "data/src/commonMain/kotlin/org/tasks/data/dao/DeletionDao.kt at pinned SHA",
+    "kmp/src/commonMain/kotlin/org/tasks/caldav/VtodoCache.kt at pinned SHA",
+    "app/src/main/java/com/todoroo/astrid/activity/TaskListFragment.kt at pinned SHA",
+    "pinned-source search used only to trace task deletion and cache boundaries",
+    "no GitHub issue, PR, discussion, release-history, support, review or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "TaskDeleter deletes the filesystem-backed VTODO cache before calling DeletionDao.markDeleted/delete. DeletionDao wraps database mutation and cleanup in Room transactions, but that database transaction cannot roll back the preceding filesystem deletion. VtodoCache.delete performs real file deletion outside the database authority.",
+  "material_claim": "A database or cleanup failure after VTODO cache deletion can create a cross-boundary partial outcome in which the database mutation fails or rolls back while cached VTODO data has already been removed. Source proves the non-atomic boundary but does not prove that the application cannot regenerate the cache or that a user-visible inconsistency survives recovery/synchronization.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "ENVIRONMENT",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Inject a failure after VtodoCache.delete and before or inside the DeletionDao transaction, then restart/synchronize and inspect database state, cache regeneration and remote task state. Include a positive control in which the full delete path succeeds and both authorities converge.",
+  "reversal_condition": "If the cache is deterministically regenerated and no inconsistent state survives the injected failure, do not reorder or compensate the deletion. If the injected boundary leaves durable divergence, authorize the smallest ordering or compensation repair that makes the failure fixture green.",
+  "baseline_decision": "BUILD: move filesystem cache deletion after successful database deletion/marking or add compensation because the current order breaks atomicity across the filesystem and Room transaction.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search found Tasks.org issue #2419 reporting severe CalDAV synchronization failures involving old deleted data reappearing and tasks being deleted, including propagation to Nextcloud.",
+      "That report confirms that synchronization/deletion failures can be severe in the product, but it does not identify the VtodoCache-before-DeletionDao ordering or reproduce the frozen rollback mechanism.",
+      "Post-freeze pull-request searches did not find a claim-specific repair or regression test for this cache/database boundary. Neighboring sync evidence is therefore not treated as confirmation."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA_HOLDOUT_SCORE_ONLY: Neta requires failure injection while the baseline recommends immediate reordering/compensation. Independent evidence does not close the exact mechanism, so the delta receives no surviving-credit and this HOLDOUT case is not used to teach or promote any insight before wave close.",
+    "rubric_critical_failures": [],
+    "lesson": "Cross-authority non-atomicity is a real source-level risk, but build permission still depends on whether failure injection demonstrates durable divergence rather than recoverable cache loss. HOLDOUT evidence remains score-only."
+  }
+}
