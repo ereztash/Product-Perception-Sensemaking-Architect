@@ -1,0 +1,60 @@
+{
+  "batch_id": "BATCH-003",
+  "cases": ["OSS-0007", "OSS-0008", "OSS-0009"],
+  "repositories": [
+    {"repository": "zidoro/pomatez", "sha": "c2727800c6272573590911e9ee81637b89e55d5f", "corpus": "TRAIN", "stratum": "desktop_native"},
+    {"repository": "sayanarijit/xplr", "sha": "d96991f6b1d1ff9914716ebc1150cbb4a406abca", "corpus": "HOLDOUT", "stratum": "developer_tool_interactive"},
+    {"repository": "chrisvel/tududi", "sha": "8681ffd65de7506ee9a508ed947f6d46a8369060", "corpus": "TRAIN", "stratum": "web_app_saas"}
+  ],
+  "results": {
+    "AUTHORITY_CORRECT_STOP": 1,
+    "PARTIALLY_SUPPORTED": 2,
+    "CONFIRMED_LOCAL": 0,
+    "UNRESOLVED": 0,
+    "REFUTED": 0,
+    "critical_failures": 0,
+    "surviving_baseline_deltas_added": 1,
+    "partially_supported_baseline_deltas_added": 1,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    {
+      "insight_id": "I-005",
+      "change": "NEW_TRAIN_MEMORY",
+      "summary": "An explicit local contract plus guard asymmetry across sibling controls can support a narrow reversible build without claiming user outcome.",
+      "promotion": "MEMORY_ONLY"
+    },
+    {
+      "insight_id": "I-004",
+      "change": "HOLDOUT_SCORE_ONLY",
+      "summary": "xplr owner history directly confirmed that recover-mode default=false is an intentional intuitiveness tradeoff; Neta's OWNER_DEFER prevented the baseline from reversing intended policy. Not used to teach Neta before holdout close."
+    },
+    {
+      "insight_id": "I-002",
+      "change": "REPLICATION",
+      "summary": "Pomatez and tududi again show that neighboring user-reported failures support a failure family without confirming the exact pinned mechanism."
+    }
+  ],
+  "saturation": {
+    "decision_modes": "BUILD_READY appeared for the first time. DISCRIMINATE_FIRST and OWNER_DEFER replicated. FIELD_STOP is still absent.",
+    "failure_families": "One new local-contract asymmetry family; neighboring-ground-truth laundering continues to replicate.",
+    "authority_boundaries": "OWNER routing received direct HOLDOUT confirmation in xplr; REPO remained dominant for local/build questions.",
+    "baseline_deltas": "One HOLDOUT restraint delta fully survived adjudication; one TRAIN cheaper-discriminator delta is partially supported."
+  },
+  "wave_1_progress": {
+    "adjudicated_repos": 9,
+    "domains": 6,
+    "holdout_repos": 2,
+    "clean_neta_failures": 0,
+    "surviving_baseline_deltas": 3,
+    "partially_supported_baseline_deltas": 4,
+    "minimum_viable_evidence_reached": false
+  },
+  "promotion_candidates": [],
+  "protocol_warning": {
+    "type": "SELECTION_PINNING_LEAK",
+    "detail": "A commit endpoint exposed ChangeLog history for Kanboard and branch metadata exposed a bug-fix commit message for Vikunja before blind review. Both candidates were discarded before assignment. Pinning was repaired within the batch by using git/ref endpoints that return only SHA/ref metadata.",
+    "contaminated_cases_written": 0
+  },
+  "protocol_stop_condition": null
+}
