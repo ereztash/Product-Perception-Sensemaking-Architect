@@ -1,0 +1,41 @@
+{
+  "case_id": "OSS-0037",
+  "repository": "louislam/uptime-kuma",
+  "pinned_sha": "5df2a3c0a8c883f362dd48f6fd422b3ee60e685b",
+  "corpus": "TRAIN",
+  "stratum": "dashboard_analytics_admin",
+  "sampling_query": "active public self-hosted monitoring dashboard; previously unseen benchmark repository",
+  "prior_exposure_risk": "HIGH",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md at pinned SHA",
+    "src/components/ProxyDialog.vue at pinned SHA",
+    "server/socket-handlers/proxy-socket-handler.js at pinned SHA",
+    "server/proxy.js at pinned SHA",
+    "pinned-source code search used only to locate proxy save/apply paths",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "The proxy settings UI exposes an enabled/active switch and submits proxy.active, but Proxy.save persists bean.active = proxy.active || true. A deliberate false therefore collapses to true on the save path.",
+  "material_claim": "The repository establishes a deterministic local value-domain defect: saving an inactive proxy through this path cannot preserve false. This is a narrow reversible code correction that can be resolved at REPO authority with a regression fixture; no field claim is needed.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "REPO",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW_NARROW",
+  "neta_next_move": "Add a regression test that saves a proxy with active=false and asserts false is persisted, then replace truthy defaulting with a default that preserves explicit false.",
+  "reversal_condition": "Reverse only if an explicit product contract establishes that persisted proxies must always be active and the UI switch has a different documented meaning; otherwise preserve false exactly.",
+  "baseline_decision": "BUILD: fix bean.active = proxy.active || true so the disabled state can persist, and add a regression test.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Issue #5477 independently establishes a real user need to bypass/disable proxy use in some monitoring configurations, but it concerns environment-proxy selection rather than the proxy.active persistence mechanism under adjudication.",
+      "Post-freeze searches found no admissible issue or merged PR reproducing the exact false-to-true coercion in Proxy.save at the pinned SHA.",
+      "The frozen source itself remains deterministic about the local mechanism: JavaScript truthy defaulting converts false to true before persistence."
+    ],
+    "decision_delta": "NO_MATERIAL_DIFFERENCE: both Neta and baseline authorized the same narrow repository fix; external evidence did not add a baseline-vs-Neta advantage.",
+    "rubric_critical_failures": [],
+    "lesson": "An explicit boolean false erased by truthy defaulting is a repository-resolvable local defect; independent neighboring proxy complaints must not be laundered into confirmation of that exact mechanism."
+  }
+}
