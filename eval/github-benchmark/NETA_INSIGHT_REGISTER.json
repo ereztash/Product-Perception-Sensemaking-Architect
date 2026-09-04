@@ -1,32 +1,32 @@
 {
   "version": 1,
-  "last_batch": "BATCH-002",
+  "last_batch": "BATCH-003",
   "insights": [
     {
       "insight_id": "I-001",
       "failure_family": "static_topology_overclaim",
       "insight": "Static source can expose a plausible state path without establishing that the integrated product actually exhibits the defect; route to the cheapest integrated discriminator before granting build permission.",
       "first_seen": "OSS-0001",
-      "replications": ["OSS-0002", "OSS-0003"],
-      "counterexamples": [],
+      "replications": ["OSS-0002", "OSS-0003", "OSS-0009"],
+      "counterexamples": ["OSS-0007"],
       "neta_failed": false,
       "baseline_decision_delta": true,
-      "evidence_state": "PRELIMINARY_TRAIN_3",
+      "evidence_state": "PRELIMINARY_TRAIN_4_WITH_1_LOCAL_COUNTEREXAMPLE",
       "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
-      "promotion_reason": "This is already encoded by Neta's discrimination-before-redesign, reality-floor and permission rules; the batch adds transfer evidence, not a new rule."
+      "promotion_reason": "Already encoded by discrimination-before-redesign and reality-floor rules. OSS-0007 is a useful neighbor: a directly visible guard-contract asymmetry can justify a narrow reversible build at R1 without waiting for field evidence."
     },
     {
       "insight_id": "I-002",
       "failure_family": "neighboring_ground_truth_laundering",
       "insight": "Independent evidence about a neighboring bug or the same component can support a failure family without confirming the exact mechanism under adjudication.",
       "first_seen": "OSS-0002",
-      "replications": ["OSS-0003"],
+      "replications": ["OSS-0003", "OSS-0007", "OSS-0009"],
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "PRELIMINARY_TRAIN_2_PLUS_1_HOLDOUT_SCORED_NOT_LEARNED",
+      "evidence_state": "PRELIMINARY_TRAIN_4_PLUS_HOLDOUT_SCORE_ONLY",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "Needs counterexamples, a falsifiable adjudication gate and unseen HOLDOUT success before becoming a benchmark or Neta rule. OSS-0005 is HOLDOUT and is not used to promote or modify this insight until the holdout wave closes."
+      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. HOLDOUT observations remain score-only."
     },
     {
       "insight_id": "I-003",
@@ -47,51 +47,65 @@
       "insight": "A repository can establish exactly what the product does while remaining unable to establish that the behavior is a defect; when the unresolved question is intended interaction/configuration policy, route to OWNER instead of converting implementation certainty into build permission.",
       "first_seen": "OSS-0004",
       "replications": ["OSS-0006"],
-      "counterexamples": [],
+      "counterexamples": ["OSS-0007"],
       "neta_failed": false,
       "baseline_decision_delta": true,
-      "evidence_state": "PRELIMINARY_TRAIN_2_AUTHORITY_STOPS",
+      "evidence_state": "PRELIMINARY_TRAIN_2_AUTHORITY_STOPS_PLUS_1_HOLDOUT_SCORE_ONLY",
       "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
-      "promotion_reason": "This is already encoded by Neta's separation of evidence, authority and permission. Two unfamiliar TRAIN cases add transfer evidence but do not justify a new prompt/rule."
+      "promotion_reason": "Already encoded by Neta's evidence/authority/permission separation. OSS-0008 independently supports the same boundary in HOLDOUT and is not used to modify the rule until the holdout wave closes. OSS-0007 is a neighbor where the local product contract is explicit enough to allow a narrow build."
+    },
+    {
+      "insight_id": "I-005",
+      "failure_family": "local_contract_guard_asymmetry",
+      "insight": "When a product contract is explicit and equivalent controls already enforce it, one unguarded sibling path can justify a narrow reversible consistency fix without asserting any field outcome.",
+      "first_seen": "OSS-0007",
+      "replications": [],
+      "counterexamples": ["OSS-0009"],
+      "neta_failed": false,
+      "baseline_decision_delta": false,
+      "evidence_state": "SINGLE_TRAIN_CASE_PARTIAL_SUPPORT",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "One case only. Needs repetition, a neighboring case where asymmetry is intentional, a failing guard test/positive control, and unseen HOLDOUT success before promotion."
     }
   ],
   "saturation": {
     "decision_modes": {
-      "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER"],
-      "signal": "LOW_COVERAGE",
-      "note": "OWNER routing appeared in two TRAIN cases, breaking the all-DISCRIMINATE pattern. BUILD_READY and FIELD_STOP remain absent."
+      "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY"],
+      "signal": "EXPANDING_COVERAGE",
+      "note": "BUILD_READY appeared for the first time in OSS-0007. FIELD_STOP remains absent."
     },
     "failure_families": {
-      "observed_count": 4,
+      "observed_count": 5,
       "signal": "OPEN",
-      "note": "Batch 002 added one authority-boundary family, but it maps to an already-canonical Neta distinction rather than a new rule."
+      "note": "A local contract-asymmetry family appeared, while neighboring-ground-truth laundering replicated again. No promotion candidate yet."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT"],
       "errors": 0,
       "signal": "EXPANDING_COVERAGE",
-      "note": "OWNER appeared in two TRAIN cases; ENVIRONMENT appeared in one HOLDOUT case and is aggregate-only until the holdout wave closes."
+      "note": "OSS-0008 HOLDOUT directly confirmed OWNER routing. No FIELD_STOP case yet."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 6,
-      "fully_survived_adjudication": 2,
-      "partially_supported": 3,
+      "neta_vs_baseline_build_restraint_cases": 8,
+      "fully_survived_adjudication": 3,
+      "partially_supported": 4,
       "unresolved": 1,
       "signal": "NOT_SATURATED",
-      "note": "Two new TRAIN cases produced surviving restraint deltas by separating implementation fact from product-policy authority."
+      "note": "OSS-0008 adds a fully surviving restraint delta; OSS-0009 adds a partially supported cheaper-discriminator delta."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 6,
+    "adjudicated_repos": 9,
     "target_range": "30-50",
     "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive"],
-    "holdout_repos": 1,
-    "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER"],
+    "holdout_repos": 2,
+    "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY"],
     "clean_neta_failures": 0,
-    "surviving_baseline_deltas": 2,
-    "partially_supported_baseline_deltas": 3,
+    "surviving_baseline_deltas": 3,
+    "partially_supported_baseline_deltas": 4,
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
+  "protocol_warning": "During candidate selection, a commit endpoint returned ChangeLog/commit-history content before the blind pass for Kanboard, and branch metadata exposed a bug-fix commit message for Vikunja. Both candidates were discarded before case assignment. Subsequent pinning used git/ref endpoints, which return only the ref and SHA. No contaminated repository entered the benchmark cases.",
   "protocol_stop_condition": null
 }
