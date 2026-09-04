@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-010",
+  "last_batch": "BATCH-011",
   "insights": [
     {
       "insight_id": "I-001",
@@ -20,13 +20,13 @@
       "failure_family": "neighboring_ground_truth_laundering",
       "insight": "Independent evidence about a neighboring bug or the same component can support a failure family without confirming the exact mechanism under adjudication.",
       "first_seen": "OSS-0002",
-      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011", "OSS-0019", "OSS-0020", "OSS-0024"],
+      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011", "OSS-0019", "OSS-0020", "OSS-0024", "OSS-0031"],
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "PRELIMINARY_TRAIN_PLUS_HOLDOUT_AND_ADVERSARIAL_REPLICATIONS_WITH_REPEATED_NEIGHBORING_EVIDENCE_REJECTION",
+      "evidence_state": "PRELIMINARY_TRAIN_PLUS_HOLDOUT_AND_ADVERSARIAL_REPLICATIONS_WITH_REPEATED_NEIGHBORING_EVIDENCE_REJECTION_PLUS_SAME_FLOW_TRAIN_REJECTION",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. BATCH-007 added Butterfly and Linkwarden examples. BATCH-008 added an adversarial same-component example: Twenty's historical ConfirmationModal Enter-key bug was not allowed to confirm a distinct async-delete failure mechanism."
+      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. BATCH-007 added Butterfly and Linkwarden examples. BATCH-008 added an adversarial same-component example: Twenty's historical ConfirmationModal Enter-key bug was not allowed to confirm a distinct async-delete failure mechanism. BATCH-011 adds a tighter TRAIN example: Docmost PR #2302 confirms a stale-state defect in the same move-page flow, but it does not confirm the frozen pre-selection enabled-no-op mechanism."
     },
     {
       "insight_id": "I-003",
@@ -124,33 +124,33 @@
     "decision_modes": {
       "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
       "signal": "COVERED_NOT_SATURATED",
-      "note": "All target routing modes remain represented. BATCH-009/010 add no new mode, but add useful cross-domain replications of OWNER_DEFER, BUILD_READY and DISCRIMINATE_FIRST."
+      "note": "All target routing modes remain represented. BATCH-011 adds two BUILD_READY cases and one DISCRIMINATE_FIRST adversarial case but no new mode."
     },
     "failure_families": {
       "observed_count": 9,
       "signal": "TAXONOMY_GROWTH_SLOWING_BOUNDARIES_STILL_OPEN",
-      "note": "Neither BATCH-009 nor BATCH-010 adds a genuinely new failure family. Existing families continue to gain counterexamples, domain transfer and authority-boundary evidence, suggesting family discovery is approaching saturation before judgment-boundary validation is complete."
+      "note": "BATCH-011 adds no genuinely new family. I-002 gains one tighter TRAIN replication from Docmost, while the Zen event-semantics case remains unresolved case memory rather than a new family. Family discovery is slowing before judgment-boundary validation is complete."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
       "errors": 1,
       "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
-      "note": "No new Neta authority error in BATCH-009/010. TaskCoach, DooTask and SparkleShare strengthen OWNER routing; Ever Gauzy and Plain App demonstrate useful REPO discrimination without laundering static proxies into conclusions."
+      "note": "No new Neta authority error in BATCH-011. All three questions route to REPO, while Zen shows that correct authority does not imply the available static reality level is sufficient to authorize a build."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 23,
+      "neta_vs_baseline_build_restraint_cases": 24,
       "fully_survived_adjudication": 11,
       "partially_supported": 6,
-      "unresolved": 6,
-      "signal": "NOT_SATURATED_RECENT_FULL_DELTA_GAIN",
-      "note": "Four fully surviving decision deltas were added across BATCH-009 and BATCH-010, reversing the prior two-batch no-gain signal. Marginal baseline advantage is therefore still producing decision-relevant information."
+      "unresolved": 7,
+      "signal": "NOT_SATURATED_MIXED_MARGINAL_GAIN",
+      "note": "BATCH-011 adds one new baseline-vs-Neta restraint delta in Zen, but it remains unresolved and is not counted as surviving. No fully surviving delta was added this batch. One no-gain batch after BATCH-009/010 added four fully surviving deltas is not yet evidence that marginal decision value has saturated."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 30,
+    "adjudicated_repos": 33,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync"],
-    "holdout_repos": 10,
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity"],
+    "holdout_repos": 11,
     "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
     "clean_neta_failures": 1,
     "surviving_baseline_deltas": 11,
@@ -158,6 +158,6 @@
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
-  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes.",
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence.",
   "protocol_stop_condition": null
 }
