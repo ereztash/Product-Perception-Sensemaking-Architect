@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0012",
+  "repository": "code-charity/youtube",
+  "pinned_sha": "414d8913aab26337127dd2d9a6ba6829850adf20",
+  "corpus": "TRAIN",
+  "stratum": "browser_extension_interactive",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": ["repository metadata", "root source", "menu/skeleton-parts/settings.js", "locale strings", "extension settings/reset source only; no issues/PRs before freeze"],
+  "raw_signal_observation": "The extension exposes Backup & Reset as a settings area. Reset All Settings is a separate action guarded by a confirmation modal whose copy states that all settings will be erased and cannot be recovered.",
+  "material_claim": "Source establishes that reset is intentionally destructive and explicitly warned. It does not establish that the product should automatically create a pre-reset backup or provide undo; that is a product-policy tradeoff between recoverability, simplicity and user control.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1 for current reset semantics; OWNER for intended recovery policy; R6 for user error/value claims",
+  "authority": "OWNER",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Do not add automatic backup/undo solely because reset is irreversible. Locate explicit maintainer intent for reset recovery policy; if policy requires recoverability, add the smallest bounded backup mechanism and a test that reset cannot silently destroy the recovery point.",
+  "reversal_condition": "Explicit maintainer intent for automatic recoverability promotes a build; explicit intent that reset is a deliberate clean-slate action with manual export available closes with no build.",
+  "baseline_decision": "BUILD: automatically snapshot settings before Reset All Settings and expose one-click undo, because the current confirmation admits the action is irreversible.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search shows Reset All Settings is routinely used as a diagnostic step and that Export Settings exists in the same Backup & Reset area, but no reviewed issue directly establishes maintainer intent for automatic pre-reset backups or undo.",
+      "Recent user reports mention resetting all settings while troubleshooting unrelated extension behavior; these do not establish that irreversibility itself is a defect or that users expect automatic recovery."
+    ],
+    "decision_delta": "Neta deferred a recovery-policy build that the baseline recommended. Adjudication did not find authority-specific evidence strong enough to confirm or refute the intended recovery policy, so the delta does not count as fully surviving.",
+    "rubric_critical_failures": [],
+    "lesson": "Irreversibility plus warning text establishes a deliberate destructive interaction, not automatically a missing undo feature. Recovery policy should not be inferred from engineering possibility alone."
+  }
+}
