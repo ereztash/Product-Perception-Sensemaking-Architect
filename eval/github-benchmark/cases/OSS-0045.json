@@ -1,0 +1,39 @@
+{
+  "case_id": "OSS-0045",
+  "repository": "mucommander/mucommander",
+  "product_domain": "muCommander cross-platform desktop file manager",
+  "pinned_sha": "3504a51e9af9f69a67dc616db821a320ec780f79",
+  "corpus": "ADVERSARIAL",
+  "stratum": "desktop_native_file_management",
+  "sampling_query": "stars:1000..10000 pushed:>=2025-09-04 archived:false file manager java desktop",
+  "prior_exposure_risk": "LOW_MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "mucommander-core/src/main/java/com/mucommander/ui/dialog/file/DeleteDialog.java at pinned SHA",
+    "pinned-source search used only to locate deletion confirmation paths",
+    "no GitHub issue, PR, discussion, release-history, support, review or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "DeleteDialog supports both move-to-trash and permanent deletion, explicitly warns that permanent deletion cannot be undone, and explicitly assigns initial keyboard focus to the Delete button. The same dialog therefore combines a strong irreversible-operation warning with destructive initial focus.",
+  "material_claim": "Focusing Delete in the permanent-delete confirmation increases the possibility of fast keyboard confirmation, but repository source alone does not establish that this is an unintended safety defect rather than an intentional efficiency tradeoff, nor that users accidentally confirm deletion because of it.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1_PLUS_OWNER_INTENT",
+  "authority": "OWNER",
+  "requested_use": "CHANGE_INTERACTION_DEFAULT",
+  "permission": "DEFER",
+  "neta_next_move": "Resolve the interaction-policy question with the maintainer: is destructive initial focus intentional for keyboard-efficient confirmation, or should permanent deletion default to a non-destructive focus? If the desired claim is that the current focus causes accidental deletion, route that separate outcome claim to FIELD rather than inferring it from Swing source.",
+  "reversal_condition": "If explicit maintainer intent accepts Delete-first focus as part of the file-manager interaction contract, stop and retain it absent separate field evidence. If the owner states that irreversible deletion should not receive initial focus, authorize the narrow focus-default change without claiming a field outcome.",
+  "baseline_decision": "BUILD: default focus to Cancel or another non-destructive control when permanent deletion is selected, because irreversible deletion should not be the initially focused action.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue searches for permanent-delete confirmation, Enter/default-button behavior and trash/permanent-delete policy returned no claim-specific maintainer or user evidence.",
+      "Post-freeze pull-request search likewise found no claim-specific change or discussion resolving whether Delete-first focus is intentional policy.",
+      "A helper source file was inspected only after Phase D began and was excluded from the frozen Neta/baseline evidence and from adjudication credit; it does not substitute for independent owner or field evidence."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA: Neta routes the change to OWNER while the baseline applies a generic safety heuristic immediately. No admissible independent evidence resolves product intent, so the restraint is not counted as a surviving advantage.",
+    "rubric_critical_failures": [],
+    "lesson": "A safety heuristic is not automatically product authority. Even for irreversible actions, static evidence of destructive focus must remain separate from owner intent and from field claims about accidental confirmation."
+  }
+}
