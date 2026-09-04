@@ -1,0 +1,39 @@
+{
+  "batch_id": "BATCH-004",
+  "cases": ["OSS-0010", "OSS-0011", "OSS-0012"],
+  "repositories": ["swiftbar/SwiftBar", "dnote/dnote", "code-charity/youtube"],
+  "corpora": {"HOLDOUT": 1, "TRAIN": 2, "ADVERSARIAL": 0},
+  "results": {
+    "authority_correct_stop": 2,
+    "unresolved": 1,
+    "partially_supported": 0,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 2,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "I-006 added as a concrete static-affordance-to-field-outcome transfer case; already canonical, not a promotion candidate.",
+    "I-004 gained TRAIN replication through OSS-0012 recovery-policy routing.",
+    "I-002 gained TRAIN replication because Dnote deletion bug evidence did not confirm warning inadequacy."
+  ],
+  "saturation": {
+    "decision_modes": "FIELD_STOP appeared; BUILD/DISCRIMINATE/OWNER/FIELD are now all represented.",
+    "failure_families": "Still open; no new promotable rule.",
+    "authority_boundaries": "FIELD now represented; no authority errors observed.",
+    "baseline_deltas": "Not saturated; two additional restraint deltas survived adjudication."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 12,
+    "holdout_repos": 3,
+    "surviving_baseline_deltas": 5,
+    "clean_neta_failures": 0,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [
+    "kanboard/kanboard: excluded because prior protocol warning documented candidate contamination before case assignment.",
+    "Volmarg/personal-management-system: excluded because the selected repository is backend-only and fails the user-facing-surface eligibility rule."
+  ],
+  "protocol_stop_condition": null
+}
