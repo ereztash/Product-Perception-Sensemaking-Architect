@@ -1,0 +1,34 @@
+{
+  "case_id": "OSS-0029",
+  "repository": "plainhub/plain-app",
+  "pinned_sha": "559be89bab2315de300d8b8f1e0cc3ce193af36b",
+  "corpus": "HOLDOUT",
+  "stratum": "android_phone_management",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "app/src/main/AndroidManifest.xml",
+    "direct app/src/main directory listing",
+    "no issue/PR/discussion body opened before freeze"
+  ],
+  "raw_signal_observation": "The README states that every phone-browser connection is encrypted with TLS plus XChaCha20-Poly1305 and that data never leaves the local network. AndroidManifest.xml sets android:usesCleartextTraffic='true'. That manifest flag permits cleartext transport but does not prove that any product connection actually uses it.",
+  "material_claim": "The cleartext permission is not sufficient evidence to refute the product's encryption promise. The actual HTTP server/client transport path or an integrated network fixture must be inspected before calling this a security defect or changing the manifest.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "REPO",
+  "requested_use": "DISCRIMINATE",
+  "permission": "ALLOW",
+  "neta_next_move": "Trace the local server and browser connection scheme/cipher path, then deliberately attempt a cleartext connection in an isolated fixture. If the product rejects/redirects it and all intended channels remain encrypted, the manifest permission is not enough to justify a product change.",
+  "reversal_condition": "If the integrated path accepts a user-relevant plaintext connection covered by the README's 'every connection' wording, permit the narrow transport/manifest repair; otherwise retain the implementation and calibrate only claims that exceed the tested boundary.",
+  "baseline_decision": "BUILD: set usesCleartextTraffic=false so the Android platform enforces the README's all-connections-encrypted promise instead of merely relying on application discipline.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [],
+    "decision_delta": "PENDING_PHASE_D",
+    "rubric_critical_failures": [],
+    "lesson": "HOLDOUT score only until Wave 1 closes."
+  }
+}
