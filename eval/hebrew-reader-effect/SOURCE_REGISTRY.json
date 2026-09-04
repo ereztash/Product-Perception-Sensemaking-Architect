@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-09-04",
+  "purpose": "Track external Hebrew affect/pragmatics resources without treating them as reader-effect ground truth.",
+  "sources": [
+    {
+      "id": "hebrew_vad_lexicon",
+      "name": "Hebrew VAD Lexicon",
+      "url": "https://huggingface.co/datasets/GiliGold/Hebrew_VAD_lexicon",
+      "license": "CC-BY-SA-4.0",
+      "size": "13526 Hebrew entries",
+      "unit": "word/lexeme",
+      "labels": ["valence", "arousal", "dominance"],
+      "annotation_origin": "English VAD-derived resource adapted to Hebrew with manual correction/enrichment",
+      "use": "lexical affect reference and feature substrate",
+      "reader_effect_ground_truth": false,
+      "holdout_eligible": false,
+      "risk_notes": [
+        "Scores inherit mapping/aggregation assumptions from English source words.",
+        "Do not treat lexical VAD as sentence pragmatics or recipient effect."
+      ]
+    },
+    {
+      "id": "vad_knesset_manual_120",
+      "name": "VAD Knesset Corpus — manually annotated subset",
+      "url": "https://huggingface.co/datasets/GiliGold/VAD_KnessetCorpus",
+      "license": "CC-BY-4.0",
+      "size": "120 manually annotated Hebrew sentences; 3 annotators",
+      "unit": "sentence",
+      "labels": ["valence", "arousal", "dominance"],
+      "annotation_origin": "manual Hebrew sentence annotation",
+      "use": "sentence-level blind HOLDOUT benchmark",
+      "reader_effect_ground_truth": false,
+      "holdout_eligible": true,
+      "risk_notes": [
+        "Parliamentary domain may not transfer to colloquial Israeli Hebrew.",
+        "VAD is not a direct recipient-effect annotation."
+      ]
+    },
+    {
+      "id": "hebnorms",
+      "name": "hebnoRms / E-Millim-derived affect norms",
+      "url": "https://almogsi.github.io/hebnoRms/",
+      "license": "GPL-3.0 for package; verify underlying resource terms before redistribution",
+      "size": "22K and up to ~1.4M Hebrew token forms",
+      "unit": "token/form",
+      "labels": ["valence", "arousal"],
+      "annotation_origin": "E-Millim affective norms expanded with distributional methods",
+      "use": "broad lexical coverage and morphology-sensitive affect reference",
+      "reader_effect_ground_truth": false,
+      "holdout_eligible": false,
+      "risk_notes": [
+        "Expansion is heuristic/model-based beyond the original human norms.",
+        "Use as substrate, not adjudication truth for pragmatics."
+      ]
+    },
+    {
+      "id": "hebemo",
+      "name": "HebEMO / HeBERT emotion corpus",
+      "url": "https://github.com/avichaychriqui/HeBERT",
+      "license": "verify repository/dataset-specific terms before redistribution",
+      "unit": "sentence/post segment",
+      "labels": ["polarity", "anger", "disgust", "anticipation", "fear", "joy", "sadness", "surprise", "trust"],
+      "annotation_origin": "human annotation of Hebrew UGC subset",
+      "use": "expressed-emotion benchmark and failure-family discovery",
+      "reader_effect_ground_truth": false,
+      "holdout_eligible": true,
+      "risk_notes": [
+        "Emotion expressed/perceived in text is not the same construct as emotion induced in the reader.",
+        "Freeze a subset before any Hebrew-specific Neta update."
+      ]
+    },
+    {
+      "id": "ironyset",
+      "name": "IronySet",
+      "url": "https://github.com/NNLP-IL/Hebrew-Resources/blob/master/corpora_and_data_resources.rst",
+      "license": "unknown/verify before redistribution",
+      "size": "4000+ quotation-mark cases from Hebrew newspapers",
+      "unit": "quotation-mark usage instance",
+      "labels": ["pragmatic/ironic usage"],
+      "annotation_origin": "3 pragmatics experts",
+      "use": "literal-vs-pragmatic discrimination benchmark",
+      "reader_effect_ground_truth": false,
+      "holdout_eligible": true,
+      "risk_notes": [
+        "News-register Hebrew differs from colloquial dialogue.",
+        "Do not infer recipient emotion directly from irony labels."
+      ]
+    }
+  ],
+  "construction_gap": {
+    "missing_resource": "Native-Hebrew sentence/dialogue corpus with direct recipient self-report of induced interpersonal effect",
+    "planned_fill": "small human-annotated minimal-pair corpus",
+    "anti_build_rule": "Do not recreate lexical sentiment/emotion resources already available; build only the missing reader-effect layer."
+  }
+}
