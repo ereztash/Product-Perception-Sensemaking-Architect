@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-001",
+  "last_batch": "BATCH-002",
   "insights": [
     {
       "insight_id": "I-001",
@@ -24,9 +24,9 @@
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "PRELIMINARY_TRAIN_2",
+      "evidence_state": "PRELIMINARY_TRAIN_2_PLUS_1_HOLDOUT_SCORED_NOT_LEARNED",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "Needs counterexamples, a falsifiable adjudication gate and unseen HOLDOUT success before becoming a benchmark or Neta rule."
+      "promotion_reason": "Needs counterexamples, a falsifiable adjudication gate and unseen HOLDOUT success before becoming a benchmark or Neta rule. OSS-0005 is HOLDOUT and is not used to promote or modify this insight until the holdout wave closes."
     },
     {
       "insight_id": "I-003",
@@ -40,40 +40,56 @@
       "evidence_state": "SINGLE_TRAIN_CASE_PARTIAL_SUPPORT",
       "promotion_status": "MEMORY_ONLY",
       "promotion_reason": "Single case, no neighbor control, no positive control and no HOLDOUT evidence."
+    },
+    {
+      "insight_id": "I-004",
+      "failure_family": "implementation_fact_to_defect_laundering",
+      "insight": "A repository can establish exactly what the product does while remaining unable to establish that the behavior is a defect; when the unresolved question is intended interaction/configuration policy, route to OWNER instead of converting implementation certainty into build permission.",
+      "first_seen": "OSS-0004",
+      "replications": ["OSS-0006"],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": true,
+      "evidence_state": "PRELIMINARY_TRAIN_2_AUTHORITY_STOPS",
+      "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
+      "promotion_reason": "This is already encoded by Neta's separation of evidence, authority and permission. Two unfamiliar TRAIN cases add transfer evidence but do not justify a new prompt/rule."
     }
   ],
   "saturation": {
     "decision_modes": {
-      "observed": ["DISCRIMINATE_FIRST"],
+      "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER"],
       "signal": "LOW_COVERAGE",
-      "note": "All three cases landed on the same decision mode; this is not saturation. Future batches need BUILD and routed-stop opportunities."
+      "note": "OWNER routing appeared in two TRAIN cases, breaking the all-DISCRIMINATE pattern. BUILD_READY and FIELD_STOP remain absent."
     },
     "failure_families": {
-      "observed_count": 3,
-      "signal": "OPEN"
+      "observed_count": 4,
+      "signal": "OPEN",
+      "note": "Batch 002 added one authority-boundary family, but it maps to an already-canonical Neta distinction rather than a new rule."
     },
     "authority_boundaries": {
-      "observed": ["REPO"],
+      "observed": ["REPO", "OWNER", "ENVIRONMENT"],
       "errors": 0,
-      "signal": "LOW_COVERAGE"
+      "signal": "EXPANDING_COVERAGE",
+      "note": "OWNER appeared in two TRAIN cases; ENVIRONMENT appeared in one HOLDOUT case and is aggregate-only until the holdout wave closes."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 3,
-      "fully_survived_adjudication": 0,
-      "partially_supported": 2,
+      "neta_vs_baseline_build_restraint_cases": 6,
+      "fully_survived_adjudication": 2,
+      "partially_supported": 3,
       "unresolved": 1,
-      "signal": "NOT_SATURATED"
+      "signal": "NOT_SATURATED",
+      "note": "Two new TRAIN cases produced surviving restraint deltas by separating implementation fact from product-policy authority."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 3,
+    "adjudicated_repos": 6,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native"],
-    "holdout_repos": 0,
-    "decision_modes_present": ["DISCRIMINATE_FIRST"],
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive"],
+    "holdout_repos": 1,
+    "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER"],
     "clean_neta_failures": 0,
-    "surviving_baseline_deltas": 0,
-    "partially_supported_baseline_deltas": 2,
+    "surviving_baseline_deltas": 2,
+    "partially_supported_baseline_deltas": 3,
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
