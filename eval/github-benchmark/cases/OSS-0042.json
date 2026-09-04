@@ -1,0 +1,40 @@
+{
+  "case_id": "OSS-0042",
+  "repository": "homarr-labs/homarr",
+  "pinned_sha": "cb0fec088f8cbdde40adffe8ab556c638c57e138",
+  "corpus": "ADVERSARIAL",
+  "stratum": "dashboard_analytics_admin",
+  "sampling_query": "stars:500..5000 pushed:>=2025-09-04 archived:false topic:dashboard",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "apps/nextjs/src/app/[locale]/manage/boards/_components/board-card-menu-dropdown.tsx at pinned SHA",
+    "apps/nextjs/src/app/[locale]/boards/[name]/settings/_danger.tsx at pinned SHA",
+    "packages/api/src/router/board.ts at pinned SHA",
+    "pinned-source code search used only to locate board-deletion paths",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "Board deletion is confirmed in both the management menu and settings danger zone. In the settings danger zone, the delete mutation's onSettled callback always routes to '/', meaning the navigation callback runs after either mutation success or mutation error. The management-list path instead uses onSettled only to revalidate the board list and does not navigate away.",
+  "material_claim": "The settings deletion path can navigate the user away from the board settings even when the delete mutation settles with an error, obscuring the failed operation. Because onSettled semantics and the unconditional router.push are explicit in source, the local intervention is to navigate only after successful deletion while preserving existing error handling.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Change the settings deletion callback so navigation occurs on successful deletion rather than on every settlement, and add a mutation-failure test that deliberately turns red under the current onSettled redirect behavior.",
+  "reversal_condition": "Revert or narrow the change if the mutation layer demonstrably guarantees that user-visible errors are handled before routing and product intent explicitly requires leaving settings after failure; otherwise retain success-only navigation.",
+  "baseline_decision": "BUILD: replace the unconditional onSettled redirect with success-only navigation so a failed board deletion does not eject the user from the settings page.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Post-freeze issue search confirms Homarr has real stale-state and redirect UX failures around board lifecycle and restore flows, including issue #6622, but no issue or PR was found that reproduces this exact failed-delete redirect mechanism.",
+      "Issue #4051 shows board-related server errors can leave users in broken navigation states and require alternate board-management actions, which supports the consequence family but does not confirm this callback path.",
+      "The exact callback mechanism remains source-supported locally; independent field evidence is neighboring rather than claim-specific."
+    ],
+    "decision_delta": "NO_MATERIAL_DIFFERENCE: Neta and baseline both authorize the same narrow success-only redirect repair. The case adds mechanism coverage, not marginal decision advantage.",
+    "rubric_critical_failures": [],
+    "lesson": "A deterministic local callback error can justify BUILD_READY without a field-outcome claim, but neighboring board-navigation incidents must not be laundered into confirmation of the exact delete-failure mechanism."
+  }
+}
