@@ -1,0 +1,39 @@
+{
+  "case_id": "OSS-0033",
+  "repository": "zen-browser/desktop",
+  "pinned_sha": "6af79fd621c96b0c8884fd8b96eaba5a7ee583cd",
+  "corpus": "ADVERSARIAL",
+  "stratum": "desktop_native_browser_productivity",
+  "sampling_query": "public desktop browser product with active development; intentionally selected as an event-semantics adversarial review case; previously unseen benchmark repository",
+  "prior_exposure_risk": "HIGH",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "src/browser/components/preferences/zen-settings.js at the pinned SHA",
+    "pinned-source code search used only to locate the settings implementation",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "In the mod-preference checkbox click handler, the code reads whether the XUL checkbox currently has the checked attribute and persists Services.prefs.setBoolPref(key, !checked). The same handler also removes checked when !checked and re-adds checked when checked. Syntactically this looks like a boolean inversion, but the source boundary does not establish whether XUL toggles the checked attribute before the click handler runs.",
+  "material_claim": "The apparent inversion is below the required mechanism floor until event-order semantics are observed. Editing !checked to checked from static inspection alone could repair a real inversion or introduce one. The cheapest discriminator is a browser-level fixture that observes both visible checked state and persisted pref across a synthesized click.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Instantiate the checkbox path in a browser-chrome fixture with the preference initially false and true, synthesize one click, and assert both the post-event checked state and persisted preference. Include a deliberate known-wrong assignment as a positive control so the fixture demonstrably turns red.",
+  "reversal_condition": "If the fixture shows the persisted preference is opposite the visible checkbox state after the event, permit a narrow assignment/handler repair. If event timing makes !checked match the post-click visible state, close the defect claim and leave the code unchanged unless a separate maintainability claim is owner-approved.",
+  "baseline_decision": "BUILD: the checkbox handler persists the inverse of the checked state; replace Services.prefs.setBoolPref(key, !checked) with checked and simplify the redundant checked-attribute branch.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze exact issue search found no report of mod preference checkboxes persisting the inverse value.",
+      "A broader post-freeze issue search returned unrelated tab-unloading and WebRender reports, not evidence for this mechanism.",
+      "Post-freeze PR search found no repair or maintainer discussion closing the checkbox event-order question."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA: the baseline would change code immediately while Neta requires a browser event fixture. Because no admissible independent evidence resolved XUL event timing, this restraint is not counted as a surviving baseline delta.",
+    "rubric_critical_failures": [],
+    "lesson": "Framework event semantics can make an apparent source-level boolean inversion a reviewer trap. Syntax that looks self-contradictory may still sit below the mechanism reality floor when the framework mutates state before the handler observes it."
+  }
+}
