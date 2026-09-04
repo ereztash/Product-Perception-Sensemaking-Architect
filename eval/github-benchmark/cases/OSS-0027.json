@@ -25,10 +25,14 @@
   "baseline_decision": "BUILD: remove the automatic HTTP fallback and require HTTPS for login endpoints so credentials are never submitted over plaintext after an HTTPS failure.",
   "phase_b_c_frozen": true,
   "adjudication": {
-    "status": "UNRESOLVED",
-    "evidence": [],
-    "decision_delta": "PENDING_PHASE_D",
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #102 reports a real deployment that worked before SSL was added and then hit 'The plain HTTP request was sent to HTTPS port' behavior after the operator introduced HTTPS.",
+      "Post-freeze issue #224 describes a deployment in which DooTask's HTTP web interface is reverse-proxied to HTTPS and generated links still use HTTP, independently showing that mixed HTTP/HTTPS deployment topologies exist in the product ecosystem.",
+      "No exact issue established that scheme-less login fallback is either an accepted security policy or a confirmed credential-exposure defect, so the implementation fact cannot itself settle the product policy."
+    ],
+    "decision_delta": "SURVIVED: the baseline would force HTTPS immediately, while revealed deployment evidence shows real mixed-scheme topologies that such a change could affect. Neta's route to OWNER/security policy remains the justified next decision rather than treating the fallback's existence as permission to remove it.",
     "rubric_critical_failures": [],
-    "lesson": "Pending Phase D."
+    "lesson": "A security-sensitive implementation fact can be real without being a self-authorizing fix. In self-hosted products, deployment topology is part of the decision boundary; force-HTTPS policy needs an explicit contract, not only code smell."
   }
 }
