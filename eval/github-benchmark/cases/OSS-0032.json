@@ -1,0 +1,38 @@
+{
+  "case_id": "OSS-0032",
+  "repository": "FossifyOrg/Calendar",
+  "pinned_sha": "d985d5e9011cb01bb8634e2387ebb908a80979c0",
+  "corpus": "HOLDOUT",
+  "stratum": "mobile_application_calendar_productivity",
+  "sampling_query": "public Android productivity application with active development; previously unseen benchmark repository",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "app/src/main/kotlin/org/fossify/calendar/dialogs/DeleteEventDialog.kt",
+    "direct source-directory listing used only to locate the frozen dialog file",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "DeleteEventDialog sets deleteEventRepeatDescription to selection_contains_repetition when eventIds.size > 1, then immediately overwrites that text on every path with either task_is_repeatable or event_is_repeatable. The multi-selection-specific description therefore cannot survive initialization.",
+  "material_claim": "The repository exposes a bounded local branch-overwrite defect candidate: a specific multi-selection message is assigned but made unreachable as final dialog text by the following unconditional task/event branch. A narrow conditional fix is locally supportable without asserting any user-comprehension or field outcome.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Make the message branches mutually exclusive so the multi-selection copy can survive when eventIds.size > 1, and add controls for multi-selection, single task, and single event. Keep the change limited to message selection.",
+  "reversal_condition": "If a current owner contract shows the generic task/event message is intentionally required even for multi-selection and selection_contains_repetition is dead legacy copy, remove the dead branch instead of restoring it.",
+  "baseline_decision": "BUILD: fix the overwritten multi-selection description by reordering or making the conditions mutually exclusive, with regression coverage for all three message states.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search found no exact report about the multi-event deletion description being overwritten.",
+      "Post-freeze PR search found no repair or maintainer discussion closing this exact message-selection behavior."
+    ],
+    "decision_delta": "NO_MATERIAL_DIFFERENCE: both reviewers reached the same narrow BUILD decision; no independent evidence was found to close the exact claim.",
+    "rubric_critical_failures": [],
+    "lesson": "The local overwrite remains a strong repository observation but the HOLDOUT case is score-only and supplies no learning or promotion evidence before the wave closes."
+  }
+}
