@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0013",
+  "repository": "freeplane/freeplane",
+  "pinned_sha": "ad5dbf7c27e85d32a7d35d7e13516dc711709cce",
+  "corpus": "HOLDOUT",
+  "stratum": "desktop_native_knowledge",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata",
+    "freeplane/src/main/java/org/freeplane/features/url/mindmapmode/LockManager.java",
+    "freeplane/src/main/java/org/freeplane/features/url/mindmapmode/MFileManager.java lock/save paths",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "LockManager reads a semaphore as two lines (locking user, then timestamp) without taking the writer's file lock. A missing or malformed timestamp raises NumberFormatException, which tryToLock catches before proceeding to write a new semaphore and replace its tracked lock. MFileManager opens a map read-only when tryToLock reports another locking user.",
+  "material_claim": "Source exposes a plausible partial-read/concurrent-write path that could misclassify or replace an active lock, but source alone does not establish that the integrated product exhibits that race or that it explains false read-only openings.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Build a deterministic two-process/JVM fixture that pauses the semaphore writer after the username line and before the timestamp, then invokes a competing reader and records return value plus semaphore contents. Patch only if the active lock is stolen, replaced or misclassified.",
+  "reversal_condition": "If the integrated fixture preserves the active lock across partial-write timing, do not change the lock protocol for this mechanism; if it reproduces lock theft/corruption, allow the narrowest atomic or locked-read repair with a red positive control.",
+  "baseline_decision": "BUILD: harden the semaphore protocol immediately by making parsing atomic/defensive and coordinating reads with writes, because the source already exposes a race-prone two-line lock file.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Post-freeze issue #1630 reports stale temporary lock files causing maps to reopen read-only; the maintainer explicitly confirmed the bug and later reported a preview fix.",
+      "The reporter said disabling Experimental file locking appeared to resolve the symptom.",
+      "The independent evidence confirms a real false-read-only failure family in the locking subsystem, but it does not establish the specific partial-read timestamp race in this pinned SHA."
+    ],
+    "decision_delta": "Neta avoided changing the lock protocol for an unproven mechanism. Ground truth supports the subsystem-level failure family but not the exact diagnosis, so the cheaper integrated discriminator remains the justified next move.",
+    "rubric_critical_failures": [],
+    "lesson": "A confirmed neighboring failure in the same lock subsystem is not confirmation of the proposed concurrency mechanism. HOLDOUT evidence remains score-only until the wave closes."
+  }
+}
