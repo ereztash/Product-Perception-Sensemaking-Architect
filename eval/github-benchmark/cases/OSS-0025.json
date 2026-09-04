@@ -24,10 +24,14 @@
   "baseline_decision": "BUILD: replace the broad home-filesystem grant with portal-mediated file access and move the Flatpak toward native Wayland so sandbox permissions follow current desktop security expectations.",
   "phase_b_c_frozen": true,
   "adjudication": {
-    "status": "UNRESOLVED",
-    "evidence": [],
-    "decision_delta": "PENDING_PHASE_D",
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #434 records the user demand that caused Flatpak packaging to be added rather than a demand for native-Wayland/portal hardening.",
+      "After the Flatpak shipped, the requesting user reported that it was working fine; the concrete issues they noticed were the notification-portal path and a blurry/icon presentation issue, not failure caused by the documented XWayland or home-filesystem tradeoff.",
+      "No post-freeze evidence established that the two documented upstream blockers had disappeared or that the owner had reversed the compatibility/security priority."
+    ],
+    "decision_delta": "SURVIVED: the baseline would immediately pay a broad compatibility refactor; the revealed evidence supports the current Flatpak as usable and leaves the hardening tradeoff with OWNER rather than converting best-practice preference into a REPO defect.",
     "rubric_critical_failures": [],
-    "lesson": "Pending Phase D."
+    "lesson": "Security/sandbox best practice does not erase an explicit compatibility tradeoff. A working deployed path plus documented blockers should route priority to OWNER until the blocker or product policy changes."
   }
 }
