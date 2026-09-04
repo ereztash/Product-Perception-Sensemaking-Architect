@@ -1,0 +1,36 @@
+{
+  "case_id": "OSS-0023",
+  "repository": "localsend/localsend",
+  "pinned_sha": "6279d3e30d1d1290caee3b81549f8128a8b01d9f",
+  "corpus": "HOLDOUT",
+  "stratum": "cross_platform_file_transfer",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "packages/localsend_isolates/lib/src/isolate/child/server_isolate.dart",
+    "current pinned source search for overwrite behavior; no issues/PRs opened before Phase D"
+  ],
+  "raw_signal_observation": "The receive session intentionally remembers a target per file so a same-session retry overwrites the prior attempt. On transfer failure, the incomplete file is explicitly kept rather than deleted; comments state that it either gets overwritten by a retry or remains as the partial file of a failed transfer.",
+  "material_claim": "Keeping the incomplete artifact is an explicit implementation policy, but source alone cannot establish whether that policy is desirable after an interrupted session that will not resume. Deleting partial files by default would change a recovery/retention policy rather than merely fix a local defect.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "OWNER",
+  "requested_use": "DEFER",
+  "permission": "DEFER",
+  "neta_next_move": "Do not clean up partial files automatically from source review alone. Resolve the retention/recovery policy first, then use a failure/retry fixture to verify whichever rule is chosen.",
+  "reversal_condition": "If product intent or a reproducible integrated contract states that failed transfers must leave no artifact, permit a narrow cleanup build; if cross-session resume is intended, preserve or formalize the retained target instead.",
+  "baseline_decision": "BUILD: remove incomplete files on terminal transfer failure so users are not left with corrupt or partial artifacts; keep overwrite behavior only for explicit retry.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue #2824 reports that interrupted batch transfers currently require restarting and proposes per-file resume plus clearer completed-file state.",
+      "The issue confirms that interruption/retry behavior is a real product concern, but it does not establish whether partial destination artifacts should be retained or deleted under the current protocol.",
+      "Issue #2606 concerns broader folder synchronization and is neighboring evidence only, not adjudication of the partial-file retention policy."
+    ],
+    "decision_delta": "UNRESOLVED: Neta and baseline differ on cleanup policy, but independent evidence does not close whether retained partial artifacts are intended recovery state or unwanted residue.",
+    "rubric_critical_failures": [],
+    "lesson": "A deliberately retained partial artifact is not automatically technical debt. Cleanup versus recoverability is a product/operational policy boundary, and HOLDOUT evidence does not authorize teaching Neta before the wave closes."
+  }
+}
