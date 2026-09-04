@@ -25,10 +25,14 @@
   "baseline_decision": "BUILD: set usesCleartextTraffic=false so the Android platform enforces the README's all-connections-encrypted promise instead of merely relying on application discipline.",
   "phase_b_c_frozen": true,
   "adjudication": {
-    "status": "UNRESOLVED",
-    "evidence": [],
-    "decision_delta": "PENDING_PHASE_D",
+    "status": "CONFIRMED_LOCAL",
+    "evidence": [
+      "Post-freeze source tracing found the Android Ktor/Netty server explicitly binding both an HTTP connector and an HTTPS sslConnector on configured ports; the HTTP connector binds on all interfaces.",
+      "Post-freeze issue #320 (2026) reports a real user opening Web Access successfully at an http://...:8080 address in a browser, independently confirming that a user-relevant HTTP path exists rather than the manifest merely permitting unused cleartext.",
+      "The repository also contains XChaCha20-Poly1305 application-layer crypto, so the revealed evidence specifically contradicts the literal TLS-on-every-connection wording; it does not establish that HTTP payloads are unencrypted at the application layer."
+    ],
+    "decision_delta": "SURVIVED: Neta refused to infer a live cleartext path from the manifest alone. The discriminator then found a real HTTP connector and external 2026 use of it, materially sharpening the problem from 'manifest permission looks unsafe' to an explicit product-contract decision about supporting HTTP versus claiming TLS on every connection. The baseline's immediate manifest flip could break an actually used path and was therefore premature.",
     "rubric_critical_failures": [],
-    "lesson": "HOLDOUT score only until Wave 1 closes."
+    "lesson": "HOLDOUT score only until Wave 1 closes. Permission to use a transport is not proof that the transport is used; once use is confirmed, keep transport-layer and application-layer encryption claims separate and repair the actual contract boundary rather than the proxy."
   }
 }
