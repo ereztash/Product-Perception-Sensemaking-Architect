@@ -1,0 +1,49 @@
+{
+  "batch_id": "BATCH-016",
+  "cases": ["OSS-0046", "OSS-0047", "OSS-0048"],
+  "repositories": ["zidoro/pomatez", "unhappychoice/gitlogue", "muety/wakapi"],
+  "corpora": {"TRAIN": 1, "HOLDOUT": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 0,
+    "unresolved": 2,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 0,
+    "partially_supported_baseline_deltas_added": 1,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "I-002 neighboring_ground_truth_laundering gains TRAIN replication OSS-0046: multiple Strict Mode anti-circumvention issues support the policy family but do not confirm that the unguarded Sessions refresh control actually bypasses the active strict timer.",
+    "No new failure family or promotion candidate. OSS-0048 is HOLDOUT and remains score-only."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode. DISCRIMINATE_FIRST and OWNER_DEFER are exercised across desktop productivity, terminal developer tooling and analytics.",
+    "failure_families": "No new family for the third consecutive batch. One mature adjudication-hazard family (I-002) receives another TRAIN replication, but taxonomy growth remains flat at 9.",
+    "authority_boundaries": "No new authority error or clean Neta failure. REPO, OWNER and ENVIRONMENT boundaries are exercised without a decisive reversal.",
+    "baseline_deltas": "No fully surviving delta for the third consecutive batch. One new delta is only partially supported and two remain unresolved. Routine broad sampling is no longer removing enough decision-relevant uncertainty to justify another identical batch."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 48,
+    "holdout_repos": 16,
+    "surviving_baseline_deltas": 14,
+    "partially_supported_baseline_deltas": 8,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_notes": [
+    "All three repositories were checked against the benchmark repository index and were previously unseen in the corpus.",
+    "Exact SHAs and corpus assignments were frozen before any issue/PR reveal.",
+    "Neta and baseline decisions were frozen on the same repository-only evidence boundary.",
+    "OSS-0048 is HOLDOUT and does not update insight lineage or Neta rules before wave close.",
+    "The separate neta/hebrew-observatory branch did not modify the frozen Neta version used by this GitHub HOLDOUT wave."
+  ],
+  "protocol_stop_condition": {
+    "type": "SATURATION_LOW_MARGINAL_GAIN",
+    "status": "PAUSE_ROUTINE_SAMPLING",
+    "reason": "BATCH-014, BATCH-015 and BATCH-016 add no fully surviving baseline delta, no clean Neta failure and no new failure family. BATCH-016 removes only limited uncertainty through one partial delta/replication. Continuing the same broad sampling distribution is now dominated by targeted falsification designed to expose false-defer or false-build failures.",
+    "resume_condition": "Resume only with a documented sampling change that increases falsification pressure without teaching from HOLDOUT, or after Wave 1 closure rules are explicitly revised/frozen."
+  }
+}
