@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-09-04",
+  "status": "FROZEN_PLAN_LABELS_NOT_IMPORTED",
+  "principle": "External gold labels stay outside Neta's prompt/context until both Neta and baseline predictions are frozen.",
+  "holdouts": [
+    {
+      "id": "H-VAD-120",
+      "source": "GiliGold/VAD_KnessetCorpus",
+      "source_url": "https://huggingface.co/datasets/GiliGold/VAD_KnessetCorpus",
+      "target": "the manually annotated subset of 120 Hebrew sentences with 3 annotators",
+      "construct": "sentence-level valence/arousal/dominance",
+      "status": "RESERVED",
+      "teaching_allowed": false,
+      "notes": "Use only after freezing Neta and baseline predictions. Parliamentary register limits generalization."
+    },
+    {
+      "id": "H-HEBEMO",
+      "source": "HebEMO / HeBERT",
+      "source_url": "https://github.com/avichaychriqui/HeBERT",
+      "target": "a reproducibly sampled human-annotated subset, exact item IDs to be frozen before first prediction run",
+      "construct": "expressed emotion / polarity",
+      "status": "RESERVED_SAMPLING_PENDING",
+      "teaching_allowed": false,
+      "notes": "Not reader-effect ground truth. Used to locate Hebrew emotion-semantic failure families."
+    },
+    {
+      "id": "H-IRONYSET",
+      "source": "IronySet",
+      "source_url": "https://github.com/NNLP-IL/Hebrew-Resources/blob/master/corpora_and_data_resources.rst",
+      "target": "a reproducibly sampled subset after license/access verification",
+      "construct": "literal-vs-pragmatic/ironic interpretation",
+      "status": "RESERVED_ACCESS_PENDING",
+      "teaching_allowed": false,
+      "notes": "Use as pragmatics pressure test; do not translate irony correctness into recipient-emotion claims."
+    }
+  ],
+  "reader_effect_holdout": {
+    "status": "NOT_YET_CREATED",
+    "rule": "Create only after the annotation instrument is tested on TRAIN seed items; freeze unseen minimal pairs before collecting/using labels for scoring."
+  }
+}
