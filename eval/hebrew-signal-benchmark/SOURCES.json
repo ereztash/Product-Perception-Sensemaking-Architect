@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "purpose": "Source registry for Hebrew Signal Fidelity evaluation. External datasets are adapters/controls, not direct Neta ground truth.",
+  "sources": [
+    {
+      "source_id": "hebrew_paraphrase",
+      "name": "Hebrew Paraphrase Dataset",
+      "url": "https://github.com/NNLP-IL/Hebrew-Paraphrase-Dataset",
+      "verified_repo_fact": "9785 Hebrew paraphrase instances; 300 manually validated gold instances; code-switching examples were filtered out.",
+      "license": "CC-BY-SA-4.0",
+      "ingest_policy": "ALLOWED_WITH_ATTRIBUTION_AND_SHAREALIKE",
+      "neta_role": ["semantic_preservation", "cross_formulation_invariance"],
+      "limitations": [
+        "LLM-generated paraphrases dominate the corpus.",
+        "Code-switching was removed, so it cannot test Hebrew-English mixed product speech.",
+        "Paraphrase equivalence does not itself establish Neta authority/action labels."
+      ],
+      "recommended_adapter": "Sample gold pairs only for first wave; add Neta-specific authority/action annotation without altering source labels."
+    },
+    {
+      "source_id": "hebnli",
+      "name": "HebNLI",
+      "url": "https://github.com/NNLP-IL/HebNLI",
+      "verified_repo_fact": "Hebrew NLI corpus based on translated MultiNLI; 302150 sentences; 884-pair manually verified gold set with entailment/neutral/contradiction labels.",
+      "license": "NO_EXPLICIT_REPO_LICENSE_VERIFIED",
+      "ingest_policy": "REFERENCE_ONLY_UNTIL_LICENSE_CLARIFIED",
+      "neta_role": ["inference_discipline", "negation_contradiction", "neutral_vs_entailment_boundary"],
+      "limitations": [
+        "Most data is machine-translated from English rather than native Israeli conversation.",
+        "Face-to-face and telephone genres were excluded because broken sentences and filler words were hard to translate.",
+        "Original NLI labels do not map directly to Neta decisions."
+      ],
+      "recommended_adapter": "Do not copy raw data into this repo until licensing is explicit; if used externally, prefer the gold set and score only inference-boundary behavior."
+    },
+    {
+      "source_id": "heq",
+      "name": "Hebrew Question Answering Dataset (HeQ)",
+      "url": "https://github.com/NNLP-IL/Hebrew-Question-Answering-Dataset",
+      "verified_repo_fact": "Modern Hebrew QA dataset containing 30147 questions.",
+      "license": "CC-BY-4.0",
+      "ingest_policy": "ALLOWED_WITH_ATTRIBUTION",
+      "neta_role": ["context_dependence", "deixis", "second_person_reference"],
+      "limitations": [
+        "QA is not natural product-feedback conversation.",
+        "Context resolution success does not prove pragmatic interpretation or authority calibration."
+      ],
+      "recommended_adapter": "Use context-dependent subsets as a control for premature reference resolution; add Neta-specific must-not-infer annotations."
+    },
+    {
+      "source_id": "ironyset",
+      "name": "IronySet",
+      "url": "https://www.dropbox.com/scl/fo/3ssz89hlfqvhwjcfewnsy/ABb_z1GUjKYvVkeXp4ski1A?rlkey=a1gwwwbbw1ncgxzf57ndbefu3&e=1&st=4ve7im2t&dl=0",
+      "registry_url": "https://github.com/NNLP-IL/Hebrew-Resources",
+      "verified_repo_fact": "NNLP-IL Hebrew Resources describes over 4000 cases of Hebrew newspaper words in quotation marks annotated by three pragmatics experts.",
+      "license": "UNVERIFIED",
+      "ingest_policy": "REFERENCE_ONLY_UNTIL_LICENSE_CLARIFIED",
+      "neta_role": ["irony_literalization", "pragmatic_reading"],
+      "limitations": [
+        "Newspaper quotation-mark irony is narrower than conversational Israeli irony.",
+        "Quoted text is only one irony cue.",
+        "License was not verified from the registry entry."
+      ],
+      "recommended_adapter": "Use only after license verification; treat as a pragmatics control, not direct product-language evidence."
+    },
+    {
+      "source_id": "cosih",
+      "name": "Corpus of Spoken Israeli Hebrew (CoSIH)",
+      "url": "https://humanities.tau.ac.il/cosih/audio-and-data",
+      "verified_repo_fact": "Spoken Israeli Hebrew corpus with recordings/transcriptions; prior source review indicated non-commercial/research restrictions.",
+      "license": "RESTRICTED_NON_COMMERCIAL_OR_SOURCE_SPECIFIC",
+      "ingest_policy": "MANUAL_ACCESS_ONLY",
+      "neta_role": ["natural_spoken_hebrew", "fillers_repairs", "pragmatics"],
+      "limitations": [
+        "Not suitable for silent automatic ingestion into a commercializable benchmark.",
+        "Requires source-specific compliance review."
+      ],
+      "recommended_adapter": "Use only in a research-only evaluation lane after checking current terms. Do not redistribute raw transcripts here."
+    },
+    {
+      "source_id": "matacop",
+      "name": "MaTaCOp",
+      "url": "https://www.openu.ac.il/en/academicstudies/matacop/pages/default.aspx",
+      "verified_repo_fact": "Hebrew leader/follower task-oriented dialogue corpus; prior source review indicated access request and non-commercial/research limitations.",
+      "license": "RESTRICTED_NON_COMMERCIAL_OR_SOURCE_SPECIFIC",
+      "ingest_policy": "MANUAL_ACCESS_ONLY",
+      "neta_role": ["clarification", "instruction_ambiguity", "hedging", "repair_sequences"],
+      "limitations": [
+        "Task-oriented map dialogue is not product feedback.",
+        "Access and redistribution are restricted."
+      ],
+      "recommended_adapter": "Use only as a research-only natural-dialogue control after access approval."
+    },
+    {
+      "source_id": "neta_synthetic_hebrew",
+      "name": "Neta Synthetic Hebrew Signal Set",
+      "url": "local:eval/hebrew-signal-benchmark/TRAIN_SEED_V1.jsonl",
+      "verified_repo_fact": "Purpose-built synthetic cases targeting Neta failure modes; no external copyrighted text copied.",
+      "license": "PROJECT_LICENSE",
+      "ingest_policy": "TRAIN_ALLOWED",
+      "neta_role": ["neta_specific_authority", "must_not_infer", "professionalization_drift", "code_switching"],
+      "limitations": [
+        "Synthetic data cannot establish natural prevalence.",
+        "Must be supplemented with hidden human-authored holdout and external controls."
+      ],
+      "recommended_adapter": "Use for schema/gate development and TRAIN only."
+    }
+  ]
+}
