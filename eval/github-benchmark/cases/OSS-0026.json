@@ -24,10 +24,14 @@
   "baseline_decision": "BUILD: wire EventSource.onerror to the existing error UI so transport failure cannot masquerade as an empty search result.",
   "phase_b_c_frozen": true,
   "adjudication": {
-    "status": "UNRESOLVED",
-    "evidence": [],
-    "decision_delta": "PENDING_PHASE_D",
+    "status": "CONFIRMED_LOCAL",
+    "evidence": [
+      "The frozen component contains separate empty-result and error states, and its EventSource.onerror branch does not populate the error state before loading is cleared and the stream is closed.",
+      "Post-freeze issue search for the exact AskBot/'No results found' mechanism returned no independent report, so no field prevalence or user-impact claim is added.",
+      "Post-freeze PR search for AskBot/EventSource also returned no exact mechanism evidence."
+    ],
+    "decision_delta": "NO_DELTA: Neta and the baseline independently chose the same narrow build. The HOLDOUT value is calibration: Neta did not over-route a deterministic local state mismatch to FIELD or OWNER.",
     "rubric_critical_failures": [],
-    "lesson": "HOLDOUT score only until Wave 1 closes."
+    "lesson": "HOLDOUT score only until Wave 1 closes. A locally explicit error/empty-state contract can justify a narrow reversible repair without any claim about external user outcomes."
   }
 }
