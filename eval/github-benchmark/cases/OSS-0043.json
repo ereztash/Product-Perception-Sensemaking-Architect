@@ -1,0 +1,39 @@
+{
+  "case_id": "OSS-0043",
+  "repository": "gristlabs/grist-core",
+  "product_domain": "Grist collaborative spreadsheet/database web application",
+  "pinned_sha": "388f1578a8cb8561d7e97b12628d35d847f02cc9",
+  "corpus": "TRAIN",
+  "stratum": "web_app_spreadsheet_database",
+  "sampling_query": "stars:1000..20000 pushed:>=2025-09-04 archived:false spreadsheet database web app",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "app/client/ui/ProposedChangesPage.ts at pinned SHA",
+    "pinned-source search used only to locate proposed-changes and confirmation code paths",
+    "no GitHub issue, PR, discussion, release-history, support, review or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "ProposedChangesForkPage computes compareDoc once during load and stores the result in _comparison. The source contains an explicit TODO to keep the comparison live by recomputing or concatenating incoming changes. A separate _outOfDateObs detects fresh changes in the fork relative to the saved proposal, but the inspected source does not establish an equivalent live refresh for changes arriving in the original/trunk after the comparison was loaded.",
+  "material_claim": "While the Suggestions page remains open, a later trunk/original change may leave the displayed comparison stale. Source establishes a plausible freshness boundary and an acknowledged implementation gap, but does not establish that the integrated product actually presents a stale or misleading comparison under a real concurrent-edit sequence.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "ENVIRONMENT",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Run a two-session integrated fixture: load a fork Suggestions comparison, mutate the original/trunk from a second session after load, then observe whether the displayed comparison refreshes, invalidates, or remains stale. Include a positive control in which a fresh local fork edit triggers the existing out-of-date signal.",
+  "reversal_condition": "If the comparison refreshes or is invalidated correctly under the two-session fixture, do not add live recomputation. If the fixture turns red specifically for incoming trunk changes, allow the smallest refresh/recompute repair that preserves the existing proposal semantics.",
+  "baseline_decision": "BUILD: implement live comparison recomputation or subscription now because the one-shot compareDoc load and explicit TODO indicate a stale-suggestions risk.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze searches for Grist issues and pull requests about stale Suggestions/proposed-change comparisons, live recomputation, fork proposals and out-of-date original-document changes returned no claim-specific independent evidence.",
+      "Broader Suggestions issue results included product requests and unrelated defects, but none reproduced the frozen trunk-after-load freshness mechanism.",
+      "The in-source TODO is admissible Phase B implementation evidence, not independent Phase D ground truth, so it is not used to upgrade the adjudication status."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA: Neta defers to a two-session discriminator while the baseline builds immediately, but no admissible independent evidence establishes whether the integrated freshness defect exists; no marginal-decision credit is awarded.",
+    "rubric_critical_failures": [],
+    "lesson": "An explicit TODO can identify an engineering uncertainty without proving the integrated defect that would authorize the proposed repair. Keep implementation debt separate from demonstrated product failure."
+  }
+}
