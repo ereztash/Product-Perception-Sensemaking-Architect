@@ -1,0 +1,38 @@
+{
+  "batch_id": "BATCH-009",
+  "cases": ["OSS-0025", "OSS-0026", "OSS-0027"],
+  "repositories": ["taskcoach/taskcoach", "Inikoo-Ltd/aiku", "kuaifan/dootask"],
+  "corpora": {"HOLDOUT": 1, "TRAIN": 2, "ADVERSARIAL": 0},
+  "results": {
+    "authority_correct_stop": 2,
+    "unresolved": 0,
+    "partially_supported": 0,
+    "confirmed_local": 1,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 2,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0025 strengthens implementation_fact_to_defect_laundering: explicit sandbox/Wayland compromises with current compatibility blockers are OWNER tradeoffs, not self-authorizing refactors. A post-freeze user report described the shipped Flatpak as working fine and surfaced different concrete issues.",
+    "OSS-0027 independently strengthens the same authority boundary in a self-hosted security context: mixed HTTP/HTTPS deployment evidence means an HTTP fallback cannot be removed solely because its existence looks unsafe; transport policy must be explicit before a compatibility-breaking build.",
+    "OSS-0026 is HOLDOUT and remains score-only: a deterministic EventSource error/empty-state mismatch was correctly treated as a narrow REPO build, with no unnecessary FIELD escalation."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode; OWNER_DEFER and BUILD_READY both receive fresh cases.",
+    "failure_families": "No genuinely new family. Two TRAIN cases replicate the implementation-fact versus product-policy boundary in materially different desktop/self-hosted domains.",
+    "authority_boundaries": "No new Neta authority error. Two revealed cases support routing policy/compatibility tradeoffs to OWNER instead of laundering source certainty into build permission.",
+    "baseline_deltas": "Two fully surviving deltas were added, breaking the prior two-batch no-gain streak. Marginal baseline advantage is therefore not yet saturated."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 27,
+    "holdout_repos": 8,
+    "surviving_baseline_deltas": 9,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [
+    "bbatsov/projectile was excluded before case creation after a Phase-B code-search result exposed changelog/bug-history evidence, contaminating the blind boundary."
+  ],
+  "protocol_stop_condition": null
+}
