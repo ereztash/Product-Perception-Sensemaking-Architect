@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-006",
+  "last_batch": "BATCH-007",
   "insights": [
     {
       "insight_id": "I-001",
@@ -20,13 +20,13 @@
       "failure_family": "neighboring_ground_truth_laundering",
       "insight": "Independent evidence about a neighboring bug or the same component can support a failure family without confirming the exact mechanism under adjudication.",
       "first_seen": "OSS-0002",
-      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011"],
+      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011", "OSS-0019", "OSS-0020"],
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "PRELIMINARY_TRAIN_5_PLUS_3_HOLDOUT_SCORE_ONLY",
+      "evidence_state": "PRELIMINARY_TRAIN_PLUS_HOLDOUT_REPLICATIONS_WITH_REPEATED_NEIGHBORING_EVIDENCE_REJECTION",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. Dnote and Freeplane HOLDOUT both show that a real neighboring bug does not confirm the exact mechanism under adjudication; OSS-0017 adds another HOLDOUT example where broad localization PRs support the contract without independently confirming the exact hard-coded string."
+      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. BATCH-007 adds two more examples: Butterfly file-loss evidence does not confirm newer-file compatibility policy, and Linkwarden preservation failures do not confirm collection-delete rollback inconsistency."
     },
     {
       "insight_id": "I-003",
@@ -105,39 +105,52 @@
       "evidence_state": "SINGLE_TRAIN_AUTHORITY_CORRECT_STOP",
       "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
       "promotion_reason": "A concrete transfer instance of the canonical reality/authority separation. It adds ENVIRONMENT evidence but does not justify a new heuristic."
+    },
+    {
+      "insight_id": "I-009",
+      "failure_family": "transaction_boundary_laundering",
+      "insight": "A database transaction does not make external filesystem, search-index, network, or other side effects atomic. When a decision depends on rollback consistency across authorities, explicitly identify the external side-effect boundary and leave a failure-injection gate before treating the repair as proven.",
+      "first_seen": "OSS-0020",
+      "replications": [],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": false,
+      "evidence_state": "SINGLE_TRAIN_SOURCE_SUPPORTED_MECHANISM_WITHOUT_INDEPENDENT_FAILURE_REPRODUCTION",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "The static code clearly exposes a cross-boundary atomicity risk, but post-freeze issue evidence did not reproduce the exact rollback inconsistency. Keep as technical case memory until a deliberate failure-injection fixture can turn red and a neighboring safe transaction boundary is available as control."
     }
   ],
   "saturation": {
     "decision_modes": {
       "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
       "signal": "COVERED_NOT_SATURATED",
-      "note": "All target routing modes remain represented. BATCH-006 adds no new mode; its information gain is a supported replication of the inferred-contract boundary plus one unresolved repair-direction case."
+      "note": "All target routing modes remain represented. BATCH-007 adds no new mode and therefore contributes through boundary testing rather than mode discovery."
     },
     "failure_families": {
-      "observed_count": 8,
+      "observed_count": 9,
       "signal": "OPEN",
-      "note": "No new family added. I-007 now has one supported independent TRAIN replication, but remains below promotion requirements."
+      "note": "I-009 is a new memory-only technical family around false atomicity across external side effects. It is not a promotion candidate because the exact failure remains unreproduced."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
       "errors": 1,
       "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
-      "note": "No new Neta authority error in BATCH-006. OSS-0018 supports OWNER restraint when sibling actions differ in consequence; OSS-0016 remains unresolved because the intended filter contract is not independently established."
+      "note": "No new Neta authority error in BATCH-007. Butterfly remains an unresolved OWNER-policy boundary; Super Productivity confirms a REPO-local operational invariant."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 15,
+      "neta_vs_baseline_build_restraint_cases": 16,
       "fully_survived_adjudication": 7,
       "partially_supported": 5,
-      "unresolved": 3,
-      "signal": "NOT_SATURATED",
-      "note": "OSS-0018 adds the seventh fully surviving delta by preventing a consistency build not supported by the field evidence. OSS-0016 adds one unresolved restraint delta; OSS-0017 shows no material difference from baseline."
+      "unresolved": 4,
+      "signal": "NOT_SATURATED_BUT_NO_DELTA_GAIN_THIS_BATCH",
+      "note": "No fully surviving decision delta was added in BATCH-007. This is retained as a negative/marginal-information result rather than rescued by counting findings."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 18,
+    "adjudicated_repos": 21,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app"],
-    "holdout_repos": 5,
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync"],
+    "holdout_repos": 6,
     "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
     "clean_neta_failures": 1,
     "surviving_baseline_deltas": 7,
@@ -145,6 +158,6 @@
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
-  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. No contaminated or ineligible repository entered BATCH-006.",
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was also quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. Butterfly, Linkwarden and Super Productivity entered the batch with pinned refs and no issue bodies opened before their Phase B/C decisions were frozen.",
   "protocol_stop_condition": null
 }
