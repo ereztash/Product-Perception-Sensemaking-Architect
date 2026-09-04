@@ -1,0 +1,38 @@
+{
+  "batch_id": "BATCH-012",
+  "cases": ["OSS-0034", "OSS-0035", "OSS-0036"],
+  "repositories": ["organicmaps/organicmaps", "hoppscotch/hoppscotch", "Stirling-Tools/Stirling-PDF"],
+  "corpora": {"TRAIN": 1, "HOLDOUT": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 1,
+    "unresolved": 1,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 1,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0034 adds a TRAIN replication of inferred_sibling_contract_laundering: Organic Maps deliberately discusses deletion confirmation as context-dependent across bookmarks, tracks and lists, so code-level sibling asymmetry does not authorize normalization.",
+    "OSS-0035 is HOLDOUT and score-only: Hoppscotch source calls GraphQL history save-as a follow-up and roadmap PRs support phased REST-GQL parity, but no independent evidence authorizes that specific follow-up now.",
+    "OSS-0036 is adversarial case memory only: Stirling PDF defaults mixed local/cloud deletion to everywhere, but no independent evidence resolves whether least-destructive or everywhere should be the default."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode; all three cases exercise OWNER_DEFER across materially different domains.",
+    "failure_families": "No new family. I-007 gains one TRAIN replication from a mobile destructive-action policy case, increasing evidence that sibling symmetry is not a contract.",
+    "authority_boundaries": "No new Neta authority error. One OWNER stop is independently supported, one HOLDOUT OWNER route is partially supported, and one OWNER route remains unresolved.",
+    "baseline_deltas": "One fully surviving baseline delta added (Organic Maps), one partial HOLDOUT delta (Hoppscotch), and one unresolved delta (Stirling PDF). Marginal decision value is still arriving, so no saturation stop is triggered."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 36,
+    "holdout_repos": 12,
+    "surviving_baseline_deltas": 12,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [
+    "mealie-recipes/mealie was quarantined before case creation because a Phase-B source search surfaced an in-repository survey document containing user feedback, contaminating the blind evidence boundary."
+  ],
+  "protocol_stop_condition": null
+}
