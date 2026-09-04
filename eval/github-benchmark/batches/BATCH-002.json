@@ -1,0 +1,48 @@
+{
+  "batch_id": "BATCH-002",
+  "cases": ["OSS-0004", "OSS-0005", "OSS-0006"],
+  "repositories": [
+    {"repository": "muety/wakapi", "sha": "9de2b03f8bb979f6334624c31f01d6f52437924c", "corpus": "TRAIN", "stratum": "dashboard_analytics_admin"},
+    {"repository": "GitJournal/GitJournal", "sha": "c8a67e098db06335762f822d7733c330f4bd0d6b", "corpus": "HOLDOUT", "stratum": "mobile_application"},
+    {"repository": "unhappychoice/gitlogue", "sha": "73750f745249e72874ee7118469ce847aab24955", "corpus": "TRAIN", "stratum": "developer_tool_interactive"}
+  ],
+  "results": {
+    "AUTHORITY_CORRECT_STOP": 2,
+    "PARTIALLY_SUPPORTED": 1,
+    "CONFIRMED_LOCAL": 0,
+    "UNRESOLVED": 0,
+    "REFUTED": 0,
+    "critical_failures": 0,
+    "surviving_baseline_deltas_added": 2,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    {
+      "insight_id": "I-004",
+      "change": "NEW_TRAIN_TRANSFER_EVIDENCE",
+      "summary": "Implementation certainty does not establish defect status when the unresolved question is product/configuration policy; route to OWNER rather than laundering code certainty into build permission.",
+      "promotion": "ALREADY_CANONICAL_NOT_NEW"
+    },
+    {
+      "insight_id": "I-002",
+      "change": "HOLDOUT_SCORE_ONLY",
+      "summary": "OSS-0005 again showed neighboring/historical ground truth supporting a failure family without confirming the pinned mechanism. This HOLDOUT observation is recorded for scoring only and is not used to teach or promote a rule."
+    }
+  ],
+  "saturation": {
+    "decision_modes": "Coverage expanded from only DISCRIMINATE_FIRST to include OWNER_DEFER; BUILD_READY and FIELD_STOP remain unobserved.",
+    "failure_families": "One additional family observed, but it maps to an already-canonical separation rather than a new Neta capability.",
+    "authority_boundaries": "OWNER added in TRAIN; ENVIRONMENT observed in HOLDOUT aggregate only.",
+    "baseline_deltas": "Two TRAIN restraint deltas survived adjudication; cumulative fully surviving deltas now 2."
+  },
+  "wave_1_progress": {
+    "adjudicated_repos": 6,
+    "domains": 6,
+    "holdout_repos": 1,
+    "clean_neta_failures": 0,
+    "surviving_baseline_deltas": 2,
+    "minimum_viable_evidence_reached": false
+  },
+  "promotion_candidates": [],
+  "protocol_stop_condition": null
+}

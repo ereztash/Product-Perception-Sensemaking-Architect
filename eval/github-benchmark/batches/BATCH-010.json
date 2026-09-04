@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-010",
+  "cases": ["OSS-0028", "OSS-0029", "OSS-0030"],
+  "repositories": ["ever-co/ever-gauzy", "plainhub/plain-app", "hbons/SparkleShare"],
+  "corpora": {"HOLDOUT": 2, "TRAIN": 0, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 1,
+    "unresolved": 0,
+    "partially_supported": 0,
+    "confirmed_local": 2,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 2,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0028 is HOLDOUT and remains score-only: tracing beyond a thin API entrypoint found the exact fail-closed secret validator and its bootstrap call, validating the rule that delegation must be followed before absence is inferred.",
+    "OSS-0029 is HOLDOUT and remains score-only: a cleartext manifest permission did not itself prove a live HTTP path; the requested discriminator then found both an all-interface HTTP connector and a 2026 user report successfully using http://:8080. The problem therefore sharpened from proxy suspicion to an explicit TLS-claim versus supported-HTTP contract boundary.",
+    "OSS-0030 strengthens inferred_sibling_contract_laundering and encodability restraint: an old TODO plus a sibling control did not authorize a build. The owner later documented that the legacy codebase was being retired/re-written, strongly supporting the defer decision."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode; DISCRIMINATE_FIRST and OWNER_DEFER receive additional independent cases.",
+    "failure_families": "No genuinely new family. The taxonomy is stabilizing, while existing family boundaries continue to gain cross-domain evidence.",
+    "authority_boundaries": "No new Neta authority error. SparkleShare adds strong owner-roadmap adjudication; Plain App demonstrates that a REPO discriminator can turn a static permission into a materially different contract question.",
+    "baseline_deltas": "Two additional fully surviving deltas were added. Across BATCH-009 and BATCH-010, four deltas survived adjudication, so the earlier marginal-advantage saturation signal is not sustained."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 30,
+    "holdout_repos": 10,
+    "surviving_baseline_deltas": 11,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_stop_condition": null
+}

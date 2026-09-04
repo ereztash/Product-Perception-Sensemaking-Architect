@@ -1,0 +1,38 @@
+{
+  "case_id": "OSS-0024",
+  "repository": "twentyhq/twenty",
+  "pinned_sha": "c10ba0c0fc84dca9db8fdbb0e42d790dd11a8357",
+  "corpus": "ADVERSARIAL",
+  "stratum": "web_crm_saas",
+  "prior_exposure_risk": "HIGH",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "packages/twenty-front/src/modules/settings/profile/components/DeleteWorkspace.tsx",
+    "packages/twenty-front/src/modules/ui/layout/modal/components/ConfirmationModal.tsx",
+    "user guide note that workspace deletion is confirmed before execution",
+    "no issues/PRs opened before Phase D"
+  ],
+  "raw_signal_observation": "ConfirmationModal closes synchronously before invoking onConfirmClick. DeleteWorkspace passes an async deletion function but does not pass loading state or catch an error locally; the mutation is awaited only after the modal has already closed.",
+  "material_claim": "The source exposes a plausible rejected-mutation failure path in which the destructive confirmation disappears before deletion success is known. Repository source alone does not establish whether Apollo/global error handling still gives the user an adequate recovery path, so changing modal semantics should follow a rejected-mutation discriminator rather than immediate redesign.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "REPO",
+  "requested_use": "DISCRIMINATE",
+  "permission": "ALLOW",
+  "neta_next_move": "Inject a rejected DeleteCurrentWorkspace mutation in a component/integration fixture and observe whether the modal closes, whether an error is surfaced elsewhere, and whether the user can retry without reconstructing state.",
+  "reversal_condition": "If the rejected mutation is already surfaced with an actionable retry path, do not change the modal merely for stylistic consistency; if the user is left without feedback/retry, permit the narrow async-state repair.",
+  "baseline_decision": "BUILD: keep the confirmation modal open while deletion is pending, pass loading state, await the mutation before closing, and surface deletion errors inline/toast so the user can retry.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue #7753 confirms that ConfirmationModal historically had a real interaction defect around Enter-key confirmation, but that is a different mechanism from async mutation failure after modal closure.",
+      "Post-freeze searches found destructive-workflow incidents elsewhere in Twenty, but none independently reproduced the DeleteWorkspace rejected-mutation path at the pinned SHA.",
+      "Neighboring component history was therefore not used to confirm the exact claim."
+    ],
+    "decision_delta": "UNRESOLVED: the baseline would build immediately while Neta requested a rejected-mutation fixture first; no admissible independent evidence closes which decision is better for this exact path.",
+    "rubric_critical_failures": [],
+    "lesson": "A historically buggy component is not ground truth for a new mechanism in the same component. The benchmark must preserve mechanism-specific adjudication even in adversarially attractive evidence."
+  }
+}

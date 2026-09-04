@@ -1,0 +1,36 @@
+{
+  "case_id": "OSS-0019",
+  "repository": "LinwoodDev/Butterfly",
+  "pinned_sha": "d6783964440e0ec68e768718cd2cc888062989f0",
+  "corpus": "HOLDOUT",
+  "stratum": "cross_platform_knowledge_productivity",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "app/lib/api/changes.dart",
+    "source-only search results for showDialog<bool>",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "checkFileChanges shows the same breaking-changes warning when a file version is newer than kFileVersion or older than kBreakingChangesVersion; pressing OK returns the data and permits the open path to continue.",
+  "material_claim": "The repository proves a deliberate force-open affordance for version-mismatched files, but it does not establish whether newer files should be hard-blocked, whether force-open is an intentional expert escape hatch, or whether opening produces corruption in the deployed product.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3",
+  "authority": "OWNER",
+  "requested_use": "DEFER",
+  "permission": "DEFER",
+  "neta_next_move": "Do not convert version mismatch into a hard block from static source alone. First resolve intended compatibility policy with OWNER; if corruption risk is the deciding claim, reproduce open/save behavior with a pinned newer-version fixture before changing production.",
+  "reversal_condition": "If explicit maintainer policy or an integrated fixture establishes that newer-version force-open is unsupported and destructive, promote a narrow block or read-only path.",
+  "baseline_decision": "BUILD: hard-block files with version > kFileVersion to prevent users from opening potentially incompatible data; keep the warning/override only for older migrations.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search for newer/file-version compatibility produced no admissible issue that addresses the exact force-open policy.",
+      "Issue #1152 confirms a serious file-loss defect elsewhere in the product, but its Android back-navigation deletion mechanism is unrelated and cannot confirm this compatibility claim."
+    ],
+    "decision_delta": "UNRESOLVED: Neta is more restrained than baseline, but no claim-specific external evidence closes whether newer files should be blocked.",
+    "rubric_critical_failures": [],
+    "lesson": "A severe neighboring file-loss bug must not be laundered into support for a different compatibility mechanism. HOLDOUT result remains score-only."
+  }
+}

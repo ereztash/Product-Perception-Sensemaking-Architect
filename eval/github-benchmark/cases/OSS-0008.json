@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0008",
+  "repository": "sayanarijit/xplr",
+  "pinned_sha": "d96991f6b1d1ff9914716ebc1150cbb4a406abca",
+  "corpus": "HOLDOUT",
+  "stratum": "developer_tool_interactive",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": ["repository metadata", "README", "general config docs", "config.rs", "app.rs", "init.lua", "repository source only; no issues/PRs before freeze"],
+  "raw_signal_observation": "xplr exposes a recover-mode safety feature that intercepts unmapped reckless keypresses, but the pinned default is enable_recover_mode=false even though docs describe it as a safety feature.",
+  "material_claim": "The safety mechanism exists and is disabled by default. Source cannot establish that this default is a defect because the unresolved question is the intended interaction tradeoff between safety and intuitiveness/hackability.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1 for default behavior; OWNER for intended default policy",
+  "authority": "OWNER",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Do not flip the default from source inspection alone. Locate explicit maintainer intent for the recover-mode default; if intent favors safety-by-default, add a config-default test before changing it.",
+  "reversal_condition": "Explicit maintainer intent that recover mode should be disabled by default closes the case with no build; explicit intent for safety-by-default promotes a build.",
+  "baseline_decision": "BUILD: enable recover mode by default because it is a safety feature and make opting out an advanced preference.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #330 was opened by the repository owner with the title 'Disable recover mode by default'. The owner states that user/plugin feedback showed recover mode conflicts with xplr's goal of being intuitive and explicitly decides to rename the setting to enable_recover_mode with default false.",
+      "Issue #232 also records a user asking how to exclude recover mode, consistent with the interaction cost that motivated the owner decision."
+    ],
+    "decision_delta": "Neta prevented a policy-reversing build that the baseline recommended. The post-freeze owner record directly confirms that the current default is intentional and was chosen because the safety mechanism reduced intuitiveness.",
+    "rubric_critical_failures": [],
+    "lesson": "A feature labeled 'safety' does not inherit permission to be default-on. When source establishes behavior but the tradeoff is normative, OWNER intent is the decisive authority. HOLDOUT result is scored only and is not used to modify Neta before the holdout wave closes."
+  }
+}

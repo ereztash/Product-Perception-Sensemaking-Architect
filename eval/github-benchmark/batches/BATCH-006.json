@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-006",
+  "cases": ["OSS-0016", "OSS-0017", "OSS-0018"],
+  "repositories": ["Taskosaur/Taskosaur", "makeplane/plane", "KRTirtho/spotube"],
+  "corpora": {"HOLDOUT": 1, "TRAIN": 2, "ADVERSARIAL": 0},
+  "results": {
+    "authority_correct_stop": 1,
+    "unresolved": 1,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 1,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "I-007 gains a supported replication in OSS-0018: identical control surfaces do not imply identical guard policy when the underlying consequences differ; field evidence supported confirmation for irreversible playlist deletion but not reversible unsave.",
+    "OSS-0016 adds an unresolved boundary case: a generic multi-select affordance plus a singular API contract proves current mismatch but does not independently establish which repair direction is product intent.",
+    "OSS-0017 is HOLDOUT score-only: an integrated hard-coded confirmation string with an explicit translation TODO supports BUILD_READY, while post-freeze localization PRs only partially confirm the exact mechanism."
+  ],
+  "saturation": {
+    "decision_modes": "All four target routing modes remain represented; no new mode added.",
+    "failure_families": "Still open. This batch strengthens the inferred-contract boundary rather than adding a new family.",
+    "authority_boundaries": "No new Neta authority error. Spotube adds a supported OWNER restraint case; Taskosaur remains unresolved.",
+    "baseline_deltas": "Not saturated; Spotube adds the seventh fully surviving decision delta. Plane has no material delta and Taskosaur remains unresolved."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 18,
+    "holdout_repos": 5,
+    "surviving_baseline_deltas": 7,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_stop_condition": null
+}

@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0003",
+  "repository": "oliverschwendener/ueli",
+  "pinned_sha": "ea706e669e897cae37b3d88d2c42f61794edb2e0",
+  "corpus": "TRAIN",
+  "stratum": "desktop_native",
+  "prior_exposure_risk": "UNKNOWN",
+  "frozen_evidence_boundary": ["repository metadata", "README", "product source", "tests/static repository evidence"],
+  "raw_signal_observation": "SearchViewController delays setting confirmationDialogAction by 100 ms. The source comment says the timeout is a workaround because otherwise the close button receives an onClick and closes the confirmation dialog immediately.",
+  "material_claim": "The confirmation interaction depends on a timing workaround whose current necessity and stability are not established by the static source; replacing or tuning it without reproducing the event sequence could reintroduce the immediate-close defect.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DENY",
+  "neta_next_move": "Create an interaction test for an action requiring confirmation that captures the originating click and dialog open/close sequence; then remove or reduce the timeout only inside the test variant to see whether the historical immediate-close mechanism still reproduces.",
+  "reversal_condition": "If an integrated test shows the dialog is stable without the timeout under the actual event path, a reversible cleanup becomes build-ready. If removing it reproduces immediate close, retain it until a mechanism-level replacement is proven.",
+  "baseline_decision": "BUILD: replace the 100 ms timeout workaround with explicit event propagation control or a deterministic dialog-open state transition because magic-delay UI logic is brittle.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Merged PR #1432 documents a real ConfirmationDialog interaction defect: pressing Escape hid the search window instead of only closing the confirmation dialog, and refactored the dialog/controller path.",
+      "No issue or PR found that independently establishes the current 100 ms click-propagation workaround as still necessary or unstable."
+    ],
+    "decision_delta": "Neta withheld a cleanup and asked for a mechanism-level interaction test while baseline proposed replacing the timeout immediately. Historical ground truth confirms this interaction surface has produced real close-state bugs, but not the exact current timing mechanism; the restraint is partially supported.",
+    "rubric_critical_failures": [],
+    "lesson": "Historical fragility of a component is evidence to test a workaround before deleting it, not evidence that the workaround is currently correct."
+  }
+}

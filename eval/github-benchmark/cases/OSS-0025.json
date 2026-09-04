@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0025",
+  "repository": "taskcoach/taskcoach",
+  "pinned_sha": "f776d544d8e3fb0bde2281903549a35ae6d54218",
+  "corpus": "TRAIN",
+  "stratum": "desktop_native_task_management",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "docs/FLATPAK.md",
+    "repository source searches limited to the current tree; no issue/PR/discussion body opened before freeze"
+  ],
+  "raw_signal_observation": "The Flatpak documentation deliberately retains X11/XWayland and a broad home filesystem grant. It names concrete upstream constraints: wxPython AUI docking is unusable under native Wayland, wx 3.2.x file dialogs do not use the XDG document portal, all file-open/save/export paths converge on two picker chokepoints, and a portal shim was prototyped and reverted because it would burden the common path for a Flatpak-only benefit while upstream wx 3.3 work is pending.",
+  "material_claim": "Repository evidence establishes that the broad Flatpak permissions and XWayland path are deliberate tradeoffs with documented constraints; it does not establish that changing them now is the correct product priority. Immediate hardening is therefore an OWNER/product-risk decision rather than a REPO-proven defect.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R5",
+  "authority": "OWNER",
+  "requested_use": "CHANGE_PRODUCTION",
+  "permission": "DEFER",
+  "neta_next_move": "Ask the owner to choose the current Flatpak security/compatibility tradeoff, informed by the documented upstream blockers. If the owner wants to revisit it, reproduce the proposed portal/native-Wayland path against the two known chokepoints before building broadly.",
+  "reversal_condition": "If current upstream/runtime evidence shows the documented blockers are gone, or the owner explicitly changes the security/compatibility priority, reopen a narrow reversible implementation test.",
+  "baseline_decision": "BUILD: replace the broad home-filesystem grant with portal-mediated file access and move the Flatpak toward native Wayland so sandbox permissions follow current desktop security expectations.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #434 records the user demand that caused Flatpak packaging to be added rather than a demand for native-Wayland/portal hardening.",
+      "After the Flatpak shipped, the requesting user reported that it was working fine; the concrete issues they noticed were the notification-portal path and a blurry/icon presentation issue, not failure caused by the documented XWayland or home-filesystem tradeoff.",
+      "No post-freeze evidence established that the two documented upstream blockers had disappeared or that the owner had reversed the compatibility/security priority."
+    ],
+    "decision_delta": "SURVIVED: the baseline would immediately pay a broad compatibility refactor; the revealed evidence supports the current Flatpak as usable and leaves the hardening tradeoff with OWNER rather than converting best-practice preference into a REPO defect.",
+    "rubric_critical_failures": [],
+    "lesson": "Security/sandbox best practice does not erase an explicit compatibility tradeoff. A working deployed path plus documented blockers should route priority to OWNER until the blocker or product policy changes."
+  }
+}

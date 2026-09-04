@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-008",
+  "cases": ["OSS-0022", "OSS-0023", "OSS-0024"],
+  "repositories": ["usememos/memos", "localsend/localsend", "twentyhq/twenty"],
+  "corpora": {"HOLDOUT": 1, "TRAIN": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 0,
+    "unresolved": 2,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 0,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0022 strengthens implementation_fact_to_defect_laundering: an apparently ineffective pin action can be WAI in one surface even when the local error path is silent. The maintainer explicitly states that pinned content is intended to appear only on Home and User Profile, so mutation failure and visibility semantics must remain separate questions.",
+    "OSS-0024 adds another adjudication-side replication of neighboring_ground_truth_laundering: a historical ConfirmationModal Enter-key bug cannot confirm a distinct async-delete failure mechanism in the same component.",
+    "OSS-0023 is HOLDOUT and remains score-only: interrupted transfers are a real concern, but independent evidence does not decide whether retained partial files are recovery state or unwanted residue."
+  ],
+  "saturation": {
+    "decision_modes": "All four target routing modes remain represented; BATCH-008 adds no new mode.",
+    "failure_families": "No genuinely new family. TRAIN/ADVERSARIAL cases sharpen two existing boundaries rather than expanding the taxonomy.",
+    "authority_boundaries": "No new Neta authority error. One TRAIN case reinforces the distinction between REPO failure and OWNER visibility semantics; HOLDOUT leaves cleanup policy unresolved.",
+    "baseline_deltas": "No fully surviving delta added for the second consecutive batch. This is a saturation signal on marginal baseline advantage, not a stop condition yet because the cases still removed uncertainty about authority and adjudication boundaries."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 24,
+    "holdout_repos": 7,
+    "surviving_baseline_deltas": 7,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_stop_condition": null
+}

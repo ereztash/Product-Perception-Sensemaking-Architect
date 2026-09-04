@@ -1,0 +1,40 @@
+{
+  "batch_id": "BATCH-007",
+  "cases": ["OSS-0019", "OSS-0020", "OSS-0021"],
+  "repositories": ["LinwoodDev/Butterfly", "linkwarden/linkwarden", "super-productivity/super-productivity"],
+  "corpora": {"HOLDOUT": 1, "TRAIN": 2, "ADVERSARIAL": 0},
+  "results": {
+    "authority_correct_stop": 0,
+    "unresolved": 2,
+    "partially_supported": 0,
+    "confirmed_local": 1,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 0,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0020 exposes a new technical judgment family: a database transaction does not make filesystem/search side effects atomic. The source supports the boundary mismatch, but issue evidence did not reproduce the rollback failure, so the insight remains memory-only pending a failure-injection gate.",
+    "OSS-0021 confirms an explicit operational invariant: blocking user confirmation inside a held sync lock previously produced real lock timeouts. Neta and baseline converged, so this is mechanism confirmation without marginal decision delta.",
+    "OSS-0019 HOLDOUT remains unresolved: a severe neighboring Butterfly file-loss bug cannot adjudicate a distinct newer-file compatibility policy."
+  ],
+  "saturation": {
+    "decision_modes": "All four target routing modes remain represented; no new mode added.",
+    "failure_families": "Open. One new memory-only technical family was observed around false atomicity across external side effects, but it lacks independent mechanism confirmation.",
+    "authority_boundaries": "No new Neta authority error. Butterfly remains unresolved; Super Productivity confirms a REPO-local operational invariant.",
+    "baseline_deltas": "No fully surviving delta added. Marginal decision-value accumulation pauses this batch rather than being rescued by finding count."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 21,
+    "holdout_repos": 6,
+    "surviving_baseline_deltas": 7,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [
+    "go-vikunja/vikunja: excluded because the cumulative register already records prior candidate contamination; no case created.",
+    "meetfranz/franz: excluded because the cumulative register already records it as an inactive predecessor; no case created.",
+    "sissbruecker/linkding: excluded before case creation after a Phase-B code search surfaced CHANGELOG history in the result set; quarantined rather than relying on topic-local non-contamination."
+  ],
+  "protocol_stop_condition": null
+}

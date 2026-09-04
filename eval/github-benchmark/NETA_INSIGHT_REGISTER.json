@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "last_batch": "BATCH-011",
+  "insights": [
+    {
+      "insight_id": "I-001",
+      "failure_family": "static_topology_overclaim",
+      "insight": "Static source can expose a plausible state path without establishing that the integrated product actually exhibits the defect; route to the cheapest integrated discriminator before granting build permission.",
+      "first_seen": "OSS-0001",
+      "replications": ["OSS-0002", "OSS-0003", "OSS-0009"],
+      "counterexamples": ["OSS-0007"],
+      "neta_failed": false,
+      "baseline_decision_delta": true,
+      "evidence_state": "PRELIMINARY_TRAIN_4_WITH_1_LOCAL_COUNTEREXAMPLE_PLUS_MULTIPLE_HOLDOUT_SCORE_ONLY_EXERCISES",
+      "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
+      "promotion_reason": "Already encoded by discrimination-before-redesign and reality-floor rules. OSS-0007 is a useful neighbor: a directly visible guard-contract asymmetry can justify a narrow reversible build at R1 without waiting for field evidence. OSS-0013 and OSS-0029 exercise the same boundary in HOLDOUT and remain score-only until the wave closes."
+    },
+    {
+      "insight_id": "I-002",
+      "failure_family": "neighboring_ground_truth_laundering",
+      "insight": "Independent evidence about a neighboring bug or the same component can support a failure family without confirming the exact mechanism under adjudication.",
+      "first_seen": "OSS-0002",
+      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011", "OSS-0019", "OSS-0020", "OSS-0024", "OSS-0031"],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": false,
+      "evidence_state": "PRELIMINARY_TRAIN_PLUS_HOLDOUT_AND_ADVERSARIAL_REPLICATIONS_WITH_REPEATED_NEIGHBORING_EVIDENCE_REJECTION_PLUS_SAME_FLOW_TRAIN_REJECTION",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. BATCH-007 added Butterfly and Linkwarden examples. BATCH-008 added an adversarial same-component example: Twenty's historical ConfirmationModal Enter-key bug was not allowed to confirm a distinct async-delete failure mechanism. BATCH-011 adds a tighter TRAIN example: Docmost PR #2302 confirms a stale-state defect in the same move-page flow, but it does not confirm the frozen pre-selection enabled-no-op mechanism."
+    },
+    {
+      "insight_id": "I-003",
+      "failure_family": "workaround_cleanup_without_reproduction",
+      "insight": "A suspicious timing workaround is not itself permission to refactor; first reproduce the event mechanism with and without the workaround.",
+      "first_seen": "OSS-0003",
+      "replications": [],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": true,
+      "evidence_state": "SINGLE_TRAIN_CASE_PARTIAL_SUPPORT",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "Single case, no neighbor control, no positive control and no HOLDOUT evidence."
+    },
+    {
+      "insight_id": "I-004",
+      "failure_family": "implementation_fact_to_defect_laundering",
+      "insight": "A repository can establish exactly what the product does while remaining unable to establish that the behavior is a defect; when the unresolved question is intended interaction/configuration policy, route to OWNER instead of converting implementation certainty into build permission.",
+      "first_seen": "OSS-0004",
+      "replications": ["OSS-0006", "OSS-0012", "OSS-0022", "OSS-0025", "OSS-0027"],
+      "counterexamples": ["OSS-0007"],
+      "neta_failed": false,
+      "baseline_decision_delta": true,
+      "evidence_state": "PRELIMINARY_TRAIN_6_AUTHORITY_OR_DISCRIMINATION_CASES_PLUS_HOLDOUT_SCORE_ONLY",
+      "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
+      "promotion_reason": "Already encoded by Neta's evidence/authority/permission separation. BATCH-009 adds two materially different TRAIN replications: TaskCoach's documented Flatpak compatibility tradeoff and DooTask's mixed-scheme self-hosting topology both show that an implementation fact can be certain while the change decision remains OWNER-owned."
+    },
+    {
+      "insight_id": "I-005",
+      "failure_family": "local_contract_guard_asymmetry",
+      "insight": "When a product contract is explicit and equivalent controls already enforce it, one unguarded sibling path can justify a narrow reversible consistency fix without asserting any field outcome.",
+      "first_seen": "OSS-0007",
+      "replications": [],
+      "counterexamples": ["OSS-0009", "OSS-0014"],
+      "neta_failed": true,
+      "baseline_decision_delta": false,
+      "evidence_state": "ONE_SUPPORTING_TRAIN_CASE_PLUS_TWO_COUNTEREXAMPLES_ONE_CLEAN_AUTHORITY_FAILURE_PLUS_HOLDOUT_SCORE_ONLY",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "OSS-0014 exposes the missing boundary in this family: sibling equivalence is not itself an explicit product contract. Actual Budget's confirmation-versus-undo tradeoff was OWNER-owned, so asymmetry alone could not grant BUILD permission. OSS-0026 is a HOLDOUT score-only case in which an explicit local error/empty-state contract supported a narrow build; it is not used to promote the family before wave close."
+    },
+    {
+      "insight_id": "I-006",
+      "failure_family": "perception_outcome_from_static_affordance",
+      "insight": "Source can prove that a warning, recovery gesture, or affordance exists; it cannot prove that people notice, understand, or successfully use it. Adequacy claims about discoverability or error prevention require FIELD evidence rather than additional UI by default.",
+      "first_seen": "OSS-0011",
+      "replications": [],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": true,
+      "evidence_state": "SINGLE_TRAIN_CASE_PLUS_1_HOLDOUT_SCORE_ONLY",
+      "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
+      "promotion_reason": "This is a concrete transfer instance of the existing R6/field-outcome rule, not a new heuristic. OSS-0010 independently exercises the same boundary in HOLDOUT and is score-only until the wave closes."
+    },
+    {
+      "insight_id": "I-007",
+      "failure_family": "inferred_sibling_contract_laundering",
+      "insight": "Equivalent-looking sibling paths do not establish a shared product contract. Before turning asymmetry into BUILD permission, distinguish an explicit invariant from a consistency preference or interaction-policy tradeoff that belongs to OWNER.",
+      "first_seen": "OSS-0014",
+      "replications": ["OSS-0018", "OSS-0030"],
+      "counterexamples": ["OSS-0007"],
+      "neta_failed": true,
+      "baseline_decision_delta": true,
+      "evidence_state": "CLEAN_TRAIN_FAILURE_PLUS_TWO_SUPPORTED_NON_HOLDOUT_REPLICATIONS_WITH_EXISTING_NEIGHBOR",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "OSS-0018 showed that similar controls can legitimately apply different guards when consequences differ. OSS-0030 adds an adversarial lifecycle example: an inline TODO plus a sibling option did not authorize work in a legacy codebase whose owner is rewriting the product. The candidate still lacks an executable discrimination gate, deliberate red positive control and unseen HOLDOUT success, so it remains memory only."
+    },
+    {
+      "insight_id": "I-008",
+      "failure_family": "operational_promise_from_static_source",
+      "insight": "Static source can show a recovery promise and recovery machinery but cannot establish the operational guarantee that support or a deployed environment can actually deliver. Calibrate such promises from an ENVIRONMENT/support drill rather than from UI reachability alone.",
+      "first_seen": "OSS-0015",
+      "replications": [],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": true,
+      "evidence_state": "SINGLE_TRAIN_AUTHORITY_CORRECT_STOP_PLUS_HOLDOUT_SCORE_ONLY",
+      "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
+      "promotion_reason": "A concrete transfer instance of the canonical reality/authority separation. OSS-0028 is a HOLDOUT score-only case where following a delegated startup path found the promised local guard; it is not used as learning evidence before wave close."
+    },
+    {
+      "insight_id": "I-009",
+      "failure_family": "transaction_boundary_laundering",
+      "insight": "A database transaction does not make external filesystem, search-index, network, or other side effects atomic. When a decision depends on rollback consistency across authorities, explicitly identify the external side-effect boundary and leave a failure-injection gate before treating the repair as proven.",
+      "first_seen": "OSS-0020",
+      "replications": [],
+      "counterexamples": [],
+      "neta_failed": false,
+      "baseline_decision_delta": false,
+      "evidence_state": "SINGLE_TRAIN_SOURCE_SUPPORTED_MECHANISM_WITHOUT_INDEPENDENT_FAILURE_REPRODUCTION",
+      "promotion_status": "MEMORY_ONLY",
+      "promotion_reason": "The static code clearly exposes a cross-boundary atomicity risk, but post-freeze issue evidence did not reproduce the exact rollback inconsistency. Keep as technical case memory until a deliberate failure-injection fixture can turn red and a neighboring safe transaction boundary is available as control."
+    }
+  ],
+  "saturation": {
+    "decision_modes": {
+      "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
+      "signal": "COVERED_NOT_SATURATED",
+      "note": "All target routing modes remain represented. BATCH-011 adds two BUILD_READY cases and one DISCRIMINATE_FIRST adversarial case but no new mode."
+    },
+    "failure_families": {
+      "observed_count": 9,
+      "signal": "TAXONOMY_GROWTH_SLOWING_BOUNDARIES_STILL_OPEN",
+      "note": "BATCH-011 adds no genuinely new family. I-002 gains one tighter TRAIN replication from Docmost, while the Zen event-semantics case remains unresolved case memory rather than a new family. Family discovery is slowing before judgment-boundary validation is complete."
+    },
+    "authority_boundaries": {
+      "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
+      "errors": 1,
+      "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
+      "note": "No new Neta authority error in BATCH-011. All three questions route to REPO, while Zen shows that correct authority does not imply the available static reality level is sufficient to authorize a build."
+    },
+    "baseline_decision_deltas": {
+      "neta_vs_baseline_build_restraint_cases": 24,
+      "fully_survived_adjudication": 11,
+      "partially_supported": 6,
+      "unresolved": 7,
+      "signal": "NOT_SATURATED_MIXED_MARGINAL_GAIN",
+      "note": "BATCH-011 adds one new baseline-vs-Neta restraint delta in Zen, but it remains unresolved and is not counted as surviving. No fully surviving delta was added this batch. One no-gain batch after BATCH-009/010 added four fully surviving deltas is not yet evidence that marginal decision value has saturated."
+    }
+  },
+  "wave_1_progress": {
+    "adjudicated_repos": 33,
+    "target_range": "30-50",
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity"],
+    "holdout_repos": 11,
+    "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
+    "clean_neta_failures": 1,
+    "surviving_baseline_deltas": 11,
+    "partially_supported_baseline_deltas": 6,
+    "minimum_viable_evidence_reached": false
+  },
+  "promotion_candidates": [],
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence.",
+  "protocol_stop_condition": null
+}

@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0005",
+  "repository": "GitJournal/GitJournal",
+  "pinned_sha": "c8a67e098db06335762f822d7733c330f4bd0d6b",
+  "corpus": "HOLDOUT",
+  "stratum": "mobile_application",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": ["repository metadata", "README", "lib/editors/note_editor.dart", "repository source only; no issues/PRs before freeze"],
+  "raw_signal_observation": "When the app lifecycle leaves resumed state, NoteEditor starts an asynchronous saveNoteToDisk call without awaiting it; failures are logged. Normal back navigation instead awaits _saveNote before leaving.",
+  "material_claim": "The lifecycle-save path may not guarantee persistence before process suspension/termination, and its failure path is not surfaced in this method. Source topology makes the risk plausible but does not establish that current integrated mobile behavior loses notes.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3/R4",
+  "authority": "ENVIRONMENT",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DENY",
+  "neta_next_move": "Reproduce with an instrumented mobile lifecycle test: edit a new note, background the app, force suspension/termination during the save window, then verify disk state and restart recovery. Do not redesign save semantics before this path is exercised.",
+  "reversal_condition": "If the lifecycle path reliably persists or recovers the draft under forced interruption, the mechanism is refuted. If content is lost, promote the smallest persistence/acknowledgement repair with a regression test.",
+  "baseline_decision": "BUILD: persist drafts synchronously or await lifecycle saves, and surface save failures so switching apps cannot silently lose a new note.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "After freeze, issue #552 reports that a newly created note could disappear after switching to another app and says multiple notes were lost; it is labeled critical.",
+      "Issue #552 supports the failure family and real mobile context, but does not prove that the pinned SHA's current fire-and-forget lifecycle save is still the active loss mechanism; the current source appears to contain logic specifically intended to save on lifecycle changes."
+    ],
+    "decision_delta": "Neta required reproduction of the current pinned path while baseline proposed an immediate save-semantics change. Historical field evidence supports the risk family, but not enough to confirm the current mechanism; the restraint therefore survives only partially.",
+    "rubric_critical_failures": [],
+    "lesson": "Historical field evidence can validate that a failure family mattered without establishing that a later repair still exhibits the same mechanism. HOLDOUT evidence is scored but must not update Neta until the holdout wave closes."
+  }
+}

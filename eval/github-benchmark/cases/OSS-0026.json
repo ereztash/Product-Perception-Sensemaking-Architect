@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0026",
+  "repository": "Inikoo-Ltd/aiku",
+  "pinned_sha": "7b0f70513853bf30d377c2e442a2842b0c11fb7f",
+  "corpus": "HOLDOUT",
+  "stratum": "web_commerce_operations",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "resources/js/Components/AskBot.vue",
+    "no issue/PR/discussion body opened before freeze"
+  ],
+  "raw_signal_observation": "AskBot uses EventSource for the AI answer. The explicit catch path sets errorSearch, but EventSource.onerror only stops loading and closes the stream. If no response content was accumulated, the template then falls through to the 'No results found' state rather than the error state.",
+  "material_claim": "At the pinned source, an EventSource transport failure before any response content can be represented as 'No results found' instead of a system error. This is a local state-contract mismatch that can be repaired without predicting any user outcome.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Make EventSource.onerror enter the existing errorSearch state before closing the stream, and add a fixture that forces an SSE error with no content and proves the UI renders the error state rather than 'No results found'.",
+  "reversal_condition": "If an integrated fixture shows another layer always converts EventSource failure into errorSearch before rendering, do not duplicate the state transition in the component.",
+  "baseline_decision": "BUILD: wire EventSource.onerror to the existing error UI so transport failure cannot masquerade as an empty search result.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "CONFIRMED_LOCAL",
+    "evidence": [
+      "The frozen component contains separate empty-result and error states, and its EventSource.onerror branch does not populate the error state before loading is cleared and the stream is closed.",
+      "Post-freeze issue search for the exact AskBot/'No results found' mechanism returned no independent report, so no field prevalence or user-impact claim is added.",
+      "Post-freeze PR search for AskBot/EventSource also returned no exact mechanism evidence."
+    ],
+    "decision_delta": "NO_DELTA: Neta and the baseline independently chose the same narrow build. The HOLDOUT value is calibration: Neta did not over-route a deterministic local state mismatch to FIELD or OWNER.",
+    "rubric_critical_failures": [],
+    "lesson": "HOLDOUT score only until Wave 1 closes. A locally explicit error/empty-state contract can justify a narrow reversible repair without any claim about external user outcomes."
+  }
+}

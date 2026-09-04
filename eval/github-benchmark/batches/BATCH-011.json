@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-011",
+  "cases": ["OSS-0031", "OSS-0032", "OSS-0033"],
+  "repositories": ["docmost/docmost", "FossifyOrg/Calendar", "zen-browser/desktop"],
+  "corpora": {"TRAIN": 1, "HOLDOUT": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 0,
+    "unresolved": 3,
+    "partially_supported": 0,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 0,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0031 adds a TRAIN replication of neighboring_ground_truth_laundering at a tighter boundary: PR #2302 proves a different stale-state defect in Docmost's same move-page flow, but does not confirm the frozen enabled-no-op claim and was rejected as exact ground truth.",
+    "OSS-0032 is HOLDOUT and remains score-only: source shows a multi-selection delete-description assignment overwritten by the following unconditional task/event branch, but no independent issue or PR closed the exact claim.",
+    "OSS-0033 is ADVERSARIAL case memory only: the baseline would flip an apparently inverted checkbox persistence assignment, while Neta requires a browser event-order fixture because XUL may mutate checked state before the click handler. No admissible independent evidence resolved that mechanism, so the delta does not survive adjudication."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode. BUILD_READY receives two additional cross-domain cases and DISCRIMINATE_FIRST receives one adversarial framework-semantics case.",
+    "failure_families": "No genuinely new failure family. I-002 gains one TRAIN replication; taxonomy growth remains slow while adjudication-boundary evidence continues to accumulate.",
+    "authority_boundaries": "No new authority error and no Neta failure. All three material questions were routed to REPO; the Zen case demonstrates that REPO authority can still require a higher integrated reality floor before build permission.",
+    "baseline_deltas": "One new baseline-vs-Neta restraint delta occurred in Zen but remains unresolved and is not counted as surviving. No fully surviving delta was added in this batch; one no-gain batch after BATCH-009/010's four gains is not yet a saturation stop signal."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 33,
+    "holdout_repos": 11,
+    "surviving_baseline_deltas": 11,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_stop_condition": null
+}

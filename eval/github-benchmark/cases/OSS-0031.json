@@ -1,0 +1,40 @@
+{
+  "case_id": "OSS-0031",
+  "repository": "docmost/docmost",
+  "pinned_sha": "5b854645615026d642c5e1735a3eafc59a3211f2",
+  "corpus": "TRAIN",
+  "stratum": "web_app_knowledge_collaboration",
+  "sampling_query": "public collaborative wiki/documentation product with active development; previously unseen benchmark repository",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "apps/client/src/features/page/components/move-page-modal.tsx",
+    "apps/client/src/features/space/components/sidebar/space-select.tsx",
+    "direct directory listings used only to locate the frozen source files",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "MovePageModal initializes targetSpace to null, renders an enabled primary Move button, and handlePageMove returns immediately when targetSpace is null. SpaceSelect excludes the current space from its option data and only emits a target after the user explicitly chooses another space. Therefore the initially reachable Move action is a silent no-op.",
+  "material_claim": "The repository supports a narrow local interaction claim: the modal exposes an enabled primary action in a reachable state where the handler is guaranteed to do nothing. A reversible fix may disable Move until a destination exists, without claiming that this causes field-level confusion or measurable user harm.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Disable the Move action while targetSpace is null and add a component-level positive/neighbor control: disabled before selection, enabled after a valid different-space selection. Do not redesign the modal or infer field impact.",
+  "reversal_condition": "If an integration/component fixture shows the action is not actually available or clickable before a valid target exists, or a current owner contract explicitly requires the enabled no-op state, revert or close the change.",
+  "baseline_decision": "BUILD: disable the Move button until a destination space is selected so the primary action cannot silently do nothing.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search found no exact report about clicking Move before choosing a destination.",
+      "Post-freeze PR #2302 independently confirms a different stale-state defect in the same move-to-space flow: the backend move can succeed while sidebar/breadcrumb state remains stale because treeDataAtom is not cleared.",
+      "PR #2302 does not address the pre-selection no-op and was deliberately rejected as confirmation of this case's exact mechanism."
+    ],
+    "decision_delta": "NO_MATERIAL_DIFFERENCE: both Neta and the baseline recommended the same narrow local change. The neighboring move-flow PR did not upgrade the exact claim.",
+    "rubric_critical_failures": [],
+    "lesson": "Ground truth from the same interaction flow is still neighboring evidence when it closes a different mechanism. Same-flow proximity cannot substitute for claim-specific adjudication."
+  }
+}

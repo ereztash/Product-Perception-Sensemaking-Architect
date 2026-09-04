@@ -1,0 +1,32 @@
+{
+  "case_id": "OSS-0011",
+  "repository": "dnote/dnote",
+  "pinned_sha": "a07a751f9827ff0875233e05317b90de7b29fd55",
+  "corpus": "TRAIN",
+  "stratum": "knowledge_productivity_cli",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": ["repository metadata", "README", "pkg/cli/cmd/remove/remove.go", "prompt tests", "sync/remove source and tests only; no issues/PRs before freeze"],
+  "raw_signal_observation": "Deleting a book asks `delete book '<name>' and all its notes?` with a default-No confirmation, then marks every note in that book deleted and clears note bodies. The prompt does not show the number of notes affected.",
+  "material_claim": "The destructive scope and default-No confirmation are established in source. Whether the warning is insufficient to prevent mistaken book deletion, and whether showing a count/name-entry confirmation would improve safety enough to justify added friction, cannot be established from source alone.",
+  "neta_decision": "FIELD_STOP",
+  "observed_reality": "R1",
+  "required_reality_floor": "R6 for accidental-deletion/error-prevention outcome",
+  "authority": "FIELD",
+  "requested_use": "CHANGE_PRODUCTION",
+  "permission": "DENY",
+  "neta_next_move": "Do not add extra deletion friction from repository inspection alone. Observe a bounded destructive-task test or collect direct accidental-deletion reports; only then prototype the smallest cue (for example affected-note count) targeted at the observed failure.",
+  "field_requirement": "External users perform a book-deletion task with realistic book sizes, or direct field reports establish mistaken deletion despite the current default-No warning.",
+  "reversal_condition": "If no confusion/error appears under a suitable destructive-task observation, retain the current confirmation; repeated mistaken scope understanding promotes the smallest additional cue.",
+  "baseline_decision": "BUILD: show the affected note count and require typing the book name for non-empty books before deletion, because deleting a whole book is high-impact and currently only uses a generic y/N prompt.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #167 shows a user explicitly receiving and accepting the same `delete book ... and all its notes? (y/N)` prompt; the reported defect was the deletion implementation leaving a renamed book visible, not misunderstanding the destructive scope.",
+      "Issue search found no direct accidental-deletion or restore-deleted-note report that establishes the current warning is insufficient. Neighboring delete/sync bugs do not prove the warning mechanism."
+    ],
+    "decision_delta": "Neta prevented adding stronger destructive friction without evidence that the current warning causes mistaken deletion. The available issue corpus does not resolve the human-error claim.",
+    "rubric_critical_failures": [],
+    "lesson": "High consequence alone does not establish that more confirmation friction is beneficial. Source can prove destructive scope and warning semantics; accidental-error prevention remains FIELD-owned unless direct evidence closes it."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "case_id": "OSS-0021",
+  "repository": "super-productivity/super-productivity",
+  "pinned_sha": "df16412c8b36ef4348cdf767d9481b9738f49a94",
+  "corpus": "TRAIN",
+  "stratum": "cross_platform_productivity_sync",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "src/app/op-log/validation/validate-state.service.ts",
+    "source/test snippets for native confirm behavior",
+    "the source itself contains a historical issue reference but no issue body was opened until Phase D"
+  ],
+  "raw_signal_observation": "The current validation/repair path explicitly keeps background-sync repair non-interactive while the sp_op_log lock is held. The source comments state that blocking native dialogs inside that lock are unsafe and that repair-operation creation also defaults to non-interactive in this context.",
+  "material_claim": "Silent/non-interactive repair during the held background-sync lock is an explicit technical invariant, not missing UX by itself. Reintroducing a blocking confirmation at that point would violate the lock-safety contract; any transparency intervention must be deferred until after the lock or use a non-blocking path.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "DEFER",
+  "permission": "DEFER",
+  "neta_next_move": "Preserve the non-interactive in-lock repair invariant. If product policy requires explicit user acknowledgement, design it after lock release or as non-blocking telemetry/UI; do not restore native confirm inside the critical section.",
+  "reversal_condition": "If the lock is removed from this path or a new dialog mechanism is proven not to block the lock/event-loop contract, reassess whether acknowledgement can safely occur inline.",
+  "baseline_decision": "DEFER/REFINE: do not place blocking confirm() inside the sync lock; if users need visibility into automatic repairs, surface a non-blocking notification after the critical section.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "CONFIRMED_LOCAL",
+    "evidence": [
+      "Post-freeze issue #9026, opened by a project collaborator, documents that blocking confirm() inside sp_op_log caused real 30-second lock-acquisition timeouts and a roughly 10-minute blocked field interval.",
+      "Issue #9026 explicitly recommends not prompting while holding sp_op_log and/or using a non-blocking dialog after release, matching the current source invariant."
+    ],
+    "decision_delta": "NO_MATERIAL_DIFFERENCE: both Neta and baseline preserved the same lock-safety boundary. The case confirms the local mechanism but does not add marginal decision value over baseline.",
+    "rubric_critical_failures": [],
+    "lesson": "Anti-build is not the only valid discipline: when source carries an explicit invariant backed by a prior field failure, the correct move may simply be to preserve it. Strong source comments can encode real operational knowledge without granting claims outside that mechanism."
+  }
+}

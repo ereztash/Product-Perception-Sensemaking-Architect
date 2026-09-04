@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0006",
+  "repository": "unhappychoice/gitlogue",
+  "pinned_sha": "73750f745249e72874ee7118469ce847aab24955",
+  "corpus": "TRAIN",
+  "stratum": "developer_tool_interactive",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": ["repository metadata", "README", "src/ui.rs", "repository tests/source only; no issues/PRs before freeze"],
+  "raw_signal_observation": "Opening the menu stores the current UIState and pauses the animation. Closing the menu restores the prior state except WaitingForNext, which is explicitly converted to Playing; playback resumes only if playback_state is Playing.",
+  "material_claim": "Closing the menu during the inter-commit waiting state cancels that waiting state and resumes Playing. The source establishes this state transition, but not whether skipping the remaining wait is intended interaction policy or a defect.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1 for state transition; OWNER for intended menu/transition policy",
+  "authority": "OWNER",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Do not restore WaitingForNext automatically from source inspection alone. Resolve intended behavior for menu-open during inter-commit wait; if the wait must survive, add an exact-state restoration test before changing close_menu.",
+  "reversal_condition": "If product intent says menu interaction intentionally cancels inter-commit waiting, retain behavior. If the wait is intended to resume where it left off, promote a state-preserving repair with a regression test.",
+  "baseline_decision": "BUILD: restore the exact previous UIState on menu close instead of converting WaitingForNext to Playing, so opening the menu cannot skip the inter-commit delay.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue search for menu/pause behavior returned no matching defect report.",
+      "The pinned source includes explicit state-restoration logic and tests around preserving paused playback when closing the menu, showing this interaction family is intentionally controlled, while no independent evidence establishes that WaitingForNext conversion is erroneous."
+    ],
+    "decision_delta": "Neta prevented a state-policy change that the baseline recommended. Available evidence establishes the implementation but not that its chosen policy is wrong, so OWNER routing is the better-supported decision.",
+    "rubric_critical_failures": [],
+    "lesson": "Exact source certainty about a state transition does not answer whether the transition is the intended interaction policy. Implementation fact and product intent remain separate authorities."
+  }
+}

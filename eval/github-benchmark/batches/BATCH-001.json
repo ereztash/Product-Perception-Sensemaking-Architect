@@ -1,0 +1,34 @@
+{
+  "batch_id": "BATCH-001",
+  "cases": ["OSS-0001", "OSS-0002", "OSS-0003"],
+  "corpus": "TRAIN",
+  "completed": true,
+  "adjudication": {
+    "UNRESOLVED": 1,
+    "PARTIALLY_SUPPORTED": 2,
+    "CONFIRMED_LOCAL": 0,
+    "REFUTED": 0,
+    "AUTHORITY_CORRECT_STOP": 0
+  },
+  "neta_decisions": {
+    "DISCRIMINATE_FIRST": 3
+  },
+  "baseline": {
+    "immediate_build_recommendations": 3
+  },
+  "decision_delta": {
+    "fully_surviving": 0,
+    "partially_supported": 2,
+    "unresolved": 1
+  },
+  "critical_failures": 0,
+  "new_neta_failures": 0,
+  "promotion_candidates": [],
+  "saturation_signals": [
+    "decision-mode coverage is low: only DISCRIMINATE_FIRST observed",
+    "authority coverage is low: only REPO observed",
+    "baseline build restraint appeared in all 3 cases but none is fully adjudicated yet"
+  ],
+  "method_signal": "Issue/PR ground truth frequently supports a neighboring failure family rather than the exact mechanism. Do not count such evidence as full confirmation.",
+  "protocol_stop_condition": null
+}

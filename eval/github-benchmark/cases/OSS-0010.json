@@ -1,0 +1,32 @@
+{
+  "case_id": "OSS-0010",
+  "repository": "swiftbar/SwiftBar",
+  "pinned_sha": "b9fa1ed3fc75868913bf604c1620500e7468460a",
+  "corpus": "HOLDOUT",
+  "stratum": "desktop_native",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": ["repository metadata", "README", "PluginMetadata.swift", "MenuBarItem.swift", "SwiftBarTests.swift", "repository source/tests only; no issues/PRs before freeze"],
+  "raw_signal_observation": "Plugins may hide standard SwiftBar controls such as About, Run in Terminal, Disable Plugin and the SwiftBar submenu through metadata. README documents that Option+Click reveals hidden default items, and MenuBarItem records Option state when the menu opens.",
+  "material_claim": "Source establishes a hidden-control recovery mechanism. It cannot establish whether ordinary users discover or understand Option+Click when a plugin hides Disable Plugin or SwiftBar controls.",
+  "neta_decision": "FIELD_STOP",
+  "observed_reality": "R1",
+  "required_reality_floor": "R6 for discoverability/comprehension of the recovery gesture",
+  "authority": "FIELD",
+  "requested_use": "CHANGE_PRODUCTION",
+  "permission": "DENY",
+  "neta_next_move": "Do not add persistent recovery UI from source inspection alone. Observe a small first-use task with a plugin that hides standard controls and record whether an external user can recover them without instruction; if not, prototype the smallest visible recovery cue.",
+  "field_requirement": "External person encounters a plugin with hidden standard items and is asked to disable/reach SwiftBar controls without being told about Option+Click.",
+  "reversal_condition": "If external users reliably recover the hidden controls unaided, keep the current mechanism; repeated failure promotes a reversible discoverability cue.",
+  "baseline_decision": "BUILD: add a permanently visible recovery/settings entry or tooltip whenever a plugin hides standard menu items so users are never dependent on an undiscoverable Option+Click gesture.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue search found reports involving hideDisablePlugin and shortcut/menu behavior, including issue #438, but those establish implementation inconsistency in a neighboring path rather than whether users discover Option+Click.",
+      "No admissible repository/issue evidence found in this adjudication establishes noticeability or comprehension of the hidden-control recovery gesture; that exact claim remains FIELD-owned."
+    ],
+    "decision_delta": "Neta prevented a discoverability redesign that the baseline recommended without R6 evidence. The issue corpus contains neighboring implementation bugs but does not close the perception claim.",
+    "rubric_critical_failures": [],
+    "lesson": "A documented recovery gesture and its implementation can be established at R1 while its discoverability remains an R6 question. HOLDOUT result is score-only until the holdout wave closes."
+  }
+}

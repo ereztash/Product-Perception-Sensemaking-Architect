@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0017",
+  "repository": "makeplane/plane",
+  "pinned_sha": "da1a7ab85012d16836459a10dd92ec55eb739c69",
+  "corpus": "HOLDOUT",
+  "stratum": "web_app_project_management",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata",
+    "apps/web/core/components/inbox/modals/delete-issue-modal.tsx",
+    "apps/web/core/components/inbox/content/inbox-issue-header.tsx only to establish integrated use",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "DeleteInboxIssueModal is integrated into the inbox issue header. Its title, success message, and surrounding component use i18n translation calls, but the destructive confirmation body is a hard-coded English string. The source itself carries a TODO stating that the confirmation message needs translation.",
+  "material_claim": "The current integrated path has a local internationalization defect: non-English locale selection cannot translate the confirmation body because the rendered content is an English literal even though the product's localization mechanism is active around it.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R3",
+  "required_reality_floor": "R3",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Move the confirmation sentence into the existing inbox_issue i18n namespace, preserve the interpolated project identifier and sequence number, and add a locale-switch regression test that deliberately fails while the English literal remains.",
+  "reversal_condition": "If the inbox deletion modal is intentionally excluded from localization by explicit product policy, withdraw the build; otherwise the hard-coded literal remains a repository-local violation of the active i18n contract.",
+  "baseline_decision": "BUILD: replace the hard-coded English confirmation body with a translation key because the component already uses the translation system for title and outcome messaging.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Post-freeze PR #9639 adds Dutch as a supported language and describes broad localization across action prompts and product workflows, independently supporting that destructive prompts are inside the localization contract.",
+      "Earlier localization PR #8638 describes internationalization support across forms, tooltips, notifications, and modals, supporting the broader product contract but not this exact inbox string.",
+      "No issue or merged PR found in this reveal directly names the exact hard-coded DeleteInboxIssueModal confirmation body at the pinned SHA."
+    ],
+    "decision_delta": "No material advantage over baseline: both correctly choose a narrow repository-owned localization fix. The case contributes HOLDOUT score only and does not teach Neta before the wave closes.",
+    "rubric_critical_failures": [],
+    "lesson": "An explicit local TODO plus an integrated i18n boundary can justify BUILD_READY without field evidence, but neighboring localization work should not be laundered into exact-mechanism confirmation."
+  }
+}

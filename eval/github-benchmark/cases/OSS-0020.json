@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0020",
+  "repository": "linkwarden/linkwarden",
+  "pinned_sha": "789aa2b0ad585341867b38a26d4c5e80973aa572",
+  "corpus": "TRAIN",
+  "stratum": "web_app_knowledge_archiving",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README product promises",
+    "apps/web/lib/api/controllers/collections/collectionId/deleteCollectionById.ts",
+    "mobile deletion source used only to understand the destructive action surface",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "deleteCollectionById wraps database deletion in prisma.$transaction but performs non-database side effects inside that callback: removeFolder deletes archive directories and Meilisearch deleteDocuments removes indexed documents before the transaction has necessarily committed. Those side effects are not rolled back by Prisma if a later database step fails.",
+  "material_claim": "The collection-delete path has a repository-local atomicity boundary mismatch: a later database failure can roll back database state while already-performed filesystem/search side effects remain changed. A repair must preserve consistency across database, archive filesystem, and search index rather than treating the Prisma transaction as covering all three.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Add a failure-injection test around collection deletion that forces a database failure after at least one external side effect, then implement the smallest consistency repair that makes the test red-before/green-after (for example compensation or post-commit/outbox handling rather than assuming Prisma can roll back filesystem/search state).",
+  "reversal_condition": "If the external helpers are proven transactional/compensating through an integration fixture, or deletion is already protected by an outer durable workflow not visible in this path, withdraw the build recommendation.",
+  "baseline_decision": "BUILD: move filesystem and search-index cleanup out of the Prisma transaction and perform them after the database delete succeeds so rollback cannot leave the database pointing at deleted archives.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search found real destructive-operation and preservation failures, including #900 and #1064, but neither reproduces the collection-delete transaction boundary under adjudication.",
+      "Issue #1064 independently shows that preserved-format reliability is a real product concern, but its archive-fetch failures are a neighboring mechanism and do not confirm rollback inconsistency during collection deletion."
+    ],
+    "decision_delta": "NO_MATERIAL_DIFFERENCE: both Neta and baseline recommend a local engineering repair; independent issue evidence does not adjudicate the exact atomicity mechanism.",
+    "rubric_critical_failures": [],
+    "lesson": "Static code can establish a non-atomic boundary between DB and external side effects, but issue-level evidence about preservation reliability cannot be promoted into confirmation of the specific rollback failure. The failure-injection gate remains the cheapest missing evidence."
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0002",
+  "repository": "dullage/flatnotes",
+  "pinned_sha": "7f5b773c9cb37cc84978079ed4790e7de38d3970",
+  "corpus": "TRAIN",
+  "stratum": "knowledge_productivity",
+  "prior_exposure_risk": "UNKNOWN",
+  "frozen_evidence_boundary": ["repository metadata", "README", "product source", "tests/static repository evidence"],
+  "raw_signal_observation": "Note.vue computes title changes as unsaved in isContentChanged(), but the change watcher that sets unsavedChanges and window.onbeforeunload is triggered only by ToastEditor @change. The title input has v-model.trim with no corresponding change watcher.",
+  "material_claim": "A title-only edit can remain unprotected by beforeunload and therefore may be lost on browser/tab unload without the warning used for content edits.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R3",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DENY",
+  "neta_next_move": "Run a component/integration test that edits only the title, leaves editor content unchanged, and checks unsavedChanges plus window.onbeforeunload before navigation/unload.",
+  "reversal_condition": "If another mounted watcher or router guard activates unload protection for title-only edits, the mechanism is refuted.",
+  "baseline_decision": "BUILD: watch newTitle and call the same unsaved-change handler / beforeunload protection used for editor content.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Open bug #281 reports an unsaved-edit navigation path where returning with browser Back clears the note title and prevents saving; the issue explicitly links the failure to unsaved draft/navigation state.",
+      "No independent report found that isolates title-only edit plus browser/tab unload, so the exact beforeunload mechanism remains unconfirmed."
+    ],
+    "decision_delta": "Neta chose an integrated discriminator instead of immediately adding a watcher. Independent evidence supports the broader unsaved-title/navigation failure family but does not prove the exact proposed fix, so the restraint survives only partially.",
+    "rubric_critical_failures": [],
+    "lesson": "A neighboring real bug can support a failure family without licensing mechanism-level closure. Keep the title-only unload claim open until reproduced."
+  }
+}

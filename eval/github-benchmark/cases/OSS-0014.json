@@ -1,0 +1,40 @@
+{
+  "case_id": "OSS-0014",
+  "repository": "actualbudget/actual",
+  "pinned_sha": "eea17e543d7592369f3e3ac3dd20f02640913288",
+  "corpus": "TRAIN",
+  "stratum": "finance_productivity_mobile",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata",
+    "packages/desktop-client/src/components/mobile/rules/MobileRuleEditPage.tsx",
+    "packages/desktop-client/src/components/mobile/rules/MobileRulesPage.tsx",
+    "useUndo call sites needed to establish undo availability",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "Deleting a rule from MobileRuleEditPage requires an explicit confirmation and then exposes undo. Deleting a rule from MobileRulesPage directly sends rule-delete-all without confirmation and then exposes the same undo mechanism.",
+  "material_claim": "Neta treated the sibling-path asymmetry as a violated destructive-action contract: the same entity and delete operation should use the same confirmation guard, so the list path was classified as a narrow local defect rather than an unresolved interaction-policy choice.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Add the same confirmation guard to list-path rule deletion and pin the sibling consistency with a regression test; deliberately remove the guard as the positive control and require the test to turn red.",
+  "reversal_condition": "If explicit product policy establishes that undo intentionally replaces confirmation in list context, revert the consistency change and route the policy to OWNER.",
+  "baseline_decision": "BUILD: add a confirmation modal to list-path rule deletion for consistency with the edit path and to reduce accidental destructive actions.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "REFUTED",
+    "evidence": [
+      "Post-freeze issue #194 requested exactly a confirmation modal for rule deletion because of accidental-click risk; a maintainer initially called it a valid enhancement rather than a defect.",
+      "In the same issue, maintainer/developer j-f1 explicitly challenged the proposed confirmation: `I'm pretty sure undo works here, so maybe a confirmation isn't necessary?`",
+      "The issue was closed as a duplicate of a product discussion rather than as a repository invariant violation, while the pinned product still contains both confirmation+undo and undo-only rule-deletion paths."
+    ],
+    "decision_delta": "No advantage over baseline. Neta converted an inferred sibling-consistency preference into REPO-owned build permission even though the exact confirmation-versus-undo question was a product-policy tradeoff. The correct route was OWNER_DEFER or a policy discriminator.",
+    "rubric_critical_failures": [
+      "CF8 — Authority laundering"
+    ],
+    "lesson": "Equivalent-looking sibling paths do not establish a shared product contract. BUILD_READY from asymmetry is justified only when the invariant is explicit or otherwise independently established; inferred consistency can belong to OWNER."
+  }
+}
