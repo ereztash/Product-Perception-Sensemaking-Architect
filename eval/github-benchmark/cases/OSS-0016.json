@@ -1,0 +1,38 @@
+{
+  "case_id": "OSS-0016",
+  "repository": "Taskosaur/Taskosaur",
+  "pinned_sha": "595d5f3998f8d513227c8a106cbfe931236144b1",
+  "corpus": "TRAIN",
+  "stratum": "web_app_project_management",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata",
+    "frontend/src/pages/admin/users.tsx",
+    "backend/src/modules/admin/admin.controller.ts",
+    "generic filter call sites needed to establish selected-role/status behavior",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "The admin users UI stores role and status filters as multi-select arrays, exposes Select All, and counts multiple active filters. Yet fetchUsers sends role or status to the backend only when the corresponding selected array has exactly one item. The backend contract accepts one role and one status query value. Selecting two or more values therefore leaves the UI in a filtered-looking state while omitting that dimension from the request.",
+  "material_claim": "A repo-level representation/behavior mismatch is established, but the correct repair is not: the current source does not establish whether product intent is true multi-select filtering or single-select filtering presented through a generic multi-select component.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R3",
+  "required_reality_floor": "R3",
+  "authority": "OWNER",
+  "requested_use": "DISCRIMINATE",
+  "permission": "DEFER",
+  "neta_next_move": "Ask for the product contract for admin filters: multi-select OR single-select. If multi-select is intended, extend the request/backend contract and add a two-role positive control; if single-select is intended, constrain the UI so a second selection cannot create a no-op filter state.",
+  "reversal_condition": "If repository-local product documentation or tests explicitly specify multi-select or single-select semantics, route the repair back to REPO and permit the smallest matching change.",
+  "baseline_decision": "BUILD: extend the admin users API to accept multiple role/status values and send all selected values from the UI, because the existing multi-select filter state otherwise silently stops filtering when more than one value is selected.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze GitHub issue search for admin user role/status filtering returned no matching issue.",
+      "Post-freeze PR search for the same filter behavior returned no matching pull request.",
+      "Absence of issue/PR evidence is not evidence that either single-select or multi-select product intent is correct."
+    ],
+    "decision_delta": "Neta is more restrained than baseline, but the delta does not yet survive adjudication because no independent evidence establishes the intended filter contract.",
+    "rubric_critical_failures": [],
+    "lesson": "A strong repo-local mismatch can establish that the current UI/request pairing is incoherent while still leaving the direction of repair OWNER-owned. Do not turn generic-component affordances into product intent without a contract discriminator."
+  }
+}
