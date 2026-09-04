@@ -1,0 +1,34 @@
+{
+  "case_id": "OSS-0027",
+  "repository": "kuaifan/dootask",
+  "pinned_sha": "6c8050f8f86495810b59dd611d4936d946ce6752",
+  "corpus": "TRAIN",
+  "stratum": "web_collaboration_project_management",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md",
+    "resources/assets/js/pages/login.vue",
+    "direct directory listings for resources/assets/js and pages; CHANGELOG content not opened",
+    "no issue/PR/discussion body opened before freeze"
+  ],
+  "raw_signal_observation": "For a scheme-less server address, inputServerChack first tries HTTPS. On network failure ret=-1001 it recursively retries the same value with http://. The login flow then uses that configured server for credentials. The source proves an HTTP fallback exists, but does not establish the intended deployment policy or whether plaintext transport is acceptable for local/self-hosted environments.",
+  "material_claim": "The HTTP fallback is an implementation fact, not yet a REPO-proven product defect. Removing it changes a compatibility/security policy whose intended boundary belongs to OWNER and may depend on deployment ENVIRONMENT evidence.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R5",
+  "authority": "OWNER",
+  "requested_use": "CHANGE_PRODUCTION",
+  "permission": "DEFER",
+  "neta_next_move": "Resolve whether scheme-less self-hosted servers are permitted to use HTTP and under what network assumptions. If HTTPS is an explicit invariant, add a failing transport-policy fixture and remove the fallback narrowly; if LAN HTTP is intentional, preserve it and make the boundary explicit.",
+  "reversal_condition": "An explicit owner/security contract requiring TLS for credential submission would move the intervention to REPO BUILD_READY; explicit support for LAN HTTP would keep the fallback and shift any remaining adequacy question to FIELD/ENVIRONMENT.",
+  "baseline_decision": "BUILD: remove the automatic HTTP fallback and require HTTPS for login endpoints so credentials are never submitted over plaintext after an HTTPS failure.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [],
+    "decision_delta": "PENDING_PHASE_D",
+    "rubric_critical_failures": [],
+    "lesson": "Pending Phase D."
+  }
+}
