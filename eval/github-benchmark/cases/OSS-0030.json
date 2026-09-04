@@ -25,10 +25,14 @@
   "baseline_decision": "BUILD: implement the existing TODO by adding the same prior-history checkbox to the Invite flow and pass its value into SparkleFetcherInfo for consistency with Add.",
   "phase_b_c_frozen": true,
   "adjudication": {
-    "status": "UNRESOLVED",
-    "evidence": [],
-    "decision_delta": "PENDING_PHASE_D",
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze exact-mechanism issue search found no report that forced FetchPriorHistory=false in Invite is a current user-facing defect or requirement.",
+      "Post-freeze owner issue #2006 states that the existing C#/cross-platform project had lost active maintenance, was expected to be archived, and is being rewritten in Rust in 2026 with a potentially smaller/different scope.",
+      "That owner roadmap evidence makes an old inline TODO even less authoritative as a current build requirement; no current owner contract was found requiring Invite/Add parity."
+    ],
+    "decision_delta": "SURVIVED: the baseline would implement an old TODO in the legacy codebase. Neta treated the TODO and sibling control as evidence of possibility rather than permission; the revealed owner roadmap strongly supports deferring that build unless the new product direction explicitly revives the requirement.",
     "rubric_critical_failures": [],
-    "lesson": "Pending Phase D; adversarial test of TODO/encodability and inferred-sibling-contract restraint."
+    "lesson": "A TODO is not a roadmap commitment, and sibling parity is not a contract. Product lifecycle/owner intent can dominate the apparent convenience of implementing an encodable local improvement."
   }
 }
