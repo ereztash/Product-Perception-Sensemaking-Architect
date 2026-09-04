@@ -1,0 +1,31 @@
+{
+  "case_id": "OSS-0007",
+  "repository": "zidoro/pomatez",
+  "pinned_sha": "c2727800c6272573590911e9ee81637b89e55d5f",
+  "corpus": "TRAIN",
+  "stratum": "desktop_native",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": ["repository metadata", "README", "Control.tsx", "Sessions.tsx", "repository source/tests only; no issues/PRs before freeze"],
+  "raw_signal_observation": "Strict mode guards reset, pause and skip while the timer is playing, but the Sessions reset control calls onResetSessionCallback, which resets timer type and round without checking strict mode.",
+  "material_claim": "The pinned UI contains a reset-like control that bypasses the same strict-mode guard applied to the other timer controls. This local contract asymmetry is established in source; whether users actually exploit it is not.",
+  "neta_decision": "BUILD_READY",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1 for guard asymmetry; R3+ for observed runtime bypass; FIELD for user behavior",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "ALLOW",
+  "neta_next_move": "Apply the existing strict-mode playing guard to the session-reset callback and add a focused test proving the session reset cannot change round/type while strict mode is active and playing.",
+  "reversal_condition": "If maintainer intent explicitly excludes session-count reset from strict mode, revert the guard and encode that exception in tests/docs.",
+  "baseline_decision": "BUILD: disable or hide all reset/session controls while strict mode is active, and consider locking other escape paths such as tray quit.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Source independently establishes that strict mode is intended to prevent reset/pause/skip while playing, while Sessions reset lacks that guard.",
+      "Post-freeze issue search found multiple user reports/requests about strict-mode escape paths, including #648 asking to disable tray quit during strict mode and #146 asking to lock strict mode for the current session; these support the broader failure family but do not confirm the specific Sessions-reset mechanism."
+    ],
+    "decision_delta": "Neta and baseline both build, but Neta's intervention is narrower and tied to the exact established guard asymmetry. Independent evidence supports the broader strict-mode escape family, not the exact local mechanism.",
+    "rubric_critical_failures": [],
+    "lesson": "A local contract asymmetry can justify a reversible guard-consistency fix without asserting that users encounter or exploit the bypass; neighboring user complaints must not be laundered into mechanism confirmation."
+  }
+}
