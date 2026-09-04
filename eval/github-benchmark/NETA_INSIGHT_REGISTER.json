@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-012",
+  "last_batch": "BATCH-013",
   "insights": [
     {
       "insight_id": "I-001",
@@ -46,13 +46,13 @@
       "failure_family": "implementation_fact_to_defect_laundering",
       "insight": "A repository can establish exactly what the product does while remaining unable to establish that the behavior is a defect; when the unresolved question is intended interaction/configuration policy, route to OWNER instead of converting implementation certainty into build permission.",
       "first_seen": "OSS-0004",
-      "replications": ["OSS-0006", "OSS-0012", "OSS-0022", "OSS-0025", "OSS-0027"],
+      "replications": ["OSS-0006", "OSS-0012", "OSS-0022", "OSS-0025", "OSS-0027", "OSS-0039"],
       "counterexamples": ["OSS-0007"],
       "neta_failed": false,
       "baseline_decision_delta": true,
-      "evidence_state": "PRELIMINARY_TRAIN_6_AUTHORITY_OR_DISCRIMINATION_CASES_PLUS_HOLDOUT_SCORE_ONLY",
+      "evidence_state": "PRELIMINARY_NON_HOLDOUT_7_AUTHORITY_OR_DISCRIMINATION_CASES_PLUS_HOLDOUT_SCORE_ONLY",
       "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
-      "promotion_reason": "Already encoded by Neta's evidence/authority/permission separation. BATCH-009 adds two materially different TRAIN replications: TaskCoach's documented Flatpak compatibility tradeoff and DooTask's mixed-scheme self-hosting topology both show that an implementation fact can be certain while the change decision remains OWNER-owned."
+      "promotion_reason": "Already encoded by Neta's evidence/authority/permission separation. BATCH-009 adds two materially different TRAIN replications: TaskCoach's documented Flatpak compatibility tradeoff and DooTask's mixed-scheme self-hosting topology both show that an implementation fact can be certain while the change decision remains OWNER-owned. BATCH-013 adds SiYuan as an ADVERSARIAL explicit-intent replication: a named no-confirm deletion option was intentionally requested by a maintainer, so generic safety concerns cannot convert known behavior into a defect without OWNER permission."
     },
     {
       "insight_id": "I-005",
@@ -124,40 +124,40 @@
     "decision_modes": {
       "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
       "signal": "COVERED_NOT_SATURATED",
-      "note": "All target routing modes remain represented. BATCH-012 adds three OWNER_DEFER cases across mobile navigation, an interactive developer tool and a document-productivity web app; no new mode appears."
+      "note": "All target routing modes remain represented. BATCH-013 exercises BUILD_READY and OWNER_DEFER across a monitoring dashboard, desktop media editor and cross-platform knowledge product; no new mode appears."
     },
     "failure_families": {
       "observed_count": 9,
       "signal": "TAXONOMY_GROWTH_SLOWING_BOUNDARIES_STILL_OPEN",
-      "note": "BATCH-012 adds no genuinely new family. I-007 gains one TRAIN replication from Organic Maps, strengthening the boundary between sibling similarity and an explicit shared contract without satisfying promotion gates."
+      "note": "BATCH-013 adds no genuinely new family. I-004 gains one ADVERSARIAL replication from SiYuan, where explicit maintainer intent confirms that a behavior that looks generically risky can still be deliberate product policy. HOLDOUT OSS-0038 remains score-only."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
       "errors": 1,
       "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
-      "note": "No new Neta authority error in BATCH-012. Organic Maps independently supports the OWNER route; Hoppscotch is a partially supported HOLDOUT OWNER route; Stirling PDF remains unresolved."
+      "note": "No new Neta authority error in BATCH-013. LosslessCut and SiYuan independently support OWNER routing; Uptime Kuma remains a REPO-local BUILD_READY case with only partial independent support for the exact mechanism."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 27,
-      "fully_survived_adjudication": 12,
+      "neta_vs_baseline_build_restraint_cases": 29,
+      "fully_survived_adjudication": 14,
       "partially_supported": 7,
       "unresolved": 8,
       "signal": "NOT_SATURATED_MIXED_MARGINAL_GAIN",
-      "note": "BATCH-012 adds one fully surviving baseline delta in Organic Maps, one partially supported HOLDOUT delta in Hoppscotch and one unresolved delta in Stirling PDF. Decision-relevant marginal information is still arriving, so no saturation stop is triggered."
+      "note": "BATCH-013 adds two fully surviving baseline deltas: LosslessCut in HOLDOUT and SiYuan in ADVERSARIAL. Uptime Kuma produces no material delta because both reviewers authorize the same narrow fix. Decision-relevant marginal information is still arriving, so no saturation stop is triggered."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 36,
+    "adjudicated_repos": 39,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity", "mobile_application_navigation", "web_app_document_productivity"],
-    "holdout_repos": 12,
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity", "mobile_application_navigation", "web_app_document_productivity", "desktop_native_media_editing"],
+    "holdout_repos": 13,
     "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
     "clean_neta_failures": 1,
-    "surviving_baseline_deltas": 12,
+    "surviving_baseline_deltas": 14,
     "partially_supported_baseline_deltas": 7,
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
-  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence. BATCH-012 quarantined mealie-recipes/mealie before case creation after a Phase-B code search surfaced an in-repository survey/user-feedback document; no Mealie case was created. Organic Maps, Hoppscotch and Stirling PDF were pinned through git refs and their Neta/baseline decisions were frozen before issue/PR reveal. HOLDOUT OSS-0035 remains score-only and was not added to insight replication, counterexample or promotion evidence.",
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence. BATCH-012 quarantined mealie-recipes/mealie before case creation after a Phase-B code search surfaced an in-repository survey/user-feedback document; no Mealie case was created. Organic Maps, Hoppscotch and Stirling PDF were pinned through git refs and their Neta/baseline decisions were frozen before issue/PR reveal. HOLDOUT OSS-0035 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-013 pinned Uptime Kuma, LosslessCut and SiYuan through git refs before Phase B and froze Neta/baseline decisions before issue/PR reveal. HOLDOUT OSS-0038 remains score-only and was not added to insight replication, counterexample or promotion evidence.",
   "protocol_stop_condition": null
 }
