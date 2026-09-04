@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "purpose": "Operational plan for using external Hebrew corpora as controls without laundering their labels into Neta-specific ground truth.",
+  "adapters": [
+    {
+      "source_id": "hebrew_paraphrase",
+      "wave_h1_target": 30,
+      "selection": "Gold-only; stratify sentence/paragraph; avoid duplicate semantic clusters where practical.",
+      "input_views": ["original_hebrew", "paraphrase_hebrew"],
+      "measure": ["authority_invariance", "action_invariance", "mechanism_status_invariance"],
+      "neta_annotation_required": true,
+      "promotion_allowed": false,
+      "reason": "Tests formulation invariance, not product-language pragmatics."
+    },
+    {
+      "source_id": "heq",
+      "wave_h1_target": 20,
+      "selection": "Prefer context-dependent/deictic/second-person items where source metadata permits; otherwise sample items that require local context to resolve reference.",
+      "input_views": ["question_plus_required_context", "question_without_context_control"],
+      "measure": ["premature_reference_resolution", "must_not_infer_discipline"],
+      "neta_annotation_required": true,
+      "promotion_allowed": false,
+      "reason": "Tests whether missing context is preserved as missing rather than hallucinated."
+    },
+    {
+      "source_id": "hebnli",
+      "wave_h1_target": 30,
+      "selection": "If licensing is clarified: gold set only, balanced entailment/neutral/contradiction.",
+      "input_views": ["premise_hebrew", "hypothesis_hebrew"],
+      "measure": ["entailment_overreach", "neutral_preservation", "contradiction_detection"],
+      "neta_annotation_required": false,
+      "promotion_allowed": false,
+      "blocked_by": "Explicit redistribution/evaluation license not verified in repository metadata.",
+      "reason": "Pure inference-discipline control; original NLI labels remain authoritative only for NLI."
+    },
+    {
+      "source_id": "ironyset",
+      "wave_h1_target": 20,
+      "selection": "Only after license verification; balance ironic/literal quotation-mark cases if source labels support it.",
+      "input_views": ["hebrew_sentence"],
+      "measure": ["irony_literalization_rate"],
+      "neta_annotation_required": true,
+      "promotion_allowed": false,
+      "blocked_by": "License not verified.",
+      "reason": "Pragmatics control only."
+    },
+    {
+      "source_id": "cosih",
+      "wave_h1_target": 0,
+      "selection": "Research-only lane after terms review; no raw transcript redistribution.",
+      "measure": ["fillers_repairs", "spoken_pragmatics"],
+      "neta_annotation_required": true,
+      "promotion_allowed": false,
+      "blocked_by": "Restricted/non-commercial terms.",
+      "reason": "Useful later for naturalness, not needed for initial commercializable benchmark."
+    },
+    {
+      "source_id": "matacop",
+      "wave_h1_target": 0,
+      "selection": "Research-only lane after access approval.",
+      "measure": ["clarification_need", "hedging", "repair_sequences"],
+      "neta_annotation_required": true,
+      "promotion_allowed": false,
+      "blocked_by": "Manual/restricted access.",
+      "reason": "Useful later for dialogue repair, not initial H1."
+    }
+  ],
+  "neta_specific_hidden_holdout": {
+    "target": 20,
+    "stored_in_repo_before_freeze": false,
+    "required": true,
+    "counts_toward_wave_h1_minimum": true
+  }
+}
