@@ -1,0 +1,39 @@
+{
+  "case_id": "OSS-0015",
+  "repository": "AppFlowy-IO/AppFlowy",
+  "pinned_sha": "5cf3a365dec0d59f64bad1ee4bb1050471a39b93",
+  "corpus": "TRAIN",
+  "stratum": "knowledge_productivity_cross_platform",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata",
+    "resetWorkspacePrompt translations",
+    "frontend/appflowy_flutter/lib/user/application/workspace_error_bloc.dart",
+    "frontend/appflowy_flutter/lib/user/presentation/screens/workspace_error_screen.dart",
+    "restore-related source needed to establish that recovery machinery exists",
+    "no issues, discussions, PRs or bug history before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "Reset-workspace copy says resetting deletes all pages/data and offers contacting support to restore the workspace. The visible workspace-error UI currently exposes logout only; the bloc contains a restoreFromSnapshot state while snapshot loading is commented out and the screen listener's restore branch is inert. Lower-level restore machinery exists elsewhere in the repository.",
+  "material_claim": "Static source can establish the recovery promise and partial recovery machinery, but cannot establish whether the current operational/support path can reliably restore a reset workspace or under which prerequisites. Removing or strengthening the promise from source topology alone would outrun the authority available.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R4/R5 operational recovery drill",
+  "authority": "ENVIRONMENT",
+  "requested_use": "CHANGE_PRODUCTION",
+  "permission": "DEFER",
+  "neta_next_move": "Run a disposable workspace recovery drill through the support/backend path that the product promise refers to. Record prerequisites, success/failure and what data survives; then calibrate the copy to the demonstrated operational capability.",
+  "reversal_condition": "If the support/environment drill cannot restore a reset workspace under the advertised conditions, qualify or remove the recovery promise; if it can, retain the promise and state any material prerequisites rather than inferring failure from unwired local UI.",
+  "baseline_decision": "BUILD: qualify or remove the support-restore promise now because the visible restore-from-snapshot UI path is not wired and destructive copy should not promise recovery that source cannot demonstrate end-to-end.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "AUTHORITY_CORRECT_STOP",
+    "evidence": [
+      "Post-freeze issue #7872 documents users perceiving data loss after AppFlowy 0.9.0 created a different data directory.",
+      "An AppFlowy maintainer replied: `As long as you have these data folders, your data is safe and can be recovered.`",
+      "One user documented a reproducible multi-step recovery path; other users reported that recovery attempts failed, showing operational prerequisites/variability rather than proving either universal recoverability or absence of recovery capability."
+    ],
+    "decision_delta": "Neta prevented a source-only removal of a recovery promise that maintainers operationally support under conditions, while also refusing to assert universal recoverability. The remaining question correctly belongs to an environment/support recovery drill.",
+    "rubric_critical_failures": [],
+    "lesson": "Operational promises require operational evidence. Visible UI reachability can neither prove nor disprove a support/backend recovery capability."
+  }
+}
