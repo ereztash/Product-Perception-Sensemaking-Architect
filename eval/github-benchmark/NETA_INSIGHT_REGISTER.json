@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-014",
+  "last_batch": "BATCH-015",
   "insights": [
     {
       "insight_id": "I-001",
@@ -115,42 +115,42 @@
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "SINGLE_TRAIN_SOURCE_SUPPORTED_MECHANISM_WITHOUT_INDEPENDENT_FAILURE_REPRODUCTION",
+      "evidence_state": "SINGLE_TRAIN_SOURCE_SUPPORTED_MECHANISM_WITHOUT_INDEPENDENT_FAILURE_REPRODUCTION_PLUS_HOLDOUT_SCORE_ONLY_EXERCISE",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "The static code clearly exposes a cross-boundary atomicity risk, but post-freeze issue evidence did not reproduce the exact rollback inconsistency. Keep as technical case memory until a deliberate failure-injection fixture can turn red and a neighboring safe transaction boundary is available as control."
+      "promotion_reason": "The static code clearly exposes a cross-boundary atomicity risk, but post-freeze issue evidence did not reproduce the exact rollback inconsistency. Keep as technical case memory until a deliberate failure-injection fixture can turn red and a neighboring safe transaction boundary is available as control. OSS-0044 exercises this boundary in HOLDOUT and remains score-only; it is not counted as a replication or promotion input before wave close."
     }
   ],
   "saturation": {
     "decision_modes": {
       "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
       "signal": "COVERED_NOT_SATURATED",
-      "note": "All target routing modes remain represented. BATCH-014 exercises OWNER_DEFER and BUILD_READY across desktop launcher, Android media player and dashboard/admin products; no new mode appears."
+      "note": "All target routing modes remain represented. BATCH-015 exercises DISCRIMINATE_FIRST and OWNER_DEFER across spreadsheet collaboration, mobile synchronization and desktop file management; no new mode appears."
     },
     "failure_families": {
       "observed_count": 9,
-      "signal": "TAXONOMY_GROWTH_SLOWING_BOUNDARIES_STILL_OPEN",
-      "note": "BATCH-014 adds no new family and no adjudicated non-HOLDOUT evidence strong enough to count as a replication. OSS-0040 remains unresolved case memory; OSS-0041 is HOLDOUT score-only; OSS-0042 exercises claim-specific rejection of neighboring evidence without changing I-002 state."
+      "signal": "TAXONOMY_GROWTH_SLOWING_LOW_GAIN_WATCH",
+      "note": "BATCH-015 adds no new family and no admissible non-HOLDOUT replication strong enough to change an insight lineage. OSS-0044 touches I-009 in HOLDOUT but remains score-only. Two consecutive batches now add no new family or clean Neta failure."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
       "errors": 1,
-      "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
-      "note": "No new Neta authority error in BATCH-014. Ueli and mpv-android preserve OWNER uncertainty rather than laundering implementation facts into permission; Homarr remains a REPO-local BUILD_READY case."
+      "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE_LOW_GAIN_WATCH",
+      "note": "No new Neta authority error in BATCH-015. Grist and Tasks remain unresolved at ENVIRONMENT reality; muCommander preserves OWNER intent rather than laundering a generic safety heuristic into permission."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 31,
+      "neta_vs_baseline_build_restraint_cases": 34,
       "fully_survived_adjudication": 14,
       "partially_supported": 7,
-      "unresolved": 10,
-      "signal": "NOT_SATURATED_MIXED_MARGINAL_GAIN",
-      "note": "BATCH-014 adds two unresolved restraint deltas and no fully surviving delta; Homarr produces no material delta because both reviewers authorize the same narrow fix. Marginal decision gain is lower than BATCH-013, but recent batches still contain surviving deltas overall, so no saturation stop is triggered."
+      "unresolved": 13,
+      "signal": "LOW_MARGINAL_GAIN_WATCH",
+      "note": "BATCH-015 adds three restraint deltas but all remain unresolved, so no fully surviving delta is added for the second consecutive batch. This is a stronger saturation watch, not yet a protocol stop: the observatory still lacks the required clean-failure evidence and recent prior batches did add decision-relevant deltas."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 42,
+    "adjudicated_repos": 45,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity", "mobile_application_navigation", "web_app_document_productivity", "desktop_native_media_editing", "desktop_native_productivity_launcher", "mobile_application_media_player"],
-    "holdout_repos": 14,
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity", "mobile_application_navigation", "web_app_document_productivity", "desktop_native_media_editing", "desktop_native_productivity_launcher", "mobile_application_media_player", "web_app_spreadsheet_database", "mobile_application_productivity_sync", "desktop_native_file_management"],
+    "holdout_repos": 15,
     "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
     "clean_neta_failures": 1,
     "surviving_baseline_deltas": 14,
@@ -158,6 +158,6 @@
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
-  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence. BATCH-012 quarantined mealie-recipes/mealie before case creation after a Phase-B code search surfaced an in-repository survey/user-feedback document; no Mealie case was created. Organic Maps, Hoppscotch and Stirling PDF were pinned through git refs and their Neta/baseline decisions were frozen before issue/PR reveal. HOLDOUT OSS-0035 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-013 pinned Uptime Kuma, LosslessCut and SiYuan through git refs before Phase B and froze Neta/baseline decisions before issue/PR reveal. HOLDOUT OSS-0038 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-014 pinned ueli, mpv-android and Homarr through git refs before Phase B, froze Neta and baseline decisions before issue/PR reveal, and kept HOLDOUT OSS-0041 score-only. No leakage or mid-holdout Neta version change was detected.",
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence. BATCH-012 quarantined mealie-recipes/mealie before case creation after a Phase-B code search surfaced an in-repository survey/user-feedback document; no Mealie case was created. Organic Maps, Hoppscotch and Stirling PDF were pinned through git refs and their Neta/baseline decisions were frozen before issue/PR reveal. HOLDOUT OSS-0035 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-013 pinned Uptime Kuma, LosslessCut and SiYuan through git refs before Phase B and froze Neta/baseline decisions before issue/PR reveal. HOLDOUT OSS-0038 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-014 pinned ueli, mpv-android and Homarr through git refs before Phase B, froze Neta and baseline decisions before issue/PR reveal, and kept HOLDOUT OSS-0041 score-only. BATCH-015 verified all three selected repositories against BATCH-001 through BATCH-014 manifests, pinned exact git refs before blind review, froze Neta/baseline decisions before issue/PR reveal, and kept HOLDOUT OSS-0044 score-only. A muCommander helper source file was inspected after Phase D began; it was excluded from the frozen evidence boundary and from adjudication credit. No corpus leakage or mid-holdout Neta version change was detected.",
   "protocol_stop_condition": null
 }
