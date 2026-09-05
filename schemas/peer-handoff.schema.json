@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/peer-handoff.schema.json",
+  "title": "Peer Agent Handoff v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_id",
+    "from_agent",
+    "to_agent",
+    "live_claim_id",
+    "question",
+    "why_peer_is_needed",
+    "current_evidence_refs",
+    "current_claim_state",
+    "resolution_authority",
+    "requested_return",
+    "must_not_infer",
+    "stop_condition"
+  ],
+  "properties": {
+    "handoff_id": {"type": "string", "minLength": 1},
+    "from_agent": {"enum": ["NETA", "RND", "ORCHESTRATOR_FUTURE"]},
+    "to_agent": {"enum": ["NETA", "RND", "OWNER", "REPO", "ENVIRONMENT", "FIELD", "ORCHESTRATOR_FUTURE"]},
+    "live_claim_id": {"type": "string", "minLength": 1},
+    "question": {"type": "string", "minLength": 1},
+    "why_peer_is_needed": {"type": "string", "minLength": 1},
+    "current_evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "current_claim_state": {"enum": ["SUPPORTED", "UNRESOLVED", "REFUTED", "INSUFFICIENT_REALITY", "INCONCLUSIVE"]},
+    "resolution_authority": {"enum": ["OWNER", "REPO", "ENVIRONMENT", "RESEARCH", "FIELD"]},
+    "requested_return": {"type": "string", "minLength": 1},
+    "must_not_infer": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "stop_condition": {"type": "string", "minLength": 1}
+  }
+}
