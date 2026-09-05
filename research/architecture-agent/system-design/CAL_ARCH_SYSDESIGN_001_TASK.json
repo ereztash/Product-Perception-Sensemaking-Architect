@@ -1,0 +1,45 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ARCH-SYSDESIGN-001",
+  "telos": {
+    "statement": "Determine which system-design distinctions are worth internalizing into the Architecture Decision Discriminator because they materially improve live architecture decisions without turning the capability into a pattern encyclopedia or premature agent.",
+    "success_condition": "Produce a bounded architecture-decision research lane that separates workload pressure, required system properties, measured bottlenecks, candidate mechanisms, tradeoffs/counterindications, migration cost and operational burden; identify only adaptations that can be tested for unique decision delta on historical and holdout cases."
+  },
+  "current_state": {
+    "summary": "Architecture Decision Discriminator v0 exists as CANDIDATE_CAPABILITY_NOT_AGENT. It already names boundaries, constraints, invariants, dependencies, state authority, failure domains, change propagation, migration, reversibility and tradeoff lineage. R&D v0.2 owns resource↔telos calibration; Neta owns signal/interpretation/mechanism discrimination. The ByteByteGo video '8 Most Important System Design Concepts You Should Know' is the initiating external signal, not ground truth.",
+    "known_constraints": [
+      "Do not promote system-design pattern names into doctrine.",
+      "Do not equate pattern coverage with architecture competence.",
+      "Prefer explicit decision discriminators over a broad knowledge dump.",
+      "Use primary/authoritative sources to adjudicate claims when possible; videos may generate hypotheses.",
+      "Do not adapt the canonical Architecture Decision Discriminator until historical-case decision delta survives comparison.",
+      "Do not build an Architecture Agent merely because a technical domain is broad.",
+      "Preserve OWNER/REPO/ENVIRONMENT/FIELD authority boundaries."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should the Architecture Decision Discriminator be adapted with explicit workload/SLO/bottleneck/counterindication/operational-burden objects, and which system-design topics deserve deeper research because they can change that decision?",
+    "current_default": "Keep Architecture Decision Discriminator v0 unchanged; treat system-design knowledge as borrowed scaffold knowledge until a named missing discriminator shows material decision delta.",
+    "reversal_condition": "Across historical architecture cases, one or more explicit candidate objects repeatedly change the bounded architecture decision, migration/reversal condition, or authority handoff more cheaply/reliably than the current v0 contract plus generic scaffold reasoning."
+  },
+  "signals": [
+    "The initiating video maps recurring scaling/reliability pressures to mechanisms such as caching, asynchronous processing, replication/load balancing, CDN/edge, storage choices, observability, indexing and sharding.",
+    "Primary architecture/SRE frameworks emphasize desired system properties, user-relevant objectives, business requirements, tradeoffs, failure modes and operational evolution rather than pattern-count completeness.",
+    "Architecture Decision Discriminator v0 covers many structural consequences but does not make workload profile, SLO/quality-attribute target, measured bottleneck evidence, mechanism counterindications, or operational burden explicit first-class objects."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md",
+    "runtime/calibration_loop/README.md",
+    "schemas/rnd-research-task.schema.json",
+    "research/chess-error-adaptation/RND_NETA_RESEARCH_PLAN_V0.md",
+    "research/rnd-agent/README.md",
+    "research/rnd-agent/OSS_TARGETED_TRANSFER_2026-09-05.md"
+  ],
+  "budget": {
+    "max_resource_calls": 12,
+    "max_parallel_calls": 3
+  }
+}
