@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/hebrew-signal-case.schema.json",
+  "title": "Neta Hebrew Signal Fidelity Case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "corpus",
+    "source_provenance",
+    "hebrew_raw",
+    "context",
+    "phenomena",
+    "gold",
+    "variants"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^HEB-[0-9]{4}$"},
+    "corpus": {"enum": ["TRAIN", "HOLDOUT", "EXTERNAL_CONTROL", "ADVERSARIAL"]},
+    "source_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "source_name"],
+      "properties": {
+        "kind": {"enum": ["SYNTHETIC", "USER_AUTHORED", "EXTERNAL_DERIVED", "EXTERNAL_REFERENCE"]},
+        "source_name": {"type": "string"},
+        "source_ref": {"type": ["string", "null"]},
+        "license": {"type": ["string", "null"]},
+        "attribution": {"type": ["string", "null"]}
+      }
+    },
+    "hebrew_raw": {"type": "string", "minLength": 1},
+    "context": {"type": "string"},
+    "phenomena": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "METAPHOR",
+          "HEDGING",
+          "HYPERBOLE",
+          "NEGATION_CONTRAST",
+          "CODE_SWITCHING",
+          "IRONY",
+          "AFFECT_VS_MECHANISM",
+          "DEIXIS",
+          "REFERENCE_AMBIGUITY",
+          "PERCEIVED_VS_SYSTEM_STATE",
+          "PROFESSIONALIZATION_DRIFT",
+          "RTL_MIXED_DIRECTION"
+        ]
+      }
+    },
+    "gold": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_signal_must_be_preserved",
+        "plausible_interpretations",
+        "must_not_infer",
+        "ambiguity_present",
+        "mechanism_status",
+        "authority",
+        "expected_action",
+        "cheapest_discriminator"
+      ],
+      "properties": {
+        "raw_signal_must_be_preserved": {"const": true},
+        "plausible_interpretations": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "must_not_infer": {"type": "array", "items": {"type": "string"}},
+        "ambiguity_present": {"type": "boolean"},
+        "mechanism_status": {"enum": ["UNASSERTED", "HYPOTHESIS", "SUPPORTED"]},
+        "authority": {"enum": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"]},
+        "expected_action": {"enum": ["BUILD_READY", "DISCRIMINATE_FIRST", "OWNER_DEFER", "FIELD_STOP", "DEFER"]},
+        "cheapest_discriminator": {"type": "string"},
+        "reversal_condition": {"type": ["string", "null"]},
+        "critical_error_if": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["english_faithful", "english_professionalized"],
+      "properties": {
+        "english_faithful": {"type": "string"},
+        "english_professionalized": {"type": "string"},
+        "professionalized_text_is_ground_truth": {"const": false}
+      }
+    },
+    "layout_context": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    },
+    "notes": {"type": ["string", "null"]}
+  }
+}
