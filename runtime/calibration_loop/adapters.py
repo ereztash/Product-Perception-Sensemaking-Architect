@@ -47,6 +47,46 @@ def mock_rnd_diagnosis(task: dict) -> dict:
     return {
         "material_question": task["decision_blocked"]["statement"],
         "bottleneck": "The architecture capability is desired but its unique decision value versus existing resources is not yet discriminated.",
+        "resource_assessment": [
+            {
+                "resource": "NETA",
+                "expected_contribution": "Challenge framing, proxy substitution and premature intervention.",
+                "authority_ceiling": "Cannot establish architecture doctrine or external empirical validity.",
+                "uncertainty": "Unknown marginal value until compared with other resources on the same task."
+            },
+            {
+                "resource": "SCAFFOLD",
+                "expected_contribution": "Generate broad architecture alternatives and candidate judgment dimensions.",
+                "authority_ceiling": "Candidate reasoning only; not independent empirical evidence.",
+                "uncertainty": "May add breadth without changing the blocked decision."
+            },
+            {
+                "resource": "RND",
+                "expected_contribution": "Compare evidence/resource deltas and decide the cheapest next learning move.",
+                "authority_ceiling": "Cannot close OWNER/FIELD/REPO/ENVIRONMENT claims outside their authorities.",
+                "uncertainty": "v0.2 calibration telos is a candidate and not yet validated."
+            }
+        ],
+        "candidate_moves": [
+            {
+                "move": "INVOKE_NETA",
+                "resource": "NETA",
+                "expected_decision_value": "Reduce proxy/framing error before an Architecture Agent is specified.",
+                "reversibility": "HIGH"
+            },
+            {
+                "move": "USE_SCAFFOLD",
+                "resource": "SCAFFOLD",
+                "expected_decision_value": "Expand candidate architecture judgments before fixtures are frozen.",
+                "reversibility": "HIGH"
+            },
+            {
+                "move": "RESEARCH",
+                "resource": "RND",
+                "expected_decision_value": "Test which candidate judgments survive external evidence and OSS counterexamples.",
+                "reversibility": "HIGH"
+            }
+        ],
         "needs": {
             "signal_interpretation_ambiguity": True,
             "multiple_plausible_mechanisms": True,
@@ -61,7 +101,7 @@ def mock_rnd_diagnosis(task: dict) -> dict:
             "environment_authority_needed": False,
             "field_authority_needed": False
         },
-        "rationale": "Use Neta to challenge framing/proxies and scaffold reasoning for architecture alternatives before R&D synthesizes the next experiment.",
+        "rationale": "Use Neta and scaffold as independent resources, then let R&D compare their decision deltas before allocating further research/build effort.",
     }
 
 
@@ -98,8 +138,8 @@ def mock_rnd_synthesis(task: dict, diagnosis: dict, resource_results: list[dict]
             })
     return {
         "decision_before": task["decision_blocked"]["current_default"],
-        "decision_after": "Build an Architecture Agent brief and falsifiable judgment fixtures before implementing a full architecture agent.",
-        "next_move": "Freeze an Architecture Agent telos/authority brief, then create fixtures for the candidate architectural judgments and run independent Neta/R&D/scaffold passes.",
+        "decision_after": "Freeze an Architecture Agent telos/authority brief and judgment fixtures before implementing a full architecture agent.",
+        "next_move": "Use the combined deltas to define the smallest Architecture Agent judgment surface; then let R&D research/falsify those candidate judgments before build.",
         "resource_deltas": deltas,
         "learning_records": [
             {
