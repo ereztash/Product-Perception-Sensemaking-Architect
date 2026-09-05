@@ -1,0 +1,13 @@
+{
+  "adapters": {
+    "RND": {
+      "command": ["python", "runtime/calibration_loop/openai_resource_adapter.py", "--resource", "RND"]
+    },
+    "NETA": {
+      "command": ["python", "runtime/calibration_loop/openai_resource_adapter.py", "--resource", "NETA"]
+    },
+    "SCAFFOLD": {
+      "command": ["python", "runtime/calibration_loop/openai_resource_adapter.py", "--resource", "SCAFFOLD"]
+    }
+  }
+}
