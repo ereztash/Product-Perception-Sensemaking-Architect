@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Compile validators
+      - name: Compile validators and runtimes
         run: >-
           python -m py_compile
           scripts/validate_finding.py
@@ -29,6 +29,11 @@ jobs:
           scripts/check_research_contract.py
           scripts/validate_rnd_task.py
           scripts/check_rnd_contract.py
+          scripts/validate_calibration_task.py
+          scripts/check_calibration_loop.py
+          runtime/calibration_loop/routing.py
+          runtime/calibration_loop/adapters.py
+          runtime/calibration_loop/run.py
 
       - name: Validate canonical Neta finding
         run: python scripts/validate_finding.py fixtures/valid-finding.json
@@ -44,3 +49,12 @@ jobs:
 
       - name: Run R&D runtime contract and positive controls
         run: python scripts/check_rnd_contract.py
+
+      - name: Validate calibration-loop task
+        run: python scripts/validate_calibration_task.py fixtures/calibration-valid-task.json
+
+      - name: Run calibration-loop routing and trace controls
+        run: python scripts/check_calibration_loop.py
+
+      - name: Run calibration-loop mock end to end
+        run: python runtime/calibration_loop/run.py fixtures/calibration-valid-task.json --mock --strict
