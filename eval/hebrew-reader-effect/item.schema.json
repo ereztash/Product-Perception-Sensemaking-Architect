@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hebrew Reader Effect Item",
+  "type": "object",
+  "required": ["id", "corpus", "text", "context_type", "contrast_family", "gold_state"],
+  "properties": {
+    "id": {"type": "string"},
+    "corpus": {"enum": ["TRAIN", "HOLDOUT", "ADVERSARIAL"]},
+    "text": {"type": "string"},
+    "context_type": {"enum": ["context_free", "relationship_context", "dialogue_context"]},
+    "context": {"type": ["string", "null"]},
+    "pair_group": {"type": ["string", "null"]},
+    "contrast_family": {"type": "string"},
+    "gold_state": {"enum": ["UNLABELED", "ANNOTATED_FROZEN", "REVEALED"]},
+    "gold": {
+      "type": ["object", "null"],
+      "properties": {
+        "n_annotators": {"type": "integer", "minimum": 1},
+        "valence": {"type": "number", "minimum": -2, "maximum": 2},
+        "arousal": {"type": "number", "minimum": 0, "maximum": 4},
+        "dominance_pressure": {"type": "number", "minimum": 0, "maximum": 4},
+        "warmth": {"type": "number", "minimum": 0, "maximum": 4},
+        "threat_tension": {"type": "number", "minimum": 0, "maximum": 4},
+        "ambiguity": {"type": "number", "minimum": 0, "maximum": 4},
+        "likely_pragmatic_act": {"type": "array", "items": {"type": "string"}},
+        "free_effect_summary": {"type": "string"},
+        "agreement_notes": {"type": "string"}
+      }
+    },
+    "neta_prediction": {"type": ["object", "null"]},
+    "baseline_prediction": {"type": ["object", "null"]},
+    "adjudication": {
+      "type": ["object", "null"],
+      "properties": {
+        "status": {"enum": ["SUPPORTED", "PARTIALLY_SUPPORTED", "UNRESOLVED", "REFUTED", "BASELINE_ADVANTAGE", "NETA_ADVANTAGE"]},
+        "material_error": {"type": "boolean"},
+        "lesson": {"type": "string"}
+      }
+    }
+  }
+}
