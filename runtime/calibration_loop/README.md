@@ -45,6 +45,8 @@ R&D owns the calibration question:
 
 R&D runs twice: `DIAGNOSE` before routing and `SYNTHESIZE` after resource outputs are collected.
 
+The live adapter uses `prompts/RND_AGENT_V0_2_CANDIDATE.md` plus `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`. The frozen R&D v0.1 remains a comparator and is not silently overwritten.
+
 ### Neta
 
 Neta is invoked only when at least one Neta trigger fires:
@@ -54,13 +56,13 @@ Neta is invoked only when at least one Neta trigger fires:
 - proxy-substitution risk;
 - research/evidence is about to become an intervention/build decision.
 
-Neta is a peer resource, not a subordinate R&D worker and not a mandatory ceremony.
+Neta is a peer resource, not a subordinate R&D worker and not a mandatory ceremony. The live adapter loads the canonical Neta prompt from `prompts/SYSTEM.md` and adds only a runtime return-shape bridge.
 
 ### SCAFFOLD
 
-`SCAFFOLD` is an external broad-reasoning resource (currently represented by ChatGPT in the development process). It is useful for architecture alternatives, novel synthesis and expert-level reasoning that is cheaper to borrow than to internalize immediately.
+`SCAFFOLD` is an external broad-reasoning resource (currently represented by an OpenAI reasoning model in the provided live adapter). It is useful for architecture alternatives, novel synthesis and expert-level reasoning that is cheaper to borrow than to internalize immediately.
 
-R&D must learn from scaffold use rather than treating scaffold output as ground truth.
+R&D must learn from scaffold use rather than treating scaffold output as ground truth. The scaffold prompt is `prompts/SCAFFOLD_RESOURCE_V0_1.md`.
 
 ## Command-adapter protocol
 
@@ -70,7 +72,7 @@ The runtime is provider-neutral. Each adapter is configured as a command that:
 2. writes one JSON result on stdout;
 3. exits non-zero on execution failure.
 
-Example config:
+Example generic config:
 
 ```json
 {
@@ -83,6 +85,64 @@ Example config:
 ```
 
 This keeps API keys/provider concerns outside the repository and allows local CLIs, hosted models or future service adapters to be swapped without changing the routing law.
+
+## Live OpenAI adapters
+
+A working Responses-API adapter is included:
+
+- `runtime/calibration_loop/openai_resource_adapter.py` — Neta / Scaffold live resource bridge with provider/model provenance retained in `_adapter_meta`.
+- `runtime/calibration_loop/openai_rnd_adapter.py` — strict R&D bridge that preserves the exact control-flow JSON shape required by the runner.
+- `runtime/calibration_loop/openai-config.example.json` — ready command configuration.
+
+No key is stored in the repository.
+
+Minimum setup:
+
+```bash
+export OPENAI_API_KEY="..."
+export OPENAI_MODEL="gpt-5.6-sol"
+export OPENAI_REASONING_EFFORT="high"
+```
+
+Optional per-resource overrides:
+
+```bash
+export CALIBRATION_RND_MODEL="gpt-5.6-sol"
+export CALIBRATION_NETA_MODEL="gpt-5.6-sol"
+export CALIBRATION_SCAFFOLD_MODEL="gpt-5.6-sol"
+
+export CALIBRATION_RND_REASONING_EFFORT="high"
+export CALIBRATION_NETA_REASONING_EFFORT="high"
+export CALIBRATION_SCAFFOLD_REASONING_EFFORT="high"
+```
+
+External web search is **off by default**. When a calibration diagnosis genuinely requires external research, enable it for R&D only:
+
+```bash
+export CALIBRATION_RND_WEB_SEARCH=1
+```
+
+Do not enable web search merely to increase source volume. The R&D telos remains decision-changing learning, not research accumulation.
+
+### First live task: Architecture Agent
+
+`fixtures/calibration-valid-task.json` is the first intended live transfer task (`CAL-ARCH-001`):
+
+> What is the smallest evidence-backed Architecture Agent capability and evaluation contract worth building next?
+
+Run it with:
+
+```bash
+python runtime/calibration_loop/run.py \
+  fixtures/calibration-valid-task.json \
+  --config runtime/calibration_loop/openai-config.example.json \
+  --strict \
+  --output runtime/calibration_loop/traces/CAL-ARCH-001.json
+```
+
+A successful run should perform R&D diagnosis, invoke only the resources whose deterministic triggers fire, preserve each independent output and provenance, and then return to R&D for synthesis and a learning record.
+
+If R&D, Neta and Scaffold use the same underlying model family, their agreement is **not independent empirical triangulation**. Separate invocations can still reveal useful role-conditioned deltas, but the shared model lineage must remain visible.
 
 ## Runner modes
 
