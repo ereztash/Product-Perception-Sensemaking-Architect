@@ -1,0 +1,37 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ARCH-001",
+  "telos": {
+    "statement": "Develop the most useful architecture-expertise capability for the peer-agent system without building more machinery than the current state justifies.",
+    "success_condition": "The next architecture-agent decision is better bounded, cheaper to reverse, and supported by evidence about which resources materially improve it."
+  },
+  "current_state": {
+    "summary": "Neta and the R&D Agent exist as peers under a shared epistemic kernel. R&D v0.1 is frozen and test-ready. No architecture expert agent or learned orchestrator exists yet.",
+    "known_constraints": [
+      "Do not create implicit hierarchy between peers.",
+      "Do not promote OSS patterns merely because successful systems use them.",
+      "Do not build an orchestrator before routing failures justify it."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What is the smallest evidence-backed Architecture Agent capability and evaluation contract worth building next?",
+    "current_default": "Do not build the Architecture Agent until the missing architectural judgments and their tests are discriminated.",
+    "reversal_condition": "A bounded analysis identifies decision-relevant architecture judgments that are not already supplied more cheaply by existing resources and defines falsifiable tests for them."
+  },
+  "signals": [
+    "Architecture expertise is the next desired peer capability.",
+    "The owner wants R&D, Neta and an external reasoning scaffold to learn from one another while preserving distinct roles."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "research/RND_AGENT_CHARTER_V0_1.md",
+    "prompts/RND_AGENT_V0_1.md"
+  ],
+  "budget": {
+    "max_resource_calls": 5,
+    "max_parallel_calls": 2
+  }
+}
