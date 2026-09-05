@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "date": "2026-09-05",
+  "program": "Neta gap-closing program",
+  "ordering": [
+    "H1_HEBREW_SIGNAL_FIDELITY",
+    "H2_READER_EFFECT",
+    "TARGETED_FALSIFICATION",
+    "PROSPECTIVE_DECISION_QUALITY",
+    "FIELD_OUTCOMES",
+    "CAPABILITY_UPDATE"
+  ],
+  "steps": [
+    {
+      "id": "S1",
+      "name": "H1 Hebrew Signal Fidelity",
+      "status": "INSTRUMENT_FROZEN_BLOCKED_ON_INDEPENDENT_HOLDOUT",
+      "completed": [
+        "protocol frozen",
+        "tested prompt blob frozen",
+        "scorer frozen",
+        "strata frozen",
+        "independent holdout commissioning contract added"
+      ],
+      "blocker": "Independent hidden Hebrew items and gold must be authored outside the tested evaluator context.",
+      "next_valid_evidence": "20+ hidden H1 cases with frozen Neta and baseline outputs before gold reveal"
+    },
+    {
+      "id": "S2",
+      "name": "H2 Hebrew Reader Effect",
+      "status": "INSTRUMENT_READY_BLOCKED_ON_HUMAN_ANNOTATION",
+      "completed": [
+        "reader-effect protocol",
+        "source registry",
+        "24 unlabeled seed items / 12 minimal pairs",
+        "annotation guide",
+        "human annotation commissioning contract"
+      ],
+      "blocker": "At least 3 independent native Hebrew annotators per item.",
+      "next_valid_evidence": "Independent recipient-effect distributions plus frozen Neta/baseline predictions"
+    },
+    {
+      "id": "S3",
+      "name": "Targeted falsification",
+      "status": "PREREGISTERED_CONTROLS_READY_HOLDOUT_NOT_YET_AUTHORED",
+      "completed": [
+        "four target failure families preregistered",
+        "hidden judgments stated",
+        "neighbor non-fire conditions stated",
+        "falsifiable gates stated",
+        "eight red/green TRAIN controls created"
+      ],
+      "blocker": "Unseen HOLDOUT cases must be authored after freeze without leaking expected judgments to the runner.",
+      "next_valid_evidence": "Clean Neta failure or surviving baseline advantage on unseen target-family cases"
+    },
+    {
+      "id": "S4",
+      "name": "Prospective decision quality",
+      "status": "PREREGISTERED_READY_FOR_REAL_CASES",
+      "completed": [
+        "owner-alone vs baseline vs Neta comparison protocol",
+        "freeze-before-advice rule",
+        "separate decision-quality dimensions",
+        "DQ1 minimum evidence threshold"
+      ],
+      "blocker": "Requires prospective real product decisions whose outcome is not already known.",
+      "next_valid_evidence": "12 adjudicated prospective decision events across 3+ products/domains"
+    },
+    {
+      "id": "S5",
+      "name": "Field outcomes",
+      "status": "PREREGISTERED_BLOCKED_ON_FIELD_ELIGIBLE_DECISIONS",
+      "completed": [
+        "field entry gate",
+        "outcome-family taxonomy",
+        "pre-field freeze",
+        "comparison and invalidation rules",
+        "F1 minimum evidence threshold"
+      ],
+      "blocker": "Needs real decisions that survive lower-level adjudication and reach FIELD authority, plus external participants.",
+      "next_valid_evidence": "6 prospective field cases across 3+ products/tasks with at least one meaningful reversal/narrowing"
+    },
+    {
+      "id": "S6",
+      "name": "Capability update",
+      "status": "GATE_FROZEN_NO_REPAIR_EARNED",
+      "completed": [
+        "canonical promotion chain",
+        "domain-specific Hebrew/TF/DQ/FIELD requirements",
+        "versioning rule",
+        "non-evidence exclusions"
+      ],
+      "blocker": "No new evidence has yet crossed the promotion gate.",
+      "next_valid_evidence": "Failure -> hidden judgment -> neighbor -> gate -> positive control -> unseen holdout -> smallest repair -> regression pass"
+    }
+  ],
+  "current_core_prompt_change_authorized": false,
+  "reason": "The program has converted all proposed gap-closing steps into frozen instruments, but the remaining gaps require independent or prospective evidence that cannot be validly manufactured by the same evaluator in the same session."
+}
