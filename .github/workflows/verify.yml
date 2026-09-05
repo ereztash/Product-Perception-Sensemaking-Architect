@@ -30,6 +30,8 @@ jobs:
           scripts/validate_rnd_task.py
           scripts/check_rnd_contract.py
           scripts/validate_calibration_task.py
+          scripts/validate_decision_trace.py
+          scripts/check_architecture_historical_cases.py
           scripts/check_calibration_loop.py
           scripts/check_live_adapters.py
           runtime/calibration_loop/routing.py
@@ -55,6 +57,12 @@ jobs:
 
       - name: Validate calibration-loop task
         run: python scripts/validate_calibration_task.py fixtures/calibration-valid-task.json
+
+      - name: Validate decision-execution-learning trace
+        run: python scripts/validate_decision_trace.py fixtures/decision-execution-learning-valid.json
+
+      - name: Check Architecture historical benchmark corpus
+        run: python scripts/check_architecture_historical_cases.py
 
       - name: Run calibration-loop routing and trace controls
         run: python scripts/check_calibration_loop.py

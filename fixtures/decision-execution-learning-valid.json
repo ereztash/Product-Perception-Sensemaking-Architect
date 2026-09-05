@@ -1,0 +1,39 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-ARCH-BENCHMARK-001",
+  "decision": {
+    "statement": "Do not promote an autonomous Architecture Agent before a distinct architecture-specific decision capability demonstrates material delta over existing resources.",
+    "decision_owner": "RND",
+    "resolution_authority": "RESEARCH",
+    "evidence_refs": ["research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md"],
+    "reversal_condition": "Repeated frozen-case evidence shows the candidate changes material architecture decisions more cheaply or reliably than R&D + Scaffold + REPO/ENVIRONMENT evidence."
+  },
+  "execution": {
+    "executor_type": "MIXED",
+    "planned_action": "Freeze a visible historical architecture corpus and a separated adjudication file before any autonomous agent implementation.",
+    "completed_action": "Created a historical case corpus, separated historical resolutions, benchmark protocol and executable corpus checks.",
+    "status": "COMPLETED",
+    "artifact_refs": ["eval/architecture-agent/HISTORICAL_CASES_V0.jsonl", "eval/architecture-agent/HISTORICAL_GOLD_V0.jsonl", "eval/architecture-agent/HISTORICAL_BENCHMARK_PROTOCOL_V0.md"]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "The repository contains 8-15 frozen visible historical architecture cases from at least three repositories, with runner inputs separated from adjudication anchors.",
+    "observed_state": "The fixture models a repository verification after the corpus files and CI checks exist.",
+    "status": "MATCH",
+    "evidence_refs": ["scripts/check_architecture_historical_cases.py", ".github/workflows/verify.yml"]
+  },
+  "outcome": {
+    "authority": "NOT_YET_ELIGIBLE",
+    "target": "Architecture-specific decision delta beyond the existing baseline resources.",
+    "observation": "",
+    "status": "NOT_MEASURED",
+    "evidence_refs": []
+  },
+  "learning": {
+    "decision_delta": "The architecture gap is now testable without first constructing another peer.",
+    "claim_updates": ["Historical corpus existence is execution evidence, not evidence that the Architecture capability adds decision value."],
+    "resource_delta": "Use the candidate discriminator only inside a controlled comparison until it earns promotion.",
+    "next_move": "Freeze baseline and candidate outputs on the visible corpus, then create unseen HOLDOUT cases before promotion.",
+    "stop_or_continue": "CONTINUE"
+  }
+}

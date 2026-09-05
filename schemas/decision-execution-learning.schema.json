@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/decision-execution-learning.schema.json",
+  "title": "Decision Execution Learning Trace v0.1",
+  "description": "Contract that keeps decision, execution, verified state, outcome and learning as separate evidence-bearing transitions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["trace_version", "trace_id", "decision", "execution", "verified_state", "outcome", "learning"],
+  "properties": {
+    "trace_version": {"const": "0.1"},
+    "trace_id": {"type": "string", "minLength": 1},
+    "decision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["statement", "decision_owner", "resolution_authority", "evidence_refs", "reversal_condition"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "decision_owner": {"enum": ["OWNER", "NETA", "RND", "DETERMINISTIC_RUNTIME"]},
+        "resolution_authority": {"enum": ["OWNER", "REPO", "ENVIRONMENT", "RESEARCH", "FIELD"]},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "reversal_condition": {"type": "string", "minLength": 1}
+      }
+    },
+    "execution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["executor_type", "planned_action", "completed_action", "status", "artifact_refs"],
+      "properties": {
+        "executor_type": {"enum": ["HUMAN", "TOOL", "AGENT", "RUNTIME", "MIXED"]},
+        "planned_action": {"type": "string", "minLength": 1},
+        "completed_action": {"type": "string"},
+        "status": {"enum": ["NOT_STARTED", "STARTED", "PARTIAL", "COMPLETED", "FAILED"]},
+        "artifact_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "verified_state": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authority", "expected_state", "observed_state", "status", "evidence_refs"],
+      "properties": {
+        "authority": {"enum": ["REPO", "ENVIRONMENT", "FIELD", "OWNER"]},
+        "expected_state": {"type": "string", "minLength": 1},
+        "observed_state": {"type": "string"},
+        "status": {"enum": ["NOT_VERIFIED", "MATCH", "MISMATCH", "PARTIAL", "FAILED_OBSERVATION"]},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "outcome": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authority", "target", "observation", "status", "evidence_refs"],
+      "properties": {
+        "authority": {"enum": ["FIELD", "ENVIRONMENT", "REPO", "OWNER", "NOT_YET_ELIGIBLE"]},
+        "target": {"type": "string", "minLength": 1},
+        "observation": {"type": "string"},
+        "status": {"enum": ["NOT_MEASURED", "MEASURED", "FIELD_REQUIRED", "INCONCLUSIVE"]},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "learning": {
+      "type": "object", "additionalProperties": false,
+      "required": ["decision_delta", "claim_updates", "resource_delta", "next_move", "stop_or_continue"],
+      "properties": {
+        "decision_delta": {"type": "string", "minLength": 1},
+        "claim_updates": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "resource_delta": {"type": "string", "minLength": 1},
+        "next_move": {"type": "string", "minLength": 1},
+        "stop_or_continue": {"enum": ["STOP", "CONTINUE", "WAIT_AUTHORITY"]}
+      }
+    }
+  }
+}
