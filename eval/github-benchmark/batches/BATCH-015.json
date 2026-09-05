@@ -1,0 +1,41 @@
+{
+  "batch_id": "BATCH-015",
+  "cases": ["OSS-0043", "OSS-0044", "OSS-0045"],
+  "repositories": ["gristlabs/grist-core", "tasks/tasks", "mucommander/mucommander"],
+  "corpora": {"TRAIN": 1, "HOLDOUT": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 0,
+    "unresolved": 3,
+    "partially_supported": 0,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 0,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "No new insight or promotion candidate. OSS-0043 keeps an explicit Grist live-comparison TODO as implementation uncertainty rather than independent proof of a stale integrated Suggestions defect.",
+    "OSS-0044 is HOLDOUT and score-only. It exercises the filesystem-versus-database transaction boundary already represented by I-009, but neighboring CalDAV deletion/sync failures do not confirm the frozen VtodoCache rollback mechanism and may not teach Neta before wave close.",
+    "OSS-0045 remains adversarial case memory: destructive initial focus is certain in source, but whether that focus is wrong is OWNER policy and whether it causes accidental deletion is FIELD; neither was independently resolved."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode; DISCRIMINATE_FIRST and OWNER_DEFER are exercised across spreadsheet collaboration, mobile synchronization and desktop file management.",
+    "failure_families": "No new family. Taxonomy remains at 9. The HOLDOUT transaction-boundary case is score-only and does not update I-009; the other two remain unresolved case memory.",
+    "authority_boundaries": "No new Neta authority error or clean failure. ENVIRONMENT and OWNER boundaries remain live but independently unresolved in this batch.",
+    "baseline_deltas": "No fully surviving delta added for the second consecutive batch. Three additional restraint deltas remain unresolved. This is a low-marginal-gain saturation watch, not yet a stop condition because decision-relevant uncertainty remains open and the required clean-failure quota is still unmet."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 45,
+    "holdout_repos": 15,
+    "surviving_baseline_deltas": 14,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_notes": [
+    "All three repositories were checked against BATCH-001 through BATCH-014 manifests and were previously unseen in the benchmark corpus.",
+    "All three exact SHAs and corpus assignments were frozen before issue/PR reveal.",
+    "A muCommander helper source file was inspected after Phase D began; it was explicitly excluded from the frozen Neta/baseline evidence and from adjudication credit."
+  ],
+  "protocol_stop_condition": null
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "OSS-0047",
+  "repository": "unhappychoice/gitlogue",
+  "product_domain": "gitlogue interactive terminal Git commit replay / visualization tool",
+  "pinned_sha": "73750f745249e72874ee7118469ce847aab24955",
+  "corpus": "ADVERSARIAL",
+  "stratum": "developer_tool_interactive_tui",
+  "sampling_query": "stars:500..5000 pushed:>2025-09-04 topic:productivity",
+  "prior_exposure_risk": "LOW",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md usage and key-binding contract at pinned SHA",
+    "src/ui.rs at pinned SHA, including menu open/close and WaitingForNext state transitions",
+    "no GitHub issue, PR, discussion, release-history, support, review or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "open_menu stores the current UIState, including WaitingForNext{resume_at}. close_menu deliberately maps a restored WaitingForNext state to Playing instead of restoring the saved resume_at. On the next tick, because the animation engine is already finished, advance_state_after_tick creates a fresh WaitingForNext with resume_at = now + speed_ms*100.",
+  "material_claim": "Opening and closing the menu during the inter-commit waiting period appears to restart the full wait window instead of preserving the remaining delay. Source establishes the state transition, but the frozen evidence does not establish whether this timing reset is noticeable, undesired, or intentionally treats menu use as a pause/restart of pacing.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1_OWNER",
+  "authority": "OWNER",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Ask the owner to resolve the pacing contract with one bounded choice: menu interaction during WaitingForNext either pauses and resumes the remaining delay, or restarts the delay after returning. If preservation is intended, add a clock-controlled state-transition test before changing close_menu.",
+  "reversal_condition": "If restart-after-menu is the intended pacing policy, make no change. If remaining-delay preservation is the intended contract, allow the smallest state restoration change plus deterministic timer test.",
+  "baseline_decision": "BUILD: preserve the original WaitingForNext resume_at when the menu closes, because reopening a full delay after a brief menu interaction creates an unnecessary playback stall.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze GitHub issue searches for menu, wait, next-commit delay and playback pacing returned no claim-specific reports in the repository.",
+      "No admissible maintainer statement or merged PR was found resolving whether menu interaction should preserve or restart the inter-commit delay."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA: Neta routes the final timing-policy choice to OWNER while the baseline changes the state restoration immediately. No independent evidence resolves the intended pacing contract, so no marginal-decision credit is awarded.",
+    "rubric_critical_failures": [],
+    "lesson": "A deterministic timing side effect can be certain in source while its defect status remains a pacing-policy question. Do not convert a source-visible delay reset into a product defect without an explicit timing contract."
+  }
+}

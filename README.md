@@ -12,6 +12,18 @@ The presenting state can be as vague as:
 
 Neta first preserves that language, then discriminates among neighboring mechanisms. v0.2 adds a deeper assurance layer learned from the Lessons re-foundation.
 
+## Canonical state
+
+The repository now separates the **method version**, the **frozen prompt baseline**, and the **evaluation evidence**.
+
+- canonical method: **v0.2 assurance re-foundation**;
+- canonical prompt comparator: **v0.1 frozen baseline**;
+- GitHub Benchmark Wave 1: **closed at BATCH-016 due saturation under the current broad sampling distribution**;
+- prompt updates earned by that wave: **none**;
+- next empirical frontier: **Hebrew falsification**, with Signal Fidelity and Reader Effect kept as separate evaluation tracks.
+
+See `docs/CANONICAL_STATE.md` and `eval/github-benchmark/WAVE1_CLOSEOUT.json`.
+
 ## Two nested loops
 
 ### Sensemaking
@@ -117,14 +129,14 @@ prompts/       frozen v0.1 baseline until clean-model failure earns change
 schemas/       v0.2 claim/evidence finding contract + research claim contract
 memory/        owner-language priors, never ground truth
 fixtures/      conversational/research/assurance cases
-eval/          behavior rubric and critical epistemic failures
-docs/          telos, method, assurance, authority, lineage, failure history
-research/      frozen Wave 1 quarantine + prospective assurance review
+eval/          behavior rubric and empirical observatories
+docs/          telos, method, assurance, authority, lineage, canonical state
+research/      frozen research quarantine + prospective evidence layers
 scripts/       executable gates and deliberate positive controls
 ```
 
 ## Current status
 
-**v0.2 ASSURANCE RE-FOUNDATION · METHOD FIRST · PROMPT FROZEN · NO UI · NO SOURCE 29.**
+**v0.2 ASSURANCE RE-FOUNDATION · PROMPT FROZEN · GITHUB WAVE 1 CLOSED AT SATURATION · HEBREW FALSIFICATION NEXT · NO UI.**
 
-The next legitimate step after this contract is green is clean-model falsification of the frozen v0.1 prompt against the existing fixtures — not more research and not more product surface.
+The next legitimate unit of progress is a clean Hebrew judgment failure or a surviving Neta-vs-baseline Hebrew decision delta — not additional broad GitHub sampling and not a prompt edit by intuition.

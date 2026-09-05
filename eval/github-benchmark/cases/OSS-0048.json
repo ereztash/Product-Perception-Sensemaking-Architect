@@ -1,0 +1,41 @@
+{
+  "case_id": "OSS-0048",
+  "repository": "muety/wakapi",
+  "product_domain": "Wakapi self-hosted developer activity analytics dashboard",
+  "pinned_sha": "9de2b03f8bb979f6334624c31f01d6f52437924c",
+  "corpus": "HOLDOUT",
+  "stratum": "dashboard_analytics_admin",
+  "sampling_query": "stars:500..5000 pushed:>2025-09-04 topic:productivity",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md product description at pinned SHA",
+    "models/summary.go FillBy and CategoryRatio implementation at pinned SHA",
+    "services/summary.go summary post-processing and project-label derivation at pinned SHA",
+    "repository code search used only to locate DefaultProjectLabel and existing summary tests",
+    "no GitHub issue, PR, discussion, release-history, support, review or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "FillBy computes the gap between a source summary type total and a destination type total. If the destination already contains the reserved fill key ('default' for labels), it assigns that existing item's Total to the gap rather than adding the gap. The append path yields source-total equality when the key is absent; the replacement path can violate that equality if an existing 'default' item already contributes to destination total.",
+  "material_claim": "There is a plausible arithmetic invariant break in label completion when an existing label entry uses the same 'default' key as the filler. Source proves the branch arithmetic, but the frozen evidence does not establish that a real user-generated/project-label state can reach this collision or that the reserved key is externally creatable.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R1",
+  "authority": "REPO",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Add a narrow unit fixture that constructs a summary with a pre-existing destination item keyed 'default', calls FillBy(Project, Label), and asserts that the destination total equals the source total. Pair it with the existing absent-key case as a positive/neighbor control. Separately verify from repository validation whether 'default' can be a user/project label before claiming user-facing reachability.",
+  "reversal_condition": "If the collision fixture stays green because the key is structurally impossible or normalized away before FillBy, do not change the arithmetic. If the fixture turns red on a reachable state, replace assignment with the smallest invariant-preserving accumulation and keep the reachability claim bounded to repository evidence.",
+  "baseline_decision": "BUILD: change the existing-key branch from assignment to accumulation because FillBy's purpose is to fill the missing difference and replacement mathematically underfills whenever the filler key already has a non-zero value.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue searches for project-label default collisions, summary label totals and FillBy behavior returned no claim-specific report or confirmed defect.",
+      "Post-freeze PR search returned no claim-specific repair.",
+      "Existing repository tests visible in the frozen boundary cover the absent-key fill case but do not independently establish reachability of a pre-existing 'default' label collision."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA: Neta asks for the cheapest invariant/reachability fixture before changing arithmetic; the baseline changes the branch immediately. With no independent evidence that the collision state is reachable, the delta receives no score credit. HOLDOUT evidence remains score-only and does not update Neta or the insight register before wave close.",
+    "rubric_critical_failures": [],
+    "lesson": "A locally suspicious arithmetic branch may justify a deterministic repository test without yet justifying a production repair. Separate mathematical counterexample construction from proof that the counterexample is reachable in the product state space."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "case_id": "OSS-0041",
+  "repository": "mpv-android/mpv-android",
+  "pinned_sha": "34b1d821fb9c4e6adddfc27b1fe7d7523a7b4eed",
+  "corpus": "HOLDOUT",
+  "stratum": "mobile_application_media_player",
+  "sampling_query": "stars:500..5000 pushed:>=2025-09-04 archived:false topic:android-app",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "app/src/main/java/is/xyz/mpv/preferences/ConfigEditDialogPreference.kt at pinned SHA",
+    "pinned-source code search used only to locate config-editing paths",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "The config editor loads an existing configuration file into a text box and, on Save, deletes the config file when the resulting text is empty; non-empty text overwrites the file. The dialog marks edits unsaved and disables cancellation by outside dismissal while edited, but saving an empty document has no second confirmation.",
+  "material_claim": "The code proves that Save-on-empty means delete-file. It does not establish whether this is the intended semantic equivalence between an empty config and no config, or an accidental destructive interaction that should require confirmation.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "OWNER_INTENT",
+  "authority": "OWNER",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Confirm whether an empty mpv.conf is intentionally represented by absence of the file and whether Save is expected to normalize empty content by deletion. Only then decide whether confirmation or a separate delete affordance is warranted.",
+  "reversal_condition": "If maintainers state that empty-file preservation is semantically required, permit the narrow write-empty-file change. If empty and absent are equivalent by design, retain deletion unless a separate FIELD or OWNER decision justifies extra friction.",
+  "baseline_decision": "BUILD: avoid deleting the configuration file merely because the editor is empty; either write an empty file or ask for explicit confirmation before deletion to prevent accidental loss.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search found user reports involving empty mpv.conf configurations, including issue #1092, but no admissible maintainer evidence that resolves whether an empty config file and an absent config file are intentionally equivalent in the Android editor.",
+      "The user report establishes that empty configurations are a real usage state, not that the editor's delete-on-empty representation is a defect."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA_SCORE_ONLY: the HOLDOUT case creates a restraint delta, but adjudication did not resolve product intent. It is scored only and is not used to teach, replicate, counterexample, or promote any insight before Wave 1 closes.",
+    "rubric_critical_failures": [],
+    "lesson": "HOLDOUT score-only. Representation equivalence between empty and absent cannot be inferred from destructiveness alone; no learning update is permitted from this case before wave close."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "OSS-0040",
+  "repository": "oliverschwendener/ueli",
+  "pinned_sha": "ea706e669e897cae37b3d88d2c42f61794edb2e0",
+  "corpus": "TRAIN",
+  "stratum": "desktop_native_productivity_launcher",
+  "sampling_query": "stars:500..5000 pushed:>=2025-09-04 archived:false topic:productivity",
+  "prior_exposure_risk": "MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "pinned repository tree used only to locate product source",
+    "src/renderer/Core/Settings/Pages/General/SearchHistory.tsx at pinned SHA",
+    "pinned-source code search for clear history paths",
+    "no issue, PR, discussion, release-history, support or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "Turning the Search History switch off writes general.searchHistory.enabled=false and immediately replaces general.searchHistory.history with an empty array. The settings surface does not ask for confirmation and the source comment explicitly says disabling history clears it.",
+  "material_claim": "The repository proves that disabling Search History is destructive to stored history, but it does not prove whether retention, confirmation, or destructive disable is the intended product policy. A generic safety preference is therefore not permission to redesign the interaction.",
+  "neta_decision": "OWNER_DEFER",
+  "observed_reality": "R1",
+  "required_reality_floor": "OWNER_INTENT",
+  "authority": "OWNER",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Ask the owner whether disable is intentionally equivalent to clear, or whether stored history should survive a temporary off state; only then choose retention, confirmation, or the current destructive behavior.",
+  "reversal_condition": "If owner intent states that disabling must preserve history, permit the smallest retention change. If destructive disable is intentional, retain the current behavior; confirmation remains a separate owner interaction-policy choice.",
+  "baseline_decision": "BUILD: add a confirmation dialog or separate Clear History action before the switch can erase saved history, because a settings toggle should not silently destroy stored data.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "UNRESOLVED",
+    "evidence": [
+      "Post-freeze issue search found Search History usage and control bugs, including issue #1281 about the Search History SpinButton, but no admissible issue or PR that establishes whether disabling Search History is intended to clear or retain saved history.",
+      "No exact maintainer decision was found that closes the interaction-policy question. Absence of an issue is not evidence that the behavior is correct."
+    ],
+    "decision_delta": "UNRESOLVED_DELTA: Neta deferred an immediate safety redesign while the baseline would build; independent evidence did not establish owner intent, so the delta is not counted as surviving advantage.",
+    "rubric_critical_failures": [],
+    "lesson": "A destructive toggle can be implementation-certain while its desired retention policy remains OWNER-owned. Without adjudicating intent, this case stays memory only and cannot promote a rule."
+  }
+}

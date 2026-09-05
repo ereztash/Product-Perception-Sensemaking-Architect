@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-014",
+  "cases": ["OSS-0040", "OSS-0041", "OSS-0042"],
+  "repositories": ["oliverschwendener/ueli", "mpv-android/mpv-android", "homarr-labs/homarr"],
+  "corpora": {"TRAIN": 1, "HOLDOUT": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 0,
+    "unresolved": 2,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 0,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "No insight is promoted or added. OSS-0040 is compatible with implementation_fact_to_defect_laundering but independent evidence does not resolve owner intent, so it remains case memory rather than an I-004 replication.",
+    "OSS-0041 is HOLDOUT and score-only; its empty-config versus absent-config equivalence question is unresolved and cannot teach Neta before wave close.",
+    "OSS-0042 exercises a REPO-local BUILD_READY decision while rejecting neighboring board-navigation incidents as confirmation of the exact delete-failure callback mechanism; no baseline delta results."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode; OWNER_DEFER and BUILD_READY are exercised.",
+    "failure_families": "No new family and no admissible TRAIN replication strong enough to change an insight state.",
+    "authority_boundaries": "No new Neta authority error. Two unresolved OWNER questions remain unresolved rather than being converted into build permission; the Homarr intervention remains REPO-local.",
+    "baseline_deltas": "No fully surviving delta added. Marginal information is lower than BATCH-013, but one batch without a surviving delta after recent gains does not trigger saturation stop."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 42,
+    "holdout_repos": 14,
+    "surviving_baseline_deltas": 14,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_stop_condition": null
+}

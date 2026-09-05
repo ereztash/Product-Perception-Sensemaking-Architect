@@ -1,0 +1,41 @@
+{
+  "case_id": "OSS-0046",
+  "repository": "zidoro/pomatez",
+  "product_domain": "Pomatez cross-platform Pomodoro desktop productivity application",
+  "pinned_sha": "c2727800c6272573590911e9ee81637b89e55d5f",
+  "corpus": "TRAIN",
+  "stratum": "desktop_native_productivity_timer",
+  "sampling_query": "stars:500..5000 pushed:>2025-09-04 topic:productivity",
+  "prior_exposure_risk": "LOW_MEDIUM",
+  "frozen_evidence_boundary": [
+    "repository metadata and pinned git ref",
+    "README.md strict-mode product description at pinned SHA",
+    "app/renderer/src/routes/Timer/Control/Control.tsx at pinned SHA",
+    "app/renderer/src/routes/Timer/Control/Sessions.tsx at pinned SHA",
+    "no GitHub issue, PR, discussion, release-history, support, review or complaint evidence opened before Phase B/C freeze"
+  ],
+  "raw_signal_observation": "The README states that Strict Mode prevents pausing, skipping and resetting the timer once started. Control.tsx guards reset, play/pause and skip actions when timer.playing && enableStrictMode. The Sessions refresh control calls onResetSessionCallback, which dispatches setTimerType(STAY_FOCUS) and setRound(1) without the same Strict Mode guard.",
+  "material_claim": "There is a source-level guard asymmetry around a session-reset control during active Strict Mode. The frozen evidence does not establish whether activating that control actually bypasses the strict countdown/phase in the integrated product or whether resetting the session counter is intentionally outside the Strict Mode contract.",
+  "neta_decision": "DISCRIMINATE_FIRST",
+  "observed_reality": "R1",
+  "required_reality_floor": "R2",
+  "authority": "ENVIRONMENT",
+  "requested_use": "BUILD_REVERSIBLE",
+  "permission": "DEFER",
+  "neta_next_move": "Run one integrated fixture with Strict Mode enabled and an active timer: activate the Sessions refresh control during focus and break phases and observe timer type, remaining countdown, round state and whether the session can be escaped. Positive control: verify that the ordinary reset/skip controls are blocked by the existing Strict Mode guard.",
+  "reversal_condition": "If the session refresh cannot alter or escape the active strict timer, do not add a guard. If it changes phase/countdown or otherwise bypasses the documented strict lock while sibling controls remain blocked, allow the smallest equivalent guard on the session-reset path.",
+  "baseline_decision": "BUILD: apply the same Strict Mode guard to onResetSessionCallback immediately because the documented strict contract and sibling controls already prohibit reset-like actions while the timer is running.",
+  "phase_b_c_frozen": true,
+  "adjudication": {
+    "status": "PARTIALLY_SUPPORTED",
+    "evidence": [
+      "Post-freeze issue #648 asks for the tray Quit path to be disabled during an active Strict Mode session, showing that users treat escape routes outside the main timer controls as relevant to strictness.",
+      "Post-freeze issues #122 and #146 similarly request restart/quit and Strict-Mode-lock protection against circumventing an active session.",
+      "No claim-specific issue or PR was found showing that the Sessions refresh control changes or escapes the active countdown under Strict Mode.",
+      "The neighboring Strict Mode reports support the broader anti-circumvention intent but do not establish the frozen session-reset mechanism."
+    ],
+    "decision_delta": "PARTIALLY_SUPPORTED_DELTA: Neta requires one integrated discriminator while the baseline would guard immediately. Independent evidence strengthens the concern that strictness should cover escape paths, but it does not prove this specific refresh control is an escape path, so no fully surviving baseline-delta credit is awarded.",
+    "rubric_critical_failures": [],
+    "lesson": "An explicit high-level contract plus sibling guards can make an asymmetry material without proving that the unguarded control is behaviorally equivalent. Neighboring anti-circumvention reports should raise priority, not substitute for the claim-specific discriminator."
+  }
+}

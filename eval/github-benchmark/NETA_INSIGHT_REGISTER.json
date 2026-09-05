@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "last_batch": "BATCH-011",
+  "last_batch": "BATCH-016",
   "insights": [
     {
       "insight_id": "I-001",
@@ -20,13 +20,13 @@
       "failure_family": "neighboring_ground_truth_laundering",
       "insight": "Independent evidence about a neighboring bug or the same component can support a failure family without confirming the exact mechanism under adjudication.",
       "first_seen": "OSS-0002",
-      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011", "OSS-0019", "OSS-0020", "OSS-0024", "OSS-0031"],
+      "replications": ["OSS-0003", "OSS-0007", "OSS-0009", "OSS-0011", "OSS-0019", "OSS-0020", "OSS-0024", "OSS-0031", "OSS-0046"],
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "PRELIMINARY_TRAIN_PLUS_HOLDOUT_AND_ADVERSARIAL_REPLICATIONS_WITH_REPEATED_NEIGHBORING_EVIDENCE_REJECTION_PLUS_SAME_FLOW_TRAIN_REJECTION",
+      "evidence_state": "PRELIMINARY_TRAIN_PLUS_HOLDOUT_AND_ADVERSARIAL_REPLICATIONS_WITH_REPEATED_NEIGHBORING_EVIDENCE_REJECTION_PLUS_SAME_FLOW_AND_POLICY_FAMILY_TRAIN_REJECTION",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. BATCH-007 added Butterfly and Linkwarden examples. BATCH-008 added an adversarial same-component example: Twenty's historical ConfirmationModal Enter-key bug was not allowed to confirm a distinct async-delete failure mechanism. BATCH-011 adds a tighter TRAIN example: Docmost PR #2302 confirms a stale-state defect in the same move-page flow, but it does not confirm the frozen pre-selection enabled-no-op mechanism."
+      "promotion_reason": "Recurring adjudication hazard, but still lacks an executable positive-control gate and closed holdout wave. BATCH-007 added Butterfly and Linkwarden examples. BATCH-008 added an adversarial same-component example: Twenty's historical ConfirmationModal Enter-key bug was not allowed to confirm a distinct async-delete failure mechanism. BATCH-011 added a tighter TRAIN example: Docmost PR #2302 confirms a stale-state defect in the same move-page flow, but it does not confirm the frozen pre-selection enabled-no-op mechanism. BATCH-016 adds Pomatez: several Strict Mode anti-circumvention reports support the policy family but do not confirm that the unguarded Sessions refresh control bypasses the active strict timer."
     },
     {
       "insight_id": "I-003",
@@ -46,13 +46,13 @@
       "failure_family": "implementation_fact_to_defect_laundering",
       "insight": "A repository can establish exactly what the product does while remaining unable to establish that the behavior is a defect; when the unresolved question is intended interaction/configuration policy, route to OWNER instead of converting implementation certainty into build permission.",
       "first_seen": "OSS-0004",
-      "replications": ["OSS-0006", "OSS-0012", "OSS-0022", "OSS-0025", "OSS-0027"],
+      "replications": ["OSS-0006", "OSS-0012", "OSS-0022", "OSS-0025", "OSS-0027", "OSS-0039"],
       "counterexamples": ["OSS-0007"],
       "neta_failed": false,
       "baseline_decision_delta": true,
-      "evidence_state": "PRELIMINARY_TRAIN_6_AUTHORITY_OR_DISCRIMINATION_CASES_PLUS_HOLDOUT_SCORE_ONLY",
+      "evidence_state": "PRELIMINARY_NON_HOLDOUT_7_AUTHORITY_OR_DISCRIMINATION_CASES_PLUS_HOLDOUT_SCORE_ONLY",
       "promotion_status": "ALREADY_CANONICAL_NOT_NEW",
-      "promotion_reason": "Already encoded by Neta's evidence/authority/permission separation. BATCH-009 adds two materially different TRAIN replications: TaskCoach's documented Flatpak compatibility tradeoff and DooTask's mixed-scheme self-hosting topology both show that an implementation fact can be certain while the change decision remains OWNER-owned."
+      "promotion_reason": "Already encoded by Neta's evidence/authority/permission separation. BATCH-009 adds two materially different TRAIN replications: TaskCoach's documented Flatpak compatibility tradeoff and DooTask's mixed-scheme self-hosting topology both show that an implementation fact can be certain while the change decision remains OWNER-owned. BATCH-013 adds SiYuan as an ADVERSARIAL explicit-intent replication: a named no-confirm deletion option was intentionally requested by a maintainer, so generic safety concerns cannot convert known behavior into a defect without OWNER permission. OSS-0040 is compatible with this family but remains unresolved and is therefore retained as case memory rather than counted as a replication."
     },
     {
       "insight_id": "I-005",
@@ -85,13 +85,13 @@
       "failure_family": "inferred_sibling_contract_laundering",
       "insight": "Equivalent-looking sibling paths do not establish a shared product contract. Before turning asymmetry into BUILD permission, distinguish an explicit invariant from a consistency preference or interaction-policy tradeoff that belongs to OWNER.",
       "first_seen": "OSS-0014",
-      "replications": ["OSS-0018", "OSS-0030"],
+      "replications": ["OSS-0018", "OSS-0030", "OSS-0034"],
       "counterexamples": ["OSS-0007"],
       "neta_failed": true,
       "baseline_decision_delta": true,
-      "evidence_state": "CLEAN_TRAIN_FAILURE_PLUS_TWO_SUPPORTED_NON_HOLDOUT_REPLICATIONS_WITH_EXISTING_NEIGHBOR",
+      "evidence_state": "CLEAN_TRAIN_FAILURE_PLUS_THREE_SUPPORTED_NON_HOLDOUT_REPLICATIONS_WITH_EXISTING_NEIGHBOR",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "OSS-0018 showed that similar controls can legitimately apply different guards when consequences differ. OSS-0030 adds an adversarial lifecycle example: an inline TODO plus a sibling option did not authorize work in a legacy codebase whose owner is rewriting the product. The candidate still lacks an executable discrimination gate, deliberate red positive control and unseen HOLDOUT success, so it remains memory only."
+      "promotion_reason": "OSS-0018 showed that similar controls can legitimately apply different guards when consequences differ. OSS-0030 adds an adversarial lifecycle example: an inline TODO plus a sibling option did not authorize work in a legacy codebase whose owner is rewriting the product. OSS-0034 adds a TRAIN mobile deletion-policy replication: Organic Maps maintainer discussion explicitly treats confirmation as context-dependent across bookmarks, tracks and lists, so a sibling asymmetry still does not establish one shared contract. The candidate still lacks an executable discrimination gate, deliberate red positive control and unseen HOLDOUT success, so it remains memory only."
     },
     {
       "insight_id": "I-008",
@@ -115,49 +115,55 @@
       "counterexamples": [],
       "neta_failed": false,
       "baseline_decision_delta": false,
-      "evidence_state": "SINGLE_TRAIN_SOURCE_SUPPORTED_MECHANISM_WITHOUT_INDEPENDENT_FAILURE_REPRODUCTION",
+      "evidence_state": "SINGLE_TRAIN_SOURCE_SUPPORTED_MECHANISM_WITHOUT_INDEPENDENT_FAILURE_REPRODUCTION_PLUS_HOLDOUT_SCORE_ONLY_EXERCISE",
       "promotion_status": "MEMORY_ONLY",
-      "promotion_reason": "The static code clearly exposes a cross-boundary atomicity risk, but post-freeze issue evidence did not reproduce the exact rollback inconsistency. Keep as technical case memory until a deliberate failure-injection fixture can turn red and a neighboring safe transaction boundary is available as control."
+      "promotion_reason": "The static code clearly exposes a cross-boundary atomicity risk, but post-freeze issue evidence did not reproduce the exact rollback inconsistency. Keep as technical case memory until a deliberate failure-injection fixture can turn red and a neighboring safe transaction boundary is available as control. OSS-0044 exercises this boundary in HOLDOUT and remains score-only; it is not counted as a replication or promotion input before wave close."
     }
   ],
   "saturation": {
     "decision_modes": {
       "observed": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
-      "signal": "COVERED_NOT_SATURATED",
-      "note": "All target routing modes remain represented. BATCH-011 adds two BUILD_READY cases and one DISCRIMINATE_FIRST adversarial case but no new mode."
+      "signal": "COVERED_LOW_MARGINAL_GAIN",
+      "note": "All target routing modes remain represented. BATCH-016 exercises DISCRIMINATE_FIRST and OWNER_DEFER again across desktop productivity, interactive terminal tooling and analytics; no new routing distinction appears."
     },
     "failure_families": {
       "observed_count": 9,
-      "signal": "TAXONOMY_GROWTH_SLOWING_BOUNDARIES_STILL_OPEN",
-      "note": "BATCH-011 adds no genuinely new family. I-002 gains one tighter TRAIN replication from Docmost, while the Zen event-semantics case remains unresolved case memory rather than a new family. Family discovery is slowing before judgment-boundary validation is complete."
+      "signal": "SATURATED_UNDER_CURRENT_SAMPLING",
+      "note": "BATCH-014 through BATCH-016 add no new failure family or clean Neta failure. BATCH-016 only adds another TRAIN replication to the mature neighboring-ground-truth adjudication hazard. Taxonomy growth is flat under the current broad sampling distribution."
     },
     "authority_boundaries": {
       "observed": ["REPO", "OWNER", "ENVIRONMENT", "FIELD"],
       "errors": 1,
-      "signal": "OPEN_AFTER_FIRST_CLEAN_FAILURE",
-      "note": "No new Neta authority error in BATCH-011. All three questions route to REPO, while Zen shows that correct authority does not imply the available static reality level is sufficient to authorize a build."
+      "signal": "OPEN_BUT_NOT_GAINING_UNDER_CURRENT_SAMPLING",
+      "note": "No new Neta authority error in BATCH-016. The batch again routes plausible mechanisms to OWNER/ENVIRONMENT/REPO discriminators without producing a decisive reversal, leaving the clean-failure deficit unchanged."
     },
     "baseline_decision_deltas": {
-      "neta_vs_baseline_build_restraint_cases": 24,
-      "fully_survived_adjudication": 11,
-      "partially_supported": 6,
-      "unresolved": 7,
-      "signal": "NOT_SATURATED_MIXED_MARGINAL_GAIN",
-      "note": "BATCH-011 adds one new baseline-vs-Neta restraint delta in Zen, but it remains unresolved and is not counted as surviving. No fully surviving delta was added this batch. One no-gain batch after BATCH-009/010 added four fully surviving deltas is not yet evidence that marginal decision value has saturated."
+      "neta_vs_baseline_build_restraint_cases": 37,
+      "fully_survived_adjudication": 14,
+      "partially_supported": 8,
+      "unresolved": 15,
+      "signal": "SATURATION_STOP_CURRENT_SAMPLING",
+      "note": "BATCH-016 adds no fully surviving delta for the third consecutive batch. One Pomatez delta is only partially supported and two remain unresolved. Routine broad sampling is no longer removing enough decision-relevant uncertainty; further work should change the sampling distribution toward targeted falsification rather than add another equivalent batch."
     }
   },
   "wave_1_progress": {
-    "adjudicated_repos": 33,
+    "adjudicated_repos": 48,
     "target_range": "30-50",
-    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity"],
-    "holdout_repos": 11,
+    "domains": ["web_app", "knowledge_productivity", "desktop_native", "dashboard_analytics_admin", "mobile_application", "developer_tool_interactive", "knowledge_productivity_cli", "browser_extension_interactive", "finance_productivity_mobile", "knowledge_productivity_cross_platform", "web_app_project_management", "cross_platform_music_app", "cross_platform_knowledge_productivity", "web_app_knowledge_archiving", "cross_platform_productivity_sync", "web_knowledge_productivity", "cross_platform_file_transfer", "web_crm_saas", "desktop_native_task_management", "web_commerce_operations", "web_collaboration_project_management", "web_business_management_platform", "android_phone_management", "cross_platform_file_sync", "web_app_knowledge_collaboration", "mobile_application_calendar_productivity", "desktop_native_browser_productivity", "mobile_application_navigation", "web_app_document_productivity", "desktop_native_media_editing", "desktop_native_productivity_launcher", "mobile_application_media_player", "web_app_spreadsheet_database", "mobile_application_productivity_sync", "desktop_native_file_management", "desktop_native_productivity_timer", "developer_tool_interactive_tui"],
+    "holdout_repos": 16,
     "decision_modes_present": ["DISCRIMINATE_FIRST", "OWNER_DEFER", "BUILD_READY", "FIELD_STOP"],
     "clean_neta_failures": 1,
-    "surviving_baseline_deltas": 11,
-    "partially_supported_baseline_deltas": 6,
+    "surviving_baseline_deltas": 14,
+    "partially_supported_baseline_deltas": 8,
     "minimum_viable_evidence_reached": false
   },
   "promotion_candidates": [],
-  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. Commit metadata was read only after freeze to validate recent activity. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence.",
-  "protocol_stop_condition": null
+  "protocol_warning": "Earlier candidate-selection contamination remains quarantined: Kanboard and Vikunja were excluded after metadata/history exposure. During BATCH-004 Kanboard was initially reconsidered, but the existing warning was detected before case creation and it was excluded again. Volmarg/personal-management-system was rejected before case assignment because its pinned repository is backend-only. BATCH-005 excluded meetfranz/franz after the README established that the repository is an inactive predecessor, and excluded WeekToDo because its last push fell outside the 12-month activity window. BATCH-006 pinned all three repositories through git refs before Phase B and exposed no issue/PR history until after Neta and baseline outputs were frozen. In BATCH-007, the existing Franz and Vikunja exclusions were re-detected before case creation and honored. sissbruecker/linkding was quarantined before case creation because a Phase-B code-search result exposed a CHANGELOG history snippet. BATCH-008 pinned all three repositories before source review and opened issue/PR evidence only after decisions were frozen. Before BATCH-009, bbatsov/projectile was excluded after a Phase-B source search exposed changelog/bug-history evidence; no case was created. BATCH-009 and BATCH-010 otherwise froze all six Neta/baseline decisions before opening issue or PR evidence. HOLDOUT cases OSS-0026, OSS-0028 and OSS-0029 remain score-only and are not used to promote or teach rules before Wave 1 closes. BATCH-011 pinned Docmost, Fossify Calendar and Zen Browser through git refs and froze all Neta/baseline decisions before issue/PR reveal. HOLDOUT OSS-0032 remains score-only and was not added to any insight replication, counterexample or promotion evidence. BATCH-012 quarantined mealie-recipes/mealie before case creation after a Phase-B code search surfaced an in-repository survey/user-feedback document; no Mealie case was created. Organic Maps, Hoppscotch and Stirling PDF were pinned through git refs and their Neta/baseline decisions were frozen before issue/PR reveal. HOLDOUT OSS-0035 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-013 pinned Uptime Kuma, LosslessCut and SiYuan through git refs before Phase B and froze Neta/baseline decisions before issue/PR reveal. HOLDOUT OSS-0038 remains score-only and was not added to insight replication, counterexample or promotion evidence. BATCH-014 pinned ueli, mpv-android and Homarr through git refs, froze Neta and baseline decisions before issue/PR reveal, and kept HOLDOUT OSS-0041 score-only. BATCH-015 verified all three selected repositories against earlier manifests, pinned exact git refs before blind review, froze Neta/baseline decisions before issue/PR reveal, and kept HOLDOUT OSS-0044 score-only. A muCommander helper source file inspected after Phase D began was excluded from the frozen evidence boundary and adjudication credit. BATCH-016 checked Pomatez, gitlogue and Wakapi as previously unseen, pinned exact SHAs, froze Neta/baseline outputs before issue/PR reveal, kept OSS-0048 HOLDOUT score-only, and confirmed that the separate neta/hebrew-observatory branch did not modify the GitHub benchmark's frozen Neta version. No corpus leakage or mid-holdout Neta version change was detected.",
+  "protocol_stop_condition": {
+    "type": "SATURATION_LOW_MARGINAL_GAIN",
+    "status": "PAUSE_ROUTINE_SAMPLING",
+    "triggered_after": "BATCH-016",
+    "reason": "Three consecutive batches add no fully surviving baseline delta, no clean Neta failure and no new failure family. BATCH-016 adds only one partial delta and a replication of an already mature adjudication hazard. The current broad sampling distribution is no longer removing enough decision-relevant uncertainty.",
+    "resume_condition": "Resume GitHub sampling only with a frozen sampling change that deliberately increases falsification pressure for false-defer/false-build behavior without teaching from HOLDOUT, or after the Wave 1 closure criteria are explicitly revised and frozen."
+  }
 }

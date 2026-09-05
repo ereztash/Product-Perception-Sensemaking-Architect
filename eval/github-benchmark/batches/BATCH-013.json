@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-013",
+  "cases": ["OSS-0037", "OSS-0038", "OSS-0039"],
+  "repositories": ["louislam/uptime-kuma", "mifi/lossless-cut", "siyuan-note/siyuan"],
+  "corpora": {"TRAIN": 1, "HOLDOUT": 1, "ADVERSARIAL": 1},
+  "results": {
+    "authority_correct_stop": 2,
+    "unresolved": 0,
+    "partially_supported": 1,
+    "confirmed_local": 0,
+    "refuted": 0,
+    "critical_failures": 0,
+    "fully_surviving_baseline_deltas_added": 2,
+    "clean_neta_failures_added": 0
+  },
+  "new_or_changed_insights": [
+    "OSS-0039 adds a non-HOLDOUT replication of implementation_fact_to_defect_laundering: SiYuan's apparently risky no-confirm deletion path is an explicit maintainer-requested option, and the implementation restores confirmation when references raise consequence.",
+    "OSS-0038 is HOLDOUT and score-only: LosslessCut owner evidence explicitly describes main-export overwrite as user-selected with warning, so Neta's OWNER_DEFER survives but is not used to teach or promote a rule.",
+    "OSS-0037 adds no decision-delta family: Neta and baseline both identify a deterministic falsey-default bug; neighboring proxy issues are not allowed to confirm the exact mechanism."
+  ],
+  "saturation": {
+    "decision_modes": "No new routing mode; BUILD_READY and OWNER_DEFER are exercised.",
+    "failure_families": "No new family. I-004 gains one ADVERSARIAL replication from explicit configured product intent; HOLDOUT evidence remains score-only.",
+    "authority_boundaries": "No new Neta authority error. Two OWNER routes are independently supported; Uptime Kuma remains a REPO-local build with only partial external support.",
+    "baseline_deltas": "Two fully surviving deltas added (LosslessCut HOLDOUT and SiYuan ADVERSARIAL). Decision-relevant marginal information is still arriving, so no saturation stop is triggered."
+  },
+  "wave_1_after_batch": {
+    "adjudicated_repos": 39,
+    "holdout_repos": 13,
+    "surviving_baseline_deltas": 14,
+    "clean_neta_failures": 1,
+    "minimum_viable_evidence_reached": false
+  },
+  "selection_exclusions": [],
+  "protocol_stop_condition": null
+}
