@@ -1,26 +1,90 @@
-# Canonical Neta State
+# Canonical Repository State
 
 Last consolidated: 2026-09-05
 
-## Canonical identity
+## Canonical architecture
 
-Neta is an evidence-bounded Product Perception & Sensemaking method with an assurance layer. The current canonical method state is the **v0.2 assurance re-foundation**.
+The repository now contains two peer agents/methods under a shared epistemic constitution:
 
-The canonical prompt remains the **frozen v0.1 baseline**. The GitHub benchmark did not earn a prompt edit.
+- **Neta** — Product Perception & Sensemaking;
+- **R&D Agent** — Research & Evidence Sensemaking.
 
-This distinction is intentional:
+A future Orchestrator is explicitly **deferred** until at least two peers can produce stable machine-readable outputs/handoffs and real routing failures justify a coordination layer.
 
-- `method/version`: v0.2 assurance architecture;
-- `prompt/baseline`: v0.1 frozen clean-model comparator;
-- `evaluation`: empirical benchmark evidence may constrain claims about Neta but may not silently rewrite the prompt.
+Canonical cross-agent artifacts:
+
+- `docs/SHARED_EPISTEMIC_KERNEL.md`
+- `docs/AGENT_AUTHORITY_BOUNDARIES.md`
+- `docs/PEER_HANDOFF_PROTOCOL.md`
+- `schemas/epistemic-claim.schema.json`
+- `schemas/peer-handoff.schema.json`
+
+Neta is not the parent of R&D. R&D is not a sub-capability of Neta. Historical derivation order does not define authority.
+
+## Shared constitutional decision
+
+Across peers:
+
+> **material uncertainty removed from a live decision** is the unit of progress.
+
+Resolution authority belongs to claims, not agents.
+
+The current detailed R0–R6 and OWNER/REPO/ENVIRONMENT/RESEARCH/FIELD semantics remain in `docs/REALITY_AUTHORITY_PERMISSION.md` and are adopted cross-agent through the shared kernel.
+
+## Neta canonical identity
+
+Neta remains an evidence-bounded Product Perception & Sensemaking method with an assurance layer. The current canonical Neta method state is the **v0.2 assurance re-foundation**.
+
+The canonical Neta prompt remains the **frozen v0.1 baseline**. The GitHub benchmark did not earn a prompt edit.
+
+This distinction remains intentional:
+
+- `Neta method/version`: v0.2 assurance architecture;
+- `Neta prompt/baseline`: v0.1 frozen clean-model comparator;
+- `Neta evaluation`: empirical benchmark evidence may constrain claims about Neta but may not silently rewrite the prompt.
+
+Neta capability changes remain governed by `eval/CAPABILITY_UPDATE_GATE_V1.md`.
+
+## R&D Agent canonical identity
+
+The R&D Agent is the peer responsible for research/evidence sensemaking and research continuity.
+
+Current canonical R&D artifacts:
+
+- charter: `research/RND_AGENT_CHARTER_V0_1.md`;
+- runtime contract: `schemas/rnd-research-task.schema.json`;
+- evaluation/promotion protocol: `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`;
+- visible controls: `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`.
+
+Current R&D state:
+
+- architecture/charter specified;
+- cross-repository instrument extraction imported;
+- triangulation/synthesis completed and retained as lineage;
+- 8 TRAIN controls defined;
+- no frozen executable agent implementation yet;
+- no unseen HOLDOUT run yet;
+- no R&D capability repairs promoted yet.
+
+Therefore the R&D Agent is **SPECIFIED / TEST-READY**, not empirically validated.
+
+R&D capability changes are governed by the R&D eval protocol, not Neta's capability gate.
 
 ## Canonical evidence chain
 
-`Evidence → Judgment → Rule Candidate → Gate → Version`
+Shared constitutional chain:
+
+`Claim → Evidence → Reality → Resolution Authority → Requested Use → Permission → Reversal / Stop`
+
+Neta adds product/design objects around this chain.
+
+R&D adds research continuity:
+
+`Live Claim → Recovery → Reuse/Adapt/Build → Version/Input Fit → Run → Durable Deposit → Claim Disposition → Later Revalidation`
 
 A result may move downstream only when its authority and reality floor permit it. Recurrence alone is not promotion.
 
-## GitHub Benchmark Wave 1
+## GitHub Benchmark Wave 1 — Neta
 
 Wave 1 is frozen and closed at BATCH-016 because routine broad sampling reached low marginal decision gain.
 
@@ -28,85 +92,79 @@ Frozen state:
 
 - 48 adjudicated repositories;
 - 16 HOLDOUT repositories;
-- all four decision modes represented: BUILD_READY, DISCRIMINATE_FIRST, OWNER_DEFER, FIELD_STOP;
+- all four Neta decision modes represented: BUILD_READY, DISCRIMINATE_FIRST, OWNER_DEFER, FIELD_STOP;
 - 14 fully surviving Neta-vs-baseline decision deltas;
 - 8 partially supported deltas;
 - 1 clean Neta failure;
 - 9 tracked failure families;
 - 0 promoted new core rules;
-- 0 prompt updates.
+- 0 Neta prompt updates.
 
-The wave **did not reach minimum viable evidence** because the preregistered decision threshold required at least 3 clean Neta failures and only 1 was observed.
+The wave did **not** reach minimum viable evidence because the preregistered threshold required at least 3 clean Neta failures and only 1 was observed.
 
-The closure therefore means:
-
-> the current broad GitHub sampling distribution is saturated for useful learning;
-
-not:
-
-> Neta has been proven reliable or has a low true failure rate.
-
-The machine-readable closeout is `eval/github-benchmark/WAVE1_CLOSEOUT.json`.
+Closure means the current broad GitHub sampling distribution is saturated for useful Neta learning, not that Neta has been proven reliable.
 
 ## Branch authority
 
 ### `main`
 
-Canonical released state. Only evidence, contracts, protocols, and changes that are ready to be treated as the repository's source of truth belong here.
+Canonical released state for shared architecture, Neta, R&D contracts and frozen empirical records.
 
-### `neta/oss-observatory`
+### Historical/specialized Neta branches
 
-Historical execution branch for GitHub Benchmark Wave 1. After consolidation, it is not the canonical product version. New routine broad batches are paused unless a new sampling amendment is preregistered.
+Existing `neta/*` branches remain historical or specialized execution tracks. The peer-architecture refactor does not reinterpret their historical results.
 
-### `neta/hebrew-signal-fidelity`
+Key examples:
 
-Primary Hebrew decision-fidelity evaluation track. It asks whether natural Israeli Hebrew preserves uncertainty, inference boundaries, authority, and action across raw Hebrew, faithful translation, and professionalized paraphrase.
+- `neta/oss-observatory` — historical GitHub Benchmark Wave 1 execution branch;
+- `neta/hebrew-signal-fidelity` — Hebrew decision-fidelity track;
+- `neta/hebrew-observatory` — Hebrew affect/pragmatics track;
+- `neta/design-research-spine-v0.1` — quarantined design-knowledge crosswalk.
 
-This is the closest Hebrew extension to Neta's core assurance thesis.
+No R&D Agent branch is canonical yet; a future implementation branch must freeze the tested baseline before HOLDOUT creation.
 
-### `neta/hebrew-observatory`
+## Hebrew consolidation decision — Neta-specific
 
-Secondary Hebrew affect/pragmatics track. It distinguishes:
-
-1. expressed affect;
-2. inferred speaker state;
-3. recipient/reader effect.
-
-This track should not redefine the core Hebrew benchmark. It extends it where affect and pragmatics are decision-relevant.
-
-### `neta/design-research-spine-v0.1`
-
-Quarantined provenance/crosswalk layer for external design knowledge. It is research support, not a Neta version and not independent empirical validation.
-
-## Hebrew consolidation decision
-
-There are two non-equivalent Hebrew questions and they must remain distinct:
+Two non-equivalent Hebrew questions remain distinct:
 
 ### Track H1 — Signal Fidelity
 
-Core question:
-
-> Does Neta preserve decision-relevant meaning, ambiguity, authority, and action when the input is natural Israeli Hebrew?
-
-Primary failure families include metaphor laundering, mitigation erasure, hyperbole literalization, negation collapse, code-switch normalization, irony literalization, affect-to-mechanism laundering, deixis/context loss, perceived-state/system-state collapse, and professionalization drift.
+Does Neta preserve decision-relevant meaning, ambiguity, authority and action when input is natural Israeli Hebrew?
 
 ### Track H2 — Reader Effect
 
-Extension question:
+Can Neta distinguish what a Hebrew utterance says, what it implies about the speaker, and what it is likely to evoke in a recipient?
 
-> Can Neta distinguish what a Hebrew utterance says, what it implies about the speaker, and what it is likely to evoke in a recipient?
+H1 and H2 must not collapse into one composite score.
 
-H2 may use lexical/sentence affect and pragmatics corpora as controls, but those labels do not become Neta ground truth for product decisions.
+These are Neta evaluation tracks, not R&D Agent promotion evidence by default.
 
-H1 and H2 must not be collapsed into one composite Hebrew-understanding score.
+## Current next authorized execution
 
-## Next authorized execution
+### Neta
 
-1. Keep the canonical prompt frozen.
-2. Merge/freeze the Hebrew Signal Fidelity protocol without treating TRAIN examples as validation.
-3. Freeze a hidden Hebrew HOLDOUT only after the exact tested Neta prompt/hash, scorer, and strata are fixed.
-4. Run Neta and a baseline on identical Hebrew evidence.
-5. Adjudicate before any Hebrew-specific rule change.
-6. Use H2 Reader Effect only as a separate diagnostic layer where recipient effect is material.
+1. Keep Neta prompt frozen.
+2. Continue only the already-authorized targeted/Hebrew/field evaluation programs when they remove named Neta uncertainty.
+3. Do not promote R&D findings directly into Neta behavior.
 
-The next unit of progress is a **clean Hebrew judgment failure or surviving decision delta**, not additional corpus volume.
+### R&D Agent
+
+1. Implement the smallest executable baseline that follows `RND_AGENT_CHARTER_V0_1.md` and emits `rnd-research-task` objects.
+2. Freeze exact implementation/model/prompt/tool boundary before unseen evaluation.
+3. Run the 8 visible TRAIN controls only to verify evaluator/contract behavior.
+4. Create unseen HOLDOUT and adversarial cases after the baseline is frozen.
+5. Adjudicate case-level decisions across the orthogonal R&D capability dimensions.
+6. Promote no repair until the R&D-specific gate is crossed.
+
+### Orchestrator
+
+Do not build yet.
+
+The first orchestrator-worthy evidence would be repeated failures such as:
+
+- ambiguous ownership between stable peers;
+- lost dependencies across peer handoffs;
+- contradictory peer outputs that users cannot route correctly;
+- repeated manual routing overhead that materially harms decision quality or cost.
+
+Until such failures exist, peer handoffs are the cheaper admissible architecture.
