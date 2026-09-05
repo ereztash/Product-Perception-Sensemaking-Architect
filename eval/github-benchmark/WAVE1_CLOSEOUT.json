@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "wave": "github_benchmark_wave_1",
+  "closed_at": "2026-09-05",
+  "status": "CLOSED_AT_SATURATION_WITH_MVE_NOT_REACHED",
+  "canonical_neta_state": {
+    "method_version": "v0.2 assurance re-foundation",
+    "prompt_status": "v0.1 frozen baseline; no prompt change earned by this wave",
+    "benchmark_protocol": "docs/GITHUB_BENCHMARK_PROTOCOL_V1.md",
+    "last_batch": "BATCH-016"
+  },
+  "frozen_counts": {
+    "adjudicated_repos": 48,
+    "holdout_repos": 16,
+    "surviving_baseline_deltas": 14,
+    "partially_supported_baseline_deltas": 8,
+    "clean_neta_failures": 1,
+    "failure_families": 9,
+    "decision_modes_present": [
+      "BUILD_READY",
+      "DISCRIMINATE_FIRST",
+      "OWNER_DEFER",
+      "FIELD_STOP"
+    ]
+  },
+  "minimum_viable_evidence": {
+    "reached": false,
+    "blocking_condition": "clean_neta_failures_below_threshold",
+    "required_clean_failures": 3,
+    "observed_clean_failures": 1
+  },
+  "closure_reason": {
+    "type": "SATURATION_LOW_MARGINAL_GAIN",
+    "evidence": "BATCH-014 through BATCH-016 added no new failure family, no new clean Neta failure, and no new fully surviving baseline delta.",
+    "interpretation": "The current broad sampling distribution is saturated for decision-relevant learning. This is not evidence that Neta rarely fails."
+  },
+  "holdout_policy_after_close": {
+    "wave_is_frozen_and_scored": true,
+    "retroactive_training_within_wave": false,
+    "future_use": "Historical HOLDOUT evidence may inform a separately preregistered subsequent wave only after explicit lineage is recorded; it may not be relabeled as unseen evidence."
+  },
+  "promotion_state": {
+    "new_core_rules_promoted": 0,
+    "prompt_updates": 0,
+    "reason": "No candidate satisfied failure/advantage + hidden judgment + neighbor + falsifiable gate + positive control + unseen HOLDOUT success."
+  },
+  "next_authorized_step": "Targeted falsification or a distinct domain observatory under a new frozen protocol; do not resume routine broad GitHub sampling without a preregistered sampling amendment."
+}
