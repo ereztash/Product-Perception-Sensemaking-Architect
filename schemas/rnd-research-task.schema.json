@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/rnd-research-task.schema.json",
+  "title": "R&D Agent Research Task v0.1",
+  "description": "Runtime continuity contract for the peer R&D agent. It links a live research claim to recovery, instrument choice, execution, durable deposition and claim disposition.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "status",
+    "live_claim",
+    "material_question",
+    "resolution_authority",
+    "existing_capability_search",
+    "research_path",
+    "closure"
+  ],
+  "properties": {
+    "task_id": {"type": "string", "minLength": 1},
+    "status": {
+      "enum": [
+        "DIAGNOSE",
+        "RECOVER",
+        "DISCRIMINATE",
+        "EXECUTE",
+        "CLOSE",
+        "AUTHORITY_STOP"
+      ]
+    },
+    "material_question": {"type": "string", "minLength": 1},
+    "live_claim": {
+      "$ref": "epistemic-claim.schema.json"
+    },
+    "resolution_authority": {
+      "enum": ["OWNER", "REPO", "ENVIRONMENT", "RESEARCH", "FIELD"]
+    },
+    "decision_that_changes": {"type": ["string", "null"]},
+    "existing_capability_search": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "bounded_by", "candidate_refs"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "bounded_by": {"type": "string", "minLength": 1},
+        "candidate_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "search_stop_reason": {"type": ["string", "null"]}
+      }
+    },
+    "research_path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "rationale"],
+      "properties": {
+        "decision": {"enum": ["REUSE", "ADAPT", "BUILD", "NO_INSTRUMENT", "WAIT_AUTHORITY"]},
+        "rationale": {"type": "string", "minLength": 1},
+        "instrument": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["instrument_id", "source_ref", "construct", "version_ref", "runnability_state", "decision_contract"],
+          "properties": {
+            "instrument_id": {"type": "string", "minLength": 1},
+            "source_ref": {"type": "string", "minLength": 1},
+            "construct": {"type": "string", "minLength": 1},
+            "version_ref": {"type": "string", "minLength": 1},
+            "supersedes": {"type": ["string", "null"]},
+            "superseded_by": {"type": ["string", "null"]},
+            "runnability_state": {"enum": ["VERIFIED", "STALE", "BROKEN", "UNKNOWN", "HISTORICAL_ONLY"]},
+            "input_contract": {"type": ["string", "null"]},
+            "contamination_risk": {"enum": ["LOW", "MATERIAL", "UNKNOWN"]},
+            "decision_contract": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["outcome_dimensions", "decision_rule"],
+              "properties": {
+                "outcome_dimensions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "decision_rule": {"type": "string", "minLength": 1},
+                "sensitivity_requirement": {"type": ["string", "null"]}
+              }
+            }
+          }
+        },
+        "preregistration_ref": {"type": ["string", "null"]},
+        "falsifier": {"type": ["string", "null"]},
+        "positive_control": {"type": ["string", "null"]},
+        "neighboring_nonfire_case": {"type": ["string", "null"]}
+      }
+    },
+    "run": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["run_id", "instrument_id", "version_ref", "input_ref", "started_state", "result_state", "artifact_refs"],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "instrument_id": {"type": "string", "minLength": 1},
+        "version_ref": {"type": "string", "minLength": 1},
+        "input_ref": {"type": "string", "minLength": 1},
+        "started_state": {"enum": ["PLANNED", "STARTED"]},
+        "result_state": {"enum": ["SUPPORTED", "REFUTED", "INCONCLUSIVE", "FAILED_EXECUTION", "WAITING_AUTHORITY"]},
+        "artifact_refs": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "decision_contract_preserved": {"type": "boolean"},
+        "notes": {"type": ["string", "null"]}
+      }
+    },
+    "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "durable_deposit", "claim_effect", "next_authority_or_stop"],
+      "properties": {
+        "state": {
+          "enum": [
+            "OPEN_EXECUTION",
+            "OPEN_DEPOSITION",
+            "OPEN_DECISION_LINK",
+            "WAITING_AUTHORITY",
+            "CLOSED"
+          ]
+        },
+        "durable_deposit": {"type": ["string", "null"]},
+        "claim_effect": {
+          "enum": ["SUPPORTS", "REFUTES", "NARROWS", "SPLITS", "INCONCLUSIVE", "NO_MATERIAL_EFFECT", "PENDING"]
+        },
+        "next_authority_or_stop": {"type": "string", "minLength": 1},
+        "reversal_or_rerun_condition": {"type": ["string", "null"]}
+      }
+    },
+    "handoff": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["to", "question", "evidence_refs", "requested_return"],
+      "properties": {
+        "to": {"enum": ["NETA", "OWNER", "REPO", "ENVIRONMENT", "FIELD", "ORCHESTRATOR_FUTURE"]},
+        "question": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "requested_return": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
