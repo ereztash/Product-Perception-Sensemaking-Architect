@@ -2,24 +2,46 @@
 
 Last consolidated: 2026-09-05
 
+## Repository authority
+
+`main` is the only canonical branch.
+
+Historical branch names may remain visible because the connected GitHub tool used during cleanup could move refs but could not delete them. As of this consolidation pass, **every visible branch ref points to the same commit as `main`**.
+
+Historical pre-cleanup branch tips and dispositions are preserved at:
+
+- `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`
+
+Repository organization rules are canonical at:
+
+- `docs/REPOSITORY_MAP.md`
+
+A question that requires opening an old branch to discover current truth indicates repository-organization failure.
+
 ## Canonical architecture
 
-The repository contains two peer agents/methods under a shared epistemic constitution:
+The system currently contains two peer agents/methods under a shared epistemic constitution plus one deterministic coordination runtime:
 
 - **Neta** — Product Perception & Sensemaking;
-- **R&D Agent** — Research & Evidence Sensemaking.
+- **R&D Agent** — resource↔telos calibration with research continuity as a sub-capability;
+- **Calibration Loop** — deterministic routing/runtime, not an agent and not a truth authority.
 
-A future Orchestrator is explicitly **deferred** until at least two peers can produce stable machine-readable outputs/handoffs and real routing failures justify a coordination layer.
+External broad reasoning may be borrowed through `SCAFFOLD`.
 
-Canonical cross-agent artifacts:
+```text
+                         OWNER / TELOS
+                              |
+                      CALIBRATION LOOP
+                    deterministic routing
+                    /                 \
+                 NETA                 R&D
+           product/design        resource↔telos
+            sensemaking           calibration
+                    \                 /
+                 SHARED EPISTEMIC KERNEL
+```
 
-- `docs/SHARED_EPISTEMIC_KERNEL.md`
-- `docs/AGENT_AUTHORITY_BOUNDARIES.md`
-- `docs/PEER_HANDOFF_PROTOCOL.md`
-- `schemas/epistemic-claim.schema.json`
-- `schemas/peer-handoff.schema.json`
-
-Neta is not the parent of R&D. R&D is not a sub-capability of Neta. Historical derivation order does not define authority.
+A learned Orchestrator remains deferred.
 
 ## Shared constitutional decision
 
@@ -29,188 +51,222 @@ Across peers:
 
 Resolution authority belongs to claims, not agents.
 
-The current detailed R0–R6 and OWNER/REPO/ENVIRONMENT/RESEARCH/FIELD semantics remain in `docs/REALITY_AUTHORITY_PERMISSION.md` and are adopted cross-agent through the shared kernel.
+Canonical shared artifacts:
+
+- `docs/SHARED_EPISTEMIC_KERNEL.md`
+- `docs/AGENT_AUTHORITY_BOUNDARIES.md`
+- `docs/PEER_HANDOFF_PROTOCOL.md`
+- `docs/REALITY_AUTHORITY_PERMISSION.md`
+- `schemas/epistemic-claim.schema.json`
+- `schemas/peer-handoff.schema.json`
 
 ## Neta canonical identity
 
-Neta remains an evidence-bounded Product Perception & Sensemaking method with an assurance layer. The current canonical Neta method state is the **v0.2 assurance re-foundation**.
+Neta remains an evidence-bounded Product Perception & Sensemaking method with an assurance layer.
 
-The canonical Neta prompt remains the **frozen v0.1 baseline**. The GitHub benchmark did not earn a prompt edit.
+- method state: **v0.2 assurance re-foundation**;
+- prompt comparator: **frozen v0.1** at `prompts/SYSTEM.md`;
+- capability promotion: `eval/CAPABILITY_UPDATE_GATE_V1.md`.
 
-This distinction remains intentional:
+Neta turns:
 
-- `Neta method/version`: v0.2 assurance architecture;
-- `Neta prompt/baseline`: v0.1 frozen clean-model comparator;
-- `Neta evaluation`: empirical benchmark evidence may constrain claims about Neta but may not silently rewrite the prompt.
+`RAW SIGNAL → CONCRETE MOMENT → OBSERVABLE → COMPETING MECHANISMS → CHEAP DISCRIMINATOR → DESIGN DISTINCTION → INTERVENTION / DEFER / FIELD`
 
-Neta capability changes remain governed by `eval/CAPABILITY_UPDATE_GATE_V1.md`.
+Neta does not own research validity, architecture doctrine or FIELD outcomes.
 
-## R&D Agent canonical identity
+## R&D canonical identity
 
-The R&D Agent is the peer responsible for research/evidence sensemaking and research continuity.
+R&D now has two intentionally separate states.
 
-Current canonical R&D artifacts:
+### R&D v0.1 — frozen comparator
 
-- charter: `research/RND_AGENT_CHARTER_V0_1.md`;
-- frozen prompt baseline: `prompts/RND_AGENT_V0_1.md`;
-- frozen prompt blob SHA: `bc0e725d0449478d53b93bb6643d24404c22708c`;
-- baseline freeze record: `eval/rnd-agent/BASELINE_FREEZE_V0_1.md`;
-- runtime contract: `schemas/rnd-research-task.schema.json`;
-- semantic validator: `scripts/validate_rnd_task.py`;
-- evaluation/promotion protocol: `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`;
-- visible controls: `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`;
-- targeted OSS lane: `research/rnd-agent/`;
-- OSS-derived challenger queue: `eval/rnd-agent/OSS_CHALLENGER_QUEUE_V0_1.md`;
-- prospective eval-integrity amendment: `eval/rnd-agent/EVAL_AMENDMENT_2026-09-05_OSS.md`.
+Research-continuity focused.
 
-Current R&D state:
+Canonical comparator artifacts:
 
-- architecture/charter specified;
-- cross-repository instrument extraction imported;
-- triangulation/synthesis completed and retained as lineage;
-- 8 original TRAIN controls defined;
-- minimal v0.1 prompt baseline frozen **before OSS-derived transfer is allowed to modify behavior**;
-- runtime semantic validator added;
-- targeted OSS transfer completed across materially different research-agent architectures and closed at architecture saturation;
-- OSS-derived Priority-A and architecture challenger fixtures are quarantined from unseen validation;
-- no clean model/tool execution of the frozen baseline has yet been adjudicated;
-- no unseen HOLDOUT run yet;
-- no R&D capability repairs promoted yet.
+- `prompts/RND_AGENT_V0_1.md`;
+- frozen prompt blob: `bc0e725d0449478d53b93bb6643d24404c22708c`;
+- `research/RND_AGENT_CHARTER_V0_1.md`;
+- `schemas/rnd-research-task.schema.json`;
+- `scripts/validate_rnd_task.py`;
+- `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`;
+- `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`.
 
-Therefore the R&D Agent is **FROZEN BASELINE / PRE-EXECUTION**, not empirically validated.
+Its continuity distinction remains useful:
 
-R&D capability changes are governed by the R&D eval protocol, not Neta's capability gate.
+`instrument ≠ run ≠ durable evidence ≠ decision effect`
 
-## R&D targeted OSS decision
+plus:
 
-The targeted OSS lane deliberately sampled architecture families rather than maximizing repository count, including:
+`historical evidence ≠ current runnability`, `null ≠ refuted`, `pending ≠ failed`, `agreement ≠ independent triangulation`.
 
-- research/development role split;
-- tree/graph exploration;
-- phase-specialized multi-agent research;
-- scientific retrieval/evidence gathering;
-- reproducible agent benchmark/runtime infrastructure;
-- stochastic long-horizon agent evaluation;
-- report/citation verification;
-- experience memory and graph search;
-- self-evolving research systems.
+### R&D v0.2 — candidate telos
 
-A final LoongFlow saturation probe repeated already represented patterns (plan/execute/summary, reflection, experience memory) rather than exposing a new decision-relevant architecture axis.
+Status: `CANDIDATE_NOT_VALIDATED`.
 
-Routine OSS expansion is therefore stopped.
+Canonical candidate artifacts:
 
-The strongest residuals are not a demonstrated need for multi-agent architecture. They are:
+- `prompts/RND_AGENT_V0_2_CANDIDATE.md`;
+- `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`.
+
+Telos:
+
+> **Improve the fit between the system's resources and its telos, given the state from which the system is actually starting.**
+
+Loop:
+
+`TELOS + CURRENT STATE + RESOURCES → BOTTLENECK/MISCALIBRATION → CANDIDATE MOVES → CHEAPEST DECISION-CHANGING LEARNING → OBSERVED DELTA → RECALIBRATE → UPDATED STATE`
+
+Research is one instrument of this telos; it is not the telos itself.
+
+The v0.2 candidate has not been promoted as validated merely because it is used by the Calibration Loop.
+
+## Calibration Loop canonical identity
+
+Status: `IMPLEMENTATION_CANDIDATE / CI-GATED`.
+
+Canonical artifacts:
+
+- `runtime/calibration_loop/README.md`;
+- `runtime/calibration_loop/run.py`;
+- `runtime/calibration_loop/routing.py`;
+- `runtime/calibration_loop/adapters.py`;
+- `schemas/calibration-task.schema.json`;
+- `scripts/validate_calibration_task.py`;
+- `scripts/check_calibration_loop.py`;
+- `fixtures/calibration-valid-task.json`.
+
+Flow:
+
+`R&D DIAGNOSE → deterministic routing → Neta/Scaffold/authority as triggered → R&D SYNTHESIZE → trace + resource deltas + learning record`
+
+Routing rules are inspectable and are not self-modified from one case.
+
+The runtime may stop at `PENDING_RESOURCE`, `AUTHORITY_STOP` or `FAILED_EXECUTION` rather than fabricate an answer.
+
+## First manual Calibration Loop run
+
+`CAL-ARCH-001` was executed manually on 2026-09-05 without API/model adapters.
+
+Artifact:
+
+- `runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md`
+
+Important limitation:
+
+R&D, Neta and Scaffold were role-separated but executed in one ChatGPT session/foundation-model lineage. Their agreement is therefore **not independent triangulation**.
+
+The run produced a material decision change:
+
+From:
+
+> build/define an Architecture Agent
+
+To:
+
+> first test whether a distinct architecture-specific decision capability exists and adds value beyond R&D + Scaffold + REPO/ENVIRONMENT evidence.
+
+## Architecture capability state
+
+The first architecture-specific candidate is:
+
+- `research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md`
+
+Status: `CANDIDATE_CAPABILITY_NOT_AGENT`.
+
+Candidate unit:
+
+`LIVE ARCHITECTURE DECISION → CURRENT STRUCTURE/AUTHORITY → 2–3 COMPETING OPTIONS/MECHANISMS → CONSTRAINTS/INVARIANTS → MATERIAL DEPENDENCY/FAILURE/CHANGE PATH → CHEAP DISCRIMINATOR → BOUNDED DECISION → MIGRATION/REVERSAL`
+
+First visible controls:
+
+- `eval/architecture-agent/TRAIN_CONTROLS_V0.jsonl`
+
+No autonomous Architecture Agent prompt/implementation is canonical yet.
+
+Promotion question:
+
+> Does the architecture-specific decision contract change material decisions more cheaply/reliably than the existing combination of R&D + Scaffold + REPO/ENVIRONMENT evidence?
+
+If not, architecture expertise should remain a borrowed resource rather than become a new peer.
+
+## Neta empirical state
+
+GitHub Benchmark Wave 1 remains frozen/closed at broad-sampling saturation:
+
+- 48 adjudicated repositories;
+- 16 HOLDOUT repositories;
+- 14 fully surviving Neta-vs-baseline decision deltas;
+- 8 partially supported deltas;
+- 1 clean Neta failure;
+- 0 new core rules promoted;
+- 0 Neta prompt updates.
+
+Closure means low marginal gain from more routine GitHub sampling, not validated universal reliability.
+
+## R&D targeted OSS state
+
+The R&D targeted OSS lane is closed at architecture saturation for routine sampling.
+
+The strongest residual candidate needs remain:
 
 1. attempt/result-selection provenance;
-2. stochastic stability when variance is material;
+2. stochastic stability where variance is material;
 3. execution environment/model/tool identity;
 4. trace-level protocol integrity;
 5. dependency-safe claim/experiment/finding state;
 6. checkpoint/rollback semantics;
 7. structured recovery of prior attempts/failures.
 
-These remain challenger hypotheses until the frozen baseline fails a discriminating case.
+These remain challenger hypotheses until a discriminating failure earns them.
 
-## Canonical evidence chain
+## Historical branch consolidation
 
-Shared constitutional chain:
+The branch audit found:
 
-`Claim → Evidence → Reality → Resolution Authority → Requested Use → Permission → Reversal / Stop`
+- most historical branches were already strict ancestors of `main`;
+- `neta/v0.1-agent-contract` diverged historically but its core artifacts are superseded on `main`;
+- `research/wave1-evidence-pass1` held three research documents not present on `main`.
 
-Neta adds product/design objects around this chain.
+Those unique documents were copied exactly into:
 
-R&D adds research continuity:
+- `archive/legacy-branches/research-wave1-evidence-pass1/PROMPT_GAP_AUDIT.md`;
+- `archive/legacy-branches/research-wave1-evidence-pass1/RECURSION_LOG.md`;
+- `archive/legacy-branches/research-wave1-evidence-pass1/WAVE1_RESULTS_PASS1.md`.
 
-`Live Claim → Recovery → Reuse/Adapt/Build → Version/Input Fit → Run → Durable Deposit → Claim Disposition → Later Revalidation`
-
-The OSS transfer adds candidate verification residuals around attempts, stochastic/runtime provenance and dependency-safe recovery; these are **not yet canonical R&D behavior**.
-
-A result may move downstream only when its authority and reality floor permit it. Recurrence alone is not promotion.
-
-## GitHub Benchmark Wave 1 — Neta
-
-Wave 1 is frozen and closed at BATCH-016 because routine broad sampling reached low marginal decision gain.
-
-Frozen state:
-
-- 48 adjudicated repositories;
-- 16 HOLDOUT repositories;
-- all four Neta decision modes represented: BUILD_READY, DISCRIMINATE_FIRST, OWNER_DEFER, FIELD_STOP;
-- 14 fully surviving Neta-vs-baseline decision deltas;
-- 8 partially supported deltas;
-- 1 clean Neta failure;
-- 9 tracked failure families;
-- 0 promoted new core rules;
-- 0 Neta prompt updates.
-
-The wave did **not reach minimum viable evidence** because the preregistered threshold required at least 3 clean Neta failures and only 1 was observed.
-
-Closure means the current broad GitHub sampling distribution is saturated for useful Neta learning, not that Neta has been proven reliable.
-
-## Branch authority
-
-### `main`
-
-Canonical released state for shared architecture, Neta, R&D contracts, frozen comparators and empirical records.
-
-### Historical/specialized Neta branches
-
-Existing `neta/*` branches remain historical or specialized execution tracks. The peer-architecture refactor does not reinterpret their historical results.
-
-Key examples:
-
-- `neta/oss-observatory` — historical GitHub Benchmark Wave 1 execution branch;
-- `neta/hebrew-signal-fidelity` — Hebrew decision-fidelity track;
-- `neta/hebrew-observatory` — Hebrew affect/pragmatics track;
-- `neta/design-research-spine-v0.1` — quarantined design-knowledge crosswalk.
-
-No R&D execution branch is canonical yet. The prompt comparator is frozen on `main`; an execution branch/run must additionally freeze the exact model/tool/runtime/evaluator boundary before unseen HOLDOUT creation.
-
-## Hebrew consolidation decision — Neta-specific
-
-Two non-equivalent Hebrew questions remain distinct:
-
-### Track H1 — Signal Fidelity
-
-Does Neta preserve decision-relevant meaning, ambiguity, authority and action when input is natural Israeli Hebrew?
-
-### Track H2 — Reader Effect
-
-Can Neta distinguish what a Hebrew utterance says, what it implies about the speaker, and what it is likely to evoke in a recipient?
-
-H1 and H2 must not collapse into one composite score.
-
-These are Neta evaluation tracks, not R&D Agent promotion evidence by default.
+All visible branch refs were then normalized to the canonical `main` commit.
 
 ## Current next authorized execution
 
 ### Neta
 
-1. Keep Neta prompt frozen.
-2. Continue only already-authorized targeted/Hebrew/field evaluation programs when they remove named Neta uncertainty.
-3. Do not promote R&D findings directly into Neta behavior.
+- keep `prompts/SYSTEM.md` frozen until Neta-specific evidence earns change;
+- continue only decision-changing Neta evaluation/research lanes;
+- do not take over R&D or architecture authority.
 
-### R&D Agent
+### R&D
 
-1. Keep `prompts/RND_AGENT_V0_1.md` frozen at blob `bc0e725d0449478d53b93bb6643d24404c22708c`.
-2. Verify controlled task objects against `scripts/validate_rnd_task.py` and the runtime schema.
-3. Freeze the exact foundation model, inference configuration, tools/runtime, resource budget and evaluator boundary used for execution.
-4. Run the 8 original visible TRAIN controls only to verify baseline judgment/contract behavior.
-5. Run Priority-A OSS challengers as visible/adversarial tests; they cannot count as unseen validation.
-6. Create unseen HOLDOUT cases only after the complete execution baseline is frozen.
-7. Adjudicate case-level decisions across the orthogonal R&D capability dimensions and prospective eval-integrity amendment.
-8. Promote no repair until the R&D-specific gate is crossed.
-9. Compare tree/graph search, experience memory or multi-agent challengers only if the simpler baseline exposes a failure those architectures plausibly address under matched resource budgets.
+- keep v0.1 as frozen comparator;
+- treat v0.2 as candidate until evidence earns promotion;
+- use real tasks to learn which resources materially change decisions;
+- do not equate repeated Scaffold/Neta agreement under shared model lineage with independent evidence.
+
+### Architecture candidate
+
+1. recover 8–15 historical architecture decisions from existing repos;
+2. freeze task inputs;
+3. compare current baseline resources against `ARCHITECTURE_DECISION_DISCRIMINATOR_V0`;
+4. run visible controls;
+5. use targeted architecture OSS/literature only where a named distinction remains unresolved;
+6. create unseen HOLDOUT before autonomous Architecture Agent implementation.
 
 ### Orchestrator
 
 Do not build yet.
 
-The first orchestrator-worthy evidence would be repeated failures such as:
+Evidence that could earn an orchestrator includes repeated:
 
-- ambiguous ownership between stable peers;
+- ambiguous ownership among stable peers;
 - lost dependencies across peer handoffs;
-- contradictory peer outputs that users cannot route correctly;
-- repeated manual routing overhead that materially harms decision quality or cost.
-
-Until such failures exist, peer handoffs are the cheaper admissible architecture.
+- contradictory peer outputs that deterministic routing cannot resolve cheaply;
+- material routing overhead that harms decision quality/cost.
