@@ -1,0 +1,58 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-ARCH-CORPUS-001",
+  "decision": {
+    "statement": "Close the decision-to-reality gap with a trace contract and freeze a visible historical Architecture corpus before any new peer is built.",
+    "decision_owner": "RND",
+    "resolution_authority": "RESEARCH",
+    "evidence_refs": [
+      "research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md",
+      "docs/DECISION_EXECUTION_LEARNING_LOOP.md"
+    ],
+    "reversal_condition": "A protocol/tool implementation proves insufficient because repeated execution traces expose a recurring reasoning gap that materially harms decision quality, cost, reversibility or learning."
+  },
+  "execution": {
+    "executor_type": "MIXED",
+    "planned_action": "Add a machine-readable Decision→Execution→Verified State→Outcome→Learning contract and freeze 8-15 historical architecture decisions with runner inputs separated from adjudication anchors.",
+    "completed_action": "Added the trace schema/validator/fixture; froze 12 architecture cases across four repositories; separated CASES from GOLD; added benchmark protocol and corpus validator; integrated both checks into canonical CI.",
+    "status": "COMPLETED",
+    "artifact_refs": [
+      "schemas/decision-execution-learning.schema.json",
+      "scripts/validate_decision_trace.py",
+      "fixtures/decision-execution-learning-valid.json",
+      "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+      "eval/architecture-agent/HISTORICAL_CASES_V0.jsonl",
+      "eval/architecture-agent/HISTORICAL_GOLD_V0.jsonl",
+      "eval/architecture-agent/HISTORICAL_BENCHMARK_PROTOCOL_V0.md",
+      "scripts/check_architecture_historical_cases.py"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "main contains a CI-gated execution-learning contract plus 8-15 frozen visible Architecture cases from at least three repositories with adjudication anchors separated from runner inputs.",
+    "observed_state": "Commit 7bb48d5b44a04f1318d4cffda23d9c58236be11a is on main. Verify Peer-Agent Contracts run 33991073714 completed successfully. The corpus contains 12 cases across four repositories and the corpus checker enforces case/gold separation and count/repository constraints.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/commit/7bb48d5b44a04f1318d4cffda23d9c58236be11a",
+      "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/actions/runs/33991073714"
+    ]
+  },
+  "outcome": {
+    "authority": "NOT_YET_ELIGIBLE",
+    "target": "Material Architecture Decision Discriminator delta beyond baseline R&D + Scaffold + REPO/ENVIRONMENT resources.",
+    "observation": "The corpus and execution contract exist and pass CI, but no valid baseline-vs-candidate outcome has been measured. The current evaluator context has seen the GOLD anchors and is therefore contaminated for that comparison.",
+    "status": "NOT_MEASURED",
+    "evidence_refs": []
+  },
+  "learning": {
+    "decision_delta": "The architecture question moved from an unbounded build candidate to an executable evaluation program; the promotion decision itself did not move.",
+    "claim_updates": [
+      "Execution gap: partially closed by a machine-readable trace contract and CI validation.",
+      "Architecture Agent value: still unmeasured.",
+      "A same-context baseline/candidate run after GOLD exposure would be contaminated and must not be counted as benchmark evidence."
+    ],
+    "resource_delta": "Do not allocate more build effort to a new peer. Allocate the next step to a clean runner that can see CASES but not GOLD.",
+    "next_move": "Run frozen baseline and candidate outputs in a clean context with no GOLD/source-commit recovery, then adjudicate against GOLD; after visible-train learning, freeze unseen HOLDOUT before any Architecture Agent promotion.",
+    "stop_or_continue": "CONTINUE"
+  }
+}
