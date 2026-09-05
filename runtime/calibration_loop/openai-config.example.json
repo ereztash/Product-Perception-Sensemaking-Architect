@@ -1,7 +1,7 @@
 {
   "adapters": {
     "RND": {
-      "command": ["python", "runtime/calibration_loop/openai_resource_adapter.py", "--resource", "RND"]
+      "command": ["python", "runtime/calibration_loop/openai_rnd_adapter.py"]
     },
     "NETA": {
       "command": ["python", "runtime/calibration_loop/openai_resource_adapter.py", "--resource", "NETA"]
