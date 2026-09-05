@@ -1,218 +1,199 @@
-# Evidence-Bounded Agent Architecture — Neta + R&D
+# Evidence-Bounded Peer-Agent System
 
-This repository now contains two **peer agents/methods** built around a shared epistemic constitution:
+This repository contains a peer-agent architecture under one shared epistemic constitution.
 
-- **Neta** — Product Perception & Sensemaking;
-- **R&D Agent** — Research & Evidence Sensemaking.
+## Canonical rule
 
-A future **Orchestrator** may route and synthesize work across peers, but it is not built yet and will not be a truth authority.
+> **`main` is the only source of truth.**
 
-## Architecture
+Historical branches are lineage only. No decision-relevant research result, prompt rule, contract or runtime may live only on a side branch.
+
+See `docs/REPOSITORY_MAP.md` for the canonical repository map and branch policy.
+
+## System architecture
 
 ```text
-                    future ORCHESTRATOR
-                 routing / dependencies /
-                      synthesis only
-                        /          \
-                       /            \
-                    NETA           R&D AGENT
-               product/design      research/evidence
-                sensemaking         sensemaking
-                       \            /
-                        \          /
+                         OWNER / TELOS
+                              |
+                      CALIBRATION LOOP
+                    deterministic routing
+                    /                 \
+                 NETA                 R&D
+          product/design         resource↔telos
+           sensemaking            calibration
+                    \                 /
                  SHARED EPISTEMIC KERNEL
                     constitution only
+
+External resource when useful:
+SCAFFOLD = broad reasoning borrowed, not ground truth
 ```
 
-Neta and R&D are peers. The order in which one calls the other does not create hierarchy.
+Neta and R&D are peers. Call order does not create hierarchy.
 
-The shared kernel owns cross-agent epistemic rules such as claim/evidence separation, reality, resolution authority, requested use, permission, provenance, reversal and stopping. It is a protocol, not an agent.
+A learned Orchestrator is **not built**. It must be justified by repeated coordination failures that the deterministic Calibration Loop cannot handle cheaply.
 
-See:
+## Shared unit of progress
+
+> **Progress = material uncertainty removed from a live decision.**
+
+Not code written, sources collected, instruments created, agents added or prompts expanded.
+
+## Shared Epistemic Kernel
+
+The shared kernel carries cross-agent constraints such as:
+
+`Claim → Evidence → Reality → Resolution Authority → Requested Use → Permission → Reversal / Stop`
+
+Key files:
 
 - `docs/SHARED_EPISTEMIC_KERNEL.md`
 - `docs/AGENT_AUTHORITY_BOUNDARIES.md`
 - `docs/PEER_HANDOFF_PROTOCOL.md`
-- `docs/AUTHORITY_MAP.md`
+- `docs/REALITY_AUTHORITY_PERMISSION.md`
+- `schemas/epistemic-claim.schema.json`
+- `schemas/peer-handoff.schema.json`
 
-## Shared unit of progress
-
-Across peers:
-
-> **Progress = material uncertainty removed from a live decision.**
-
-Not code written, citations collected, instruments created, screens redesigned or rules added.
+Resolution authorities are `OWNER`, `REPO`, `ENVIRONMENT`, `RESEARCH`, and `FIELD`.
 
 ## Peer 1 — Neta
 
-Neta helps an owner-builder turn a raw product intuition into a defensible product/design decision without allowing the claim or action to outrun the evidence and authority that exist.
-
-### Neta loop
+Neta turns raw product/design intuition into a bounded distinction without letting interpretation outrun evidence.
 
 ```text
 RAW SIGNAL
 → CONCRETE MOMENT
 → OBSERVABLE
-→ COMPETING PRODUCT/DESIGN MECHANISMS
+→ COMPETING MECHANISMS
 → CHEAP DISCRIMINATOR
 → DESIGN DISTINCTION
-→ BOUNDED INTERVENTION / FIELD REQUIREMENT
+→ INTERVENTION / DEFER / FIELD
 ```
 
-Neta's canonical method remains the **v0.2 assurance re-foundation**.
+Canonical files:
 
-Neta's prompt comparator remains the **frozen v0.1 baseline** until a clean-model failure earns a change.
-
-See:
-
+- `prompts/SYSTEM.md` — frozen v0.1 prompt comparator
 - `docs/NETA_ASSURANCE_THESIS.md`
 - `docs/METHOD.md`
 - `schemas/finding.schema.json`
 - `eval/CAPABILITY_UPDATE_GATE_V1.md`
 
-## Peer 2 — R&D Agent
+Neta is not a research authority and cannot manufacture FIELD evidence.
 
-The R&D Agent removes research-owned uncertainty by connecting:
+## Peer 2 — R&D
 
-```text
-LIVE CLAIM
-→ BOUNDED RECOVERY
-→ REUSE / ADAPT / BUILD / NO_INSTRUMENT / WAIT_AUTHORITY
-→ INPUT + VERSION REVALIDATION
-→ EXECUTION
-→ DECISION-RELEVANT DEPOSIT
-→ CLAIM DISPOSITION
-→ HANDOFF / STOP
-```
+R&D now has two intentionally separate versions:
 
-Its core failure target is **research discontinuity**:
+### v0.1 — frozen comparator
 
-```text
-instrument ≠ run
-run ≠ durable evidence
-historical evidence ≠ current runnability
-partial report ≠ original decision contract
-agreement ≠ independent triangulation
-null ≠ refuted
-pending ≠ failed
-```
+Research-continuity focused:
 
-The R&D Agent follows `search-before-build`, not `reuse-first`.
+`LIVE CLAIM → RECOVER → REUSE/ADAPT/BUILD → RUN → DEPOSIT → CLAIM DISPOSITION → STOP/HANDOFF`
 
-See:
+Files:
 
+- `prompts/RND_AGENT_V0_1.md`
 - `research/RND_AGENT_CHARTER_V0_1.md`
 - `schemas/rnd-research-task.schema.json`
-- `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`
-- `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`
+- `eval/rnd-agent/`
 
-## Shared contracts
+### v0.2 — candidate telos
 
-### Shared claim
+Not yet promoted as validated.
 
-`schemas/epistemic-claim.schema.json`
+> **Improve the fit between system resources and the live telos, given the actual current state.**
 
-### Peer handoff
+```text
+TELOS
++ CURRENT STATE
++ AVAILABLE RESOURCES
+→ BOTTLENECK / MISCALIBRATION
+→ CANDIDATE RESOURCE MOVES
+→ CHEAPEST DECISION-CHANGING LEARNING
+→ OBSERVED DELTA
+→ RECALIBRATE
+→ UPDATED STATE
+```
 
-`schemas/peer-handoff.schema.json`
+Files:
 
-### Current reality/authority semantics
+- `prompts/RND_AGENT_V0_2_CANDIDATE.md`
+- `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`
 
-`docs/REALITY_AUTHORITY_PERMISSION.md`
+Research is one instrument of R&D, not its top-level telos.
 
-These semantics were historically developed inside Neta and are now adopted as cross-agent constitutional infrastructure. Historical origin does not imply Neta owns the R&D peer.
+## Calibration Loop
 
-## Resolution authority is not agent hierarchy
+`runtime/calibration_loop/` is the current coordination layer.
 
-Claims resolve through:
+It is deliberately **not an agent**.
 
-- `OWNER`
-- `REPO`
-- `ENVIRONMENT`
-- `RESEARCH`
-- `FIELD`
+```text
+TASK
+ ↓
+R&D DIAGNOSE
+ ↓
+DETERMINISTIC ROUTING
+ ├─ NETA       only on discrimination/proxy/intervention triggers
+ ├─ SCAFFOLD   only when broad reasoning is worth borrowing
+ └─ OWNER/REPO/ENVIRONMENT/FIELD handoff when required
+ ↓
+R&D SYNTHESIZE
+ ↓
+TRACE + RESOURCE DELTAS + LEARNING RECORD
+```
 
-Agent role answers **who should work the question**.
+Key files:
 
-Resolution authority answers **what evidence can legitimately close it**.
+- `runtime/calibration_loop/run.py`
+- `runtime/calibration_loop/routing.py`
+- `runtime/calibration_loop/README.md`
+- `schemas/calibration-task.schema.json`
+- `fixtures/calibration-valid-task.json`
+- `scripts/check_calibration_loop.py`
 
-An R&D Agent handling a FIELD claim cannot close it through literature. Neta handling a RESEARCH-owned measurement question should hand it to R&D rather than work harder internally.
-
-## Peer handoffs
-
-Neta ↔ R&D handoffs are bidirectional.
-
-Examples:
-
-- Neta → R&D: external mechanism support, construct validity, measurement choice, prior nulls, evidence independence.
-- R&D → Neta: research is bounded; remaining decision is local product mechanism, intervention or owner tradeoff.
-
-Either peer may challenge the other's premise without becoming its superior.
-
-The future orchestrator should consume these same handoff objects rather than invent a second routing language.
-
-## Independent promotion paths
-
-Do not cross-promote.
-
-### Neta capability promotion
-
-`eval/CAPABILITY_UPDATE_GATE_V1.md`
-
-### R&D capability promotion
-
-`eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`
-
-### Shared-kernel change
-
-Requires a genuinely cross-agent constitutional failure plus impact analysis on both peer adapters.
-
-Passing an R&D benchmark cannot directly edit Neta's prompt. Passing a Neta benchmark cannot directly rewrite the R&D charter.
-
-## Existing Neta empirical state
-
-The existing Neta evidence remains intact:
-
-- GitHub Benchmark Wave 1 is closed at saturation under its broad sampling distribution;
-- 48 adjudicated repositories;
-- 16 HOLDOUT repositories;
-- 14 fully surviving Neta-vs-baseline decision deltas;
-- 1 clean Neta failure;
-- 0 new core rules promoted;
-- 0 prompt updates.
-
-The architectural peer refactor does not rewrite that history.
-
-## R&D Agent empirical state
-
-Current state:
-
-- cross-repository instrument extraction completed;
-- Neta-only pass completed as historical derivation support;
-- external triangulation and bounded synthesis completed;
-- R&D charter frozen as v0.1;
-- shared/R&D runtime schemas created;
-- independent R&D eval protocol preregistered;
-- 8 visible TRAIN controls created;
-- **no R&D implementation/HOLDOUT evidence yet**.
-
-Therefore the R&D Agent is architecturally specified but not yet empirically validated.
+The runner may record a proposed routing change. It may not self-modify the routing law from one attractive case.
 
 ## Repository structure
 
 ```text
-docs/          shared kernel, peer boundaries, handoffs + Neta-specific method/governance
-schemas/       shared claim/handoff + Neta and R&D peer adapters
-prompts/       frozen Neta v0.1 baseline until a Neta failure earns change
-research/      Neta research quarantine + R&D charter + instrument-portfolio lineage
-memory/        Neta owner-language priors, never shared ground truth
-fixtures/      conversational/research/assurance cases
-eval/          Neta evaluations + independent R&D-agent evaluation lane
-scripts/       executable Neta/research gates and validators
+docs/       canonical architecture, authority, method and repository map
+prompts/    frozen/candidate agent prompts and scaffold prompts
+schemas/    shared + peer + runtime contracts
+runtime/    executable coordination/adapters/traces
+research/   current research lineage and syntheses
+eval/       independent agent evaluation/promotion lanes
+fixtures/   test cases
+scripts/    executable validators and CI checks
+memory/     bounded owner-language priors
+archive/    historical lineage only; never current authority
 ```
 
-## Current architectural status
+## Branch policy
 
-**TWO PEERS · SHARED EPISTEMIC KERNEL · NETA PROMPT FROZEN · R&D v0.1 CHARTER + EVAL PREREGISTERED · ORCHESTRATOR DEFERRED.**
+- `main` = only canonical long-lived branch.
+- work branches = temporary, one named purpose.
+- before retirement, useful artifacts must be merged to `main` or archived under `archive/`.
+- branch existence never proves current runnability or authority.
 
-The next decision-changing R&D step is to implement/freeze a minimal R&D agent baseline and run it against the visible controls, then create unseen HOLDOUT cases before any R&D capability repair.
+The 2026-09-05 branch consolidation is documented at:
+
+- `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`
+
+## Current next experiment
+
+`CAL-ARCH-001` asks:
+
+> **What is the smallest evidence-backed Architecture Agent capability and evaluation contract worth building next?**
+
+The intended first pass is manual/independent:
+
+1. R&D v0.2 diagnosis;
+2. Neta pass without seeing the other outputs;
+3. scaffold pass without seeing the other outputs;
+4. R&D synthesis of the deltas;
+5. only then decide whether an Architecture Agent capability is earned.
+
+## Current status
+
+**ONE CANONICAL MAIN · TWO PEERS · SHARED EPISTEMIC KERNEL · DETERMINISTIC CALIBRATION LOOP · R&D v0.2 CANDIDATE · ORCHESTRATOR DEFERRED.**
