@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check frozen visible Architecture historical corpus and separated adjudication anchors."""
+"""Check frozen Architecture TRAIN corpus and enforce runner/adjudicator separation."""
 from __future__ import annotations
 import json
 import re
@@ -29,30 +29,33 @@ def main()->int:
     try:
         cases=read_jsonl(CASES); gold=read_jsonl(GOLD)
         req(8 <= len(cases) <= 15, "historical corpus must contain 8-15 cases")
-        case_keys={"case_id","source_repo","source_commit","decision_question","frozen_input","known_constraints","available_authorities"}
-        gold_keys={"case_id","historical_resolution","material_architecture_distinction","evidence_limit"}
-        case_ids=[]; repos=set()
+        case_keys={"case_id","decision_question","frozen_input","known_constraints","available_authorities"}
+        gold_keys={"case_id","source_repo","source_commit","historical_resolution","material_architecture_distinction","evidence_limit"}
+        case_ids=[]
         for i,row in enumerate(cases,1):
-            req(set(row)==case_keys,f"case {i} fields drift")
-            req(all(isinstance(row[k],str) and row[k].strip() for k in ("case_id","source_repo","source_commit","decision_question","frozen_input")),f"case {i} text invalid")
-            req(bool(SHA.fullmatch(row["source_commit"])),f"case {i} source_commit must be full sha")
+            req(set(row)==case_keys,f"case {i} fields drift / provenance leak into runner input")
+            req(all(isinstance(row[k],str) and row[k].strip() for k in ("case_id","decision_question","frozen_input")),f"case {i} text invalid")
             req(isinstance(row["known_constraints"],list) and row["known_constraints"] and all(isinstance(x,str) and x.strip() for x in row["known_constraints"]),f"case {i} constraints invalid")
             req(isinstance(row["available_authorities"],list) and row["available_authorities"] and all(x in {"OWNER","REPO","ENVIRONMENT","RESEARCH","FIELD"} for x in row["available_authorities"]),f"case {i} authorities invalid")
-            case_ids.append(row["case_id"]); repos.add(row["source_repo"])
+            # Defense in depth: source-resolution identifiers must not appear even as unexpected text fields.
+            serial=json.dumps(row,ensure_ascii=False)
+            req("source_commit" not in serial and "source_repo" not in serial and "historical_resolution" not in serial, f"case {i} leaks adjudication provenance")
+            case_ids.append(row["case_id"])
         req(len(case_ids)==len(set(case_ids)),"duplicate case ids")
-        req(len(repos)>=3,"historical corpus must span at least three repositories")
 
-        gold_ids=[]
+        gold_ids=[]; repos=set()
         for i,row in enumerate(gold,1):
             req(set(row)==gold_keys,f"gold {i} fields drift")
             req(all(isinstance(row[k],str) and row[k].strip() for k in gold_keys),f"gold {i} text invalid")
+            req(bool(SHA.fullmatch(row["source_commit"])),f"gold {i} source_commit must be full sha")
             req("does not prove" in row["evidence_limit"],f"gold {i} must state historical evidence limit")
-            gold_ids.append(row["case_id"])
+            repos.add(row["source_repo"]); gold_ids.append(row["case_id"])
         req(len(gold_ids)==len(set(gold_ids)),"duplicate gold ids")
         req(set(case_ids)==set(gold_ids),"case/gold id sets differ")
+        req(len(repos)>=3,"historical corpus must span at least three repositories")
     except (OSError,CheckError) as exc:
         print(f"ARCHITECTURE HISTORICAL CORPUS INVALID: {exc}",file=sys.stderr); return 1
-    print(f"ARCHITECTURE HISTORICAL CORPUS OK: {len(cases)} cases / {len(repos)} repos / gold separated")
+    print(f"ARCHITECTURE HISTORICAL CORPUS OK: {len(cases)} runner-safe cases / {len(repos)} adjudication repos / provenance hidden")
     return 0
 
 if __name__=="__main__":

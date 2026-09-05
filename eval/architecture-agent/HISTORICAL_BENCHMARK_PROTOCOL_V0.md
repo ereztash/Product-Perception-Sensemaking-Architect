@@ -4,11 +4,11 @@ Status: `VISIBLE_TRAIN_CORPUS_FROZEN`
 
 Purpose: test whether `ARCHITECTURE_DECISION_DISCRIMINATOR_V0` adds material architecture-specific decision value before an autonomous Architecture Agent is built.
 
-## Corpus
+## Corpus separation
 
-- `HISTORICAL_CASES_V0.jsonl` — runner-visible frozen inputs only.
-- `HISTORICAL_GOLD_V0.jsonl` — adjudication anchors revealed only after baseline/candidate outputs are frozen.
-- 12 cases across 4 repositories.
+- `HISTORICAL_CASES_V0.jsonl` — runner-visible frozen inputs only. It contains **no repository names, commit SHAs or historical resolutions**.
+- `HISTORICAL_GOLD_V0.jsonl` — adjudication-only historical resolution **plus source provenance**; reveal only after baseline/candidate outputs are frozen.
+- 12 cases across 4 repositories, with repository breadth verified from adjudication provenance rather than exposed to the runner.
 
 This is a visible retrospective TRAIN corpus, not an unseen HOLDOUT.
 
@@ -27,10 +27,10 @@ For each case:
 3. freeze the baseline output;
 4. run the candidate discriminator independently on the same frozen input;
 5. freeze the candidate output;
-6. only then reveal the matching historical adjudication row;
+6. only then reveal the matching `HISTORICAL_GOLD_V0.jsonl` row, including its source provenance;
 7. adjudicate decision-relevant delta.
 
-Do not let either runner inspect source commits during steps 2-5. The commit SHA is provenance for the adjudicator, not permission to recover the answer.
+The runner must not receive repository names, source commit SHAs, historical resolutions, or an instruction that enables their recovery before steps 2-5 are frozen.
 
 ## Delta dimensions
 
