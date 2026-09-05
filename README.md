@@ -1,142 +1,218 @@
-# Neta — Product Perception & Sensemaking Architect
+# Evidence-Bounded Agent Architecture — Neta + R&D
 
-Neta helps an owner-builder turn a raw product intuition into a defensible design decision **without letting the claim or the action outrun the evidence, reality level and authority that actually exist**.
+This repository now contains two **peer agents/methods** built around a shared epistemic constitution:
 
-The presenting state can be as vague as:
+- **Neta** — Product Perception & Sensemaking;
+- **R&D Agent** — Research & Evidence Sensemaking.
 
-> "זה מרגיש כמו Windows XP"
->
-> "הכפתור לא מגיב"
->
-> "אני משקיע בהחלטה ולא מקבל מספיק בחזרה"
+A future **Orchestrator** may route and synthesize work across peers, but it is not built yet and will not be a truth authority.
 
-Neta first preserves that language, then discriminates among neighboring mechanisms. v0.2 adds a deeper assurance layer learned from the Lessons re-foundation.
+## Architecture
 
-## Canonical state
+```text
+                    future ORCHESTRATOR
+                 routing / dependencies /
+                      synthesis only
+                        /          \
+                       /            \
+                    NETA           R&D AGENT
+               product/design      research/evidence
+                sensemaking         sensemaking
+                       \            /
+                        \          /
+                 SHARED EPISTEMIC KERNEL
+                    constitution only
+```
 
-The repository now separates the **method version**, the **frozen prompt baseline**, and the **evaluation evidence**.
+Neta and R&D are peers. The order in which one calls the other does not create hierarchy.
 
-- canonical method: **v0.2 assurance re-foundation**;
-- canonical prompt comparator: **v0.1 frozen baseline**;
-- GitHub Benchmark Wave 1: **closed at BATCH-016 due saturation under the current broad sampling distribution**;
-- prompt updates earned by that wave: **none**;
-- next empirical frontier: **Hebrew falsification**, with Signal Fidelity and Reader Effect kept as separate evaluation tracks.
+The shared kernel owns cross-agent epistemic rules such as claim/evidence separation, reality, resolution authority, requested use, permission, provenance, reversal and stopping. It is a protocol, not an agent.
 
-See `docs/CANONICAL_STATE.md` and `eval/github-benchmark/WAVE1_CLOSEOUT.json`.
+See:
 
-## Two nested loops
+- `docs/SHARED_EPISTEMIC_KERNEL.md`
+- `docs/AGENT_AUTHORITY_BOUNDARIES.md`
+- `docs/PEER_HANDOFF_PROTOCOL.md`
+- `docs/AUTHORITY_MAP.md`
 
-### Sensemaking
+## Shared unit of progress
+
+Across peers:
+
+> **Progress = material uncertainty removed from a live decision.**
+
+Not code written, citations collected, instruments created, screens redesigned or rules added.
+
+## Peer 1 — Neta
+
+Neta helps an owner-builder turn a raw product intuition into a defensible product/design decision without allowing the claim or action to outrun the evidence and authority that exist.
+
+### Neta loop
 
 ```text
 RAW SIGNAL
 → CONCRETE MOMENT
 → OBSERVABLE
-→ COMPETING MECHANISMS
+→ COMPETING PRODUCT/DESIGN MECHANISMS
 → CHEAP DISCRIMINATOR
 → DESIGN DISTINCTION
+→ BOUNDED INTERVENTION / FIELD REQUIREMENT
 ```
 
-### Assurance
+Neta's canonical method remains the **v0.2 assurance re-foundation**.
 
-```text
-CLAIM
-→ EVIDENCE
-→ REALITY LEVEL
-→ RESOLUTION AUTHORITY
-→ REQUESTED USE
-→ PERMISSION
-→ INTERVENTION
-→ GATE / REVERSAL
-→ AUTHORITY CEILING / STOP
-```
-
-The first loop helps name what is happening. The second prevents a good explanation from becoming an unauthorized conclusion.
-
-## v0.2 re-foundation
-
-A finding is now a **claim/evidence ledger**, not one confidence label.
-
-The same finding may legitimately contain:
-
-- a repository observation that is established;
-- a design mechanism that has external research support;
-- a reversible intervention that the owner is allowed to try;
-- a predicted external-user outcome that remains unresolved and denied until FIELD evidence exists.
-
-This is not indecision. It is epistemic separation.
+Neta's prompt comparator remains the **frozen v0.1 baseline** until a clean-model failure earns a change.
 
 See:
 
 - `docs/NETA_ASSURANCE_THESIS.md`
-- `docs/REALITY_AUTHORITY_PERMISSION.md`
-- `docs/LESSONS_COVERAGE_AUDIT.md`
-- `docs/FAILURE_LINEAGE.md`
+- `docs/METHOD.md`
+- `schemas/finding.schema.json`
+- `eval/CAPABILITY_UPDATE_GATE_V1.md`
 
-## v0.1 baseline is frozen
+## Peer 2 — R&D Agent
 
-The v0.1 prompt remains unchanged as a clean-model comparator. CI checks its Git blob hash.
+The R&D Agent removes research-owned uncertainty by connecting:
 
-The re-foundation does **not** earn a prompt edit by being conceptually better. A prompt change still requires a demonstrated clean-model failure, the missing hidden judgment, a smallest repair and a neighboring control.
+```text
+LIVE CLAIM
+→ BOUNDED RECOVERY
+→ REUSE / ADAPT / BUILD / NO_INSTRUMENT / WAIT_AUTHORITY
+→ INPUT + VERSION REVALIDATION
+→ EXECUTION
+→ DECISION-RELEVANT DEPOSIT
+→ CLAIM DISPOSITION
+→ HANDOFF / STOP
+```
 
-See `docs/V0_1_FREEZE.md`.
+Its core failure target is **research discontinuity**:
 
-## Research quarantine
+```text
+instrument ≠ run
+run ≠ durable evidence
+historical evidence ≠ current runnability
+partial report ≠ original decision contract
+agreement ≠ independent triangulation
+null ≠ refuted
+pending ≠ failed
+```
 
-Wave 1 already collected external evidence under a frozen preregistration. Its original G/C/A/O vectors and promotion states remain historical truth.
+The R&D Agent follows `search-before-build`, not `reuse-first`.
 
-v0.2 does not rewrite them. It adds a prospective question:
+See:
 
-> Given this research state, what concrete use is actually permitted in a Neta finding?
+- `research/RND_AGENT_CHARTER_V0_1.md`
+- `schemas/rnd-research-task.schema.json`
+- `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`
+- `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`
 
-External research still cannot edit the prompt directly.
+## Shared contracts
 
-See `research/WAVE1_ASSURANCE_REVIEW.md` and `research/AMENDMENTS.md`.
+### Shared claim
 
-## Core working lenses
+`schemas/epistemic-claim.schema.json`
 
-Neta silently checks:
+### Peer handoff
 
-| Lens | Question |
-|---|---|
-| **Perception** | What does the eye rank first? |
-| **Orientation** | Is the current state legible? |
-| **Action** | Does the current mode make the next move discoverable? |
-| **Feedback** | Did the system acknowledge the action and make the transition perceptible? |
-| **Payoff** | Does cognitive reward justify cognitive cost? |
-| **Accumulation** | Does the interaction leave useful evidence/progress behind? |
-| **Trust** | What is known, from what evidence/reality, and what does it authorize? |
+`schemas/peer-handoff.schema.json`
 
-These are working lenses, not a validated exhaustive taxonomy.
+### Current reality/authority semantics
 
-## Non-goals
+`docs/REALITY_AUTHORITY_PERMISSION.md`
 
-- no generic heuristic checklist as the default response;
-- no automatic redesign from a metaphor;
-- no fake confidence percentages;
-- no treating taste as usability or owner taste as market preference;
-- no field claims from repo/research evidence alone;
-- no adding probes merely because they are measurable;
-- no removing instrument friction without a validity decision;
-- no SaaS/UI/dashboard until a measured failure earns it;
-- no source 29 merely to increase citation count;
-- no feature justified only by encodability.
+These semantics were historically developed inside Neta and are now adopted as cross-agent constitutional infrastructure. Historical origin does not imply Neta owns the R&D peer.
+
+## Resolution authority is not agent hierarchy
+
+Claims resolve through:
+
+- `OWNER`
+- `REPO`
+- `ENVIRONMENT`
+- `RESEARCH`
+- `FIELD`
+
+Agent role answers **who should work the question**.
+
+Resolution authority answers **what evidence can legitimately close it**.
+
+An R&D Agent handling a FIELD claim cannot close it through literature. Neta handling a RESEARCH-owned measurement question should hand it to R&D rather than work harder internally.
+
+## Peer handoffs
+
+Neta ↔ R&D handoffs are bidirectional.
+
+Examples:
+
+- Neta → R&D: external mechanism support, construct validity, measurement choice, prior nulls, evidence independence.
+- R&D → Neta: research is bounded; remaining decision is local product mechanism, intervention or owner tradeoff.
+
+Either peer may challenge the other's premise without becoming its superior.
+
+The future orchestrator should consume these same handoff objects rather than invent a second routing language.
+
+## Independent promotion paths
+
+Do not cross-promote.
+
+### Neta capability promotion
+
+`eval/CAPABILITY_UPDATE_GATE_V1.md`
+
+### R&D capability promotion
+
+`eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`
+
+### Shared-kernel change
+
+Requires a genuinely cross-agent constitutional failure plus impact analysis on both peer adapters.
+
+Passing an R&D benchmark cannot directly edit Neta's prompt. Passing a Neta benchmark cannot directly rewrite the R&D charter.
+
+## Existing Neta empirical state
+
+The existing Neta evidence remains intact:
+
+- GitHub Benchmark Wave 1 is closed at saturation under its broad sampling distribution;
+- 48 adjudicated repositories;
+- 16 HOLDOUT repositories;
+- 14 fully surviving Neta-vs-baseline decision deltas;
+- 1 clean Neta failure;
+- 0 new core rules promoted;
+- 0 prompt updates.
+
+The architectural peer refactor does not rewrite that history.
+
+## R&D Agent empirical state
+
+Current state:
+
+- cross-repository instrument extraction completed;
+- Neta-only pass completed as historical derivation support;
+- external triangulation and bounded synthesis completed;
+- R&D charter frozen as v0.1;
+- shared/R&D runtime schemas created;
+- independent R&D eval protocol preregistered;
+- 8 visible TRAIN controls created;
+- **no R&D implementation/HOLDOUT evidence yet**.
+
+Therefore the R&D Agent is architecturally specified but not yet empirically validated.
 
 ## Repository structure
 
 ```text
-prompts/       frozen v0.1 baseline until clean-model failure earns change
-schemas/       v0.2 claim/evidence finding contract + research claim contract
-memory/        owner-language priors, never ground truth
+docs/          shared kernel, peer boundaries, handoffs + Neta-specific method/governance
+schemas/       shared claim/handoff + Neta and R&D peer adapters
+prompts/       frozen Neta v0.1 baseline until a Neta failure earns change
+research/      Neta research quarantine + R&D charter + instrument-portfolio lineage
+memory/        Neta owner-language priors, never shared ground truth
 fixtures/      conversational/research/assurance cases
-eval/          behavior rubric and empirical observatories
-docs/          telos, method, assurance, authority, lineage, canonical state
-research/      frozen research quarantine + prospective evidence layers
-scripts/       executable gates and deliberate positive controls
+eval/          Neta evaluations + independent R&D-agent evaluation lane
+scripts/       executable Neta/research gates and validators
 ```
 
-## Current status
+## Current architectural status
 
-**v0.2 ASSURANCE RE-FOUNDATION · PROMPT FROZEN · GITHUB WAVE 1 CLOSED AT SATURATION · HEBREW FALSIFICATION NEXT · NO UI.**
+**TWO PEERS · SHARED EPISTEMIC KERNEL · NETA PROMPT FROZEN · R&D v0.1 CHARTER + EVAL PREREGISTERED · ORCHESTRATOR DEFERRED.**
 
-The next legitimate unit of progress is a clean Hebrew judgment failure or a surviving Neta-vs-baseline Hebrew decision delta — not additional broad GitHub sampling and not a prompt edit by intuition.
+The next decision-changing R&D step is to implement/freeze a minimal R&D agent baseline and run it against the visible controls, then create unseen HOLDOUT cases before any R&D capability repair.
