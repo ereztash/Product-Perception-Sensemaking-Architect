@@ -31,8 +31,11 @@ jobs:
           scripts/check_rnd_contract.py
           scripts/validate_calibration_task.py
           scripts/check_calibration_loop.py
+          scripts/check_live_adapters.py
           runtime/calibration_loop/routing.py
           runtime/calibration_loop/adapters.py
+          runtime/calibration_loop/openai_resource_adapter.py
+          runtime/calibration_loop/openai_rnd_adapter.py
           runtime/calibration_loop/run.py
 
       - name: Validate canonical Neta finding
@@ -55,6 +58,9 @@ jobs:
 
       - name: Run calibration-loop routing and trace controls
         run: python scripts/check_calibration_loop.py
+
+      - name: Run live-adapter offline controls
+        run: python scripts/check_live_adapters.py
 
       - name: Run calibration-loop mock end to end
         run: python runtime/calibration_loop/run.py fixtures/calibration-valid-task.json --mock --strict
