@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/calibration-task.schema.json",
+  "title": "Calibration Loop Task v0.1",
+  "description": "Input contract for deterministic peer-resource routing. The runner coordinates resources; it is not an orchestrator agent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "calibration_version",
+    "task_id",
+    "telos",
+    "current_state",
+    "decision_blocked",
+    "allowed_resources",
+    "context_refs"
+  ],
+  "properties": {
+    "calibration_version": {"const": "0.1"},
+    "task_id": {"type": "string", "minLength": 1},
+    "telos": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "success_condition"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "success_condition": {"type": "string", "minLength": 1}
+      }
+    },
+    "current_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "known_constraints", "available_resources"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "known_constraints": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "available_resources": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+          }
+        }
+      }
+    },
+    "decision_blocked": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "current_default", "reversal_condition"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "current_default": {"type": "string", "minLength": 1},
+        "reversal_condition": {"type": "string", "minLength": 1}
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "allowed_resources": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+      }
+    },
+    "context_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "budget": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["max_resource_calls", "max_parallel_calls"],
+      "properties": {
+        "max_resource_calls": {"type": "integer", "minimum": 2},
+        "max_parallel_calls": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}
