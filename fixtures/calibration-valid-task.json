@@ -6,11 +6,12 @@
     "success_condition": "The next architecture-agent decision is better bounded, cheaper to reverse, and supported by evidence about which resources materially improve it."
   },
   "current_state": {
-    "summary": "Neta and the R&D Agent exist as peers under a shared epistemic kernel. R&D v0.1 is frozen and test-ready. No architecture expert agent or learned orchestrator exists yet.",
+    "summary": "Neta and the R&D Agent exist as peers under a shared epistemic kernel. R&D v0.1 is retained as a frozen comparator; R&D v0.2 resource↔telos calibration is an unvalidated candidate used by this loop. No architecture expert agent or learned orchestrator exists yet.",
     "known_constraints": [
       "Do not create implicit hierarchy between peers.",
       "Do not promote OSS patterns merely because successful systems use them.",
-      "Do not build an orchestrator before routing failures justify it."
+      "Do not build an orchestrator before routing failures justify it.",
+      "Treat scaffold and same-model peer agreement as candidate reasoning, not independent empirical triangulation."
     ],
     "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
   },
@@ -27,8 +28,10 @@
   "context_refs": [
     "docs/SHARED_EPISTEMIC_KERNEL.md",
     "docs/AGENT_AUTHORITY_BOUNDARIES.md",
-    "research/RND_AGENT_CHARTER_V0_1.md",
-    "prompts/RND_AGENT_V0_1.md"
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "prompts/SYSTEM.md",
+    "prompts/SCAFFOLD_RESOURCE_V0_1.md"
   ],
   "budget": {
     "max_resource_calls": 5,
