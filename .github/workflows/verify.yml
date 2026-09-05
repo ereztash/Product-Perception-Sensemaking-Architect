@@ -1,4 +1,4 @@
-name: Verify Neta Contract
+name: Verify Peer-Agent Contracts
 
 on:
   push:
@@ -22,9 +22,15 @@ jobs:
           python-version: '3.12'
 
       - name: Compile validators
-        run: python -m py_compile scripts/validate_finding.py scripts/check_contract.py scripts/check_research_contract.py
+        run: >-
+          python -m py_compile
+          scripts/validate_finding.py
+          scripts/check_contract.py
+          scripts/check_research_contract.py
+          scripts/validate_rnd_task.py
+          scripts/check_rnd_contract.py
 
-      - name: Validate canonical finding
+      - name: Validate canonical Neta finding
         run: python scripts/validate_finding.py fixtures/valid-finding.json
 
       - name: Run Neta agent contract and positive controls
@@ -32,3 +38,9 @@ jobs:
 
       - name: Run research quarantine contract and positive controls
         run: python scripts/check_research_contract.py
+
+      - name: Validate canonical R&D task
+        run: python scripts/validate_rnd_task.py fixtures/rnd-valid-task.json
+
+      - name: Run R&D runtime contract and positive controls
+        run: python scripts/check_rnd_contract.py
