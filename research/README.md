@@ -143,6 +143,7 @@ See `design-spine/README.md`.
 - `AMENDMENTS.md` — changes after source collection began.
 - `WAVE1_ASSURANCE_REVIEW.md` — what existing candidates may and may not authorize next.
 - `design-spine/` — quarantined frontend-design source spine and claim crosswalk.
+- `INSTRUMENT_PORTFOLIO_EXTRACTION_2026-09-05.md` — quarantined import of the owner's cross-repository research-instrument portfolio; inventory and candidate distinctions only, not a behavior/promotion artifact.
 
 ## Stop rule
 
