@@ -4,7 +4,7 @@ Last consolidated: 2026-09-05
 
 ## Canonical architecture
 
-The repository now contains two peer agents/methods under a shared epistemic constitution:
+The repository contains two peer agents/methods under a shared epistemic constitution:
 
 - **Neta** — Product Perception & Sensemaking;
 - **R&D Agent** — Research & Evidence Sensemaking.
@@ -52,23 +52,64 @@ The R&D Agent is the peer responsible for research/evidence sensemaking and rese
 Current canonical R&D artifacts:
 
 - charter: `research/RND_AGENT_CHARTER_V0_1.md`;
+- frozen prompt baseline: `prompts/RND_AGENT_V0_1.md`;
+- frozen prompt blob SHA: `bc0e725d0449478d53b93bb6643d24404c22708c`;
+- baseline freeze record: `eval/rnd-agent/BASELINE_FREEZE_V0_1.md`;
 - runtime contract: `schemas/rnd-research-task.schema.json`;
+- semantic validator: `scripts/validate_rnd_task.py`;
 - evaluation/promotion protocol: `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`;
-- visible controls: `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`.
+- visible controls: `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`;
+- targeted OSS lane: `research/rnd-agent/`;
+- OSS-derived challenger queue: `eval/rnd-agent/OSS_CHALLENGER_QUEUE_V0_1.md`;
+- prospective eval-integrity amendment: `eval/rnd-agent/EVAL_AMENDMENT_2026-09-05_OSS.md`.
 
 Current R&D state:
 
 - architecture/charter specified;
 - cross-repository instrument extraction imported;
 - triangulation/synthesis completed and retained as lineage;
-- 8 TRAIN controls defined;
-- no frozen executable agent implementation yet;
+- 8 original TRAIN controls defined;
+- minimal v0.1 prompt baseline frozen **before OSS-derived transfer is allowed to modify behavior**;
+- runtime semantic validator added;
+- targeted OSS transfer completed across materially different research-agent architectures and closed at architecture saturation;
+- OSS-derived Priority-A and architecture challenger fixtures are quarantined from unseen validation;
+- no clean model/tool execution of the frozen baseline has yet been adjudicated;
 - no unseen HOLDOUT run yet;
 - no R&D capability repairs promoted yet.
 
-Therefore the R&D Agent is **SPECIFIED / TEST-READY**, not empirically validated.
+Therefore the R&D Agent is **FROZEN BASELINE / PRE-EXECUTION**, not empirically validated.
 
 R&D capability changes are governed by the R&D eval protocol, not Neta's capability gate.
+
+## R&D targeted OSS decision
+
+The targeted OSS lane deliberately sampled architecture families rather than maximizing repository count, including:
+
+- research/development role split;
+- tree/graph exploration;
+- phase-specialized multi-agent research;
+- scientific retrieval/evidence gathering;
+- reproducible agent benchmark/runtime infrastructure;
+- stochastic long-horizon agent evaluation;
+- report/citation verification;
+- experience memory and graph search;
+- self-evolving research systems.
+
+A final LoongFlow saturation probe repeated already represented patterns (plan/execute/summary, reflection, experience memory) rather than exposing a new decision-relevant architecture axis.
+
+Routine OSS expansion is therefore stopped.
+
+The strongest residuals are not a demonstrated need for multi-agent architecture. They are:
+
+1. attempt/result-selection provenance;
+2. stochastic stability when variance is material;
+3. execution environment/model/tool identity;
+4. trace-level protocol integrity;
+5. dependency-safe claim/experiment/finding state;
+6. checkpoint/rollback semantics;
+7. structured recovery of prior attempts/failures.
+
+These remain challenger hypotheses until the frozen baseline fails a discriminating case.
 
 ## Canonical evidence chain
 
@@ -81,6 +122,8 @@ Neta adds product/design objects around this chain.
 R&D adds research continuity:
 
 `Live Claim → Recovery → Reuse/Adapt/Build → Version/Input Fit → Run → Durable Deposit → Claim Disposition → Later Revalidation`
+
+The OSS transfer adds candidate verification residuals around attempts, stochastic/runtime provenance and dependency-safe recovery; these are **not yet canonical R&D behavior**.
 
 A result may move downstream only when its authority and reality floor permit it. Recurrence alone is not promotion.
 
@@ -100,7 +143,7 @@ Frozen state:
 - 0 promoted new core rules;
 - 0 Neta prompt updates.
 
-The wave did **not** reach minimum viable evidence because the preregistered threshold required at least 3 clean Neta failures and only 1 was observed.
+The wave did **not reach minimum viable evidence** because the preregistered threshold required at least 3 clean Neta failures and only 1 was observed.
 
 Closure means the current broad GitHub sampling distribution is saturated for useful Neta learning, not that Neta has been proven reliable.
 
@@ -108,7 +151,7 @@ Closure means the current broad GitHub sampling distribution is saturated for us
 
 ### `main`
 
-Canonical released state for shared architecture, Neta, R&D contracts and frozen empirical records.
+Canonical released state for shared architecture, Neta, R&D contracts, frozen comparators and empirical records.
 
 ### Historical/specialized Neta branches
 
@@ -121,7 +164,7 @@ Key examples:
 - `neta/hebrew-observatory` — Hebrew affect/pragmatics track;
 - `neta/design-research-spine-v0.1` — quarantined design-knowledge crosswalk.
 
-No R&D Agent branch is canonical yet; a future implementation branch must freeze the tested baseline before HOLDOUT creation.
+No R&D execution branch is canonical yet. The prompt comparator is frozen on `main`; an execution branch/run must additionally freeze the exact model/tool/runtime/evaluator boundary before unseen HOLDOUT creation.
 
 ## Hebrew consolidation decision — Neta-specific
 
@@ -144,17 +187,20 @@ These are Neta evaluation tracks, not R&D Agent promotion evidence by default.
 ### Neta
 
 1. Keep Neta prompt frozen.
-2. Continue only the already-authorized targeted/Hebrew/field evaluation programs when they remove named Neta uncertainty.
+2. Continue only already-authorized targeted/Hebrew/field evaluation programs when they remove named Neta uncertainty.
 3. Do not promote R&D findings directly into Neta behavior.
 
 ### R&D Agent
 
-1. Implement the smallest executable baseline that follows `RND_AGENT_CHARTER_V0_1.md` and emits `rnd-research-task` objects.
-2. Freeze exact implementation/model/prompt/tool boundary before unseen evaluation.
-3. Run the 8 visible TRAIN controls only to verify evaluator/contract behavior.
-4. Create unseen HOLDOUT and adversarial cases after the baseline is frozen.
-5. Adjudicate case-level decisions across the orthogonal R&D capability dimensions.
-6. Promote no repair until the R&D-specific gate is crossed.
+1. Keep `prompts/RND_AGENT_V0_1.md` frozen at blob `bc0e725d0449478d53b93bb6643d24404c22708c`.
+2. Verify controlled task objects against `scripts/validate_rnd_task.py` and the runtime schema.
+3. Freeze the exact foundation model, inference configuration, tools/runtime, resource budget and evaluator boundary used for execution.
+4. Run the 8 original visible TRAIN controls only to verify baseline judgment/contract behavior.
+5. Run Priority-A OSS challengers as visible/adversarial tests; they cannot count as unseen validation.
+6. Create unseen HOLDOUT cases only after the complete execution baseline is frozen.
+7. Adjudicate case-level decisions across the orthogonal R&D capability dimensions and prospective eval-integrity amendment.
+8. Promote no repair until the R&D-specific gate is crossed.
+9. Compare tree/graph search, experience memory or multi-agent challengers only if the simpler baseline exposes a failure those architectures plausibly address under matched resource budgets.
 
 ### Orchestrator
 
