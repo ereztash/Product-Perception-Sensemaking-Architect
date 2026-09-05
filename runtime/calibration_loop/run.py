@@ -55,13 +55,45 @@ def load_config(path: Path | None) -> dict:
     return payload
 
 
+def _nonempty(value: object) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
 def validate_diagnosis(payload: dict) -> None:
-    required = {"material_question", "bottleneck", "needs", "rationale"}
+    required = {
+        "material_question",
+        "bottleneck",
+        "resource_assessment",
+        "candidate_moves",
+        "needs",
+        "rationale",
+    }
     if set(payload) != required:
         raise RuntimeErrorBounded(f"R&D diagnosis fields drift: {sorted(set(payload) ^ required)}")
     for key in ("material_question", "bottleneck", "rationale"):
-        if not isinstance(payload[key], str) or not payload[key].strip():
+        if not _nonempty(payload[key]):
             raise RuntimeErrorBounded(f"R&D diagnosis {key} must be non-empty")
+
+    assessments = payload["resource_assessment"]
+    if not isinstance(assessments, list) or not assessments:
+        raise RuntimeErrorBounded("resource_assessment must be a non-empty array")
+    assessment_fields = {"resource", "expected_contribution", "authority_ceiling", "uncertainty"}
+    for i, item in enumerate(assessments):
+        if not isinstance(item, dict) or set(item) != assessment_fields:
+            raise RuntimeErrorBounded(f"resource_assessment[{i}] fields drift")
+        if not all(_nonempty(item[k]) for k in assessment_fields):
+            raise RuntimeErrorBounded(f"resource_assessment[{i}] values must be non-empty strings")
+
+    moves = payload["candidate_moves"]
+    if not isinstance(moves, list) or not moves:
+        raise RuntimeErrorBounded("candidate_moves must be a non-empty array")
+    move_fields = {"move", "resource", "expected_decision_value", "reversibility"}
+    for i, item in enumerate(moves):
+        if not isinstance(item, dict) or set(item) != move_fields:
+            raise RuntimeErrorBounded(f"candidate_moves[{i}] fields drift")
+        if not all(_nonempty(item[k]) for k in move_fields):
+            raise RuntimeErrorBounded(f"candidate_moves[{i}] values must be non-empty strings")
+
     needs = payload["needs"]
     if not isinstance(needs, dict) or set(needs) != ALL_NEED_KEYS:
         missing = ALL_NEED_KEYS - set(needs) if isinstance(needs, dict) else ALL_NEED_KEYS
@@ -115,9 +147,10 @@ def rnd_diagnose(task: dict, adapters: dict[str, CommandAdapter], mock: bool) ->
     request = {
         "resource": "RND",
         "phase": "DIAGNOSE",
-        "prompt_ref": "prompts/RND_AGENT_V0_1.md",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
         "task": task,
-        "instruction": "Identify the live calibration bottleneck and return the exact v0.1 diagnosis shape expected by the runner.",
+        "instruction": "Diagnose resource↔telos miscalibration, map candidate resource moves, and return exactly the Calibration Loop v0.1 diagnosis shape.",
     }
     if mock:
         diagnosis = mock_rnd_diagnosis(task)
@@ -135,12 +168,13 @@ def rnd_synthesize(task: dict, diagnosis: dict, route_payload: dict, results: li
     request = {
         "resource": "RND",
         "phase": "SYNTHESIZE",
-        "prompt_ref": "prompts/RND_AGENT_V0_1.md",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
         "task": task,
         "diagnosis": diagnosis,
         "routing": route_payload,
         "resource_results": results,
-        "instruction": "Compare resource deltas, update the blocked decision, choose the cheapest next move, and record what the system learned about resource usefulness. Do not average disagreements away.",
+        "instruction": "Compare resource deltas, update the blocked decision, choose the cheapest next calibration move, and record what the system learned about future resource allocation. Do not average disagreements away.",
     }
     if mock:
         return mock_rnd_synthesis(task, diagnosis, results, route_payload), request
@@ -158,6 +192,7 @@ def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
     adapters = adapter_map(config)
     trace: dict = {
         "runtime_version": "0.1",
+        "rnd_telos_version": "0.2-candidate",
         "task": task,
         "diagnosis": None,
         "routing": None,
@@ -266,6 +301,7 @@ def main() -> int:
     except (OSError, json.JSONDecodeError, ContractError, AdapterError, RuntimeErrorBounded, ValueError) as exc:
         trace = {
             "runtime_version": "0.1",
+            "rnd_telos_version": "0.2-candidate",
             "task_ref": str(args.task),
             "final_state": "FAILED_EXECUTION",
             "failure": str(exc),
