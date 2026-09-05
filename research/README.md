@@ -1,10 +1,21 @@
-# Neta Research Quarantine
+# Research Surfaces — Neta quarantine + R&D peer lineage
 
-This directory is the only path by which external research may become a candidate change to Neta behavior.
+This directory now contains **two different research surfaces** that must not be collapsed:
+
+1. **Neta research quarantine** — external research that may become a candidate Neta capability under Neta's frozen promotion protocol.
+2. **R&D Agent lineage/charter** — research used to specify and evaluate the peer R&D Agent itself.
+
+The R&D Agent is not a sub-capability of Neta. The shared constitutional rules live in `../docs/SHARED_EPISTEMIC_KERNEL.md`.
+
+---
+
+# A. Neta Research Quarantine
+
+This is the only path by which external research may become a candidate change to Neta behavior.
 
 > Sources may create candidate distinctions immediately. They may not directly change `prompts/SYSTEM.md`.
 
-Wave 1 began from one owner's portfolio and then added recursive, adversarial and cross-cultural triangulation. Evidence Pass 1 has now been collected under the frozen preregistration.
+Wave 1 began from one owner's portfolio and then added recursive, adversarial and cross-cultural triangulation. Evidence Pass 1 was collected under the frozen preregistration.
 
 ## Original Wave 1 loop
 
@@ -22,7 +33,7 @@ candidate capability
 
 A contradiction is not merely a confidence penalty. It can refute, narrow, split or contextualize the original concept.
 
-## G/C/A/O remain historical evidence coordinates
+## G/C/A/O remain historical Neta research coordinates
 
 Never average them:
 
@@ -31,11 +42,9 @@ Never average them:
 - **A — Adversarial survival (0–4)**
 - **O — Operationalization (0–5)**
 
-They describe the research claim. They are not a probability and, after the v0.2 re-foundation, they are explicitly **not a general product-action permission score**.
+They describe the historical Wave 1 research claim. They are not a probability and are not a general product-action permission score.
 
-## Promotion states
-
-The frozen Wave 1 states remain:
+## Frozen Wave 1 promotion states
 
 1. `QUARANTINE`
 2. `TRIANGULATED`
@@ -47,11 +56,11 @@ The frozen Wave 1 states remain:
 8. `DEFER_FIELD`
 9. `REJECTED`
 
-Promotion is reversible when later evidence narrows/splits/refutes a candidate.
+These remain historical Neta states. The R&D Agent does **not** inherit them as its lifecycle.
 
-## v0.2 assurance overlay
+## Neta v0.2 assurance overlay
 
-After Evidence Pass 1, the Lessons re-foundation audit exposed a missing cross-cutting layer. For concrete Neta findings we now separately ask:
+For concrete Neta findings:
 
 ```text
 Claim
@@ -62,21 +71,16 @@ Claim
 → Permission
 ```
 
-This overlay is **prospective**. It does not rewrite frozen Wave 1 thresholds, vectors or statuses.
+The shared kernel now adopts these epistemic semantics cross-agent, while Neta's Wave 1 promotion process remains Neta-specific.
 
 See:
 
 - `AMENDMENTS.md`
 - `WAVE1_ASSURANCE_REVIEW.md`
 - `../docs/REALITY_AUTHORITY_PERMISSION.md`
+- `../docs/SHARED_EPISTEMIC_KERNEL.md`
 
-A `CANDIDATE_CAPABILITY` can therefore be strong enough for a fixture and still lack permission to:
-
-- edit the canonical prompt;
-- become a universal design rule;
-- assert a product-specific FIELD outcome.
-
-## Research surfaces
+## Neta research surfaces
 
 Prefer independent evidence families rather than citation volume:
 
@@ -94,64 +98,74 @@ Shared dataset/lab/review lineage counts as one evidence family where appropriat
 
 Country is a sampling context, not a causal mechanism by default.
 
-Record evidenced axes instead:
-
-- script/direction;
-- language/register;
-- visual-density convention;
-- communication context;
-- expertise/digital fluency;
-- domain culture;
-- accessibility/cognitive constraints;
-- institutional convention;
-- device/infrastructure.
+Record evidenced axes such as script/direction, language/register, visual-density convention, communication context, expertise/digital fluency, domain culture, accessibility/cognitive constraints, institutional convention and device/infrastructure.
 
 Missing contexts are boundaries, not empty cells to generalize over.
 
 ## Design Research Spine v0.1
 
-`design-spine/` is a **non-scoring, holdout-quarantined** crosswalk for open-source frontend-design skills, standards, validated UX instruments and reference implementations.
+`design-spine/` is a non-scoring, holdout-quarantined crosswalk for open-source frontend-design skills, standards, validated UX instruments and reference implementations.
 
-Its purpose is not to add more rules. It asks what each attractive frontend assertion actually is before it can enter the normal promotion path:
+It does not modify the benchmark rubric, HOLDOUT interpretation, Neta prompt or current Neta behavior.
+
+---
+
+# B. R&D Agent lineage and charter
+
+The R&D Agent is the peer responsible for Research & Evidence Sensemaking.
+
+Canonical R&D charter:
+
+- `RND_AGENT_CHARTER_V0_1.md`
+
+Its current runtime/eval authority lives outside this directory:
+
+- `../schemas/rnd-research-task.schema.json`
+- `../eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`
+- `../eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`
+
+## Instrument-portfolio lineage
+
+The following artifacts are the research lineage that led to the R&D continuity capability:
+
+- `INSTRUMENT_PORTFOLIO_EXTRACTION_2026-09-05.md` — quarantined import of the owner's cross-repository research-instrument portfolio.
+- `INSTRUMENT_PORTFOLIO_NETA_PASS_2026-09-05.md` — historical Neta-only pass used to discriminate additive candidates from already-covered principles.
+- `INSTRUMENT_PORTFOLIO_TRIANGULATION_2026-09-05.md` — independent-family support, counterevidence, boundaries and dispositions.
+- `INSTRUMENT_PORTFOLIO_SYNTHESIS_2026-09-05.md` — bounded synthesis that produced the research-continuity candidate.
+
+These artifacts explain where the R&D charter came from. They are **not** a permanent requirement that R&D be governed by Neta.
+
+## R&D core continuity
 
 ```text
-skill assertion
-→ lineage
-→ source class
-→ independent evidence
-→ existing Neta anchor
-→ boundary / contradiction
-→ allowed use
-→ denied inference
-→ residual, if any
+LIVE CLAIM
+→ BOUNDED RECOVERY
+→ REUSE / ADAPT / BUILD / NO_INSTRUMENT / WAIT_AUTHORITY
+→ REVALIDATION
+→ RUN
+→ DECISION-RELEVANT DEPOSIT
+→ CLAIM DISPOSITION
+→ HANDOFF / STOP
 ```
 
-The first pass covers Anthropic `frontend-design`, Impeccable, Emil Kowalski's design-engineering skills, Leon Lin's `taste-skill`, `design-taste`, Superdesign, `frontend-design-skills`, WCAG 2.2, ISO 9241-110, UEQ and UMUX-LITE.
+R&D promotion is governed by the R&D eval protocol, not `PROMOTION_PROTOCOL.md`.
 
-It does **not** modify the benchmark rubric, HOLDOUT interpretation, prompt or current Neta behavior.
+---
 
-See `design-spine/README.md`.
+# C. Shared research invariants
 
-## Registers
+Across Neta research and the R&D peer:
 
-- `registers/claims.json` — original Wave 1 candidate claims and G/C/A/O/status.
-- `registers/sources.tsv` — provenance and independence families.
-- `registers/contradictions.tsv` — evidence that weakens/narrows/splits.
-- `registers/culture-scope.tsv` — represented and missing contexts.
-- `WAVE1_PREREGISTRATION.md` — frozen original protocol.
-- `PROMOTION_PROTOCOL.md` — research promotion rules plus prospective permission clarification.
-- `AMENDMENTS.md` — changes after source collection began.
-- `WAVE1_ASSURANCE_REVIEW.md` — what existing candidates may and may not authorize next.
-- `design-spine/` — quarantined frontend-design source spine and claim crosswalk.
-- `INSTRUMENT_PORTFOLIO_EXTRACTION_2026-09-05.md` — quarantined import of the owner's cross-repository research-instrument portfolio; inventory and candidate distinctions only, not a behavior/promotion artifact.
-- `INSTRUMENT_PORTFOLIO_NETA_PASS_2026-09-05.md` — Neta-only `DISCRIMINATE_FIRST` pass over that import; separates potentially additive distinctions from principles already covered and defines the triangulation queue.
-- `INSTRUMENT_PORTFOLIO_TRIANGULATION_2026-09-05.md` — independent-family support, falsification search, boundaries and dispositions for the portfolio candidates.
-- `INSTRUMENT_PORTFOLIO_SYNTHESIS_2026-09-05.md` — post-triangulation synthesis into a bounded `RESEARCH_CONTINUITY_DISCRIMINATOR` fixture candidate; no canonical behavior change.
+- independent evidence is about divergent error pathways, not item count;
+- null ≠ refuted;
+- failed execution ≠ null;
+- pending authority ≠ debt;
+- instrument existence ≠ current runnability;
+- research support ≠ product-specific FIELD effect;
+- more sources are useful only if they can change a decision, boundary, discriminator or reversal.
 
 ## Stop rule
 
 Do not collect Source 29 merely to increase certainty aesthetics.
 
-Continue research only when a named unresolved `RESEARCH` question can change a discriminator, boundary, fixture or promotion decision.
-
-If the next material uncertainty belongs to OWNER, REPO, ENVIRONMENT or FIELD, route it there. More literature is the wrong currency.
+If the next material uncertainty belongs to another peer or authority, route it there. More research inside the wrong role is the wrong currency.
