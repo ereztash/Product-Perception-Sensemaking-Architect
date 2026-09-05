@@ -144,6 +144,7 @@ See `design-spine/README.md`.
 - `WAVE1_ASSURANCE_REVIEW.md` — what existing candidates may and may not authorize next.
 - `design-spine/` — quarantined frontend-design source spine and claim crosswalk.
 - `INSTRUMENT_PORTFOLIO_EXTRACTION_2026-09-05.md` — quarantined import of the owner's cross-repository research-instrument portfolio; inventory and candidate distinctions only, not a behavior/promotion artifact.
+- `INSTRUMENT_PORTFOLIO_NETA_PASS_2026-09-05.md` — Neta-only `DISCRIMINATE_FIRST` pass over that import; separates potentially additive distinctions from principles already covered and defines the triangulation queue.
 
 ## Stop rule
 
