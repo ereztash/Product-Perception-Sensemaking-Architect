@@ -1,0 +1,71 @@
+{
+  "task_id": "RND-FIX-VALID-001",
+  "status": "CLOSE",
+  "material_question": "Does the existing validated instrument support the live measurement claim under the current version and inputs?",
+  "live_claim": {
+    "claim_id": "RC-001",
+    "statement": "The existing instrument measures the target construct under the current input contract.",
+    "claim_kind": "MEASUREMENT",
+    "resolution_authority": "RESEARCH",
+    "required_reality": "R2",
+    "observed_reality": "R2",
+    "evidence_refs": ["E-RUN-001"],
+    "state": "SUPPORTED",
+    "requested_use": "DISCRIMINATE",
+    "permission": "ALLOW",
+    "reversal_condition": "A version/input mismatch or contradictory validation result would reopen the claim.",
+    "provenance_refs": ["instrument:demo@v1", "run:RND-RUN-001"],
+    "depends_on_claim_ids": []
+  },
+  "resolution_authority": "RESEARCH",
+  "decision_that_changes": "Reuse the existing instrument rather than rebuilding an equivalent probe.",
+  "existing_capability_search": {
+    "required": true,
+    "bounded_by": "Stop after the known repository instrument and its direct successor lineage are checked.",
+    "candidate_refs": ["instrument:demo@v1"],
+    "search_stop_reason": "A construct-matched currently verifiable candidate was found."
+  },
+  "research_path": {
+    "decision": "REUSE",
+    "rationale": "The instrument matches the construct, current inputs and version, and reuse is cheaper than reconstruction.",
+    "instrument": {
+      "instrument_id": "demo-instrument",
+      "source_ref": "repo://research/demo_instrument.py",
+      "construct": "target construct",
+      "version_ref": "demo-v1",
+      "supersedes": null,
+      "superseded_by": null,
+      "runnability_state": "VERIFIED",
+      "input_contract": "fixture input v1",
+      "contamination_risk": "LOW",
+      "decision_contract": {
+        "outcome_dimensions": ["primary_validity_signal", "opposing_cost_constraint"],
+        "decision_rule": "Reuse only if validity passes and the opposing cost constraint stays within the prespecified bound.",
+        "sensitivity_requirement": null
+      }
+    },
+    "preregistration_ref": "prereg://RND-FIX-VALID-001",
+    "falsifier": "The current input/version reproduces a validity failure or violates the cost bound.",
+    "positive_control": "A deliberately mismatched input must fail the instrument validity gate.",
+    "neighboring_nonfire_case": "A similarly named instrument measuring a neighboring construct must not be reused automatically."
+  },
+  "run": {
+    "run_id": "RND-RUN-001",
+    "instrument_id": "demo-instrument",
+    "version_ref": "demo-v1",
+    "input_ref": "fixture://input-v1",
+    "started_state": "STARTED",
+    "result_state": "SUPPORTED",
+    "artifact_refs": ["artifact://RND-RUN-001/result.json"],
+    "decision_contract_preserved": true,
+    "notes": "Fixture-only successful research continuity path."
+  },
+  "closure": {
+    "state": "CLOSED",
+    "durable_deposit": "artifact://RND-RUN-001/result.json",
+    "claim_effect": "SUPPORTS",
+    "next_authority_or_stop": "STOP_RESEARCH; return bounded result to requesting peer if needed.",
+    "reversal_or_rerun_condition": "Revalidate if version, inputs or construct definition materially change."
+  },
+  "handoff": null
+}
