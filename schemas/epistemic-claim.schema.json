@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/epistemic-claim.schema.json",
+  "title": "Shared Epistemic Claim v0.1",
+  "description": "Cross-agent constitutional claim object. Domain-specific agent schemas may extend it but may not weaken authority/reality/permission semantics silently.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "statement",
+    "claim_kind",
+    "resolution_authority",
+    "required_reality",
+    "observed_reality",
+    "evidence_refs",
+    "state",
+    "requested_use",
+    "permission",
+    "reversal_condition"
+  ],
+  "properties": {
+    "claim_id": {"type": "string", "minLength": 1},
+    "statement": {"type": "string", "minLength": 1},
+    "claim_kind": {
+      "enum": [
+        "OBSERVATION",
+        "MECHANISM",
+        "INTERVENTION",
+        "OUTCOME",
+        "RESEARCH_METHOD",
+        "MEASUREMENT",
+        "GENERALIZATION",
+        "DECISION"
+      ]
+    },
+    "resolution_authority": {
+      "enum": ["OWNER", "REPO", "ENVIRONMENT", "RESEARCH", "FIELD"]
+    },
+    "required_reality": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]},
+    "observed_reality": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6"]},
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "state": {
+      "enum": [
+        "SUPPORTED",
+        "UNRESOLVED",
+        "REFUTED",
+        "INSUFFICIENT_REALITY",
+        "INCONCLUSIVE"
+      ]
+    },
+    "requested_use": {
+      "enum": [
+        "HYPOTHESIZE",
+        "DISCRIMINATE",
+        "PROTOTYPE",
+        "BUILD_REVERSIBLE",
+        "CHANGE_PRODUCTION",
+        "ASSERT_FIELD_OUTCOME",
+        "DEFER"
+      ]
+    },
+    "permission": {"enum": ["ALLOW", "DENY", "DEFER"]},
+    "reversal_condition": {"type": "string", "minLength": 1},
+    "provenance_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "depends_on_claim_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
