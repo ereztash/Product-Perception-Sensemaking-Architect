@@ -1,6 +1,8 @@
 # REALITY · AUTHORITY · PERMISSION
 
-This document is the canonical v0.2 decision grammar for Neta findings.
+This document is the detailed R0–R6 / authority / permission grammar originally operationalized for Neta v0.2.
+
+Architectural note: `docs/SHARED_EPISTEMIC_KERNEL.md` now adopts these semantics cross-agent. This file remains the detailed canonical definition of the current ladder and permission laws, while `schemas/finding.schema.json` is Neta's adapter and `schemas/rnd-research-task.schema.json` is the R&D adapter. Historical origin inside Neta does **not** make Neta the owner of cross-agent epistemic law.
 
 ## 1. Reality ladder
 
@@ -76,7 +78,8 @@ Cannot establish:
 ### `RESEARCH`
 Can resolve:
 - what a literature/standard/evidence body supports within its actual construct and population;
-- whether a proposed design mechanism has external support or known boundaries.
+- whether a proposed design mechanism has external support or known boundaries;
+- research-method, measurement and evidence-synthesis questions within the actual evidence available.
 
 Cannot establish:
 - that the mechanism is active in this product without local evidence;
@@ -108,7 +111,7 @@ Every material claim states what we want to do with it:
 - `ASSERT_FIELD_OUTCOME`
 - `DEFER`
 
-Then Neta records a separate permission:
+Then the relevant peer adapter records a separate permission:
 
 - `ALLOW`
 - `DENY`
@@ -121,11 +124,12 @@ Permission answers **whether the current evidence/authority/reality justify that
 1. `ALLOW` requires the claim to be `SUPPORTED` and the observed reality to meet its required floor.
 2. `OUTCOME` claims about external people require `FIELD` authority and ordinarily `R6`.
 3. `ASSERT_FIELD_OUTCOME` may not be `ALLOW` below `R6`.
-4. A `BUILD_READY` finding requires at least one supported `INTERVENTION` claim explicitly allowed for `BUILD_REVERSIBLE` or `CHANGE_PRODUCTION`.
-5. `DISCRIMINATE_FIRST` cannot smuggle an allowed build intervention into an unresolved diagnosis.
-6. `FIELD_STOP` requires a material unresolved `FIELD` claim and a concrete `field_requirement`.
+4. A Neta `BUILD_READY` finding requires at least one supported `INTERVENTION` claim explicitly allowed for `BUILD_REVERSIBLE` or `CHANGE_PRODUCTION`.
+5. A Neta `DISCRIMINATE_FIRST` finding cannot smuggle an allowed build intervention into an unresolved diagnosis.
+6. A Neta `FIELD_STOP` requires a material unresolved `FIELD` claim and a concrete `field_requirement`.
 7. A waiver can accept risk; it cannot change a claim from unsupported to supported or raise its reality level.
 8. Evidence from one authority may inform another authority's question but may not close it automatically.
+9. An agent's role does not upgrade the resolution authority of the claim it is handling.
 
 ## 6. Mixed findings are expected
 
@@ -148,7 +152,8 @@ If all remaining claims point to a different authority, the current authority ha
 
 Do not pay technical work to close field debt.  
 Do not pay literature work to close product-specific behavior debt.  
-Do not pay UI polish to close an unresolved measurement-validity question.
+Do not pay UI polish to close an unresolved measurement-validity question.  
+Do not keep an R&D task open when the remaining decision is OWNER/Neta/FIELD-owned.
 
 ## 8. Encodability bias check
 
@@ -156,9 +161,10 @@ Before any new feature/probe/system asks for build permission, answer:
 
 1. Which live claim does it discriminate or resolve?
 2. Which authority owns that claim?
-3. What information does the feature buy?
-4. What behavior/measurement might the feature contaminate?
-5. Is there a cheaper admissible observation?
-6. What would make us remove the feature?
+3. Which peer/domain should work the question?
+4. What information does the feature buy?
+5. What behavior/measurement might the feature contaminate?
+6. Is there a cheaper admissible observation or existing capability?
+7. What would make us remove the feature?
 
 If the best argument is “we can build it” or “it would be useful to have”, permission is `DEFER`.
