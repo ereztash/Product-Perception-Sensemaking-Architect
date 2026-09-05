@@ -39,6 +39,12 @@ External broad reasoning may be borrowed through `SCAFFOLD`.
             sensemaking           calibration
                     \                 /
                  SHARED EPISTEMIC KERNEL
+                              |
+                 DECISION→EXECUTION TRACE
+                              |
+                    REPO / ENV / FIELD
+                              |
+                         R&D LEARNING
 ```
 
 A learned Orchestrator remains deferred.
@@ -57,8 +63,10 @@ Canonical shared artifacts:
 - `docs/AGENT_AUTHORITY_BOUNDARIES.md`
 - `docs/PEER_HANDOFF_PROTOCOL.md`
 - `docs/REALITY_AUTHORITY_PERMISSION.md`
+- `docs/DECISION_EXECUTION_LEARNING_LOOP.md`
 - `schemas/epistemic-claim.schema.json`
 - `schemas/peer-handoff.schema.json`
+- `schemas/decision-execution-learning.schema.json`
 
 ## Neta canonical identity
 
@@ -144,6 +152,29 @@ Routing rules are inspectable and are not self-modified from one case.
 
 The runtime may stop at `PENDING_RESOURCE`, `AUTHORITY_STOP` or `FAILED_EXECUTION` rather than fabricate an answer.
 
+## Decision → Execution → Learning contract
+
+Status: `CROSS_AGENT_EXECUTION_CONTRACT_V0_1 / CI-GATED`.
+
+The system now carries an explicit non-agent bridge from bounded decision to reality:
+
+`DECISION → EXECUTION → VERIFIED STATE → OUTCOME → LEARNING`
+
+Canonical artifacts:
+
+- `docs/DECISION_EXECUTION_LEARNING_LOOP.md`;
+- `schemas/decision-execution-learning.schema.json`;
+- `scripts/validate_decision_trace.py`;
+- `fixtures/decision-execution-learning-valid.json`.
+
+The first real trace is:
+
+- `runtime/execution_traces/DEL-ARCH-CORPUS-001.json`.
+
+Its invariant is that `action completed ≠ verified state ≠ measured outcome ≠ learning`. Execution does not inherit REPO, ENVIRONMENT or FIELD authority.
+
+This contract does **not** justify an Execution Agent. A distinct execution capability must be earned by recurring failures across real traces that protocol/tool handoff cannot handle cheaply.
+
 ## First manual Calibration Loop run
 
 `CAL-ARCH-001` was executed manually on 2026-09-05 without API/model adapters.
@@ -182,6 +213,15 @@ First visible controls:
 
 - `eval/architecture-agent/TRAIN_CONTROLS_V0.jsonl`
 
+Visible historical benchmark program is now frozen:
+
+- `eval/architecture-agent/HISTORICAL_CASES_V0.jsonl` — 12 runner-visible frozen cases across 4 repositories;
+- `eval/architecture-agent/HISTORICAL_GOLD_V0.jsonl` — historical adjudication anchors kept separate from runner inputs;
+- `eval/architecture-agent/HISTORICAL_BENCHMARK_PROTOCOL_V0.md`;
+- `scripts/check_architecture_historical_cases.py` — CI gate enforcing count, repository breadth and CASES/GOLD separation.
+
+The visible corpus is retrospective TRAIN evidence only. Historical implementation is not ground truth and agreement with it is not a score.
+
 No autonomous Architecture Agent prompt/implementation is canonical yet.
 
 Promotion question:
@@ -189,6 +229,10 @@ Promotion question:
 > Does the architecture-specific decision contract change material decisions more cheaply/reliably than the existing combination of R&D + Scaffold + REPO/ENVIRONMENT evidence?
 
 If not, architecture expertise should remain a borrowed resource rather than become a new peer.
+
+Current contamination boundary:
+
+The context that authored/froze `HISTORICAL_GOLD_V0.jsonl` is not eligible to generate countable baseline/candidate benchmark outputs for this corpus. The next countable run must occur in a clean context that can see CASES but not GOLD and must not recover the source commits before outputs are frozen.
 
 ## Neta empirical state
 
@@ -249,16 +293,31 @@ All visible branch refs were then normalized to the canonical `main` commit.
 - keep v0.1 as frozen comparator;
 - treat v0.2 as candidate until evidence earns promotion;
 - use real tasks to learn which resources materially change decisions;
+- start accumulating real `DECISION → EXECUTION → VERIFIED STATE → OUTCOME → LEARNING` traces;
 - do not equate repeated Scaffold/Neta agreement under shared model lineage with independent evidence.
 
 ### Architecture candidate
 
-1. recover 8–15 historical architecture decisions from existing repos;
-2. freeze task inputs;
-3. compare current baseline resources against `ARCHITECTURE_DECISION_DISCRIMINATOR_V0`;
-4. run visible controls;
-5. use targeted architecture OSS/literature only where a named distinction remains unresolved;
-6. create unseen HOLDOUT before autonomous Architecture Agent implementation.
+Completed:
+
+1. recovered 12 historical architecture decisions from 4 existing repositories;
+2. froze runner-visible case inputs separately from historical adjudication anchors;
+3. added a CI-gated visible benchmark protocol and corpus validator.
+
+Next:
+
+1. in a clean runner that cannot see GOLD/source resolutions, freeze baseline outputs using current resources without the Architecture Decision Discriminator;
+2. freeze candidate outputs on the exact same CASES;
+3. reveal GOLD only after both outputs are frozen and adjudicate decision-relevant delta dimensions separately;
+4. use visible TRAIN failures to refine the evaluation contract, not to claim promotion;
+5. create unseen HOLDOUT after the candidate contract is frozen;
+6. only HOLDOUT evidence may earn movement toward an autonomous Architecture Agent.
+
+### Execution capability
+
+Do not build an Execution Agent.
+
+Collect 10-15 real traces using `decision-execution-learning.schema.json`. A distinct execution capability becomes eligible only if repeated traces show the same reasoning/coordination failure between bounded decision and verified state after ordinary protocol/tool handoff is already present.
 
 ### Orchestrator
 
