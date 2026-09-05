@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "wave": "H1_HEBREW_SIGNAL_FIDELITY",
+  "frozen_at": "2026-09-05",
+  "status": "FROZEN_BEFORE_HIDDEN_HOLDOUT",
+  "tested_neta": {
+    "method": "v0.2 assurance re-foundation",
+    "prompt": "prompts/SYSTEM.md",
+    "prompt_blob_sha": "339b9a1be2fd0f1f6f6c7960e5be58e5566d3691",
+    "prompt_version": "v0.1 frozen baseline",
+    "prompt_changes_allowed_during_wave": false
+  },
+  "protocol": {
+    "path": "docs/HEBREW_SIGNAL_FIDELITY_PROTOCOL_V1.md",
+    "blob_sha": "79fa6a2a3f83b8f0c049612be0ab83e40e9bbae4",
+    "version": 1
+  },
+  "scorer": {
+    "path": "scripts/score_hebrew_signal_benchmark.py",
+    "blob_sha": "f3b1a7bfff57e995d8bae7a2866c5e327a3c4965",
+    "composite_score_allowed": false
+  },
+  "hidden_holdout": {
+    "text_committed_before_evaluation": false,
+    "minimum_cases": 20,
+    "minimum_three_view_triplets_in_wave": 15,
+    "strata": {
+      "metaphor_analogy": 3,
+      "hedging_mitigation": 2,
+      "hyperbole": 2,
+      "negation_contrast": 2,
+      "code_switching": 3,
+      "irony_pragmatic_reading": 2,
+      "affect_vs_mechanism": 2,
+      "deixis_reference_ambiguity": 2,
+      "perceived_vs_system_state": 2
+    },
+    "minimum_multi_phenomenon_cases": 8
+  },
+  "baseline": {
+    "required": true,
+    "evidence_boundary": "identical to Neta for each case",
+    "output_frozen_before_gold_reveal": true
+  },
+  "promotion_gate": {
+    "minimum_adjudicated_neta_specific_cases": 60,
+    "minimum_targeted_phenomena": 8,
+    "minimum_hidden_holdout_cases": 20,
+    "minimum_clean_neta_failures": 3,
+    "minimum_professionalization_resistance_wins": 3,
+    "neighbor_counterexample_required_per_rule": true,
+    "falsifiable_gate_required": true,
+    "deliberate_positive_control_required": true,
+    "unseen_holdout_success_required": true
+  },
+  "separation": {
+    "H1_signal_fidelity": "core Hebrew decision-fidelity benchmark",
+    "H2_reader_effect": "separate affect/pragmatics diagnostic; cannot alter H1 gold or promotion criteria",
+    "github_wave1": "closed historical evidence; no HOLDOUT item may be relabeled as unseen H1 evidence"
+  },
+  "next_step": "Author/sample hidden HOLDOUT outside repository context, record hashes and provenance, then run frozen Neta and baseline before revealing/adjudicating gold."
+}
