@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "date": "2026-09-05",
+  "purpose": "Evidence-bounded capability assessment of Neta. Scores are 0-10 maturity judgments, not probabilities and not a composite reliability score.",
+  "scoring_anchors": {
+    "9_10": "Repeated blind/adjudicated evidence across materially different cases, with known boundaries/counterexamples.",
+    "7_8_9": "Strong contract plus meaningful empirical support, but important generalization or failure-discovery gaps remain.",
+    "5_6_9": "Plausible capability with research/fixtures or indirect evidence; limited direct blind validation.",
+    "3_4_9": "Executable protocol/instrumentation exists but empirical evaluation is not yet mature.",
+    "0_2_9": "Conceptual or largely unmeasured capability."
+  },
+  "no_composite_score": true,
+  "capabilities": [
+    {"id":"C01","capability":"Evidence-boundary and resolution-authority routing","score":9.1,"evidence_state":"REPEATED_BLIND_ADJUDICATION","basis":"GitHub Wave 1 repeatedly showed correct REPO/OWNER/ENVIRONMENT/FIELD boundary restraint; 14 fully surviving Neta-vs-baseline deltas. One clean authority-related Neta failure remains material."},
+    {"id":"C02","capability":"Discriminate before build","score":8.9,"evidence_state":"REPEATED_BLIND_ADJUDICATION","basis":"Strong repeated evidence that Neta requests the cheapest discriminator instead of converting static plausibility into build permission."},
+    {"id":"C03","capability":"Stop/defer discipline","score":9.0,"evidence_state":"REPEATED_BLIND_ADJUDICATION","basis":"FIELD_STOP, OWNER_DEFER and discrimination stops survived multiple repository adjudications; this is one of Neta's clearest comparative strengths."},
+    {"id":"C04","capability":"Raw-signal preservation and metaphor non-laundering","score":7.4,"evidence_state":"STRONG_CONTRACT_LIMITED_DIRECT_LANGUAGE_VALIDATION","basis":"Explicitly encoded in the frozen prompt and research program, but Hebrew-specific blind validation has not yet run."},
+    {"id":"C05","capability":"Competing-mechanism generation and hypothesis compression","score":7.2,"evidence_state":"CONTRACT_PLUS_CASE_EVIDENCE","basis":"Core method caps surfaced mechanisms and separates alternatives; benchmark cases exercise this indirectly, but there is no dedicated benchmark for mechanism-set quality/recall."},
+    {"id":"C06","capability":"Cheap discriminator design","score":8.1,"evidence_state":"MEANINGFUL_EMPIRICAL_SUPPORT","basis":"Repeatedly produced lower-cost next evidence rather than redesign. Remaining gap: discriminator quality has not been independently optimized against all plausible alternatives."},
+    {"id":"C07","capability":"Build permission, reversibility and intervention gating","score":8.3,"evidence_state":"MEANINGFUL_EMPIRICAL_SUPPORT","basis":"BUILD_READY is bounded by evidence/reality/authority and neighboring controls. One clean false-build failure (Actual Budget) prevents a higher score."},
+    {"id":"C08","capability":"Static/repository evidence versus field-outcome separation","score":8.9,"evidence_state":"REPEATED_BLIND_ADJUDICATION","basis":"Multiple cases showed Neta correctly refusing to infer notice, comprehension, preference or successful use from source-level affordance existence."},
+    {"id":"C09","capability":"Product-mode reasoning: execution versus exploration / action competition","score":6.8,"evidence_state":"CANDIDATE_CAPABILITY","basis":"External research strongly bounded the one-primary-action rule, but the specific Neta behavioral failure/repair has not yet been demonstrated in a clean blind test."},
+    {"id":"C10","capability":"Feedback and responsiveness decomposition","score":6.4,"evidence_state":"CANDIDATE_CAPABILITY","basis":"Research distinguishes completion latency, acknowledgement, progress uncertainty and state salience; prompt has partial coverage, but dedicated clean-model validation is still missing."},
+    {"id":"C11","capability":"Cognitive economy / effort-to-payoff reasoning","score":6.8,"evidence_state":"CANDIDATE_CAPABILITY_PLUS_PORTFOLIO_PRIOR","basis":"Strong conceptual and external-research support that economy is not minimization; direct blind Neta evaluation is limited."},
+    {"id":"C12","capability":"Trust versus calibrated reliance reasoning","score":6.2,"evidence_state":"CANDIDATE_CAPABILITY","basis":"Research support is strong, but the frozen prompt does not fully force subjective-trust / reliance / correctness separation and no dedicated blind failure has yet earned a prompt change."},
+    {"id":"C13","capability":"Instrumentation value, burden and reactivity awareness","score":6.0,"evidence_state":"CANDIDATE_CAPABILITY","basis":"Information-gain discipline exists, but explicit question-behavior/reactivity handling remains a preregistered possible blind spot."},
+    {"id":"C14","capability":"Design-knowledge transfer with provenance and boundary control","score":6.6,"evidence_state":"RESEARCH_SPINE_QUARANTINED","basis":"Design research spine now tracks provenance, derivative lineages and counterclaims, but has not yet shown a blind Neta decision advantage attributable to this layer."},
+    {"id":"C15","capability":"Cross-domain product judgment generalization","score":7.3,"evidence_state":"BROAD_BUT_ASYMMETRIC_EMPIRICAL_SAMPLE","basis":"48 adjudicated repositories across many domains and all decision modes provide breadth, but only one clean Neta failure means the corpus is much better at demonstrating restraint wins than estimating failure boundaries."},
+    {"id":"C16","capability":"Hebrew Signal Fidelity","score":3.8,"evidence_state":"FROZEN_TEST_READY_NOT_YET_VALIDATED","basis":"H1 protocol, scorer, exact prompt hash, strata and hidden-HOLDOUT policy are frozen. No hidden HOLDOUT result has yet been adjudicated."},
+    {"id":"C17","capability":"Hebrew affect/pragmatics and reader-effect discrimination","score":3.0,"evidence_state":"PROTOCOL_AND_UNLABELED_SEED_ONLY","basis":"H2 protocol, source registry and 12 minimal pairs exist, but no independent human gold or blind Neta-vs-baseline adjudication exists yet."},
+    {"id":"C18","capability":"Auditability and reproducibility","score":9.3,"evidence_state":"STRONG_EXECUTABLE_ASSURANCE","basis":"Pinned SHAs, machine-readable cases, frozen protocols, positive controls, explicit holdout discipline, closeouts and branch/canonical-state records make the research trail unusually auditable."},
+    {"id":"C19","capability":"Learning/promotion discipline","score":9.2,"evidence_state":"STRONG_PROCESS_EVIDENCE","basis":"Recurrence does not auto-promote; rule candidates require failure/delta, hidden judgment, neighbor, falsifiable gate, positive control and unseen holdout success. Wave 1 promoted zero new core rules despite many recurring patterns."},
+    {"id":"C20","capability":"Demonstrated field effectiveness with real end users","score":2.5,"evidence_state":"LARGELY_UNMEASURED","basis":"The repository explicitly stops at FIELD authority, but there is not yet a substantial prospective field program showing that Neta improves external-user outcomes or owner decisions longitudinally."}
+  ],
+  "priority_gaps": [
+    "Discover more clean Neta failures under targeted falsification rather than broad sampling.",
+    "Run frozen H1 Hebrew hidden HOLDOUT against Neta and baseline.",
+    "Collect independent native-Hebrew human annotations for H2 Reader Effect.",
+    "Run clean behavioral tests for the four Wave-1 prompt-gap candidates: navigation mode, probe reactivity, trust/reliance, responsiveness decomposition.",
+    "Add prospective field evidence for decision quality and downstream product outcomes."
+  ]
+}
