@@ -58,8 +58,11 @@ jobs:
       - name: Validate calibration-loop task
         run: python scripts/validate_calibration_task.py fixtures/calibration-valid-task.json
 
-      - name: Validate decision-execution-learning trace
+      - name: Validate decision-execution-learning fixture
         run: python scripts/validate_decision_trace.py fixtures/decision-execution-learning-valid.json
+
+      - name: Validate real Architecture corpus execution trace
+        run: python scripts/validate_decision_trace.py runtime/execution_traces/DEL-ARCH-CORPUS-001.json
 
       - name: Check Architecture historical benchmark corpus
         run: python scripts/check_architecture_historical_cases.py
