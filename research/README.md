@@ -145,6 +145,8 @@ See `design-spine/README.md`.
 - `design-spine/` — quarantined frontend-design source spine and claim crosswalk.
 - `INSTRUMENT_PORTFOLIO_EXTRACTION_2026-09-05.md` — quarantined import of the owner's cross-repository research-instrument portfolio; inventory and candidate distinctions only, not a behavior/promotion artifact.
 - `INSTRUMENT_PORTFOLIO_NETA_PASS_2026-09-05.md` — Neta-only `DISCRIMINATE_FIRST` pass over that import; separates potentially additive distinctions from principles already covered and defines the triangulation queue.
+- `INSTRUMENT_PORTFOLIO_TRIANGULATION_2026-09-05.md` — independent-family support, falsification search, boundaries and dispositions for the portfolio candidates.
+- `INSTRUMENT_PORTFOLIO_SYNTHESIS_2026-09-05.md` — post-triangulation synthesis into a bounded `RESEARCH_CONTINUITY_DISCRIMINATOR` fixture candidate; no canonical behavior change.
 
 ## Stop rule
 
