@@ -1,0 +1,39 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ARCH-SOLARCH-001",
+  "telos": {
+    "statement": "Determine the smallest justified capability for fitting system structure to an accepted need, constraints and required qualities, without creating a new agent or discipline boundary unless it changes material decisions.",
+    "success_condition": "Distinguish whether Solution Architecture is (a) a better name/telos for the existing Architecture Decision Discriminator, (b) a missing front-door requirements/quality-attribute sub-capability, or (c) a genuinely separate peer function."
+  },
+  "current_state": {
+    "summary": "Neta owns product perception/sensemaking discrimination; R&D v0.2 candidate owns resource↔telos calibration; Architecture Decision Discriminator v0 is a candidate capability for live structural decisions and already takes TELOS, CURRENT STATE, MATERIAL PRESSURE, KNOWN CONSTRAINTS and authorities. Prior system-design research narrowed a possible residual to measurable required property/workload/bottleneck evidence rather than a pattern knowledge base.",
+    "known_constraints": [
+      "Do not infer a peer agent from an industry job title.",
+      "Do not let Architecture invent OWNER-owned telos or tradeoff acceptance.",
+      "Do not let Neta silently become architecture doctrine.",
+      "Do not let R&D absorb structural design merely because it allocates resources.",
+      "Prefer a bounded adaptation of an existing capability over BUILD."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Is Solution Architecture a distinct function in this ecosystem, or the correct framing of the existing Architecture Decision Discriminator; and what exact transformation, if any, is still unowned?",
+    "current_default": "Treat Solution Architecture as a hypothesis about the telos/boundary of the existing Architecture Decision Discriminator, not as a new agent.",
+    "reversal_condition": "Promote a distinct capability/peer only if repeated cases show an unowned need→requirements→structure transformation that changes decisions more cheaply/reliably than Neta + R&D + current Architecture Discriminator + authorities."
+  },
+  "signals": [
+    "The owner reframed the target from system-design concepts to the professional function of fitting architecture to need.",
+    "The existing Architecture Decision Discriminator already contains telos, constraints, tradeoffs and migration but may assume the architecture-relevant need is already sufficiently specified."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "prompts/SYSTEM.md",
+    "research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md",
+    "research/architecture-agent/system-design/PASS2_HISTORICAL_RECOVERY.md"
+  ],
+  "budget": {
+    "max_resource_calls": 5,
+    "max_parallel_calls": 2
+  }
+}
