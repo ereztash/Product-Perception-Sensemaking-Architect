@@ -1,0 +1,49 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-LICHESS-WHITEPAPER-001",
+  "telos": {
+    "statement": "Determine the evidence-bounded narrative, claim architecture, document structure, and visual language for a Decision Lab White Paper v1 that maximizes scientific credibility, product intelligibility, and commercial usefulness without implying efficacy that has not been demonstrated.",
+    "success_condition": "Produce a decision-ready specification for what the White Paper should say, how the argument should unfold, how evidence and uncertainty should be visually encoded, which figures/tables are worth including, which claims must be excluded or qualified, and what future FIELD evidence would change the document rather than merely add decoration."
+  },
+  "current_state": {
+    "summary": "Target product is ereztash/lichess_app. Current canonical main is b1f005fb35b2ec601958c2250336e13b2c4b183b. The canonical README positions Decision Lab as measuring the player through decisions before engine feedback, not merely positions or engine mistakes. The live product records pre-engine decision evidence and preserves it longitudinally. The research layer has demonstrated recurring decision structure on the owner's historical record, held-out prediction, and one narrow player-specific residual after population correction. The repository explicitly does NOT claim chess improvement, Elo improvement, causal cognitive mechanism identification, intervention effectiveness, automatic generalization across players, or prospective multi-player replication. The strongest current research status is FIELD_REQUIRED_FOR_LEVEL_6. The frozen intervention hypothesis has not yet been shown to reduce the error in future games. A pre-release state document records no repository-owned P1 blocker on the audited candidate and hands the remaining human-evidence blocker F-HUMAN-CORE to FIELD; the current main has since advanced through documentation merges and is Verify-green and deployed. Release-integrity strict-up-to-date remains an ENVIRONMENT configuration issue, not a product-efficacy result. Open PR #91 contains additional pre-field research artifacts including a frozen R** mechanism state and partial cross-platform board-only replication, but it is not canonical until merged; PR #86 is CI hardening and does not determine the White Paper's scientific claim boundary.",
+    "known_constraints": [
+      "The White Paper is v1 before prospective FIELD efficacy evidence exists.",
+      "Missing FIELD evidence may not be replaced by synthetic users, model simulation, retrospective analysis, telemetry, or softer wording that implies efficacy.",
+      "Predictive structure, population-typical structure, personal residual, causal mechanism, intervention, and outcome must remain distinct claim levels.",
+      "The document should be commercially useful and visually compelling without becoming marketing collateral disguised as research.",
+      "Same-model Neta/R&D agreement is not independent triangulation and must not be represented as external validation.",
+      "Non-canonical open-PR evidence may be discussed only as pending/non-canonical context unless the final specification explicitly marks that status.",
+      "The primary audience must be able to understand the product distinction without requiring chess-engine or ML expertise.",
+      "The paper should make clear why pre-engine decision evidence is a different evidence object from post-hoc engine review."
+    ],
+    "available_resources": ["RND", "NETA", "REPO", "FIELD", "OWNER"]
+  },
+  "decision_blocked": {
+    "statement": "What exact White Paper form should Decision Lab use now: what is the core thesis, narrative sequence, evidence hierarchy, visual system, figure/table set, tone, length, and claim boundary, given that the measurement and retrospective/holdout evidence are mature enough to document but intervention efficacy is still FIELD_REQUIRED?",
+    "current_default": "Write a polished evidence-bounded White Paper centered on 'measuring the player before the engine speaks', presenting the measurement architecture and research chain as the contribution, with the prospective intervention clearly framed as the next unresolved test rather than as an outcome.",
+    "reversal_condition": "Reverse or materially alter this default if the peers identify that it collapses distinct mechanisms, substitutes an attractive proxy for the actual product value, overstates the evidence, hides the most decision-relevant uncertainty, or chooses a document/visual form that makes the wrong thing salient to the intended reader."
+  },
+  "signals": [
+    "signal_interpretation_ambiguity: the same evidence can be framed as chess research, product methodology, or decision-science infrastructure, and the wrong frame may obscure the actual product distinction",
+    "multiple_plausible_mechanisms: credibility may come from research depth, from measurement architecture, from falsification discipline, or from the contrast with ordinary post-hoc engine review",
+    "proxy_substitution_risk: polished charts, model metrics, or research volume could become proxies for the actual claim that the product captures decision evidence before machine feedback",
+    "research_to_intervention_transition: the paper must show the frozen intervention and FIELD boundary without presenting an untested intervention as a product recommendation",
+    "visual-design question: decide what should be shown as diagrams, evidence ladders, tables, annotated chess examples, timelines, or negative-space claim boundaries rather than prose",
+    "commercial question: make the document useful for buyers, partners, researchers, and technically sophisticated readers without collapsing those audiences into one generic pitch"
+  ],
+  "allowed_resources": ["RND", "NETA", "REPO", "FIELD", "OWNER"],
+  "context_refs": [
+    "ereztash/lichess_app@b1f005fb35b2ec601958c2250336e13b2c4b183b:README.md",
+    "ereztash/lichess_app@main:docs/PRE_RELEASE_STATE.md",
+    "ereztash/lichess_app:PR#91 research/mechanism freeze + partial cross-platform replication (OPEN, NON-CANONICAL)",
+    "ereztash/lichess_app:PR#86 CI audit-outage hardening (OPEN, NON-BLOCKING)",
+    "ereztash/Product-Perception-Sensemaking-Architect@main:docs/CANONICAL_STATE.md",
+    "ereztash/Product-Perception-Sensemaking-Architect@main:prompts/SYSTEM.md",
+    "ereztash/Product-Perception-Sensemaking-Architect@main:prompts/RND_AGENT_V0_2_CANDIDATE.md"
+  ],
+  "budget": {
+    "max_resource_calls": 3,
+    "max_parallel_calls": 1
+  }
+}
