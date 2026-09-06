@@ -1,14 +1,33 @@
 # Canonical Repository State
 
-Last consolidated: 2026-09-05
+Last consolidated: 2026-09-06 (repository canonicalization and research-state reconciliation)
+
+## How to read this file
+
+Every component below carries exactly one evidence status. The statuses are not interchangeable and this file exists to keep them apart.
+
+| Status | Meaning |
+|---|---|
+| `CANONICAL` | Current authority. Change it only through its own gate. |
+| `IMPLEMENTATION_CANDIDATE` | In use by the system, not validated by evidence. Use does not promote. |
+| `RESEARCH_HYPOTHESIS` | Frozen, testable, not yet tested against admissible cases. |
+| `DISCOVERY_ONLY` | Generated or sharpened a hypothesis. Contributes zero confirmation. |
+| `CONFIRMATION_BLOCKED` | Testable, but the admissible evidence channel does not currently exist. |
+| `CLOSED_AT_SATURATION` | Further routine sampling has low marginal value. Not a validity claim. |
+| `NOT_EARNED` | Considered and declined on current evidence. |
+
+A component that appears under one status may not be cited under a stronger one elsewhere in the repository.
 
 ## Repository authority
 
 `main` is the only canonical branch.
 
-Historical branch names may remain visible because the connected GitHub tool used during cleanup could move refs but could not delete them. As of this consolidation pass, **every visible branch ref points to the same commit as `main`**.
+As of this pass, every decision-relevant research artifact produced on `research/system-design-decision-lane-2026-09-06` has been recovered into the canonical lane. The pre-reconciliation state, including exact branch tips, ahead/behind counts and CI conclusions, is recorded at:
 
-Historical pre-cleanup branch tips and dispositions are preserved at:
+- `archive/reconciliation/REPO_STATE_BEFORE_RECONCILIATION_2026-09-06.md`
+- `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`
+
+Earlier branch-tip dispositions remain at:
 
 - `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`
 
@@ -16,17 +35,28 @@ Repository organization rules are canonical at:
 
 - `docs/REPOSITORY_MAP.md`
 
-A question that requires opening an old branch to discover current truth indicates repository-organization failure.
+A question that requires opening a side branch to discover current truth indicates repository-organization failure.
 
-## Canonical architecture
+### Active branches
 
-The system currently contains two peer agents/methods under a shared epistemic constitution plus one deterministic coordination runtime:
+Only branches carrying a live, unfinished experiment may remain ahead of `main`:
 
-- **Neta** — Product Perception & Sensemaking;
-- **R&D Agent** — resource↔telos calibration with research continuity as a sub-capability;
-- **Calibration Loop** — deterministic routing/runtime, not an agent and not a truth authority.
+| Branch | Purpose | State |
+|---|---|---|
+| `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | blocked, see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
+| `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object | `FAILED_EXECUTION`, no adapter credential in environment |
 
-External broad reasoning may be borrowed through `SCAFFOLD`.
+Neither branch holds a research result. Both hold experiment inputs and an unexecuted protocol. If either produces a durable trace or outcome, that artifact belongs on `main`.
+
+`claude/lichess-prerelease-gaps-qvlbv5` ran in parallel with this reconciliation and edited two of the same files. Both its passes are now merged, so its durable artifacts are canonical and the branch is no longer ahead of `main`. The collision and its resolution are recorded in `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`, section 12.
+
+---
+
+# Canonical architecture
+
+Status: `CANONICAL`
+
+Two peer agents under one shared epistemic constitution, plus one deterministic coordination runtime and one non-agent execution contract.
 
 ```text
                          OWNER / TELOS
@@ -47,20 +77,40 @@ External broad reasoning may be borrowed through `SCAFFOLD`.
                          R&D LEARNING
 ```
 
-A learned Orchestrator remains deferred.
+- **Neta** — Product Perception and Sensemaking.
+- **R&D Agent** — resource↔telos calibration, with research continuity as a sub-capability.
+- **Calibration Loop** — deterministic routing runtime. Not an agent. Not a truth authority.
+- **Decision→Execution→Learning contract** — a non-agent bridge from bounded decision to verified reality.
+- **SCAFFOLD** — external broad reasoning, borrowed when cheaper than internalizing. Not ground truth.
+
+Neta and R&D are peers. Call order does not create hierarchy.
+
+## What is explicitly not built
+
+| Component | Status | What would change it |
+|---|---|---|
+| Learned Orchestrator | `NOT_EARNED` | repeated ambiguous ownership, lost cross-peer dependencies, or contradictory peer outputs deterministic routing cannot resolve cheaply |
+| Third peer | `NOT_EARNED` | a recurring orthogonal judgment outside the mapped function space, per `research/agent-discovery/AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md` |
+| Architecture Agent | `NOT_EARNED` | unseen HOLDOUT evidence of unique comparative decision delta |
+| Execution Agent | `NOT_EARNED` | a recurring residual judgment across 10-15 real traces after planning and verification contracts are present |
+| Requirements Agent | `NOT_EARNED` | unique requirements reasoning beyond current upstream qualification; current best form is an input gate |
+| Decision Support capability | `NOT_EARNED` | at least 5 natural admissible post-OWNER cases across at least 3 domains surviving the exclusion rule |
 
 ## Shared constitutional decision
+
+Status: `CANONICAL`
 
 Across peers:
 
 > **material uncertainty removed from a live decision** is the unit of progress.
 
-Resolution authority belongs to claims, not agents.
+Resolution authority belongs to claims, not agents. Authorities are `OWNER`, `REPO`, `ENVIRONMENT`, `RESEARCH`, `FIELD`.
 
 Canonical shared artifacts:
 
 - `docs/SHARED_EPISTEMIC_KERNEL.md`
 - `docs/AGENT_AUTHORITY_BOUNDARIES.md`
+- `docs/AUTHORITY_MAP.md`
 - `docs/PEER_HANDOFF_PROTOCOL.md`
 - `docs/REALITY_AUTHORITY_PERMISSION.md`
 - `docs/DECISION_EXECUTION_LEARNING_LOOP.md`
@@ -68,112 +118,228 @@ Canonical shared artifacts:
 - `schemas/peer-handoff.schema.json`
 - `schemas/decision-execution-learning.schema.json`
 
-## Neta canonical identity
+---
 
-Neta remains an evidence-bounded Product Perception & Sensemaking method with an assurance layer.
+# Neta
+
+## Identity
+
+Status: `CANONICAL` method, `FROZEN` prompt.
+
+Neta is an evidence-bounded Product Perception and Sensemaking method with an assurance layer.
 
 - method state: **v0.2 assurance re-foundation**;
-- prompt comparator: **frozen v0.1** at `prompts/SYSTEM.md`;
-- capability promotion: `eval/CAPABILITY_UPDATE_GATE_V1.md`.
+- prompt comparator: **frozen v0.1** at `prompts/SYSTEM.md`, blob `339b9a1be2fd0f1f6f6c7960e5be58e5566d3691`;
+- capability promotion gate: `eval/CAPABILITY_UPDATE_GATE_V1.md`;
+- freeze record: `docs/V0_1_FREEZE.md`.
 
-Neta turns:
-
-`RAW SIGNAL → CONCRETE MOMENT → OBSERVABLE → COMPETING MECHANISMS → CHEAP DISCRIMINATOR → DESIGN DISTINCTION → INTERVENTION / DEFER / FIELD`
+```text
+RAW SIGNAL → CONCRETE MOMENT → OBSERVABLE → COMPETING MECHANISMS
+→ CHEAP DISCRIMINATOR → DESIGN DISTINCTION → INTERVENTION / DEFER / FIELD
+```
 
 Neta does not own research validity, architecture doctrine or FIELD outcomes.
 
-## R&D canonical identity
+**No core prompt update has been earned.** R&D evidence cannot promote a Neta prompt rule.
 
-R&D now has two intentionally separate states.
+## Empirical state
 
-### R&D v0.1 — frozen comparator
+### GitHub Benchmark Wave 1
+
+Status: `CLOSED_AT_SATURATION`
+
+- 48 adjudicated repositories;
+- 16 HOLDOUT repositories;
+- 14 fully surviving Neta-vs-baseline decision deltas;
+- 8 partially supported deltas;
+- 1 clean Neta failure;
+- 0 new core rules promoted;
+- 0 Neta prompt updates.
+
+Closure means low marginal gain from more routine GitHub sampling. It is not validated universal reliability.
+
+### Hebrew Signal Fidelity H1
+
+Status: `CONFIRMATION_BLOCKED`
+
+H1 is frozen at `eval/hebrew-signal-benchmark/H1_FREEZE.json`. No valid H1 run exists.
+
+The blocker is stated in `eval/hebrew-signal-benchmark/H1_HOLDOUT_COMMISSIONING.md`: a valid HOLDOUT must be authored or sampled by a native-Hebrew authority that does not expose item text or gold to the tested Neta or baseline context before predictions are frozen. That authority is not yet commissioned.
+
+Synthetic gold authored by the same evaluating model must not be relabeled as independent HOLDOUT evidence. The TRAIN seed is not a holdout.
+
+### Hebrew Reader Effect H2
+
+Status: `CONFIRMATION_BLOCKED`
+
+Observatory with a holdout manifest and an annotation guide. Human annotation is commissioned but not delivered. See `eval/hebrew-reader-effect/H2_HUMAN_ANNOTATION_COMMISSIONING.md`.
+
+---
+
+# R&D Agent
+
+Two things are true at once and must not be collapsed into one statement.
+
+## 1. Canonical implementation candidate — broad v0.2
+
+Status: `IMPLEMENTATION_CANDIDATE`
+
+This is what the system actually runs, and it stays the candidate implementation until evidence decides otherwise.
+
+Telos:
+
+> **Improve the fit between the system's resources and its telos, given the state from which the system is actually starting.**
+
+```text
+TELOS + CURRENT STATE + RESOURCES
+→ BOTTLENECK / MISCALIBRATION
+→ CANDIDATE MOVES
+→ CHEAPEST DECISION-CHANGING LEARNING
+→ OBSERVED DELTA
+→ RECALIBRATE
+→ UPDATED STATE
+```
+
+Canonical candidate artifacts:
+
+- `prompts/RND_AGENT_V0_2_CANDIDATE.md`, blob `03e6c4e25a4fadc189ea26942d38249297371ee9`;
+- `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`.
+
+Research is one instrument of this telos, not the telos itself.
+
+The v0.2 candidate has **not** been promoted as validated merely because the Calibration Loop uses it.
+
+## 2. Strongest research hypothesis — narrower scope
+
+Status: `RESEARCH_HYPOTHESIS` · `CONFIRMATION_BLOCKED` · `CONFIRMATORY_N = 0`
+
+Later research proposes a narrower boundary than the broad formulation above. It is frozen for testing and **has not replaced anything**.
+
+```text
+CONSEQUENTIAL DECISION
+× NONTRIVIAL EPISTEMIC ALLOCATION
+→ R&D CORE CANDIDATE
+```
+
+> R&D's highest marginal value concentrates where a consequential decision remains open and there is a nontrivial unresolved choice about whether, how, or how much to learn before responsibly advancing that decision.
+
+This is epistemic effort calibration and learning allocation. It is a hypothesis to confirm or falsify, not a canonical boundary.
+
+Frozen artifacts:
+
+- `research/rnd-agent/scope-discovery/RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md` — five regions R1-R5, all `UNKNOWN`;
+- `research/rnd-agent/scope-discovery/RND_SCOPE_CONFIRMATION_STREAM_V0_2.md` — the confirmation stream;
+- `schemas/rnd-scope-case-v0.2.schema.json` — the case contract.
+
+### Confirmation state
+
+```text
+CONFIRMATORY_N = 0
+
+R1 EPISTEMIC_ALLOCATION_CORE   = UNKNOWN
+R2 OBVIOUS_LEARNING            = UNKNOWN
+R3 DIRECT_AUTHORITY_EXECUTION  = UNKNOWN
+R4 DOMAIN_METHOD_PRIMARY       = UNKNOWN
+R5 LOW_LOCAL_CONTROL           = UNKNOWN
+```
+
+The blocker: no independent model-lineage or qualified human adjudication channel is connected. Same-model self-adjudication is explicitly disallowed from supporting the claim. Therefore `95PCT_SCOPE_CERTAINTY = NOT ACHIEVED`, not a synthetic estimate.
+
+### External directional evidence
+
+Status: `DISCOVERY_ONLY`
+
+An 8-issue external GitHub batch was run after the freeze against real maintainer outcomes: 1 material win, 5 ties, 1 material loss, 1 unadjudicable.
+
+It contributes **zero** confirmatory N, because baseline and R&D outputs were same-model role-conditioned passes rather than independent executions, and adjudication was not blinded under the frozen protocol.
+
+Its useful signal is a false-fire: ordinary multi-hypothesis technical debugging was coded as `NONTRIVIAL_EPISTEMIC_ALLOCATION` when it likely belongs to `DOMAIN_METHOD_PRIMARY`. That is a candidate v0.3 coding repair to test on new unseen neighbors, not a retrofit of v0.2.
+
+See `research/rnd-agent/scope-discovery/external-tests/`.
+
+## 3. Frozen comparator — v0.1
+
+Status: `FROZEN_COMPARATOR`
 
 Research-continuity focused.
 
-Canonical comparator artifacts:
-
-- `prompts/RND_AGENT_V0_1.md`;
-- frozen prompt blob: `bc0e725d0449478d53b93bb6643d24404c22708c`;
+- `prompts/RND_AGENT_V0_1.md`, blob `bc0e725d0449478d53b93bb6643d24404c22708c`;
 - `research/RND_AGENT_CHARTER_V0_1.md`;
 - `schemas/rnd-research-task.schema.json`;
 - `scripts/validate_rnd_task.py`;
 - `eval/rnd-agent/RND_AGENT_EVAL_PROTOCOL_V0_1.md`;
 - `eval/rnd-agent/TRAIN_CONTROLS_V0_1.jsonl`.
 
-Its continuity distinction remains useful:
+Its continuity distinctions remain in force:
 
 `instrument ≠ run ≠ durable evidence ≠ decision effect`
 
-plus:
-
 `historical evidence ≠ current runnability`, `null ≠ refuted`, `pending ≠ failed`, `agreement ≠ independent triangulation`.
 
-### R&D v0.2 — candidate telos
+## 4. Epistemology / applied epistemology / VOI transfer
 
-Status: `CANDIDATE_NOT_VALIDATED`.
+Status: `DISCOVERY_ONLY`
 
-Canonical candidate artifacts:
+Controlled challengers across latent inquiry, VOI ranking and a zetetic inquiry audit improved vocabulary and contract clarity but did not establish a unique next-move capability beyond current R&D.
 
-- `prompts/RND_AGENT_V0_2_CANDIDATE.md`;
-- `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`.
+See `research/rnd-agent/epistemology/`. These are R&D theory and an evaluation lens, not a capability.
 
-Telos:
+## 5. Targeted OSS transfer
 
-> **Improve the fit between the system's resources and its telos, given the state from which the system is actually starting.**
+Status: `CLOSED_AT_SATURATION`
 
-Loop:
+Strongest residual candidate needs remain challenger hypotheses until a discriminating failure earns them: attempt/result-selection provenance; stochastic stability where variance is material; execution environment/model/tool identity; trace-level protocol integrity; dependency-safe claim state; checkpoint/rollback semantics; structured recovery of prior attempts.
 
-`TELOS + CURRENT STATE + RESOURCES → BOTTLENECK/MISCALIBRATION → CANDIDATE MOVES → CHEAPEST DECISION-CHANGING LEARNING → OBSERVED DELTA → RECALIBRATE → UPDATED STATE`
+---
 
-Research is one instrument of this telos; it is not the telos itself.
+# Calibration Loop
 
-The v0.2 candidate has not been promoted as validated merely because it is used by the Calibration Loop.
-
-## Calibration Loop canonical identity
-
-Status: `IMPLEMENTATION_CANDIDATE / CI-GATED`.
+Status: `IMPLEMENTATION_CANDIDATE / CI-GATED`
 
 Canonical artifacts:
 
-- `runtime/calibration_loop/README.md`;
-- `runtime/calibration_loop/run.py`;
-- `runtime/calibration_loop/routing.py`;
-- `runtime/calibration_loop/adapters.py`;
+- `runtime/calibration_loop/README.md`, `run.py`, `routing.py`, `adapters.py`;
 - `schemas/calibration-task.schema.json`;
 - `scripts/validate_calibration_task.py`;
 - `scripts/check_calibration_loop.py`;
 - `fixtures/calibration-valid-task.json`.
 
-Flow:
+```text
+R&D DIAGNOSE → deterministic routing → Neta / Scaffold / authority as triggered
+→ R&D SYNTHESIZE → trace + resource deltas + learning record
+```
 
-`R&D DIAGNOSE → deterministic routing → Neta/Scaffold/authority as triggered → R&D SYNTHESIZE → trace + resource deltas + learning record`
+Routing rules are inspectable and are not self-modified from one case. The runtime may stop at `PENDING_RESOURCE`, `AUTHORITY_STOP` or `FAILED_EXECUTION` rather than fabricate an answer, and it did exactly that on the 2026-09-06 live run when no adapter credential was present.
 
-Routing rules are inspectable and are not self-modified from one case.
+## First manual run
 
-The runtime may stop at `PENDING_RESOURCE`, `AUTHORITY_STOP` or `FAILED_EXECUTION` rather than fabricate an answer.
+`CAL-ARCH-001` was executed manually on 2026-09-05 without API/model adapters: `runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md`.
 
-## Decision → Execution → Learning contract
+Limitation: R&D, Neta and Scaffold were role-separated but executed in one session and one foundation-model lineage. Their agreement is **not** independent triangulation.
 
-Status: `CROSS_AGENT_EXECUTION_CONTRACT_V0_1 / CI-GATED`.
+It produced a material decision change, from "build an Architecture Agent" to "first test whether a distinct architecture-specific decision capability adds value beyond R&D + Scaffold + REPO/ENVIRONMENT evidence".
 
-The system now carries an explicit non-agent bridge from bounded decision to reality:
+---
 
-`DECISION → EXECUTION → VERIFIED STATE → OUTCOME → LEARNING`
+# Decision → Execution → Learning contract
+
+Status: `CROSS_AGENT_EXECUTION_CONTRACT_V0_1 / CI-GATED`
+
+```text
+DECISION → EXECUTION → VERIFIED STATE → OUTCOME → LEARNING
+```
 
 Canonical artifacts:
 
 - `docs/DECISION_EXECUTION_LEARNING_LOOP.md`;
 - `schemas/decision-execution-learning.schema.json`;
 - `scripts/validate_decision_trace.py`;
-- `fixtures/decision-execution-learning-valid.json`.
+- `fixtures/decision-execution-learning-valid.json`;
+- first real trace: `runtime/execution_traces/DEL-ARCH-CORPUS-001.json`.
 
-The first real trace is:
+Invariant: `action completed ≠ verified state ≠ measured outcome ≠ learning`. Execution does not inherit REPO, ENVIRONMENT or FIELD authority.
 
-- `runtime/execution_traces/DEL-ARCH-CORPUS-001.json`.
-
-Its invariant is that `action completed ≠ verified state ≠ measured outcome ≠ learning`. Execution does not inherit REPO, ENVIRONMENT or FIELD authority.
-
-This contract does **not** justify an Execution Agent. A distinct execution capability must be earned by recurring failures across real traces that protocol/tool handoff cannot handle cheaply.
+This contract does not justify an Execution Agent.
 
 ## External-target execution traces
 
@@ -206,157 +372,119 @@ The pass produced three recalibrations worth carrying:
 2. A capability being present on `main` and a capability being reachable by the agent that needs it are different states. Promoting the audit removed the first obstacle and not the second.
 3. A past live reading is not a current fact. `strict=false` was true at 11:10Z; without a newer read the current value is unknown, and asserting it would repeat the error the external-authority rule exists to prevent.
 
-## First manual Calibration Loop run
+---
 
-`CAL-ARCH-001` was executed manually on 2026-09-05 without API/model adapters.
+# Architecture
 
-Artifact:
+Status: `CANDIDATE_CAPABILITY_NOT_AGENT` · the **only** active peer candidate.
 
-- `runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md`
+## Corpus and protocol
 
-Important limitation:
-
-R&D, Neta and Scaffold were role-separated but executed in one ChatGPT session/foundation-model lineage. Their agreement is therefore **not independent triangulation**.
-
-The run produced a material decision change:
-
-From:
-
-> build/define an Architecture Agent
-
-To:
-
-> first test whether a distinct architecture-specific decision capability exists and adds value beyond R&D + Scaffold + REPO/ENVIRONMENT evidence.
-
-## Architecture capability state
-
-The first architecture-specific candidate is:
-
-- `research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md`
-
-Status: `CANDIDATE_CAPABILITY_NOT_AGENT`.
-
-Candidate unit:
-
-`LIVE ARCHITECTURE DECISION → CURRENT STRUCTURE/AUTHORITY → 2–3 COMPETING OPTIONS/MECHANISMS → CONSTRAINTS/INVARIANTS → MATERIAL DEPENDENCY/FAILURE/CHANGE PATH → CHEAP DISCRIMINATOR → BOUNDED DECISION → MIGRATION/REVERSAL`
-
-First visible controls:
-
-- `eval/architecture-agent/TRAIN_CONTROLS_V0.jsonl`
-
-Visible historical benchmark program is now frozen:
-
+- `research/architecture-agent/ARCHITECTURE_DECISION_DISCRIMINATOR_V0.md` — the candidate contract;
+- `eval/architecture-agent/TRAIN_CONTROLS_V0.jsonl` — first visible controls;
 - `eval/architecture-agent/HISTORICAL_CASES_V0.jsonl` — 12 runner-visible frozen cases across 4 repositories;
-- `eval/architecture-agent/HISTORICAL_GOLD_V0.jsonl` — historical adjudication anchors kept separate from runner inputs;
+- `eval/architecture-agent/HISTORICAL_GOLD_V0.jsonl` — adjudication anchors, kept separate from runner inputs;
 - `eval/architecture-agent/HISTORICAL_BENCHMARK_PROTOCOL_V0.md`;
-- `scripts/check_architecture_historical_cases.py` — CI gate enforcing count, repository breadth and CASES/GOLD separation.
+- `scripts/check_architecture_historical_cases.py` — CI gate on count, repository breadth and CASES/GOLD separation.
 
 The visible corpus is retrospective TRAIN evidence only. Historical implementation is not ground truth and agreement with it is not a score.
 
-No autonomous Architecture Agent prompt/implementation is canonical yet.
+Contamination boundary: the context that authored or froze `HISTORICAL_GOLD_V0.jsonl` is not eligible to generate countable baseline or candidate outputs for this corpus.
 
-Promotion question:
+## A/B evidence to date
 
-> Does the architecture-specific decision contract change material decisions more cheaply/reliably than the existing combination of R&D + Scaffold + REPO/ENVIRONMENT evidence?
+Status: `DISCOVERY_ONLY · MODEL_IDENTITY_CAVEAT`
 
-If not, architecture expertise should remain a borrowed resource rather than become a new peer.
+One staged A/B has executed: `ARCH-AB-20260906T102435Z`, on 2026-09-06.
 
-Current contamination boundary:
+It preserved the strongest contamination barrier: 24 baseline and candidate outputs completed first, freeze manifest written and hashed, judging only after freeze, blind X/Y adjudication. But it used Copilot `--model auto`, which does not establish that A and B ran on the same underlying model. The frozen v0 protocol requires the same clean model.
 
-The context that authored/froze `HISTORICAL_GOLD_V0.jsonl` is not eligible to generate countable baseline/candidate benchmark outputs for this corpus. The next countable run must occur in a clean context that can see CASES but not GOLD and must not recover the source commits before outputs are frozen.
+It is therefore retained as `DIAGNOSTIC_EXECUTION_SIGNAL`, not as the protocol-conforming result, and it is not promotion evidence.
 
-## Neta empirical state
+Diagnostic aggregate: candidate material wins 1, baseline material wins 1, candidate harm 0, baseline harm 0.
 
-GitHub Benchmark Wave 1 remains frozen/closed at broad-sampling saturation:
+| Dimension | Architecture | Baseline | Tie/Neither |
+|---|---:|---:|---:|
+| Boundary | 2 | 3 | 7 |
+| Authority | 2 | 3 | 7 |
+| Option | 3 | 2 | 7 |
+| Discriminator | 5 | 3 | 4 |
+| Migration | 5 | 1 | 6 |
+| Anti-build | 4 | 2 | 6 |
 
-- 48 adjudicated repositories;
-- 16 HOLDOUT repositories;
-- 14 fully surviving Neta-vs-baseline decision deltas;
-- 8 partially supported deltas;
-- 1 clean Neta failure;
-- 0 new core rules promoted;
-- 0 Neta prompt updates.
+The pattern matters more than the score: Architecture did not dominate structural destination selection, authority or boundaries. Its repeated delta was around migration, bounded discrimination, staged change and anti-build.
 
-Closure means low marginal gain from more routine GitHub sampling, not validated universal reliability.
+## Current dispositions
 
-## R&D targeted OSS state
+```text
+ARCHITECTURE_AGENT                  = NOT_EARNED
+ARCHITECTURE_SELECTION_CAPABILITY   = UNIQUE_DELTA_NOT_SHOWN
+ARCHITECTURE_INPUT_GATE             = EARNED_AS_CONTRACT_SHAPE
+STRUCTURAL_CHANGE_ENVELOPE          = STRONGEST_NEW_RESIDUAL_CANDIDATE
+STRUCTURAL_CHANGE_ENVELOPE_AGENT    = CATEGORY_ERROR / NOT_PROPOSED
+```
 
-The R&D targeted OSS lane is closed at architecture saturation for routine sampling.
+`STRUCTURAL_CHANGE_ENVELOPE` is a candidate contract shape only, described in `research/agent-discovery/ARCHITECTURE_RESIDUAL_DECOMPOSITION_2026-09-06.md`. It is not built, not scheduled and not a capability. Do not implement it as part of repository maintenance.
 
-The strongest residual candidate needs remain:
+## Next discriminating experiment
 
-1. attempt/result-selection provenance;
-2. stochastic stability where variance is material;
-3. execution environment/model/tool identity;
-4. trace-level protocol integrity;
-5. dependency-safe claim/experiment/finding state;
-6. checkpoint/rollback semantics;
-7. structured recovery of prior attempts/failures.
+The protocol-conforming clean A/B, on PR 14.
 
-These remain challenger hypotheses until a discriminating failure earns them.
+Status: `EXECUTION_BLOCKED`, not `FAILED` and not a candidate result.
 
-## Historical branch consolidation
+The frozen v0.2 model-selection rule probed five explicit Copilot model IDs and found none available in the Actions environment, then stopped rather than substituting `auto`. No case was loaded, no GOLD was read, no output was produced.
 
-The branch audit found:
+Full diagnosis, permitted and forbidden remediation classes: `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md`.
 
-- most historical branches were already strict ancestors of `main`;
-- `neta/v0.1-agent-contract` diverged historically but its core artifacts are superseded on `main`;
-- `research/wave1-evidence-pass1` held three research documents not present on `main`.
+No promotion may follow from unseen-holdout evidence that does not yet exist.
 
-Those unique documents were copied exactly into:
+---
 
-- `archive/legacy-branches/research-wave1-evidence-pass1/PROMPT_GAP_AUDIT.md`;
-- `archive/legacy-branches/research-wave1-evidence-pass1/RECURSION_LOG.md`;
-- `archive/legacy-branches/research-wave1-evidence-pass1/WAVE1_RESULTS_PASS1.md`.
+# Agent Discovery
 
-All visible branch refs were then normalized to the canonical `main` commit.
+Status: `CLOSED_AT_SATURATION` · `NO_NEW_AGENT_EARNED`
 
-## Current next authorized execution
+Broad discovery asked which recurring material judgment functions remain unowned after subtracting the peers, the authorities, domain methods, deterministic coordination, execution and shared infrastructure.
 
-### Neta
+Result: no third peer is earned. Current peers remain Neta and R&D. The only active peer candidate is Architecture, unpromoted.
+
+Artifacts: `research/agent-discovery/`, closing at `AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md`.
+
+The closeout converges with the earlier independent repo trace `CAL-MECE-001`. Both share project lineage, so the agreement strengthens the default but is not independent statistical evidence.
+
+Reopen broad discovery only if all of these hold: a real decision repeatedly fails despite correct routing; deterministic protocol or tool repair is insufficient; the same hidden judgment recurs across cases; and a minimal candidate changes material decisions over the strongest existing system.
+
+---
+
+# Current next authorized execution
+
+## Neta
 
 - keep `prompts/SYSTEM.md` frozen until Neta-specific evidence earns change;
-- continue only decision-changing Neta evaluation/research lanes;
+- commission an independent Hebrew HOLDOUT authority, or leave H1 blocked;
+- continue only decision-changing evaluation lanes;
 - do not take over R&D or architecture authority.
 
-### R&D
+## R&D
 
 - keep v0.1 as frozen comparator;
-- treat v0.2 as candidate until evidence earns promotion;
-- use real tasks to learn which resources materially change decisions;
-- start accumulating real `DECISION → EXECUTION → VERIFIED STATE → OUTCOME → LEARNING` traces;
-- do not equate repeated Scaffold/Neta agreement under shared model lineage with independent evidence.
+- keep broad v0.2 as the implementation candidate until evidence decides;
+- keep the narrow epistemic-allocation hypothesis at `CONFIRMATORY_N = 0` until an admissible case exists;
+- the single blocking need is an independent adjudication channel: a different model lineage, or a qualified human adjudicator;
+- do not count discovery, historical or same-model evidence toward confirmation;
+- preserve the external-batch false-fire as a candidate v0.3 repair rather than editing v0.2.
 
-### Architecture candidate
+## Architecture
 
-Completed:
+- resolve the execution blocker without touching the frozen protocol;
+- run the protocol-conforming clean A/B;
+- only then create unseen HOLDOUT, and only HOLDOUT evidence may earn movement toward an autonomous agent;
+- do not build `STRUCTURAL_CHANGE_ENVELOPE` before its own baseline-vs-challenger test is designed and frozen.
 
-1. recovered 12 historical architecture decisions from 4 existing repositories;
-2. froze runner-visible case inputs separately from historical adjudication anchors;
-3. added a CI-gated visible benchmark protocol and corpus validator.
+## Execution capability
 
-Next:
+Do not build an Execution Agent. Collect 10-15 real traces under `schemas/decision-execution-learning.schema.json`.
 
-1. in a clean runner that cannot see GOLD/source resolutions, freeze baseline outputs using current resources without the Architecture Decision Discriminator;
-2. freeze candidate outputs on the exact same CASES;
-3. reveal GOLD only after both outputs are frozen and adjudicate decision-relevant delta dimensions separately;
-4. use visible TRAIN failures to refine the evaluation contract, not to claim promotion;
-5. create unseen HOLDOUT after the candidate contract is frozen;
-6. only HOLDOUT evidence may earn movement toward an autonomous Architecture Agent.
+## Orchestrator
 
-### Execution capability
-
-Do not build an Execution Agent.
-
-Collect 10-15 real traces using `decision-execution-learning.schema.json`. A distinct execution capability becomes eligible only if repeated traces show the same reasoning/coordination failure between bounded decision and verified state after ordinary protocol/tool handoff is already present.
-
-### Orchestrator
-
-Do not build yet.
-
-Evidence that could earn an orchestrator includes repeated:
-
-- ambiguous ownership among stable peers;
-- lost dependencies across peer handoffs;
-- contradictory peer outputs that deterministic routing cannot resolve cheaply;
-- material routing overhead that harms decision quality/cost.
+Do not build. The earning conditions are listed under "What is explicitly not built".

@@ -36,10 +36,10 @@ Should the R&D telos be narrowed away from generic resource↔telos calibration 
    - full R&D materially changed 8/20 mechanically selected historical tasks;
    - 12/20 were no-material-delta and should bypass.
 
-4. `research/rnd-agent/RND_TELOS_SELF_CALIBRATION_2026-09-06.md`
+4. `research/rnd-agent/telos/RND_TELOS_SELF_CALIBRATION_2026-09-06.md`
    - candidate: reduce decision-controlling uncertainty enough to justify/reject consequential resource commitment using cheapest admissible learning move.
 
-5. `research/rnd-agent/RND_NARROW_TELOS_BENCHMARK_V0_ADJUDICATION.md`
+5. `research/rnd-agent/telos/RND_NARROW_TELOS_BENCHMARK_V0_ADJUDICATION.md`
    - narrow v0 agreement 12/13;
    - material recall 5/6 (83.3%);
    - one miss: cheap-per-use but reusable reasoning topology (`Waze` protocol) that becomes durable epistemic policy.
