@@ -1,0 +1,53 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-RELEASE-STALE-PR-001",
+  "decision": {
+    "statement": "Do not close A-RELEASE-STALE-PR from the repository. The live GitHub ruleset already enforces three of the four expected merge controls, the remaining gap is one boolean on the required-status-checks rule, and this session holds no ENVIRONMENT write authority to set it.",
+    "decision_owner": "RND",
+    "resolution_authority": "ENVIRONMENT",
+    "evidence_refs": [
+      "https://github.com/ereztash/lichess_app/actions/runs/34029146340",
+      "ereztash/lichess_app docs/PRE_RELEASE_AUDIT.md (external authority rule)",
+      "ereztash/lichess_app scripts/pre-release-audit.mjs githubRulesetGaps()"
+    ],
+    "reversal_condition": "A later Pre-release Gap Audit run reads strict_required_status_checks_policy=true from the live ruleset, or the owner grants this session repository-administration write so the fix can be applied and re-read here."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Read the live GitHub ruleset for ereztash/lichess_app and apply the smallest authorised fix that closes A-RELEASE-STALE-PR.",
+    "completed_action": "Read the live ruleset state through the only authority-bearing path available to this session, the Pre-release Gap Audit Action, which queries the GitHub Rulesets API with the runner token. Direct REST access to api.github.com is refused by this session's egress policy with HTTP 403, the connected GitHub tool surface exposes no ruleset read or write, and an Actions GITHUB_TOKEN cannot carry repository-administration write. No ruleset change was applied.",
+    "status": "PARTIAL",
+    "artifact_refs": [
+      "https://github.com/ereztash/lichess_app/actions/runs/34029146340/job/101475379111",
+      "runtime/handoffs/HANDOFF-LICHESS-ENV-001.json"
+    ]
+  },
+  "verified_state": {
+    "authority": "ENVIRONMENT",
+    "expected_state": "The active ruleset on main requires a pull request, blocks non-fast-forward, requires the verify status check, and sets strict_required_status_checks_policy=true.",
+    "observed_state": "Pull request, non-fast-forward and required verify are all enforced: the audit's A-RELEASE-PROTECTION gap, which fires unless all three hold, did not fire. strict_required_status_checks_policy is false: A-RELEASE-STALE-PR fired as P1, verified-now, blocking for broad-public, on the candidate audited at 2026-09-06T11:10Z.",
+    "status": "MISMATCH",
+    "evidence_refs": [
+      "https://github.com/ereztash/lichess_app/actions/runs/34029146340",
+      "audit report SHA 9f83d8897bbb2c7605d8775bd9263187951b9664, target broad-public, verdict NOT_READY_FOR_TARGET_DISTRIBUTION"
+    ]
+  },
+  "outcome": {
+    "authority": "ENVIRONMENT",
+    "target": "A pull request cannot merge into main on a base it was never verified against, so what deploys is what verify passed on.",
+    "observation": "",
+    "status": "NOT_MEASURED",
+    "evidence_refs": []
+  },
+  "learning": {
+    "decision_delta": "R-21 is no longer the row it is written as. Live authority narrows it from main is unprotected to one unset boolean, which turns an owner design decision about rulesets into a single toggle plus one verification run.",
+    "claim_updates": [
+      "docs/MASTER_PRODUCT_DEBT.md R-21 basis, GitHub reports main protected: false, is stale against live authority as of 2026-09-06T11:10Z and must not be used to re-open controls the ruleset already enforces.",
+      "An audit run recording a live read is evidence about the ruleset, not evidence that the ruleset changed. The gap stays open until a later run reads strict=true.",
+      "Reading live authority through the Action is available to this session; writing to it is not."
+    ],
+    "resource_delta": "This session cannot read or write GitHub repository settings directly: api.github.com is blocked by egress policy and the tool surface exposes no ruleset operation. The Pre-release Gap Audit Action is the only live-authority reader available, and it is read-only by construction.",
+    "next_move": "Owner enables Require branches to be up to date before merging on the active main ruleset, then dispatches Pre-release Gap Audit with target broad-public and confirms A-RELEASE-STALE-PR is absent from the report.",
+    "stop_or_continue": "WAIT_AUTHORITY"
+  }
+}

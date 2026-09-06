@@ -1,0 +1,60 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-FIELD-INSTRUMENT-001",
+  "decision": {
+    "statement": "Make no code change for F-HUMAN-CORE. The frozen acquisition instrument is operationally runnable end to end on the current candidate, so the remaining material uncertainty is FIELD-owned and further repository work on it cannot change the broad-public release decision.",
+    "decision_owner": "RND",
+    "resolution_authority": "FIELD",
+    "evidence_refs": [
+      "ereztash/lichess_app docs/ACQUISITION_PROTOCOL_V1.md sections 1 to 6, frozen 2026-09-03",
+      "ereztash/lichess_app docs/ACQUISITION_EVIDENCE.md section 15, definition of acquisition-ready",
+      "ereztash/lichess_app docs/VALUE_CLARITY_FIELD_PROTOCOL.md, Recruitment package: Ready to run. Nothing below requires another build."
+    ],
+    "reversal_condition": "A recruited participant cannot reach a first decision on either entry route, which the field protocol names as a liveness defect that pauses the trial rather than a comprehension finding."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Recover the frozen field and acquisition protocol, then test whether it can be executed end to end on the current candidate without any repository change.",
+    "completed_action": "Recovered the frozen protocol and its recruitment package. Installed and built the candidate at main@7c13887. Walked the protocol's three frozen clauses in a real Chromium against the built assets with the shipped engine not intercepted: 2 files, 9 tests, all pass. Ran the invariant gates: 35 of 35 pass, including GATE-CONTINUATION-IS-A-MOVE and GATE-REACHABILITY. Compared the production alias against the local build. Confirmed the ledger handover surface exists and prints the trial events verbatim. Changed no product code.",
+    "status": "COMPLETED",
+    "artifact_refs": [
+      "research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md",
+      "ereztash/lichess_app tests/layout/the-loop-a-stranger-can-close.layout.test.ts",
+      "ereztash/lichess_app tests/layout/a-stranger-takes-their-first-decision.layout.test.ts",
+      "ereztash/lichess_app scripts/run_gates.ts",
+      "ereztash/lichess_app client/src/components/SelfCheck.tsx"
+    ]
+  },
+  "verified_state": {
+    "authority": "ENVIRONMENT",
+    "expected_state": "The deployment a recruiter would send a stranger to serves the same build the protocol walk exercised, and answers.",
+    "observed_state": "GET https://lichessapp.vercel.app/ returns 200. GET /api/health returns 200 with ok true and build.gitSha 7c13887e97f8619eb3e9256f09a102d79b9dda80, the same commit built and walked locally. The served assets/index-bhYxRjlo.js and assets/index-Cx-EEMoX.css are byte-identical to the local build (sha256 52a5f7240c8d3ccbc86234d125d73510cd41dc1d091eea724260da4c1ec65dc3 and 2dda9f526deae658e3eaca92aa4d22aba11799560adda4cba64ea2f2465fc45c). The scheduled deployed.yml run 152 against that origin on that commit passed at 2026-09-06T11:00Z with all three positive controls red-on-break, including the engine probe. A live in-browser walk of production was attempted from this session and could not run: Chromium's tunnels close mid-exchange through this session's egress relay for every host, example.com included, so this is an environment limit on the observer and not a finding about the app.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "https://github.com/ereztash/lichess_app/actions/runs/34028933804",
+      "https://lichessapp.vercel.app/api/health",
+      "research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "Real players producing the pre-engine decision record and the comprehension and continuation evidence the three arms specify.",
+    "observation": "",
+    "status": "FIELD_REQUIRED",
+    "evidence_refs": [
+      "ereztash/lichess_app docs/VALUE_CLARITY_FIELD_PROTOCOL.md, Numbers to hit before analysis starts",
+      "ereztash/lichess_app docs/ACQUISITION_PROTOCOL_V1.md section 4, event denominators"
+    ]
+  },
+  "learning": {
+    "decision_delta": "F-HUMAN-CORE stops being a repository question. Nothing in the tree blocks trial 1, so any further internal work on it would be work whose completion cannot change the current release decision.",
+    "claim_updates": [
+      "A green protocol walk is instrument runnability, not human evidence. The gap's criticality and its field-required authority are unchanged by this pass.",
+      "Byte-identical assets plus a green deployed-origin L6 run are not the same observation as a live in-browser walk of production. The substitute is narrower than the thing it stands in for, and is recorded as such.",
+      "The protocol's own stop condition, a participant who cannot reach a first decision on either route, is the reversal test. It is a field observation, not a test that can be added here."
+    ],
+    "resource_delta": "Chromium cannot reach the network through this session's egress relay, so live browser observation of any origin is unavailable in this environment. curl and the repository's own Actions runner answer narrower questions and were used instead.",
+    "next_move": "FIELD runs the frozen recruitment package: Arm A 5 to 8 cold, Arm B 5 to 8 cold with both reveal branches represented, Arm C 8 to 15, each Arm C participant carrying their ledger out by hand from the self-check drawer.",
+    "stop_or_continue": "STOP"
+  }
+}

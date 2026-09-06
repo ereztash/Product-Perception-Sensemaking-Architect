@@ -1,0 +1,25 @@
+{
+  "handoff_id": "HANDOFF-LICHESS-ENV-002",
+  "from_agent": "RND",
+  "to_agent": "ENVIRONMENT",
+  "live_claim_id": "A-RELEASE-STALE-PR",
+  "question": "Does the active GitHub ruleset on ereztash/lichess_app main set strict_required_status_checks_policy=true, so a pull request cannot merge on a base it was never verified against?",
+  "why_peer_is_needed": "Supersedes HANDOFF-LICHESS-ENV-001, which assumed this session could verify the change once the audit reached main. The audit is now canonical on main and dispatchable, but this session can neither edit nor read the ruleset and cannot dispatch the audit: every /repos path returns HTTP 403 from the session egress policy, and a workflow dispatch returns 403 Resource not accessible by integration. Both the action and its verification are the owner's.",
+  "current_evidence_refs": [
+    "runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-002.json",
+    "runtime/execution_traces/DEL-LICHESS-AUDIT-PROMOTION-001.json",
+    "https://github.com/ereztash/lichess_app/actions/runs/34029146340",
+    "ereztash/lichess_app .github/workflows/pre-release-audit.yml on main"
+  ],
+  "current_claim_state": "UNRESOLVED",
+  "resolution_authority": "ENVIRONMENT",
+  "requested_return": "Two steps, in order. First: Settings, Rules, Rulesets, the active ruleset targeting main, the Require status checks to pass rule, tick Require branches to be up to date before merging, and save. Change nothing else. Second: Actions, Pre-release Gap Audit, Run workflow on main with target broad-public. Return the run id, the candidate SHA it audited, whether A-RELEASE-STALE-PR appears in the report, and the blocker count.",
+  "must_not_infer": [
+    "Do not treat strict=false as the current value. It was true of the 11:10Z reading and no newer read exists; only the dispatched run establishes what is in force now.",
+    "Do not close the gap because the toggle was clicked. The audit must re-read the live ruleset and show the gap absent.",
+    "Do not widen the change. Pull request, non-fast-forward and required verify are already in force and are not being redesigned.",
+    "Do not read a green audit as ready for broad-public on its own. F-HUMAN-CORE remains a separate P1 under FIELD and is expected to keep the verdict at NOT_READY.",
+    "Do not read the audit's red check on a pull request as a failing change. It is the workflow reporting real blockers."
+  ],
+  "stop_condition": "Stop when a Pre-release Gap Audit run against the current candidate reports no A-RELEASE-STALE-PR gap, or when the owner records in writing that strict required status checks are declined and why. If a run after the change still reads strict=false, investigate only that mismatch: the toggle landed on a different or inactive ruleset."
+}

@@ -1,0 +1,55 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-AUDIT-PROMOTION-001",
+  "decision": {
+    "statement": "Promote the Pre-release Gap Audit from a work branch to the canonical default branch of ereztash/lichess_app, so the pre-distribution check is dispatchable against any candidate instead of existing only where it was authored.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "REPO",
+    "evidence_refs": [
+      "https://github.com/ereztash/lichess_app/pull/93",
+      "verify check success on head ec73ecc, run 34029146321",
+      "ereztash/lichess_app docs/PRE_RELEASE_AUDIT.md"
+    ],
+    "reversal_condition": "The audit produces a gap classification that a live authority contradicts, or its own PR-scoped trigger makes unrelated product pull requests permanently red."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Re-read the pull request's live state, and if verify is green against current main with no unresolved review thread, mark it ready for review and merge it through the repository's protected flow.",
+    "completed_action": "Re-read #93 on head ec73ecc: base 7c13887 equal to current main, verify success, l6 skipped by design for a preview, no review threads, one Vercel bot comment. The audit check itself was red, which is the workflow exiting non-zero because verified broad-public blockers exist rather than a defect in the change, and it is not a required status check. Marked ready for review and merged with a merge commit.",
+    "status": "COMPLETED",
+    "artifact_refs": [
+      "https://github.com/ereztash/lichess_app/commit/07ccd11aaa9d41ed700f5096d4fc536e8394d869",
+      ".github/workflows/pre-release-audit.yml on lichess_app main",
+      "scripts/pre-release-audit.mjs on lichess_app main",
+      "docs/PRE_RELEASE_AUDIT.md on lichess_app main"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "The audit workflow, its script and its research contract exist on the default branch, and the workflow is registered and declares workflow_dispatch with a distribution-target input.",
+    "observed_state": "lichess_app main is 07ccd11aaa9d41ed700f5096d4fc536e8394d869. All three files are present on main. The workflow is registered as id 351492931, path .github/workflows/pre-release-audit.yml, state active. The merged file declares workflow_dispatch with a target choice input defaulting to broad-public.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "git ls-tree of lichess_app origin/main",
+      "GitHub Actions workflow listing for ereztash/lichess_app",
+      "git show origin/main:.github/workflows/pre-release-audit.yml"
+    ]
+  },
+  "outcome": {
+    "authority": "ENVIRONMENT",
+    "target": "A pre-distribution audit can be run on demand against any candidate revision, so a release decision is made against a current reading rather than a remembered one.",
+    "observation": "",
+    "status": "NOT_MEASURED",
+    "evidence_refs": []
+  },
+  "learning": {
+    "decision_delta": "The audit stops being an artifact of the branch that authored it. A release decision can now be re-derived on demand by whoever holds dispatch, which is what makes the ENVIRONMENT gap verifiable at all.",
+    "claim_updates": [
+      "A red audit check on a pull request is the audit reporting the repository's real blockers, not a failing change. Treating it as a merge blocker would make the audit unpromotable until the field trial it is waiting for has finished, which is circular.",
+      "The merge moved main and therefore invalidated the previous candidate SHA. Any audit reading older than 07ccd11 is a reading about a revision that is no longer the candidate."
+    ],
+    "resource_delta": "The canonical workflow is dispatchable, but not by this session: the connected GitHub integration is refused actions write, so a dispatch returns 403 Resource not accessible by integration.",
+    "next_move": "Owner dispatches Pre-release Gap Audit with target broad-public against main, after the ruleset toggle in HANDOFF-LICHESS-ENV-002.",
+    "stop_or_continue": "WAIT_AUTHORITY"
+  }
+}

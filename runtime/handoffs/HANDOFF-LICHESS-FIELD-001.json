@@ -1,0 +1,27 @@
+{
+  "handoff_id": "HANDOFF-LICHESS-FIELD-001",
+  "from_agent": "RND",
+  "to_agent": "FIELD",
+  "live_claim_id": "F-HUMAN-CORE",
+  "question": "Can a real player use the live decision-record loop and produce the core calibration, comprehension and continuation evidence the frozen protocol specifies?",
+  "why_peer_is_needed": "The instrument is runnable and the candidate is deployed, so the only thing still missing is people. No test, automation, model run or retrospective record can supply it, and the product's own claim boundary says the live record has not met a real player.",
+  "current_evidence_refs": [
+    "ereztash/lichess_app docs/ACQUISITION_PROTOCOL_V1.md sections 1 to 6, frozen 2026-09-03",
+    "ereztash/lichess_app docs/ACQUISITION_EVIDENCE.md sections 3, 4, 5, 8 and 15",
+    "ereztash/lichess_app docs/VALUE_CLARITY_FIELD_PROTOCOL.md, Recruitment package",
+    "runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json",
+    "research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md",
+    "https://github.com/ereztash/lichess_app/actions/runs/34028933804"
+  ],
+  "current_claim_state": "INSUFFICIENT_REALITY",
+  "resolution_authority": "FIELD",
+  "requested_return": "Run the frozen recruitment package unchanged: Arm A 5 to 8 cold, Arm B 5 to 8 cold with at least two process branches and at least one outplayed or silence branch, Arm C 8 to 15. Return one row per participant per the protocol's per-participant reconstruction, each Arm C row being the browser ledger copied out by hand from the self-check drawer, and the raw text of Arm A and Arm B answers verbatim.",
+  "must_not_infer": [
+    "A rendered reveal is not a read one, and a clean DOM is not comprehension.",
+    "Continuation is not satisfaction, and a stop is not a rejection while R-23 leaves its cause unobservable.",
+    "The funnel is not a rate over arrivals: handover compliance is in every denominator because the ledger is handed over voluntarily.",
+    "Do not edit sections 1 to 6 of the protocol during the trial. A change needs ACQUISITION_PROTOCOL_V2.md and a statement of which trial-1 numbers stay comparable.",
+    "Do not substitute automated, model-generated or retrospective data for a participant."
+  ],
+  "stop_condition": "Stop and pause the trial if a participant cannot reach a first decision on either entry route, which is a liveness defect and not a comprehension finding. Otherwise stop when the arm counts are met and the rows are recorded, and hand the analysis back with the preregistered thresholds unmoved."
+}
