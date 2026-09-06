@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - run/product-value-completion-2026-09-06
+      - claude/product-value-completion-run-if7ito
   workflow_dispatch:
 
 permissions:
@@ -12,7 +13,7 @@ permissions:
 jobs:
   calibration:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,8 +23,27 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Assert adapter credential is present
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "${OPENAI_API_KEY}" ]; then
+            echo "BLOCKER: repository secret OPENAI_API_KEY is absent or empty in the Actions environment."
+            echo "This is an ENVIRONMENT authority blocker, not a research result."
+            exit 1
+          fi
+          echo "OPENAI_API_KEY is present (name only; value never printed)."
+
       - name: Validate calibration task
         run: python scripts/validate_calibration_task.py fixtures/calibration-product-value-completion-2026-09-06.json
+
+      - name: Repository contract suite
+        run: |
+          python scripts/check_contract.py
+          python scripts/check_research_contract.py
+          python scripts/check_rnd_contract.py
+          python scripts/check_canonical_state.py
+          python scripts/check_calibration_loop.py
 
       - name: Execute live calibration loop
         env:
@@ -34,6 +54,9 @@ jobs:
           CALIBRATION_NETA_REASONING_EFFORT: high
           CALIBRATION_SCAFFOLD_REASONING_EFFORT: high
           CALIBRATION_RND_WEB_SEARCH: '1'
+          OPENAI_MAX_OUTPUT_TOKENS: '32000'
+          CALIBRATION_RND_MAX_OUTPUT_TOKENS: '48000'
+          OPENAI_TIMEOUT_SECONDS: '1500'
         run: |
           python runtime/calibration_loop/run.py \
             fixtures/calibration-product-value-completion-2026-09-06.json \
