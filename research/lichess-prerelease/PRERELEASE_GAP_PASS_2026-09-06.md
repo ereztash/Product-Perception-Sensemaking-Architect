@@ -177,3 +177,99 @@ NOT_READY_FOR_BROAD_PUBLIC
 - A recruited participant who cannot reach a first decision on either entry route reopens the second
   as a repository liveness defect rather than a field question. That is the field protocol's own stop
   condition, and it is the reversal test for the no-code-change decision recorded here.
+
+---
+
+# Pass 2, same day: the governance actions
+
+Status: `TWO_DEPOSITS_CANONICAL, ENVIRONMENT_STILL_OWNER_ONLY`
+
+Pass 1 ended with two handoffs and no landed action. Pass 2 executed the two actions that were
+actually available, and established that the third is further out of reach than pass 1 recorded.
+
+## 6. The R&D deposit is canonical
+
+`ereztash/Product-Perception-Sensemaking-Architect` PR #15 was re-read on head `51c0c1a`: the
+`contract` check green, no review threads, `mergeable_state: clean`, base unmoved at `51d8b2a`.
+Marked ready for review and merged.
+
+Landed: `main` = `75ebdf8457d988dc5fd378c2e63253d43d293a01`, carrying both traces, both handoffs, the
+pass record, the CI step and the canonical-state section. A trace left on a work branch is not a
+deposit, and this repository's own rule is that `main` is the only canonical source.
+
+## 7. The audit is canonical in lichess_app
+
+`ereztash/lichess_app` PR #93 was re-read on head `ec73ecc`: base `7c13887` equal to current `main`,
+so already verified against it. `verify` green. `l6` skipped, which is the deployed workflow declining
+a preview by design. No review threads; the single comment is the Vercel bot.
+
+**The `audit` check on that PR was red, and it was merged anyway.** That check is the audit exiting
+non-zero because verified `broad-public` blockers exist, which is the workflow doing its job on a
+repository that has two open P1s. It is not a required status check, and treating it as a merge
+blocker would make the audit unpromotable until the field trial it is waiting for has finished. That
+is circular, and the workflow's own header says so.
+
+Landed: `lichess_app main` = `07ccd11aaa9d41ed700f5096d4fc536e8394d869`. The workflow is registered as
+id `351492931`, state active, and the merged file declares `workflow_dispatch` with a
+`target` choice input.
+
+### The merge moved the candidate, so the field evidence was re-verified rather than assumed
+
+Production redeployed and now reports `build.gitSha 07ccd11`. The served
+`assets/index-bhYxRjlo.js` and `assets/index-Cx-EEMoX.css` are **byte-identical** to the build that
+the green protocol walk exercised on `7c13887`, and `deployed.yml` run
+[154](https://github.com/ereztash/lichess_app/actions/runs/34035289334) passed on `07ccd11` with all
+three positive controls green, engine probe included.
+
+So the walk carries forward exactly, not by inference. A changed client byte would have required
+re-running the walk instead.
+
+## 8. `A-RELEASE-STALE-PR`: the block is bigger than pass 1 recorded
+
+Pass 1 recorded a missing write permission. Pass 2 re-probed rather than assumed, and found a missing
+read as well.
+
+| probe | result |
+| --- | --- |
+| `GET /user` | 200, `ereztash` |
+| `GET /repos/ereztash/lichess_app` | 403, session egress policy |
+| `GET /repos/ereztash/lichess_app/branches/main/protection` | 403 |
+| `GET /repos/ereztash/lichess_app/rulesets` | 403 |
+| dispatch `pre-release-audit.yml` on `main` | 403, `Resource not accessible by integration` |
+| connected GitHub tool surface | still exposes no ruleset operation |
+
+The credential is fine and the block is on repository API paths. Promoting the audit removed the
+workflow-availability obstacle and not the permission one: **capability present and capability
+reachable are different states.**
+
+**Consequence for the loop.** Verification is no longer a follow-up this system can perform after the
+owner acts. It is part of the handoff. `HANDOFF-LICHESS-ENV-002.json` supersedes `001` for exactly
+that reason, and `001` is retained rather than rewritten.
+
+**And the current value of the flag is unknown here.** `strict=false` was true of the 11:10Z reading.
+No newer read exists. Asserting it as current would be the documentation-over-authority error the
+audit's own external-authority rule forbids.
+
+## 9. Task 4 was not executed
+
+The canonical audit could not be dispatched from this session. It was not worked around: the audit's
+`pull_request` trigger fires on changes to its own three files, so a no-op commit touching one of them
+would have produced a run. That is a code workaround for a missing permission, and it would also have
+been pointless, because the flag it needs to read has not been changed yet.
+
+## 10. State after pass 2
+
+```text
+PPSA main            75ebdf8   deposit canonical
+lichess_app main     07ccd11   audit canonical, dispatchable by the owner
+A-RELEASE-STALE-PR   ENVIRONMENT   open; owner acts AND owner verifies
+F-HUMAN-CORE         FIELD          runnable on 07ccd11; run sheet issued
+P2                                  not activated
+```
+
+Release disposition is still `NOT_READY_FOR_BROAD_PUBLIC`, and that is the correct answer rather than
+a failure of the pass. Both remaining blockers now sit with the authority that owns them, which was
+the purpose.
+
+The FIELD handoff is operational at
+[`FIELD_RUN_SHEET_TRIAL1.md`](FIELD_RUN_SHEET_TRIAL1.md). No frozen protocol section was modified.
