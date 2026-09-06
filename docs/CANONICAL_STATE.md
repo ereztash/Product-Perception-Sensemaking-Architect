@@ -45,8 +45,11 @@ Only branches carrying a live, unfinished experiment may remain ahead of `main`:
 |---|---|---|
 | `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | blocked, see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
 | `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object | `FAILED_EXECUTION`, no adapter credential in environment |
+| `claude/lichess-prerelease-gaps-qvlbv5` | external-target pre-release pass, PR 15 | open, CI green, holds two execution traces and two peer handoffs |
 
-Neither branch holds a research result. Both hold experiment inputs and an unexecuted protocol. If either produces a durable trace or outcome, that artifact belongs on `main`.
+Neither experiment branch holds a research result. Both hold experiment inputs and an unexecuted protocol. If either produces a durable trace or outcome, that artifact belongs on `main`.
+
+`claude/lichess-prerelease-gaps-qvlbv5` is different: it does hold durable artifacts, and they belong on `main`. It opened in parallel with this reconciliation and edits two of the same files. The collision and its resolution are recorded in `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`, section 12.
 
 ---
 

@@ -212,3 +212,38 @@ PR 14 based on current canonical state                 yes, retargeted onto main
 Architecture benchmark failure classified              environment/execution blocker
 contract CI                                            green
 ```
+
+## 12. Parallel work that opened during this pass
+
+`claude/lichess-prerelease-gaps-qvlbv5` (PR 15) was pushed at 12:52 UTC on 2026-09-06, after the Phase 0 snapshot was taken. It is one commit, based on current `main`, CI green.
+
+It carries durable artifacts that belong on `main`:
+
+- `runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json` — `WAIT_AUTHORITY`, ENVIRONMENT;
+- `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json` — `STOP`, FIELD;
+- `runtime/handoffs/HANDOFF-LICHESS-ENV-001.json`;
+- `runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json`;
+- `research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md`.
+
+They are the first real `DECISION → EXECUTION → VERIFIED STATE → OUTCOME → LEARNING` traces against an external product target, and they count toward the 10-15 traces required before an execution capability becomes eligible.
+
+### Collision
+
+Both pull requests edit two files:
+
+| File | PR 15 | PR 16 |
+|---|---|---|
+| `docs/CANONICAL_STATE.md` | adds an "External-target execution traces" section after the execution-contract section | rewrites the whole file around an explicit status vocabulary |
+| `.github/workflows/verify.yml` | adds a step validating the two lichess traces, after the Architecture corpus step | adds a step running the canonicalization invariants, after the Neta finding step |
+
+The workflow edits are in different regions and should merge cleanly. The `CANONICAL_STATE.md` edits will conflict, because PR 16 rewrote the surrounding text.
+
+### Resolution
+
+The two changes are semantically compatible. Neither raises a status, and PR 15's section documents artifacts PR 16 does not mention.
+
+Recommended order: **merge PR 15 first, then PR 16.** PR 16 then resolves one conflict by re-inserting PR 15's "External-target execution traces" section verbatim, under the rewritten Decision → Execution → Learning heading.
+
+The reverse order also works but is worse: it would put a `CANONICAL_STATE.md` on `main` that references trace and handoff files not yet present, which is exactly the dangling-reference failure this reconciliation exists to remove.
+
+PR 15's content was deliberately **not** copied into PR 16. Copying the documentation without the data files it references would create that dangling reference, and PR 15 is another author's open work.
