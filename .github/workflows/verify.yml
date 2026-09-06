@@ -33,6 +33,7 @@ jobs:
           scripts/validate_decision_trace.py
           scripts/check_architecture_historical_cases.py
           scripts/check_calibration_loop.py
+          scripts/check_canonical_state.py
           scripts/check_live_adapters.py
           runtime/calibration_loop/routing.py
           runtime/calibration_loop/adapters.py
@@ -42,6 +43,9 @@ jobs:
 
       - name: Validate canonical Neta finding
         run: python scripts/validate_finding.py fixtures/valid-finding.json
+
+      - name: Run repository canonicalization invariants
+        run: python scripts/check_canonical_state.py
 
       - name: Run Neta agent contract and positive controls
         run: python scripts/check_contract.py

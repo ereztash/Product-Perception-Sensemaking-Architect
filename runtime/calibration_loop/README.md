@@ -124,11 +124,17 @@ export CALIBRATION_RND_WEB_SEARCH=1
 
 Do not enable web search merely to increase source volume. The R&D telos remains decision-changing learning, not research accumulation.
 
-### First live task: Architecture Agent
+### Reference task: CAL-ARCH-001
 
-`fixtures/calibration-valid-task.json` is the first intended live transfer task (`CAL-ARCH-001`):
+`fixtures/calibration-valid-task.json` is the first live transfer task and is retained as the reference example:
 
-> What is the smallest evidence-backed Architecture Agent capability and evaluation contract worth building next?
+> What is the smallest evidence-backed architecture capability and evaluation contract worth building next?
+
+It has already been executed manually. Its trace is
+`runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md`, and it produced a material
+decision change: do not define an autonomous architecture agent, first test whether a distinct
+architecture-specific decision capability adds value beyond R&D + Scaffold + REPO/ENVIRONMENT
+evidence. Current status of that question is in `docs/CANONICAL_STATE.md`.
 
 Run it with:
 
