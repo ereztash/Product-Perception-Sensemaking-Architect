@@ -1,0 +1,47 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "DR-PREFLIGHT-WHITEPAPER-002",
+  "telos": {
+    "statement": "Use the canonical R&D Agent to calibrate the already-frozen external research plan for the commercial White Paper decision about Neta and the R&D Agent, before any external research is executed.",
+    "success_condition": "Identify the decision-controlling uncertainty, remove or demote low-value research, add missing decision-changing branches, order the remaining research by expected decision value, and specify a stopping rule that minimizes epistemic spend without weakening the commercial decision."
+  },
+  "current_state": {
+    "summary": "FROZEN BASELINE DR_PLAN_0 (persisted verbatim at research/deep-research-preflight/DR_PLAN_0.json): Decision: determine the commercially defensible White Paper story for Neta — Product Perception & Sensemaking — and the R&D Agent — Research / Evidence / Decision Calibration, including buyer, concrete problem, urgency trigger, input, output, changed decision/action, defensible claims, and field-dependent claims. Claims to resolve: C1 buyer problem; C2 distinct value mechanism beyond generic LLM/prompt quality; C3 concrete input→transformation→output→action chain; C4 economic/operational value; C5 urgency/purchase triggers; C6 direct competitors and substitutes including generic Deep Research, research copilots, product/feedback intelligence, analysts, consultants and manual workflows; C7 commercial wedge/business model; C8 claim limits between repository evidence and FIELD evidence. Research questions: buyer roles owning costly signal-interpretation/research-prioritization/evidence-to-action bottlenecks; actual jobs of current alternatives; where generic Deep Research/research copilots stop; costs of poor framing/proxy substitution/premature build/duplicated research/decision latency; urgent purchase moments; legible input/output contract; decision-changing value metrics; defensible repository-only claims versus human evidence; separate products versus paired system; smallest market-facing wedge. Planned branches and expected decision value: B1 buyer/job VERY_HIGH; B2 alternatives VERY_HIGH; B3 input-output-action HIGH; B4 economic value HIGH; B5 trigger/urgency HIGH; B6 business model MEDIUM; B7 claim boundary VERY_HIGH. Planned evidence families: primary vendor; buyer/practitioner; academic/empirical; market/analyst; repository-internal. Baseline stopping condition: stop when each material commercial conclusion is supported enough to choose among live alternatives, falsified, or classified FIELD/OWNER-dependent such that more desk research will not change buyer/problem/trigger/differentiation/value mechanism/claim boundary/next field test. External research has NOT yet been executed.",
+    "known_constraints": [
+      "Do not perform external web research during this preflight run.",
+      "Do not treat repository coherence or same-model agreement as field validation.",
+      "The purpose is to improve the research allocation decision, not to generate more questions or sources.",
+      "Preserve a clean baseline: DR_PLAN_0 was frozen in the repository before this task was committed.",
+      "Measure material R&D delta against the frozen plan; do not rewrite the baseline retroactively.",
+      "Prefer the cheapest evidence capable of changing a material commercial conclusion.",
+      "OWNER/FIELD authority ceilings must remain explicit."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "Which parts of DR_PLAN_0 should actually be executed, in what order, and what missing research branch—if any—has higher decision value than the current plan for determining the commercial White Paper story?",
+    "current_default": "Execute DR_PLAN_0 as frozen: prioritize buyer/job, alternatives, and claim-boundary research; then input/output/action, economic value, trigger/urgency, and finally business model; stop when marginal research no longer changes a material commercial conclusion.",
+    "reversal_condition": "R&D identifies a missing or misframed uncertainty with greater expected decision value, a planned branch whose answer cannot change the decision, a branch owned by FIELD/OWNER rather than desk research, or a cheaper sequence that reaches the same commercial decision with less epistemic spend."
+  },
+  "signals": [
+    "The requested output is not the White Papers themselves but a decision about the evidence-backed commercial story and claim boundary for two products.",
+    "The repository already contains internal runtime, traces, evaluations, benchmarks, authority rules, product research, and question-discovery evidence; external research should complement rather than duplicate internal evidence.",
+    "A central commercial risk is confusing capability evidence with buyer value or field outcome evidence.",
+    "A central research risk is spending effort on market-size, pricing, or competitor breadth before the buyer/problem/value wedge is discriminated.",
+    "A central product-architecture question is whether Neta and R&D should be sold separately, together, or as capabilities within one decision-support system.",
+    "The external research phase should only begin after this R&D preflight trace is complete and DR_PLAN_1 is frozen."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [
+    "research/deep-research-preflight/DR_PLAN_0.json",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "docs/CANONICAL_STATE.md",
+    "research/rnd-agent/README.md",
+    "research/question-discovery/SESSION_2026-09-06_QUESTION_REFRAMING_LINEAGE.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
