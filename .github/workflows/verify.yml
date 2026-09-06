@@ -39,6 +39,7 @@ jobs:
           runtime/calibration_loop/adapters.py
           runtime/calibration_loop/openai_resource_adapter.py
           runtime/calibration_loop/openai_rnd_adapter.py
+          runtime/calibration_loop/claude_cli_adapter.py
           runtime/calibration_loop/run.py
 
       - name: Validate canonical Neta finding
