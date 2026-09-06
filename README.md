@@ -1,16 +1,20 @@
 # Evidence-Bounded Peer-Agent System
 
-This repository contains a peer-agent architecture under one shared epistemic constitution.
-
-## Canonical rule
+Two peer agents under one shared epistemic constitution, with a deterministic coordination runtime and no orchestrator.
 
 > **`main` is the only source of truth.**
 
-Historical branches are lineage only. No decision-relevant research result, prompt rule, contract or runtime may live only on a side branch.
+No decision-relevant research result, prompt rule, contract or runtime may live only on a side branch. Full component state lives in `docs/CANONICAL_STATE.md`; this file is the short map.
 
-See `docs/REPOSITORY_MAP.md` for the canonical repository map and branch policy.
+## 1. Telos
 
-## System architecture
+> **Remove material uncertainty from consequential decisions while preserving the lineage needed to understand, challenge, reverse and reuse what was learned.**
+
+The unit of progress is **material uncertainty removed from a live decision**. Not code written, sources collected, instruments built, agents added or prompts expanded.
+
+Full statement: `docs/ECOSYSTEM_TELOS.md`.
+
+## 2. Current architecture
 
 ```text
                          OWNER / TELOS
@@ -19,33 +23,19 @@ See `docs/REPOSITORY_MAP.md` for the canonical repository map and branch policy.
                     deterministic routing
                     /                 \
                  NETA                 R&D
-          product/design         resource↔telos
-           sensemaking            calibration
+           product/design        resource↔telos
+            sensemaking           calibration
                     \                 /
                  SHARED EPISTEMIC KERNEL
-                    constitution only
-
-External resource when useful:
-SCAFFOLD = broad reasoning borrowed, not ground truth
+                              |
+                 DECISION→EXECUTION TRACE
+                              |
+                    REPO / ENV / FIELD
 ```
 
-Neta and R&D are peers. Call order does not create hierarchy.
+Neta and R&D are peers. Call order does not create hierarchy. `SCAFFOLD` is external broad reasoning borrowed when cheaper than internalizing; it is not ground truth.
 
-A learned Orchestrator is **not built**. It must be justified by repeated coordination failures that the deterministic Calibration Loop cannot handle cheaply.
-
-## Shared unit of progress
-
-> **Progress = material uncertainty removed from a live decision.**
-
-Not code written, sources collected, instruments created, agents added or prompts expanded.
-
-## Shared Epistemic Kernel
-
-The shared kernel carries cross-agent constraints such as:
-
-`Claim → Evidence → Reality → Resolution Authority → Requested Use → Permission → Reversal / Stop`
-
-Key files:
+The shared kernel carries `Claim → Evidence → Reality → Resolution Authority → Requested Use → Permission → Reversal / Stop`. Resolution authorities are `OWNER`, `REPO`, `ENVIRONMENT`, `RESEARCH`, `FIELD`.
 
 - `docs/SHARED_EPISTEMIC_KERNEL.md`
 - `docs/AGENT_AUTHORITY_BOUNDARIES.md`
@@ -54,146 +44,138 @@ Key files:
 - `schemas/epistemic-claim.schema.json`
 - `schemas/peer-handoff.schema.json`
 
-Resolution authorities are `OWNER`, `REPO`, `ENVIRONMENT`, `RESEARCH`, and `FIELD`.
+## 3. Neta
 
-## Peer 1 — Neta
-
-Neta turns raw product/design intuition into a bounded distinction without letting interpretation outrun evidence.
+Turns raw product/design intuition into a bounded distinction without letting interpretation outrun evidence.
 
 ```text
-RAW SIGNAL
-→ CONCRETE MOMENT
-→ OBSERVABLE
-→ COMPETING MECHANISMS
-→ CHEAP DISCRIMINATOR
-→ DESIGN DISTINCTION
-→ INTERVENTION / DEFER / FIELD
+RAW SIGNAL → CONCRETE MOMENT → OBSERVABLE → COMPETING MECHANISMS
+→ CHEAP DISCRIMINATOR → DESIGN DISTINCTION → INTERVENTION / DEFER / FIELD
 ```
 
-Canonical files:
-
-- `prompts/SYSTEM.md` — frozen v0.1 prompt comparator
-- `docs/NETA_ASSURANCE_THESIS.md`
-- `docs/METHOD.md`
-- `schemas/finding.schema.json`
-- `eval/CAPABILITY_UPDATE_GATE_V1.md`
+- method: v0.2 assurance re-foundation;
+- prompt: **frozen v0.1** at `prompts/SYSTEM.md`. No core prompt update has been earned;
+- promotion gate: `eval/CAPABILITY_UPDATE_GATE_V1.md`;
+- GitHub Wave 1: closed at saturation, 0 prompt updates;
+- Hebrew H1 and H2: frozen, awaiting an independent holdout/annotation authority.
 
 Neta is not a research authority and cannot manufacture FIELD evidence.
 
-## Peer 2 — R&D
+## 4. R&D
 
-R&D now has two intentionally separate versions:
+Three states, held apart on purpose.
 
 ### v0.1 — frozen comparator
 
-Research-continuity focused:
-
 `LIVE CLAIM → RECOVER → REUSE/ADAPT/BUILD → RUN → DEPOSIT → CLAIM DISPOSITION → STOP/HANDOFF`
 
-Files:
+`prompts/RND_AGENT_V0_1.md`, `research/RND_AGENT_CHARTER_V0_1.md`, `eval/rnd-agent/`.
 
-- `prompts/RND_AGENT_V0_1.md`
-- `research/RND_AGENT_CHARTER_V0_1.md`
-- `schemas/rnd-research-task.schema.json`
-- `eval/rnd-agent/`
+### v0.2 broad — implementation candidate
 
-### v0.2 — candidate telos
-
-Not yet promoted as validated.
+What the system runs today. Not validated by being used.
 
 > **Improve the fit between system resources and the live telos, given the actual current state.**
 
+`prompts/RND_AGENT_V0_2_CANDIDATE.md`, `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`.
+
+### Narrow scope — research hypothesis only
+
 ```text
-TELOS
-+ CURRENT STATE
-+ AVAILABLE RESOURCES
-→ BOTTLENECK / MISCALIBRATION
-→ CANDIDATE RESOURCE MOVES
-→ CHEAPEST DECISION-CHANGING LEARNING
-→ OBSERVED DELTA
-→ RECALIBRATE
-→ UPDATED STATE
+CONSEQUENTIAL DECISION × NONTRIVIAL EPISTEMIC ALLOCATION → R&D CORE CANDIDATE
 ```
 
-Files:
+Frozen for testing at `CONFIRMATORY_N = 0`. It has not replaced the broad formulation. See section 6.
 
-- `prompts/RND_AGENT_V0_2_CANDIDATE.md`
-- `research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md`
+## 5. Calibration Loop
 
-Research is one instrument of R&D, not its top-level telos.
-
-## Calibration Loop
-
-`runtime/calibration_loop/` is the current coordination layer.
-
-It is deliberately **not an agent**.
+`runtime/calibration_loop/` is the coordination layer. It is deliberately **not an agent**.
 
 ```text
-TASK
- ↓
-R&D DIAGNOSE
- ↓
-DETERMINISTIC ROUTING
+TASK → R&D DIAGNOSE → DETERMINISTIC ROUTING
  ├─ NETA       only on discrimination/proxy/intervention triggers
  ├─ SCAFFOLD   only when broad reasoning is worth borrowing
  └─ OWNER/REPO/ENVIRONMENT/FIELD handoff when required
- ↓
-R&D SYNTHESIZE
- ↓
-TRACE + RESOURCE DELTAS + LEARNING RECORD
+→ R&D SYNTHESIZE → TRACE + RESOURCE DELTAS + LEARNING RECORD
 ```
 
-Key files:
+The runner may record a proposed routing change. It may not self-modify the routing law from one attractive case. It stops at `PENDING_RESOURCE`, `AUTHORITY_STOP` or `FAILED_EXECUTION` rather than fabricate an answer.
 
-- `runtime/calibration_loop/run.py`
-- `runtime/calibration_loop/routing.py`
-- `runtime/calibration_loop/README.md`
-- `schemas/calibration-task.schema.json`
-- `fixtures/calibration-valid-task.json`
-- `scripts/check_calibration_loop.py`
+`schemas/calibration-task.schema.json`, `scripts/check_calibration_loop.py`, `fixtures/calibration-valid-task.json`.
 
-The runner may record a proposed routing change. It may not self-modify the routing law from one attractive case.
+## 6. Active hypotheses
 
-## Repository structure
+Each is frozen, testable and unpromoted.
+
+| Hypothesis | Status | What would settle it |
+|---|---|---|
+| R&D value concentrates at consequential decision × nontrivial epistemic allocation | `CONFIRMATORY_N = 0`, all five regions `UNKNOWN` | admissible cases judged blind by an independent model lineage or qualified human |
+| The Architecture Decision Discriminator adds material delta over the strongest composed baseline | `UNIQUE_DELTA_NOT_SHOWN` | the protocol-conforming clean A/B, then unseen HOLDOUT |
+| The real residual is a structural transition contract, not an architecture decision-maker | `STRONGEST_NEW_RESIDUAL_CANDIDATE` | a frozen baseline-vs-challenger test on 8-12 natural structural-change traces |
+
+Nothing in this table may be cited as a finding.
+
+## 7. Active experiments
+
+| Experiment | Branch | State |
+|---|---|---|
+| Architecture clean A/B | `research/architecture-clean-ab-2026-09-06` (PR 14) | `EXECUTION_BLOCKED` — no explicit Copilot model available in the Actions environment; the frozen protocol stopped rather than substituting `auto` |
+| Live Calibration Loop run on an external prompt telos | `run/claude-prerelease-prompt-telos-2026-09-06` | `FAILED_EXECUTION` — no live adapter credential in the environment |
+
+Both are execution/environment blockers, not research results. Diagnosis: `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md`.
+
+## 8. What is explicitly not built
+
+Learned Orchestrator. Third peer. Architecture Agent. Execution Agent. Requirements Agent. Decision Support capability.
+
+Each is `NOT_EARNED` with a written condition that would change that, listed in `docs/CANONICAL_STATE.md`. Broad agent discovery is closed at saturation: `research/agent-discovery/AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md`.
+
+"We can build it" is never sufficient permission.
+
+## 9. Where current truth lives
 
 ```text
-docs/       canonical architecture, authority, method and repository map
-prompts/    frozen/candidate agent prompts and scaffold prompts
-schemas/    shared + peer + runtime contracts
-runtime/    executable coordination/adapters/traces
-research/   current research lineage and syntheses
-eval/       independent agent evaluation/promotion lanes
-fixtures/   test cases
-scripts/    executable validators and CI checks
+docs/       canonical architecture, authority, state and repository map
+prompts/    frozen and candidate agent prompts
+schemas/    shared, peer and runtime contracts
+runtime/    executable coordination, adapters and traces
+research/   non-canonical research programs and syntheses
+eval/       frozen benchmarks, promotion gates and scoring
+fixtures/   test inputs
+scripts/    validators and CI checks
 memory/     bounded owner-language priors
-archive/    historical lineage only; never current authority
+archive/    superseded history and reconciliation records
 ```
 
-## Branch policy
+Read in this order:
 
-- `main` = only canonical long-lived branch.
-- work branches = temporary, one named purpose.
-- before retirement, useful artifacts must be merged to `main` or archived under `archive/`.
-- branch existence never proves current runnability or authority.
+1. `docs/CANONICAL_STATE.md` — what is true now, and at what evidence status;
+2. `docs/REPOSITORY_MAP.md` — where things belong and the branch policy;
+3. `docs/SHARED_EPISTEMIC_KERNEL.md` — the constitution;
+4. `CLAUDE.md` — working rules for changing any of it.
 
-The 2026-09-05 branch consolidation is documented at:
+Nothing under `research/` is canonical. Nothing under `archive/` is current authority.
 
-- `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`
+### Branch policy
 
-## Current next experiment
+- `main` is the only long-lived authoritative branch;
+- work branches are temporary and carry one named purpose;
+- before retirement, decision-relevant artifacts must be merged to `main` or copied under `archive/`;
+- a branch that exists proves nothing about runnability or authority.
 
-`CAL-ARCH-001` asks:
+Consolidation records: `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md` and `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`.
 
-> **What is the smallest evidence-backed Architecture Agent capability and evaluation contract worth building next?**
+## Verify
 
-The intended first pass is manual/independent:
+```bash
+python scripts/check_contract.py
+python scripts/check_research_contract.py
+python scripts/check_rnd_contract.py
+python scripts/check_canonical_state.py
+```
 
-1. R&D v0.2 diagnosis;
-2. Neta pass without seeing the other outputs;
-3. scaffold pass without seeing the other outputs;
-4. R&D synthesis of the deltas;
-5. only then decide whether an Architecture Agent capability is earned.
+CI runs the full contract suite in `.github/workflows/verify.yml`.
 
-## Current status
+---
 
-**ONE CANONICAL MAIN · TWO PEERS · SHARED EPISTEMIC KERNEL · DETERMINISTIC CALIBRATION LOOP · R&D v0.2 CANDIDATE · ORCHESTRATOR DEFERRED.**
+**ONE CANONICAL MAIN · TWO PEERS · SHARED EPISTEMIC KERNEL · DETERMINISTIC CALIBRATION LOOP · R&D v0.2 CANDIDATE · ARCHITECTURE CANDIDATE CAPABILITY · CONFIRMATORY_N = 0 · ORCHESTRATOR DEFERRED.**
