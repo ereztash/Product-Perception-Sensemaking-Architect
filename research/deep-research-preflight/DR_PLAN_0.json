@@ -1,0 +1,171 @@
+{
+  "plan_id": "DR_PLAN_0",
+  "frozen_at_repo_sha_before_plan": "d8ed7bbdae6740e65fdedff973484a0ddf34d31c",
+  "decision": "Determine the commercially defensible White Paper story for Neta — Product Perception & Sensemaking — and the R&D Agent — Research / Evidence / Decision Calibration — including who should buy each product, what concrete problem and trigger create urgency, what goes in and comes out, what decision/action changes, what can be claimed now, and what must remain field-dependent.",
+  "claims_to_resolve": [
+    {
+      "id": "C1_BUYER_PROBLEM",
+      "claim": "There is a sufficiently costly and recognizable buyer problem for each product that is narrower than generic 'better AI/research'.",
+      "decision_if_resolved": "ICP, opening problem statement, and whether Neta and R&D should share or separate commercial narratives."
+    },
+    {
+      "id": "C2_VALUE_MECHANISM",
+      "claim": "Neta and R&D create distinguishable decision value through mechanisms that are not merely prompt quality or generic LLM reasoning.",
+      "decision_if_resolved": "Product category, differentiation, proof burden, and core White Paper argument."
+    },
+    {
+      "id": "C3_INPUT_OUTPUT_ACTION",
+      "claim": "Each product has a concrete input → transformation → output → changed decision/action chain that a buyer can understand and evaluate.",
+      "decision_if_resolved": "Product description, workflow diagram, demo contract, and adoption surface."
+    },
+    {
+      "id": "C4_ECONOMIC_VALUE",
+      "claim": "The value can be connected to economic or operational consequences such as research waste avoided, decision latency reduced, false-build risk reduced, or better allocation of scarce expert attention.",
+      "decision_if_resolved": "ROI story, pricing logic, and which value claims are admissible versus speculative."
+    },
+    {
+      "id": "C5_TRIGGER_URGENCY",
+      "claim": "There are identifiable moments when the problem becomes urgent enough to seek a solution rather than tolerate the status quo.",
+      "decision_if_resolved": "Sales trigger, wedge use case, and demand-generation framing."
+    },
+    {
+      "id": "C6_ALTERNATIVES_COMPETITION",
+      "claim": "The relevant alternatives include both direct software competitors and substitutes such as generic Deep Research, research copilots, product/feedback intelligence tools, internal analysts, consultants, and manual workflows.",
+      "decision_if_resolved": "Competitive set, differentiation table, and whether the category is existing, adjacent, or must be constructed."
+    },
+    {
+      "id": "C7_BUSINESS_MODEL",
+      "claim": "A plausible commercial wedge and business model can be inferred from buyer ownership, workflow frequency, implementation burden, and value capture.",
+      "decision_if_resolved": "Initial packaging, pricing hypothesis, service/software boundary, and go-to-market motion."
+    },
+    {
+      "id": "C8_CLAIM_LIMITS",
+      "claim": "Repository evidence can support some product-capability and decision-delta claims, while human/field outcome claims require a higher reality floor.",
+      "decision_if_resolved": "What the White Paper may state now, what must be labeled hypothesis, and what evidence program is required for v2."
+    }
+  ],
+  "research_questions": [
+    "Which buyer roles repeatedly own decisions where signal interpretation, mechanism discrimination, research prioritization, or evidence-to-action calibration are costly bottlenecks?",
+    "What current products or workflows do those buyers use, and what job do they actually hire them for?",
+    "Where do generic Deep Research and research copilots stop: source retrieval, synthesis, recommendation, decision calibration, resource allocation, or field validation?",
+    "What evidence exists that poor research framing, proxy substitution, premature intervention/build, duplicated research, or decision latency create meaningful cost?",
+    "Which purchase triggers make these problems urgent: strategic bet, product discovery, AI transformation, high-stakes research, ambiguous user feedback, failed prior research, executive decision, audit/governance requirement, or repeated rework?",
+    "What input/output contract would make Neta and R&D legible enough to compare with existing alternatives?",
+    "Which value metric would actually change a buying decision, and which attractive metrics would not?",
+    "What claims can be defended from repository traces/evals alone and which require independent external or human evidence?",
+    "Should the commercial story present Neta and R&D as separate products, a paired decision system, or one product with two distinct capabilities?",
+    "What is the smallest market-facing wedge that can be tested before building broader integrations or platform machinery?"
+  ],
+  "proposed_external_searches": [
+    {
+      "branch": "BUYER_JOB",
+      "queries": [
+        "product research decision making user feedback synthesis pain product managers AI research workflow",
+        "strategy research decision intelligence evidence synthesis executive workflow pain",
+        "AI transformation research prioritization decision support enterprise"
+      ]
+    },
+    {
+      "branch": "COMPETITOR_SUBSTITUTE",
+      "queries": [
+        "AI deep research enterprise product research tools decision intelligence research copilot 2026",
+        "product feedback intelligence AI tools product managers 2026",
+        "decision intelligence platform evidence research synthesis competitors"
+      ]
+    },
+    {
+      "branch": "ECONOMIC_COST",
+      "queries": [
+        "cost of poor product decisions rework research waste software product management",
+        "decision latency cost executives research analysis",
+        "product discovery false positive build waste evidence"
+      ]
+    },
+    {
+      "branch": "TRIGGERS",
+      "queries": [
+        "when companies buy product research tools AI research platform buying trigger",
+        "enterprise decision intelligence use cases product strategy research"
+      ]
+    },
+    {
+      "branch": "BUSINESS_MODEL",
+      "queries": [
+        "decision intelligence SaaS pricing research platform enterprise pricing",
+        "AI research copilot pricing enterprise product research software"
+      ]
+    },
+    {
+      "branch": "CLAIM_BOUNDARY",
+      "queries": [
+        "evaluation of AI research agents factual reliability decision support human studies",
+        "LLM decision support calibration evidence human evaluation research agents"
+      ]
+    }
+  ],
+  "evidence_families": [
+    {
+      "family": "PRIMARY_VENDOR",
+      "use": "Current product positioning, workflows, features, pricing, target users, and documented case studies from competitor/substitute vendors.",
+      "limitations": "Vendor claims do not independently establish outcome causality."
+    },
+    {
+      "family": "BUYER_AND_PRACTITIONER",
+      "use": "Current buyer pain, adoption patterns, workflow friction, and language from practitioner communities, interviews, surveys, or credible practitioner publications.",
+      "limitations": "Anecdotal evidence needs triangulation and may overrepresent vocal users."
+    },
+    {
+      "family": "ACADEMIC_AND_EMPIRICAL",
+      "use": "Mechanism evidence around decision quality, information overload, research framing, LLM reliability, human-AI decision support, and evaluation.",
+      "limitations": "Transfer to the exact product and commercial setting must not be assumed."
+    },
+    {
+      "family": "MARKET_AND_ANALYST",
+      "use": "Category structure, budgets, enterprise adoption, and market language when supported by transparent methodology.",
+      "limitations": "Market-size estimates and analyst categories are often definition-sensitive and should not drive the product story by themselves."
+    },
+    {
+      "family": "REPOSITORY_INTERNAL",
+      "use": "Product mechanism, runtime contracts, benchmark traces, decision deltas, authority boundaries, and current evidence ceiling.",
+      "limitations": "Internal coherence and internal evals are not field outcome evidence."
+    }
+  ],
+  "research_branches": [
+    {
+      "branch": "B1_BUYER_JOB",
+      "expected_decision_value": "VERY_HIGH",
+      "conclusion_it_can_change": "Who the first buyer is, whether the two products have the same ICP, and the White Paper opening problem."
+    },
+    {
+      "branch": "B2_ALTERNATIVES",
+      "expected_decision_value": "VERY_HIGH",
+      "conclusion_it_can_change": "Whether differentiation is credible and what category/comparison frame is valid."
+    },
+    {
+      "branch": "B3_INPUT_OUTPUT_ACTION",
+      "expected_decision_value": "HIGH",
+      "conclusion_it_can_change": "Whether the product is legible as a workflow tool versus an abstract reasoning capability."
+    },
+    {
+      "branch": "B4_ECONOMIC_VALUE",
+      "expected_decision_value": "HIGH",
+      "conclusion_it_can_change": "ROI story, pricing anchor, and which value claim deserves prominence."
+    },
+    {
+      "branch": "B5_TRIGGER_URGENCY",
+      "expected_decision_value": "HIGH",
+      "conclusion_it_can_change": "Wedge, sales timing, and go-to-market entry point."
+    },
+    {
+      "branch": "B6_BUSINESS_MODEL",
+      "expected_decision_value": "MEDIUM",
+      "conclusion_it_can_change": "Packaging/pricing hypothesis after buyer/job/value are resolved."
+    },
+    {
+      "branch": "B7_CLAIM_BOUNDARY",
+      "expected_decision_value": "VERY_HIGH",
+      "conclusion_it_can_change": "What may be stated as evidence-backed in the White Paper now versus what must remain hypothesis or FIELD-required."
+    }
+  ],
+  "current_stopping_condition": "Stop external research when every material commercial conclusion has either (a) sufficient independent evidence to choose among the live alternatives, (b) been falsified, or (c) been classified as FIELD/OWNER-dependent such that more desk research is unlikely to change the decision. Stop a branch earlier when additional evidence is unlikely to change buyer, problem, trigger, differentiation, value mechanism, claim boundary, or next field test. Do not research merely to increase source count."
+}

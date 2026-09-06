@@ -1,0 +1,79 @@
+name: R&D Deep Research Preflight
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/deep-research-preflight/*.task.json'
+
+permissions:
+  contents: read
+
+jobs:
+  run-rnd:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || vars.OPENAI_API_KEY || secrets.OPENAI_KEY || vars.OPENAI_KEY }}
+      OPENAI_MODEL: gpt-5.6-sol
+      OPENAI_REASONING_EFFORT: high
+      CALIBRATION_RND_WEB_SEARCH: '0'
+      CALIBRATION_NETA_WEB_SEARCH: '0'
+      CALIBRATION_SCAFFOLD_WEB_SEARCH: '0'
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Resolve changed calibration task
+        id: task
+        shell: bash
+        run: |
+          set -euo pipefail
+          TASK="$(git diff-tree --no-commit-id --name-only -r HEAD | grep '^research/deep-research-preflight/.*\.task\.json$' | tail -n 1)"
+          test -n "$TASK"
+          echo "task=$TASK" >> "$GITHUB_OUTPUT"
+          echo "Resolved task: $TASK"
+
+      - name: Verify live adapter credential
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${OPENAI_API_KEY:-}"
+          echo "Live adapter credential is present"
+
+      - name: Validate task contract
+        shell: bash
+        run: python scripts/validate_calibration_task.py "${{ steps.task.outputs.task }}"
+
+      - name: Run canonical live Calibration Loop
+        id: run
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="runtime/execution_traces/DR-${GITHUB_SHA}.json"
+          echo "out=$OUT" >> "$GITHUB_OUTPUT"
+          python runtime/calibration_loop/run.py \
+            "${{ steps.task.outputs.task }}" \
+            --config runtime/calibration_loop/openai-config.example.json \
+            --strict \
+            --output "$OUT"
+
+      - name: Print execution trace
+        if: always()
+        shell: bash
+        run: |
+          OUT="runtime/execution_traces/DR-${GITHUB_SHA}.json"
+          if [ -f "$OUT" ]; then
+            cat "$OUT"
+          fi
+
+      - name: Upload execution trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-trace-${{ github.sha }}
+          path: runtime/execution_traces/DR-${{ github.sha }}.json
+          if-no-files-found: warn
