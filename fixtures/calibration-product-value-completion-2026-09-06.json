@@ -1,0 +1,65 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-PRODUCT-VALUE-001",
+  "telos": {
+    "statement": "Maximize the product value of the Neta + R&D system relative to credible current alternatives, without weakening evidence discipline or building capabilities that have not been earned.",
+    "success_condition": "Produce an ordered, evidence-bounded execution program that identifies the highest-leverage product gaps, the cheapest admissible moves that can close them, the proof required before each larger investment, and explicit stop/reversal conditions. The output must distinguish repository-known gaps from market/field uncertainties and must not promote a new agent or capability without evidence."
+  },
+  "current_state": {
+    "summary": "The canonical repository contains two peers (Neta and R&D), a shared epistemic kernel, a deterministic Calibration Loop runtime with live OpenAI adapters, decision-execution-learning traces, frozen evaluation gates, and explicit authority boundaries. PR #16 restored main as the canonical source of truth. Neta is a canonical method with a frozen prompt; R&D broad v0.2 is an implementation candidate while its narrower scope remains a confirmation-blocked research hypothesis at CONFIRMATORY_N=0. Architecture, Orchestrator, Execution Agent, Requirements Agent, and a third peer are not earned. The live Calibration Loop has previously failed in GitHub Actions because OPENAI_API_KEY was absent from the Actions environment.",
+    "known_constraints": [
+      "Do not treat same-model agreement as independent confirmation.",
+      "Do not promote R&D narrow scope; CONFIRMATORY_N remains 0 unless admissible independent evidence exists.",
+      "Do not alter the frozen Neta prompt without its promotion gate.",
+      "Do not build a new agent, orchestrator, or architecture capability merely to match competitors.",
+      "Separate repository authority from market/field authority.",
+      "Prefer reversible, decision-changing moves over feature accumulation.",
+      "The requested outcome is a product-value completion plan, not a generic competitor feature checklist."
+    ],
+    "available_resources": [
+      "RND",
+      "NETA",
+      "SCAFFOLD",
+      "OWNER",
+      "REPO",
+      "ENVIRONMENT",
+      "FIELD"
+    ]
+  },
+  "decision_blocked": {
+    "statement": "What should be built, tested, exposed, integrated, or deliberately not built next so that the existing Neta + R&D repository captures as much defensible product value as possible relative to credible alternatives?",
+    "current_default": "Do not expand the architecture. First identify the smallest sequence of changes that converts existing decision/evidence capability into externally usable and provable value.",
+    "reversal_condition": "Reverse this default only if admissible evidence shows that a specific missing capability, integration, or architectural layer creates more decision value than exposing and validating the existing system."
+  },
+  "signals": [
+    "The task is moving from repository research into a concrete build/investment program.",
+    "Several plausible mechanisms may explain the product-value gap: missing user access, missing runtime reliability, missing integrations, missing proof, missing workflow fit, or a genuinely missing capability.",
+    "A competitor comparison can create proxy-substitution risk if parity features are mistaken for user value.",
+    "Current market facts may be needed, but external claims must remain separate from repository facts.",
+    "The resulting plan should maximize marginal value per unit of implementation and evidence cost."
+  ],
+  "allowed_resources": [
+    "RND",
+    "NETA",
+    "SCAFFOLD",
+    "OWNER",
+    "REPO",
+    "ENVIRONMENT",
+    "FIELD"
+  ],
+  "context_refs": [
+    "README.md",
+    "docs/CANONICAL_STATE.md",
+    "docs/ECOSYSTEM_TELOS.md",
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "prompts/SYSTEM.md",
+    "runtime/calibration_loop/README.md",
+    "eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md"
+  ],
+  "budget": {
+    "max_resource_calls": 6,
+    "max_parallel_calls": 2
+  }
+}
