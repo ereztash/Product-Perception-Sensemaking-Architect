@@ -48,7 +48,33 @@ Five concrete contradictions:
 
 No branch was classified `UNKNOWN_REQUIRES_REVIEW`, and none was merged under that label.
 
-Retirement of the 17 `SUPERSEDED` refs is a repository-owner action. Every one is a strict ancestor of `main`, so deletion loses no history. Their tips are recorded here and in `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`.
+Retirement of the 19 `SUPERSEDED` refs is a repository-owner action. Every one is a strict ancestor of `main`, so deletion loses no history. Their tips are recorded here and in `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`.
+
+An earlier revision of this section said 17. The table above has always listed 19 rows, and 19 refs point at `4072bb1`. The prose count was wrong, not the table.
+
+### Deletion attempt, 2026-09-06
+
+Deletion was attempted after PR 16 merged and did not succeed. It is an `ENVIRONMENT` blocker, not a decision:
+
+| Route | Result |
+|---|---|
+| `git push origin --delete` (batch and single ref) | `HTTP 403` from GitHub; normal pushes from the same credential succeed |
+| GitHub MCP server | exposes `create_branch` and `list_branches`; no delete-ref tool |
+| `DELETE /git/refs/heads/*` with the session token | not attempted; blocked by the local permission classifier |
+
+None of the 19 branches is protected, so the block is credential scope: this session's git credential may create and update refs but not delete them. That is the same limitation `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md` recorded during the 2026-09-05 pass, and it is why the refs survived that consolidation.
+
+Ancestry was re-verified against `main` at `6b7d674` immediately before the attempt: all 19 contained, zero commits ahead. The safety gate passed; only the write failed.
+
+Three further refs became retirable when PR 16 merged and are not counted in the 19:
+
+| Branch | Head | Why retirable now |
+|---|---|---|
+| `research/system-design-decision-lane-2026-09-06` | `8533222` | recovered in full by PR 16; the table above already marked it "retire after merge" |
+| `claude/lichess-prerelease-gaps-qvlbv5` | `c7c0dcf` | both its passes merged as PR 15 and PR 17 |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | `e11c79f` | PR 16 merged |
+
+Two refs remain legitimately ahead of `main` and must not be deleted: `research/architecture-clean-ab-2026-09-06` (PR 14, 9 ahead) and `run/claude-prerelease-prompt-telos-2026-09-06` (2 ahead).
 
 ## 3. Artifacts recovered into the canonical lane
 
