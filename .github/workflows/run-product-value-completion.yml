@@ -1,0 +1,59 @@
+name: Live Product Value Completion Calibration
+
+on:
+  push:
+    branches:
+      - run/product-value-completion-2026-09-06
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate calibration task
+        run: python scripts/validate_calibration_task.py fixtures/calibration-product-value-completion-2026-09-06.json
+
+      - name: Execute live calibration loop
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-5.6-sol
+          OPENAI_REASONING_EFFORT: high
+          CALIBRATION_RND_REASONING_EFFORT: high
+          CALIBRATION_NETA_REASONING_EFFORT: high
+          CALIBRATION_SCAFFOLD_REASONING_EFFORT: high
+          CALIBRATION_RND_WEB_SEARCH: '1'
+        run: |
+          python runtime/calibration_loop/run.py \
+            fixtures/calibration-product-value-completion-2026-09-06.json \
+            --config runtime/calibration_loop/openai-config.example.json \
+            --strict \
+            --output runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json
+
+      - name: Print trace
+        if: always()
+        run: |
+          if [ -f runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json ]; then
+            cat runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json
+          else
+            echo 'trace not produced'
+          fi
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CAL-PRODUCT-VALUE-001
+          path: runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json
+          if-no-files-found: warn
