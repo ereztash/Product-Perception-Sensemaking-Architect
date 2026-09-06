@@ -247,3 +247,23 @@ Recommended order: **merge PR 15 first, then PR 16.** PR 16 then resolves one co
 The reverse order also works but is worse: it would put a `CANONICAL_STATE.md` on `main` that references trace and handoff files not yet present, which is exactly the dangling-reference failure this reconciliation exists to remove.
 
 PR 15's content was deliberately **not** copied into PR 16. Copying the documentation without the data files it references would create that dangling reference, and PR 15 is another author's open work.
+
+### Outcome
+
+The recommended order held. PR 15 merged at 13:09 UTC (`main` = `75ebdf8`) and a second pass, PR 17, merged at 13:23 UTC (`main` = `e6f770e`) before this branch had integrated the first. Both were taken in one merge rather than two, so the conflict was resolved once against final state.
+
+What actually happened:
+
+| File | Result |
+|---|---|
+| `.github/workflows/verify.yml` | auto-merged as predicted; the canonicalization invariant step and all five lichess trace validations are present |
+| `docs/CANONICAL_STATE.md` | conflicted as predicted; the rewritten structure was kept and `main`'s "External-target execution traces" section re-inserted verbatim under the rewritten heading |
+
+PR 17 expanded the section PR 15 introduced: five traces instead of two, a second ENVIRONMENT handoff superseding the first, a field run sheet, and three recalibrations instead of one. The expanded version is what was carried across, byte-identical to `main`.
+
+Two follow-on edits were required because the merge made this branch's own text false:
+
+- the `claude/lichess-prerelease-gaps-qvlbv5` row was removed from the Active branches table, since the branch is no longer ahead of `main`;
+- the collision note now records the merge rather than predicting it.
+
+No status moved on either side. All ten lichess artifacts are byte-identical to `main`, all 43 recovered research artifacts remain present, and the frozen prompt blobs are unchanged.
