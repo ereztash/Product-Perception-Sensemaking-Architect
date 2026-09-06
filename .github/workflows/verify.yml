@@ -64,6 +64,11 @@ jobs:
       - name: Validate real Architecture corpus execution trace
         run: python scripts/validate_decision_trace.py runtime/execution_traces/DEL-ARCH-CORPUS-001.json
 
+      - name: Validate lichess pre-release execution traces
+        run: |
+          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json
+          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json
+
       - name: Check Architecture historical benchmark corpus
         run: python scripts/check_architecture_historical_cases.py
 

@@ -1,0 +1,23 @@
+{
+  "handoff_id": "HANDOFF-LICHESS-ENV-001",
+  "from_agent": "RND",
+  "to_agent": "ENVIRONMENT",
+  "live_claim_id": "A-RELEASE-STALE-PR",
+  "question": "Does the active GitHub ruleset on ereztash/lichess_app main set strict_required_status_checks_policy=true, so a pull request cannot merge on a base it was never verified against?",
+  "why_peer_is_needed": "The truth and the fix both live in repository settings. This session can read that authority only through the Pre-release Gap Audit Action and cannot write to it: api.github.com is refused by the session egress policy, the connected tool surface exposes no ruleset operation, and an Actions GITHUB_TOKEN cannot carry repository-administration write.",
+  "current_evidence_refs": [
+    "https://github.com/ereztash/lichess_app/actions/runs/34029146340",
+    "runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json",
+    "ereztash/lichess_app scripts/pre-release-audit.mjs githubRulesetGaps()"
+  ],
+  "current_claim_state": "UNRESOLVED",
+  "resolution_authority": "ENVIRONMENT",
+  "requested_return": "Enable Require branches to be up to date before merging on the required-status-checks rule of the active main ruleset, leaving the pull-request, non-fast-forward and verify rules as they are. Then dispatch the Pre-release Gap Audit workflow with target broad-public and return the run link plus whether A-RELEASE-STALE-PR appears in the report.",
+  "must_not_infer": [
+    "Do not read the debt register R-21 as current: its basis, GitHub reports main protected: false, is stale. Live authority shows pull request, non-fast-forward and required verify already enforced.",
+    "Do not treat a documentation edit, a screenshot or this handoff as closure. Only a later live read closes the gap.",
+    "Do not widen the change. The other three controls are already in force and re-designing the ruleset is not what this gap asks for.",
+    "Do not read the fix as sufficient for broad-public on its own. F-HUMAN-CORE remains a separate P1 under FIELD."
+  ],
+  "stop_condition": "Stop when a Pre-release Gap Audit run against the intended candidate reports no A-RELEASE-STALE-PR gap, or when the owner records in writing that strict required status checks are declined and why."
+}
