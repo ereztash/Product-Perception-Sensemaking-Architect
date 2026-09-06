@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  copilot-requests: write
 
 jobs:
   contract:
@@ -82,12 +83,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      ARCH_BENCH_MODEL: gpt-5.6-sol
-      ARCH_BENCH_JUDGE_MODEL: gpt-5.6-sol
-      ARCH_BENCH_REASONING_EFFORT: high
-      ARCH_BENCH_JUDGE_EFFORT: high
-      OPENAI_TIMEOUT_SECONDS: '240'
+      ARCH_BENCH_ENGINE: copilot
+      ARCH_COPILOT_MODEL: auto
+      COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN || github.token }}
     steps:
       - name: Checkout isolated benchmark branch
         uses: actions/checkout@v4
@@ -96,6 +94,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Install latest Copilot CLI
+        run: npm install -g @github/copilot
 
       - name: Compile and validate frozen inputs
         run: |
