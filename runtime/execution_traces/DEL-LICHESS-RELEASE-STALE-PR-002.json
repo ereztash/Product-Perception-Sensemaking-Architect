@@ -1,0 +1,47 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-RELEASE-STALE-PR-002",
+  "decision": {
+    "statement": "Stop the A-RELEASE-STALE-PR environment action here. This session can neither apply the ruleset change nor read the ruleset to verify it, so both halves of the loop belong to the owner and no repository substitute may be built for either.",
+    "decision_owner": "RND",
+    "resolution_authority": "ENVIRONMENT",
+    "evidence_refs": [
+      "runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json",
+      "runtime/handoffs/HANDOFF-LICHESS-ENV-001.json"
+    ],
+    "reversal_condition": "This session is granted repository administration and Actions write, or a later Pre-release Gap Audit run reads strict_required_status_checks_policy=true."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Set strict_required_status_checks_policy from false to true on the active main ruleset, preserving the other three rules, then dispatch the canonical Pre-release Gap Audit with target broad-public and confirm the gap is absent.",
+    "completed_action": "Neither half executed. Authority was re-probed rather than assumed: every /repos/ereztash/lichess_app path tested returns HTTP 403 from the session egress policy, the repository root and the branch-protection path included, so the ruleset cannot be read or written from here; the connected GitHub tool surface still exposes no ruleset operation; and a workflow dispatch of the now-canonical audit returns 403 Resource not accessible by integration, so the verification run is unavailable to this session as well. GET /user succeeds, which shows the block is on repository API paths and not on the credential.",
+    "status": "NOT_STARTED",
+    "artifact_refs": [
+      "runtime/handoffs/HANDOFF-LICHESS-ENV-002.json"
+    ]
+  },
+  "verified_state": {
+    "authority": "ENVIRONMENT",
+    "expected_state": "The active ruleset on main sets strict_required_status_checks_policy=true alongside the existing pull-request, non-fast-forward and required-verify rules.",
+    "observed_state": "Not readable from this session. The most recent live read remains the audit run at 2026-09-06T11:10Z, which reported strict false and the other three rules in force. No newer reading exists, so the current value is unknown here rather than known to be false.",
+    "status": "NOT_VERIFIED",
+    "evidence_refs": []
+  },
+  "outcome": {
+    "authority": "ENVIRONMENT",
+    "target": "A pull request cannot merge into main on a base it was never verified against.",
+    "observation": "",
+    "status": "NOT_MEASURED",
+    "evidence_refs": []
+  },
+  "learning": {
+    "decision_delta": "The gap is unchanged, and the shape of the block is now precise: it was previously read as a missing write permission, and it is a missing read as well. That removes the option of this session confirming the owner's change afterwards, and makes the verification run part of the handoff rather than a follow-up this session can perform.",
+    "claim_updates": [
+      "The 11:10Z reading of strict=false is a past observation, not a current fact. Asserting the current value without a new read would be exactly the documentation-over-authority error the audit's external-authority rule forbids.",
+      "Promoting the audit to main removed the workflow-availability obstacle but not the permission obstacle. Capability present and capability reachable are different states."
+    ],
+    "resource_delta": "This session holds no repository-scoped GitHub API access and no Actions write. Read authority for the ruleset now exists only inside a dispatched audit run, which only the owner can start.",
+    "next_move": "Owner performs both steps in runtime/handoffs/HANDOFF-LICHESS-ENV-002.json: the one-field ruleset change, then the audit dispatch that reads it back.",
+    "stop_or_continue": "WAIT_AUTHORITY"
+  }
+}

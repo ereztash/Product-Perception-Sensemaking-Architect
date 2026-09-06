@@ -1,0 +1,56 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-FIELD-INSTRUMENT-002",
+  "decision": {
+    "statement": "Carry the F-HUMAN-CORE no-code-change decision forward onto the new candidate 07ccd11 rather than re-deriving it, because the merge that moved main changed no client byte.",
+    "decision_owner": "RND",
+    "resolution_authority": "FIELD",
+    "evidence_refs": [
+      "runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json",
+      "runtime/execution_traces/DEL-LICHESS-AUDIT-PROMOTION-001.json",
+      "research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md"
+    ],
+    "reversal_condition": "A recruited participant cannot reach a first decision on either entry route, which the frozen field protocol names as a liveness defect that pauses the trial and moves the finding from FIELD back to REPO."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "After main moved, establish whether the runnability evidence measured on 7c13887 still describes the deployed candidate, without re-running the instrument and without touching product code.",
+    "completed_action": "Compared the production alias against the build that was walked. Production reports build.gitSha 07ccd11 and serves the same two asset filenames, whose sha256 digests are byte-identical to the local build of 7c13887 that the green walk exercised. The deployed-origin L6 run on 07ccd11 passed with all three positive controls green, including the engine probe. No product code was changed and the instrument was not re-run, because the bytes are the same bytes.",
+    "status": "COMPLETED",
+    "artifact_refs": [
+      "https://github.com/ereztash/lichess_app/actions/runs/34035289334",
+      "research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md"
+    ]
+  },
+  "verified_state": {
+    "authority": "ENVIRONMENT",
+    "expected_state": "The deployment a recruiter would send a stranger to serves the same client bundle the frozen protocol walk exercised, on the current candidate, and answers.",
+    "observed_state": "GET /api/health returns 200 with ok true and build.gitSha 07ccd11aaa9d41ed700f5096d4fc536e8394d869. The served assets/index-bhYxRjlo.js is sha256 52a5f7240c8d3ccbc86234d125d73510cd41dc1d091eea724260da4c1ec65dc3 and assets/index-Cx-EEMoX.css is sha256 2dda9f526deae658e3eaca92aa4d22aba11799560adda4cba64ea2f2465fc45c, both identical to the build walked on 7c13887. Deployed run 154 job l6 succeeded at 2026-09-06T13:11Z on 07ccd11.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "https://lichessapp.vercel.app/api/health",
+      "https://github.com/ereztash/lichess_app/actions/runs/34035289334",
+      "sha256 comparison of served assets against dist/public"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "Real players producing the pre-engine decision record and the comprehension and continuation evidence the three arms specify.",
+    "observation": "",
+    "status": "FIELD_REQUIRED",
+    "evidence_refs": [
+      "research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md",
+      "runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json"
+    ]
+  },
+  "learning": {
+    "decision_delta": "None. The decision is unchanged and is now attached to the current candidate instead of a superseded one, which is the difference between a live decision and a remembered one.",
+    "claim_updates": [
+      "A moved main does not by itself stale product evidence. Byte-identical client assets carry the walk forward exactly; a changed byte would not have, and would have required re-running the walk rather than re-reasoning about it.",
+      "Instrument runnability was re-verified, not re-asserted. The engine probe against the deployed origin is what distinguishes the two."
+    ],
+    "resource_delta": "Re-verifying a moved candidate cost two curl calls and one Actions read, because the build identity and the asset digests are both observable from outside. That is cheaper than re-running the walk and is the reason the checks exist.",
+    "next_move": "FIELD recruits the first cohort per research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md. No further repository work on this claim.",
+    "stop_or_continue": "STOP"
+  }
+}

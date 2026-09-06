@@ -180,12 +180,31 @@ This contract does **not** justify an Execution Agent. A distinct execution capa
 `ereztash/lichess_app` is an external product target worked through this contract rather than a component of this repository. Traces and peer handoffs from that work are canonical here; the product code is not.
 
 - `runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json` — `WAIT_AUTHORITY`, ENVIRONMENT;
+- `runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-002.json` — `WAIT_AUTHORITY`, supersedes the authority reading in `001`;
+- `runtime/execution_traces/DEL-LICHESS-AUDIT-PROMOTION-001.json` — `WAIT_AUTHORITY`, REPO action executed and verified;
 - `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json` — `STOP`, FIELD;
-- `runtime/handoffs/HANDOFF-LICHESS-ENV-001.json`;
+- `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-002.json` — `STOP`, the same decision carried onto the current candidate;
+- `runtime/handoffs/HANDOFF-LICHESS-ENV-001.json`, superseded by `HANDOFF-LICHESS-ENV-002.json`;
 - `runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json`;
-- `research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md` — the readable pass record.
+- `research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md` — the readable pass record;
+- `research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md` — the operational FIELD handoff for the first cohort.
 
-The pass produced one recalibration worth carrying: a debt-register row can be stale in the direction that overstates a gap, and only the live external authority settles which. See the pass record, section 2.
+Superseded artifacts are retained rather than rewritten. `HANDOFF-LICHESS-ENV-001` assumed this system could verify the ruleset change once the audit reached `main`; `002` records that it cannot, and why.
+
+Current external-target state, as of 2026-09-06:
+
+```text
+lichess_app main   07ccd11aaa9d41ed700f5096d4fc536e8394d869
+A-RELEASE-STALE-PR ENVIRONMENT   open, owner action + owner verification
+F-HUMAN-CORE       FIELD          instrument runnable, awaiting participants
+P2                                not activated
+```
+
+The pass produced three recalibrations worth carrying:
+
+1. A debt-register row can be stale in the direction that **overstates** a gap, and only the live external authority settles which. See the pass record, section 2.
+2. A capability being present on `main` and a capability being reachable by the agent that needs it are different states. Promoting the audit removed the first obstacle and not the second.
+3. A past live reading is not a current fact. `strict=false` was true at 11:10Z; without a newer read the current value is unknown, and asserting it would repeat the error the external-authority rule exists to prevent.
 
 ## First manual Calibration Loop run
 
