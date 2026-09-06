@@ -1,0 +1,49 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-CLAUDE-PRERELEASE-PROMPT-001",
+  "telos": {
+    "statement": "Maximize the probability that the next Claude execution session moves lichess_app from its audited pre-release state toward safe broad distribution by allocating work only to decision-relevant gaps, preserving evidence/authority boundaries, and stopping when FIELD or external authority owns the remaining uncertainty.",
+    "success_condition": "The prompt makes Claude close the highest-value code/configuration-owned gap first, prepare but never fabricate field evidence, rerun the pre-release audit after material changes, preserve WATCH/REFUTED items as non-work, and produce a changed release decision or an explicit authority handoff with minimal unnecessary build work."
+  },
+  "current_state": {
+    "summary": "lichess_app Pre-release Gap Audit Run #5 completed on the calibrated audit mechanism. The audit step succeeded and enforcement failed intentionally for broad-public. After fixing the audit's own refuted/deferred classification bug, two P1 blockers remain: A-RELEASE-STALE-PR (verified-now: required checks are not strict/up-to-date, so a PR may merge after main changed without being reverified against the new base) and F-HUMAN-CORE (field-required: code/browser evidence does not establish that a real person can complete the decision→reveal loop and obtain the intended decision/calibration evidence). Other debt is P2 or WATCH. R-08, R-18 and R-13 are WATCH only. R-14, R-15 and R-16 are REFUTED and must not return as debt. A draft Claude execution prompt currently sequences: fix release integrity; prepare existing field instrumentation; rerun audit; then consider P2 R-28/R-25/R-22/R-26/R-23/R-24 by ROI; explicitly forbids broad refactors, synthetic substitution for field evidence, and work on WATCH/REFUTED items.",
+    "known_constraints": [
+      "The object of work is lichess_app readiness for distribution, not improvement of the R&D repository itself.",
+      "Criticality outranks gap-pressure score; no global score may average away a P1.",
+      "verified-now external authority outranks stale repository assertions.",
+      "FIELD_REQUIRED cannot be closed by unit tests, browser automation, synthetic users, LLM simulation or retrospective corpora.",
+      "WATCH is not backlog and REFUTED is not a gap.",
+      "Reuse existing instrumentation and repairs before building new mechanisms.",
+      "One failure family per change unless two changes are causally the same mechanism.",
+      "After a material intervention, rerun the Pre-release Gap Audit and use observed delta to decide whether to continue.",
+      "Do not optimize Claude for producing code; optimize for material uncertainty removed from the release decision."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Is the current Claude action-plan prompt calibrated to this telos, and if not, what is the smallest prompt change that materially improves resource allocation, authority handoffs and stopping behavior before we send it to Claude?",
+    "current_default": "Current prompt baseline: (1) Baseline = Run #5, NOT_READY_FOR_TARGET_DISTRIBUTION, with P1 A-RELEASE-STALE-PR and F-HUMAN-CORE. (2) Phase 1: inspect live GitHub Ruleset and prefer the smallest release-integrity repair, ideally strict/up-to-date required checks; if authority is unavailable, report the exact external action and do not fake closure. (3) Phase 2: treat F-HUMAN-CORE as FIELD_REQUIRED; recover existing field protocols/instrumentation, add only minimal missing instrumentation, and stop once the code is ready for real human sessions; do not claim the gap fixed without human evidence. (4) Phase 3: rerun typecheck/build/full tests/gates/positive controls/bundle/pre-release audit and compare Before→After; do not begin P2 until both P1 states are explicit. (5) Phase 4: only then consider P2 R-28, R-25, R-22, R-26, R-23, R-24 by ROI and current deployment relevance. (6) NON-WORK: R-08/R-18/R-13 remain WATCH; R-14/R-15/R-16 remain REFUTED; no Home.tsx rewrite, no broad architecture cleanup, no synthetic substitute for field evidence. (7) Working rules: one failure family per PR; authority external > repo assertion; FIELD_REQUIRED is not code debt; WATCH is not backlog; REFUTED is not a gap; no new global score; no refactor without causal link. (8) Definition of done: finding→intervention→new evidence→changed audit result, with explicit code/field/external ownership of what remains.",
+    "reversal_condition": "Change the prompt only if the calibration run identifies a concrete way in which the current baseline misallocates Claude's effort, conflates evidence authority, creates proxy compliance, omits a cheaper decision-changing move, or fails to stop at the correct authority boundary."
+  },
+  "signals": [
+    "The current prompt may over-specify later P2 work before the first post-P1 audit reveals whether those items still matter.",
+    "A-RELEASE-STALE-PR is a live external-configuration fact and may require OWNER/ENVIRONMENT authority rather than code changes.",
+    "F-HUMAN-CORE is a field-owned uncertainty; asking Claude to make code 'ready for 5–8 sessions' may itself invite unnecessary instrumentation if the existing frozen trial is already executable.",
+    "The audit mechanism has already demonstrated a proxy-risk failure: it initially counted REFUTED debt as active gaps, so prompt compliance must not substitute for current evidence.",
+    "The desired output from Claude is not a large implementation plan; it is the cheapest sequence that changes the release decision and then recalibrates."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/PEER_HANDOFF_PROTOCOL.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "prompts/SYSTEM.md",
+    "prompts/SCAFFOLD_RESOURCE_V0_1.md"
+  ],
+  "budget": {
+    "max_resource_calls": 5,
+    "max_parallel_calls": 2
+  }
+}
