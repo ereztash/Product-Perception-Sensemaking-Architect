@@ -222,11 +222,13 @@ Neta H1 has no valid run. A native-Hebrew authority must author or sample the ho
 
 Authority: `OWNER` / `FIELD`.
 
-### B5 — 17 superseded refs cannot be deleted from this session
+### B5 — 19 superseded refs cannot be deleted from this session
 
-They are strict ancestors of `main` and lose no history, but retiring them is a repository-owner action.
+They are strict ancestors of `main` and lose no history. Retirement is blocked by the session's egress proxy, which refuses `DELETE /git/refs/heads/*` and the equivalent `git push --delete`; see "Deletion attempt, 2026-09-06" in section 2 for the evidence and the owner command.
 
-Authority: `OWNER`.
+Counting note: 19 refs carry the `SUPERSEDED` classification from the capture snapshot. Two more became retirable after PR 16 merged, so the owner command in section 2 covers 21. The reconciliation branch itself is a twenty-second candidate but is excluded while PR 18 is open.
+
+Authority: `OWNER`, unblocked only from outside this proxy.
 
 B1, B2 and B3 are the same family: the repository can specify admissible evidence but cannot currently generate it. That is an honest stop, not a defect in any hypothesis.
 
