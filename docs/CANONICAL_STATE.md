@@ -175,6 +175,18 @@ Its invariant is that `action completed ≠ verified state ≠ measured outcome 
 
 This contract does **not** justify an Execution Agent. A distinct execution capability must be earned by recurring failures across real traces that protocol/tool handoff cannot handle cheaply.
 
+## External-target execution traces
+
+`ereztash/lichess_app` is an external product target worked through this contract rather than a component of this repository. Traces and peer handoffs from that work are canonical here; the product code is not.
+
+- `runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json` — `WAIT_AUTHORITY`, ENVIRONMENT;
+- `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json` — `STOP`, FIELD;
+- `runtime/handoffs/HANDOFF-LICHESS-ENV-001.json`;
+- `runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json`;
+- `research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md` — the readable pass record.
+
+The pass produced one recalibration worth carrying: a debt-register row can be stale in the direction that overstates a gap, and only the live external authority settles which. See the pass record, section 2.
+
 ## First manual Calibration Loop run
 
 `CAL-ARCH-001` was executed manually on 2026-09-05 without API/model adapters.
