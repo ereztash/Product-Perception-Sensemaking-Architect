@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || vars.OPENAI_API_KEY || secrets.OPENAI_KEY || vars.OPENAI_KEY }}
       OPENAI_MODEL: gpt-5.6-sol
       OPENAI_REASONING_EFFORT: high
       CALIBRATION_RND_WEB_SEARCH: '0'
@@ -36,12 +36,12 @@ jobs:
           echo "task=$TASK" >> "$GITHUB_OUTPUT"
           echo "Resolved task: $TASK"
 
-      - name: Verify live adapter secret
+      - name: Verify live adapter credential
         shell: bash
         run: |
           set -euo pipefail
           test -n "${OPENAI_API_KEY:-}"
-          echo "OPENAI_API_KEY is present"
+          echo "Live adapter credential is present"
 
       - name: Validate task contract
         shell: bash
