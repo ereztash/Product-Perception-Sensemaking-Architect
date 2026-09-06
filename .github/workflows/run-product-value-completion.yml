@@ -1,10 +1,14 @@
 name: Live Product Value Completion Calibration
 
+# The OpenAI transport for CAL-PRODUCT-VALUE-001. Retained and runnable, but not
+# auto-fired on the work branch: that branch executes the same task through the
+# local command adapter (runtime/calibration_loop/claude-cli-config.json), and no
+# OPENAI_API_KEY is provisioned, so an automatic run here can only fail at the
+# preflight. Dispatch this workflow deliberately once the secret exists.
 on:
   push:
     branches:
       - run/product-value-completion-2026-09-06
-      - claude/product-value-completion-run-if7ito
   workflow_dispatch:
 
 permissions:
