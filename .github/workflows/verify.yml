@@ -34,6 +34,7 @@ jobs:
           scripts/check_architecture_historical_cases.py
           scripts/check_calibration_loop.py
           scripts/check_live_adapters.py
+          scripts/run_architecture_clean_ab.py
           runtime/calibration_loop/routing.py
           runtime/calibration_loop/adapters.py
           runtime/calibration_loop/openai_resource_adapter.py
@@ -75,3 +76,53 @@ jobs:
 
       - name: Run calibration-loop mock end to end
         run: python runtime/calibration_loop/run.py fixtures/calibration-valid-task.json --mock --strict
+
+  architecture-clean-ab:
+    if: github.event_name == 'pull_request' && github.head_ref == 'research/architecture-clean-ab-2026-09-06'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      ARCH_BENCH_MODEL: gpt-5.6-sol
+      ARCH_BENCH_JUDGE_MODEL: gpt-5.6-sol
+      ARCH_BENCH_REASONING_EFFORT: high
+      ARCH_BENCH_JUDGE_EFFORT: high
+      OPENAI_TIMEOUT_SECONDS: '240'
+    steps:
+      - name: Checkout isolated benchmark branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile and validate frozen inputs
+        run: |
+          python -m py_compile scripts/run_architecture_clean_ab.py runtime/calibration_loop/openai_resource_adapter.py
+          python scripts/run_architecture_clean_ab.py --validate-only
+
+      - name: Run clean staged A/B
+        id: benchmark
+        shell: bash
+        run: |
+          set +e
+          python scripts/run_architecture_clean_ab.py
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload benchmark trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: architecture-clean-ab
+          path: runtime/architecture_ab/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Require benchmark completion
+        if: always()
+        shell: bash
+        run: |
+          test "${{ steps.benchmark.outputs.exit_code }}" = "0"
