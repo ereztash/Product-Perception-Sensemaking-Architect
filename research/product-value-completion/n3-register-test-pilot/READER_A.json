@@ -1,0 +1,14 @@
+{
+  "reader_id": "PILOT-A",
+  "admissibility": "INADMISSIBLE_FOR_DISCRIMINATION",
+  "admissibility_reason": "Reader is Anthropic Claude, the same model lineage that produced and operated the artifacts. Protocol v0 section 3 clause 2 excludes it. This record is an instrument observation only.",
+  "artifact_shown": "runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-002.json",
+  "question_asked": "Read this document. In your own words: what decision was made, and what would reverse it?",
+  "context_given": "None. Fresh subprocess, neutral working directory, all tools disabled, no repository access, no glossary, no follow-up.",
+  "served_model": [
+    "claude-opus-5"
+  ],
+  "num_turns": 1,
+  "asked_for_clarification": false,
+  "answer_verbatim": "**The decision:** An earlier call — that no code changes were needed before running the field trial — was kept and simply re-attached to the newer build (07ccd11), instead of being re-derived from scratch. The reasoning: `main` had moved, but the merge changed nothing in the client bundle. They confirmed this from the outside rather than re-running the full test walk: the production health endpoint reports build 07ccd11, and the two served asset files (the JS and CSS bundles) have sha256 digests byte-identical to the local build of 7c13887 that the original walk exercised. A test job against the deployed origin also passed on 07ccd11, with all three positive controls green, including the engine probe. No product code was touched, and the instrument was not re-run.\n\n**What would reverse it:** If a recruited participant can't reach a first decision by either entry route. The frozen field protocol treats that as a liveness defect — it pauses the trial and hands the finding back from FIELD to REPO.\n\nThe document's next step is for FIELD to recruit the first cohort per the trial run sheet; it marks no further repository work on this claim."
+}
