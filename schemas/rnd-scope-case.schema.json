@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ereztash/Product-Perception-Sensemaking-Architect/schemas/rnd-scope-case.schema.json",
+  "title": "R&D Scope Discovery Case v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "provenance",
+    "freeze_state",
+    "pre_outcome_features",
+    "live_decision",
+    "baseline_output_ref",
+    "rnd_output_ref",
+    "adjudication"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_family", "natural_or_authored", "unseen_at_freeze"],
+      "properties": {
+        "source_family": {"type": "string", "minLength": 1},
+        "source_ref": {"type": ["string", "null"]},
+        "domain": {"type": "string", "minLength": 1},
+        "natural_or_authored": {"enum": ["NATURAL", "AUTHORED_CONTROL", "AUTHORED_ADVERSARIAL"]},
+        "unseen_at_freeze": {"type": "boolean"}
+      }
+    },
+    "freeze_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_frozen_before_outputs", "features_frozen_before_outputs", "scope_version"],
+      "properties": {
+        "case_frozen_before_outputs": {"type": "boolean"},
+        "features_frozen_before_outputs": {"type": "boolean"},
+        "scope_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "live_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "plausible_reversal_outcomes"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "plausible_reversal_outcomes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "pre_outcome_features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_consequence",
+        "epistemic_allocation_burden",
+        "resolution_structure",
+        "learning_phase",
+        "primary_neighbor"
+      ],
+      "properties": {
+        "decision_consequence": {"enum": ["LOW_LOCAL", "MATERIAL_CONSEQUENTIAL"]},
+        "epistemic_allocation_burden": {"enum": ["NONE", "OBVIOUS", "NONTRIVIAL"]},
+        "resolution_structure": {"enum": ["SINGLE_DIRECT_AUTHORITY", "CHANNEL_SELECTION_REQUIRED", "RESEARCH_METHOD_REQUIRED"]},
+        "learning_phase": {"enum": ["PRE", "MID", "POST"]},
+        "primary_neighbor": {"enum": ["R1_CORE_CANDIDATE", "R2_OBVIOUS_LEARNING", "R3_DIRECT_AUTHORITY_EXECUTION", "R4_NETA_PRIMARY", "R5_LOW_LOCAL_CONTROL"]},
+        "modifiers": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "high_cost": {"type": "boolean"},
+            "high_delay": {"type": "boolean"},
+            "contamination_risk": {"type": "boolean"},
+            "high_reversibility": {"type": "boolean"},
+            "reusable_epistemic_policy": {"type": "boolean"},
+            "lineage_independence_issue": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "baseline_output_ref": {"type": ["string", "null"]},
+    "rnd_output_ref": {"type": ["string", "null"]},
+    "neta_output_ref": {"type": ["string", "null"]},
+    "authority_output_ref": {"type": ["string", "null"]},
+    "adjudication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "primary_label", "identity_blinded", "independent_lineage"],
+      "properties": {
+        "status": {"enum": ["PENDING", "COMPLETE", "UNADJUDICABLE"]},
+        "primary_label": {"enum": ["MATERIAL_RND_WIN", "TIE_NO_MATERIAL_DELTA", "MATERIAL_RND_LOSS", "UNADJUDICABLE"]},
+        "material_delta": {"type": ["string", "null"]},
+        "loss_or_harm": {"type": ["string", "null"]},
+        "identity_blinded": {"type": "boolean"},
+        "independent_lineage": {"type": "boolean"},
+        "secondary_audit": {"type": "boolean"},
+        "resolution_authority_checked": {"type": "boolean"}
+      }
+    }
+  }
+}
