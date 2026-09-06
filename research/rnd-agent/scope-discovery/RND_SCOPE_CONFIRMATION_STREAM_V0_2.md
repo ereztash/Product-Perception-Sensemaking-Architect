@@ -1,6 +1,6 @@
 # R&D Scope Confirmation Stream v0.2
 
-Status: `INITIALIZED · CONFIRMATORY_N=0 · BLOCKED_ON_INDEPENDENT_ADJUDICATION_CHANNEL`
+Status: `INITIALIZED · CONFIRMATORY_N=0 · EXTERNAL_DIRECTIONAL_BATCH_RUN · BLOCKED_ON_INDEPENDENT_ADJUDICATION_CHANNEL`
 Date: 2026-09-06
 Frozen scope: `RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md`
 Case schema: `schemas/rnd-scope-case-v0.2.schema.json`
@@ -14,6 +14,27 @@ Case schema: `schemas/rnd-scope-case-v0.2.schema.json`
 | R3 DIRECT_AUTHORITY_EXECUTION | 0 | 0 | 0 | 0 | UNKNOWN |
 | R4 DOMAIN_METHOD_PRIMARY | 0 | 0 | 0 | 0 | UNKNOWN |
 | R5 LOW_LOCAL_CONTROL | 0 | 0 | 0 | 0 | UNKNOWN |
+
+## External directional test run after freeze
+
+An external GitHub outcome batch was executed after the v0.2 freeze:
+
+- frozen inputs/outputs: `external-tests/EXT_GITHUB_BATCH01_FROZEN_OUTPUTS.md`
+- external-maintainer adjudication: `external-tests/EXT_GITHUB_BATCH01_EXTERNAL_OUTCOME_ADJUDICATION.md`
+
+Batch composition: 8 natural issues from unrelated external repositories.
+
+Directional external-outcome labels:
+- 1 `MATERIAL_RND_WIN`
+- 5 `TIE_NO_MATERIAL_DELTA`
+- 1 `MATERIAL_RND_LOSS`
+- 1 `UNADJUDICABLE`
+
+The main new failure signal was a false-fire/coding error: ordinary multi-hypothesis technical debugging was coded as `NONTRIVIAL_EPISTEMIC_ALLOCATION` when it should likely remain `DOMAIN_METHOD_PRIMARY` unless a separable meta-decision exists about the evidence/learning program itself.
+
+This is genuine external outcome evidence, but it contributes **zero confirmatory N** because the baseline and R&D outputs were generated as same-model role-conditioned passes rather than independent executions, and adjudication was not performed by a blinded independent model/human under the frozen protocol.
+
+Do not retrofit v0.2. Preserve this as a candidate v0.3 coding/manual repair to test on new unseen neighbors.
 
 ## Why historical cases are not copied here
 
