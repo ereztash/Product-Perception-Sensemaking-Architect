@@ -84,8 +84,6 @@ jobs:
     timeout-minutes: 120
     env:
       ARCH_BENCH_ENGINE: copilot
-      ARCH_COPILOT_MODEL: gpt-5.3-codex
-      ARCH_BENCH_JUDGE_MODEL: claude-sonnet-4.6
       COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN || github.token }}
     steps:
       - name: Checkout isolated benchmark branch
@@ -98,6 +96,47 @@ jobs:
 
       - name: Install latest Copilot CLI
         run: npm install -g @github/copilot
+
+      - name: Select and freeze explicit models
+        shell: bash
+        run: |
+          set -u
+          models=(gpt-5.4 claude-sonnet-4.6 gpt-5-mini claude-haiku-4.5 gemini-3.5-flash)
+          available=()
+          for model in "${models[@]}"; do
+            set +e
+            output=$(copilot -s -p 'Return exactly {"probe":true} and nothing else.' --no-custom-instructions --no-ask-user --model "$model" 2>/tmp/copilot-model-probe.err)
+            code=$?
+            set -e
+            if [ "$code" -eq 0 ]; then
+              available+=("$model")
+              echo "MODEL_AVAILABLE $model"
+            else
+              echo "MODEL_UNAVAILABLE $model"
+            fi
+          done
+          if [ "${#available[@]}" -eq 0 ]; then
+            echo "No explicit Copilot model is available; auto is inadmissible for the frozen same-model protocol." >&2
+            exit 1
+          fi
+          runner="${available[0]}"
+          if [ "${#available[@]}" -ge 2 ]; then judge="${available[1]}"; else judge="$runner"; fi
+          echo "ARCH_COPILOT_MODEL=$runner" >> "$GITHUB_ENV"
+          echo "ARCH_BENCH_JUDGE_MODEL=$judge" >> "$GITHUB_ENV"
+          mkdir -p runtime/architecture_ab
+          RUNNER_MODEL="$runner" JUDGE_MODEL="$judge" AVAILABLE_MODELS="$(IFS=,; echo "${available[*]}")" python - <<'PY'
+          import json, os, pathlib
+          path=pathlib.Path('runtime/architecture_ab/MODEL_SELECTION.json')
+          path.write_text(json.dumps({
+              'status':'FROZEN_BEFORE_CASES',
+              'selection_rule_version':'CLEAN_AB_EXECUTION_PROTOCOL_V0_2',
+              'ordered_probe_list':['gpt-5.4','claude-sonnet-4.6','gpt-5-mini','claude-haiku-4.5','gemini-3.5-flash'],
+              'available_explicit_models':os.environ['AVAILABLE_MODELS'].split(','),
+              'runner_model':os.environ['RUNNER_MODEL'],
+              'judge_model':os.environ['JUDGE_MODEL']
+          },indent=2,sort_keys=True)+'\n')
+          PY
+          cat runtime/architecture_ab/MODEL_SELECTION.json
 
       - name: Compile and validate frozen inputs
         run: |
