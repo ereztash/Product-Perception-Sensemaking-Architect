@@ -1,0 +1,52 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-LICHESS-COMMERCIAL-ROADMAP-001",
+  "telos": {
+    "statement": "Determine exactly what information is still missing before the Decision Lab White Paper can make a credible commercialization argument: who pays, why the need is urgent, which business model is most plausible, what evidence-gated roadmap should come next, and what can responsibly be said about time to first revenue, repeatable revenue, and payback.",
+    "success_condition": "Return a decision-ready research specification that separates what is already known from what must be learned externally or in FIELD, ranks missing evidence by decision value, states which conclusion each branch could change, and recommends the cheapest evidence acquisition sequence before rewriting the White Paper."
+  },
+  "current_state": {
+    "summary": "Target product is ereztash/lichess_app. Canonical main now includes merged PR #91 at merge commit 2390b3510f798cd40e5ae5fd21573edb5e965181. Canonical evidence includes pre-engine decision capture; recurring structure; held-out prediction; population correction; a narrow player-specific R** residual; retrospective mechanism localization; a frozen pre-field state; and a partial board-only cross-platform replication on a separate historical Chess.com corpus. The Chess.com result transferred the frozen under-defended / level-or-slightly-ahead board region in the predicted direction, but did not independently establish the original Lichess personal residual, the repeated-non-resolution interaction, a cognitive cause, intervention effectiveness, generalized efficacy, or Elo improvement. Mission status remains FIELD_REQUIRED_FOR_LEVEL_6. The current White Paper already explains the evidence problem, product distinction, claim ladder, current proof story, buyer candidates, current adjacent willingness-to-pay, and candidate pricing. The requested change is to update the document to the newly canonical evidence and add an evidence-gated commercialization roadmap showing what is tested next, what each gate unlocks commercially, and when economic return could plausibly begin without presenting an unsupported forecast.",
+    "known_constraints": [
+      "Do not convert adjacent-market prices or market size into evidence of Decision Lab product-market fit.",
+      "Do not treat a roadmap date as a forecast unless its dependencies and evidence basis are explicit.",
+      "Do not claim intervention efficacy, Elo improvement, cognitive diagnosis, retention lift, willingness-to-pay, CAC, LTV, conversion, or payback until supported by the appropriate authority.",
+      "Separate first revenue, repeatable revenue, and full investment payback; they are different decisions.",
+      "Separate buyer economic value from product pricing; willingness-to-pay and ROI are not the same variable.",
+      "The roadmap should allocate capital by evidence gates, not by feature quarters.",
+      "Any time estimate inherited from the repository, such as the frozen FIELD protocol duration, may be used only for the stage it actually measures.",
+      "Same-model Neta/R&D agreement is not independent market validation."
+    ],
+    "available_resources": ["RND", "NETA", "REPO", "FIELD", "OWNER"]
+  },
+  "decision_blocked": {
+    "statement": "What evidence must be collected now so the White Paper can credibly answer: who should pay first, which urgent job-to-be-done justifies switching or spending, which offer/business model should be tested first, what evidence-gated sequence should follow, and what bounded time-to-revenue/payback language is defensible?",
+    "current_default": "Use an evidence-gated roadmap: prospective FIELD proof first, then cold-user comprehension, then a paid beta split between serious players and coaches, then choose the buyer with the clearest measured ROI before investing in a repeatable product or platform layer. Present 30-60 days to first revenue and 3-6 months to repeatable revenue only as hypotheses to validate, not forecasts.",
+    "reversal_condition": "Reverse the default if evidence shows a different buyer has materially stronger urgency or willingness-to-pay; if paid demand can be tested before efficacy without creating misleading claims; if coaches/platforms have weaker economics than direct players; if FIELD duration or recruitment makes the proposed order irrational; or if another missing uncertainty dominates commercialization risk."
+  },
+  "signals": [
+    "buyer ambiguity: serious players, coaches/academies, and platforms may pay for different outcomes and should not be collapsed into one ICP",
+    "urgency gap: existing spending on analysis/coaching proves adjacent willingness-to-pay but not why Decision Lab must be bought now",
+    "economic-value gap: the document lacks measured hours saved, coaching capacity gained, retention lift, performance lift, or another quantified buyer outcome",
+    "pricing gap: candidate prices are hypotheses without a Decision Lab-specific willingness-to-pay test",
+    "roadmap gap: current next steps are scientifically ordered but not yet expressed as capital-allocation gates tied to commercial unlocks",
+    "time-to-return gap: repository evidence supports a 3-5 week estimate for the frozen owner FIELD protocol but does not by itself support 30-60 day first revenue or 3-6 month repeatability",
+    "channel gap: no current evidence identifies the cheapest credible acquisition path for the first paid users",
+    "switching/substitution gap: need to know what buyers would stop doing, stop paying for, or spend less time on if Decision Lab works",
+    "claim-boundary risk: a commercially compelling roadmap must not quietly imply that efficacy or PMF already exists"
+  ],
+  "allowed_resources": ["RND", "NETA", "REPO", "FIELD", "OWNER"],
+  "context_refs": [
+    "ereztash/lichess_app@2390b3510f798cd40e5ae5fd21573edb5e965181:README.md",
+    "ereztash/lichess_app@main:research/mechanism/NETA_FINDING.json",
+    "ereztash/lichess_app@main:research/mechanism/PRE_FIELD_FREEZE_EREZ281_2026-09-05.md",
+    "ereztash/lichess_app@main:research/mechanism/chesscom/CROSS_PLATFORM_DISPOSITION.md",
+    "ereztash/Product-Perception-Sensemaking-Architect@main:docs/CANONICAL_STATE.md",
+    "ereztash/Product-Perception-Sensemaking-Architect@main:prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "ereztash/Product-Perception-Sensemaking-Architect@main:prompts/SYSTEM.md"
+  ],
+  "budget": {
+    "max_resource_calls": 3,
+    "max_parallel_calls": 1
+  }
+}
