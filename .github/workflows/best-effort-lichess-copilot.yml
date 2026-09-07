@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 20
     env:
       GITHUB_TOKEN: ${{ github.token }}
-      COPILOT_MODEL: gpt-5.4
+      COPILOT_MODEL: claude-sonnet-4.6
       COPILOT_REASONING_EFFORT: high
     steps:
       - name: Checkout exact branch commit
