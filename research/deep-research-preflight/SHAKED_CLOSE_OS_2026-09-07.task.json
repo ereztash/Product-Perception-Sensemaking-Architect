@@ -1,0 +1,51 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SHAKED-CLOSE-OS-2026-09-07",
+  "telos": {
+    "statement": "Maximize the probability of the next paid booking for Shaked Brand's 'Lo Giborim Anachnu' organizational offering, and convert the existing sales architecture into a daily operating system that allocates effort toward Closed Won rather than toward asset-building or generic marketing activity.",
+    "success_condition": "Produce an evidence-bounded, ordered operating plan from the current state to the next Closed Won: identify the current bottleneck, specify what must happen on each working day and the DOD for that day, define the lead-state transitions that matter, state which actions/assets should not receive resources now, and define daily recalibration rules so that tomorrow's work changes when field evidence changes. If the current state is not decision-grade, identify the smallest state-repair action required before or alongside external selling rather than proposing a new CRM or broad research project."
+  },
+  "current_state": {
+    "summary": "Date: 2026-09-07, Israel. Shaked Brand sells organizational experiences around his documentary 'Lo Giborim Anachnu'. Prior research already concluded that the objective is not to build a full lecture brand but a closing machine. North Star: Booked Sessions / Sellable Shaked Slots. Canonical path previously defined: evidence -> account -> buyer -> outreach -> fit call -> same-day proposal -> decision/procurement -> booked -> delivery -> testimonial -> referral. Proposed top-level positioning: a human encounter about what happens to people and teams when reality breaks and what enables continued joint action. Three candidate SKUs were defined: (1) 69-minute screening + conversation with Shaked, (2) 45-60 minute talk + clips, (3) 75-90 minute management-depth session. The previous deep research found existing category demand around resilience, belonging, meaning, reservists, leadership and wellbeing, but explicitly separated category demand from evidence that a buyer wants Shaked specifically. It recommended prioritizing buying-behavior evidence, warm introductions and partner channels over generic volume. It also set an anti-build rule: no asset is justified unless it removes a specific repeated conversion friction. On 2026-09-01 Shaked and Erez agreed to reposition the lecture around resilience/post-traumatic growth, activate LinkedIn/warm contacts, finalize a landing page, prepare email follow-up, and re-engage non-responders. The same meeting identified conflicting business identities, ineffective task management, an underdeveloped service variant, inauthentic marketing copy and missing video assets as blockers. Shaked reported a previous generic bulk email campaign of hundreds of emails to schools/municipalities that generated only one screening. The exact Google Sheet currently used as a lightweight CRM was read live on 2026-09-07. It contains only 3 data rows and these columns: inquiry date, name, phone, email, organization, role, framework type, requested track, target event date, audience size, location, notes, treatment status. The three current rows are: (A) CyberShield, VP HR, event around 2026-10-06, status 'new'; (B) Upper Galilee pre-army academy, head of academy, event 2026-09-22, status 'contacted'; (C) Kfar Yona community center, culture manager, event 2026-10-05, status 'proposal sent'. The sheet does NOT currently contain last touch, next action, next action date, decision state, deal value, loss/block reason, evidence source, owner or last-verified date. It is therefore not a complete decision-grade representation of the real pipeline. No reliable current count of additional leads, open proposals, sellable slots, exact price, or current capacity is present in the source-of-truth sheet. Previous research defined a close as date/time agreed + price agreed + approving party + order/contract/PO as required, and rejected 'interested', 'forwarded to HR', 'proposal sent', or 'talk after holidays' as Closed Won. Prior schedule treated 2026-09-07 through 2026-09-10 as an October close sprint because Rosh Hashanah begins 2026-09-11; it recommended follow-up, three concrete dates per qualified lead, and same-day proposals, while keeping a Q4 evergreen track alive. Erez's desired operating principle now is that every day must create external demand contact and that R&D should recalibrate resource allocation from the evidence produced by the previous day.",
+    "known_constraints": [
+      "Do not replace the existing CRM with a new system unless the current schema itself is proven to be the bottleneck; prefer the minimum fields/state repair needed for decision control.",
+      "Do not count asset completion, content production, traffic, likes, compliments, interest or proposal-sent as the goal. The target is a paid booking under the explicit Closed Won DOD.",
+      "Do not infer a large active pipeline from prior conversations. The exact live CRM currently exposes only three rows; anything else must remain unknown unless supplied as evidence.",
+      "Do not infer price, capacity, available slots, budget or proposal values. These are currently missing.",
+      "Do not treat category-level market evidence as proof that a specific organization will buy Shaked.",
+      "Do not recommend broad external research unless its answer could materially change tomorrow's allocation, buyer choice, offer, timing or whether to ask for a decision now.",
+      "At least one external demand-moving action should occur each working day unless R&D finds a higher-authority constraint that makes that action uninterpretable or harmful.",
+      "Asset work is subordinate to observed conversion friction. A repeated objection should normally be observed before building a new asset for it.",
+      "The user asked for a day-level roadmap through closing, but the roadmap must remain recalibratable rather than pretending the same actions are optimal regardless of field response.",
+      "The desired output is a resource-allocation and execution-control decision, not persuasive marketing copy."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "Given the real current state on 2026-09-07, what exactly should Shaked and Erez do each working day from now until the next Closed Won, which pipeline states and metrics should control those decisions, what must be repaired in the current state representation, and what should be stopped or deferred so that resources stay calibrated to closing rather than to preparation?",
+    "current_default": "Perform a minimal pipeline/state reconciliation immediately, without building a new CRM; identify every currently live buyer/proposal/next action and Shaked's sellable slots/price, then run a close-first sprint that prioritizes the proposal-sent lead, already-contacted lead, warm/high-intent opportunities and same-day proposals before new cold acquisition. Require a concrete next action/date for every live lead, preserve at least one external demand contact per working day, and allow asset work only when field evidence identifies a specific recurring friction. Recompute the next day's allocation from actual state transitions and objections rather than following a fixed marketing calendar.",
+    "reversal_condition": "Reverse or materially alter this default if R&D shows that immediate state reconciliation has lower decision value than a direct close action already supported by the current evidence, that one of the three visible leads is not real/actionable data, that a missing prerequisite such as price/capacity/rights makes outreach uninterpretable, that the dominant bottleneck is not pipeline control but another observed constraint, or that a different bounded action has materially higher expected value for reaching Closed Won before the holiday window closes."
+  },
+  "signals": [
+    "The existing Sheet is structurally a lightweight CRM but currently contains only three live rows and lacks next-action and decision-control fields.",
+    "One visible lead is already at 'proposal sent', one at 'contacted', and one at 'new', creating three different near-term state transitions that can be acted on immediately if the records are genuine and current.",
+    "The prior mass-email experiment produced hundreds of sends and only one screening, which is evidence against repeating generic volume without stronger qualification or follow-up control.",
+    "Previous market research already found that category awareness exists; the unresolved issue is conversion from specific buyer ownership and timing to an actual booking.",
+    "Previous research explicitly set proposal turnaround under 24 hours and same-day proposals with three concrete dates as velocity rules.",
+    "The pre-holiday sales window is now extremely short: 2026-09-07 is four days before Rosh Hashanah begins on 2026-09-11.",
+    "The current operating risk is that landing page, LinkedIn, video and copy tasks can become substitutes for buyer movement if not subordinated to a conversion bottleneck.",
+    "The strongest missing state variables are current sellable slots, price, true live pipeline outside the three-row Sheet, last touch, next action/date, decision owner and loss/block reason."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [
+    "Google Sheet source-of-truth: 1cWFk4v1PhdJmOmvD61DrDTeBKM-tvxh5w7wb2ITs7Rk, read live 2026-09-07",
+    "Spinach meeting: 'שיחה עם שקד', 2026-09-01",
+    "Library deep-research report: 'אסטרטגיית נכסים ומנוע סגירה להרצאות של שקד ברנד סביב הסרט לא גיבורים אנחנו'",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "docs/CANONICAL_STATE.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
