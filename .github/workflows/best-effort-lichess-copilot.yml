@@ -1,0 +1,53 @@
+name: Best Effort Lichess Ownership Calibration
+
+on:
+  push:
+    branches:
+      - run/lichess-premove-ownership-copilot-2026-09-07
+    paths:
+      - '.github/workflows/best-effort-lichess-copilot.yml'
+      - 'runtime/calibration_loop/copilot_resource_adapter.py'
+      - 'runtime/calibration_loop/copilot-config.best-effort.json'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      COPILOT_MODEL: gpt-5.4
+      COPILOT_REASONING_EFFORT: high
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Validate canonical task
+        run: python scripts/validate_calibration_task.py research/deep-research-preflight/LICHESS-PREMOVE-OWNERSHIP-2026-09-07.task.json
+
+      - name: Run canonical Calibration Loop
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="runtime/execution_traces/BE-LICHESS-PREMOVE-OWNERSHIP-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/deep-research-preflight/LICHESS-PREMOVE-OWNERSHIP-2026-09-07.task.json \
+            --config runtime/calibration_loop/copilot-config.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: best-effort-lichess-ownership-${{ github.sha }}
+          path: runtime/execution_traces/BE-LICHESS-PREMOVE-OWNERSHIP-${{ github.sha }}.json
+          if-no-files-found: warn
