@@ -1,0 +1,45 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-LICHESS-PREMOVE-OWNERSHIP-2026-09-07",
+  "telos": {
+    "statement": "Determine whether Decision Lab should convert evidence-bounded player findings into a small set of pre-move self-questions, rather than primarily declarative insights or prescriptive instructions, in order to change future decision behavior while preserving player ownership of the conclusion.",
+    "success_condition": "Produce a bounded product decision that distinguishes what is already supported from what remains hypothetical, identifies the smallest reversible next intervention worth testing, and specifies what future evidence would justify or reject a pre-move-question architecture."
+  },
+  "current_state": {
+    "summary": "Decision Lab records player decision evidence before engine feedback, finds recurring structures across games, compares them against same-rating population behavior, and has isolated one narrow owner-specific residual. The repository explicitly does not yet claim chess improvement or Elo improvement. It has reached FIELD_REQUIRED_FOR_LEVEL_6: historical analysis cannot establish whether changing the player's decision process reduces future error. One prospective intervention is already frozen as an instruction delivered before a session: before committing a move, when any own piece has more attackers than defenders, inspect the intended resulting position and reject the move unless the exposure is justified by winning something bigger or giving check. A new product hypothesis is that the useful output may instead be one or a few personalized questions the player asks themselves before moving. An additional architectural hypothesis is that questions may preserve ownership better than externally supplied conclusions by forcing the player to generate the position-specific judgment themselves.",
+    "known_constraints": [
+      "Do not treat a plausible question as an effective intervention without prospective FIELD evidence.",
+      "Do not infer a cognitive mechanism merely from a predictive region or personal residual.",
+      "Do not convert same-model peer agreement into independent empirical triangulation.",
+      "Preserve the product rule that the player decides before the machine speaks.",
+      "Separate insight quality, intervention design, user ownership, behavior change, and outcome change as distinct claims.",
+      "Prefer the smallest reversible test over rebuilding the product around an unvalidated intervention architecture."
+    ],
+    "available_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should the next Decision Lab intervention be framed as personalized pre-move self-questions, and if so what exactly should be tested before making that pattern a product architecture?",
+    "current_default": "Do not redesign the product around pre-move questions yet; treat them as a candidate intervention format that must earn promotion through a bounded prospective comparison.",
+    "reversal_condition": "A bounded analysis shows that self-questions target the relevant decision mechanism more cleanly than declarative insights or instructions, and defines a prospective test whose result could materially change the product decision."
+  },
+  "signals": [
+    "The existing product already moves from historical decision evidence toward one testable future operation.",
+    "The new candidate form changes the intervention from telling the player what to do to asking the player what they need to evaluate before moving.",
+    "The user is separately developing an ownership architecture in which externally supplied precision can reduce ownership of a conclusion.",
+    "Multiple mechanisms are plausible: questions may improve recall, attention allocation, metacognitive monitoring, transfer, or ownership; they may also merely add cognitive load or become a ritual proxy.",
+    "The product decision is therefore both a research-to-intervention transition and a signal-to-mechanism discrimination problem."
+  ],
+  "allowed_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"],
+  "context_refs": [
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/SYSTEM.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
