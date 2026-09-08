@@ -1,0 +1,65 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-BEST-EFFORT-REASONING-CF-2026-09-08",
+  "telos": {
+    "statement": "Replay evaluation of the prior Best-Effort self-calibration reasoning under a counterfactual framing that does not presume premise echo or protocol defects. Determine whether the prior R&D/Neta reasoning added useful decision value through prioritization, gating, mechanism separation, or resource allocation even when its categories were present in the input, and whether any reasoning-protocol change is actually warranted.",
+    "success_condition": "Return a bounded KEEP-versus-ADAPT decision. Before recommending ADAPT, articulate the strongest KEEP case and identify a concrete reasoning defect that remains after treating the original task as an intentionally hypothesis-rich diagnostic input. Distinguish restatement, prioritization, synthesis, verification, and genuinely novel information."
+  },
+  "current_state": {
+    "summary": "The Best-Effort skill already requires canonical-first execution, real runtime/adapters/contracts, explicit blocker classification, semantic preservation across fallback, provenance downgrade, canonical routing, durable trace, explicit final_state, no mock masquerading as real output, and bounded field testing before architecture promotion. In the prior self-calibration task, the input intentionally listed candidate concerns about semantic-equivalence verification, retries, provenance use, overfitting, and self-promotion. R&D prioritized the validation/provenance family, selected COLLECT_REPO before ADAPT, and routed to Neta. Neta separated semantic-equivalence verification, retry/provider-fishing control, and provenance-use gating, and proposed a bounded skill-level gate rather than architecture redesign. R&D synthesis treated those changes as candidate-only pending repository and field evidence. Later repository inspection found one concrete implementation fact: the Copilot adapter emits provider/model metadata to stderr, while successful CommandAdapter calls return parsed stdout and do not persist stderr, and the main runtime trace schema does not currently include provider/model provenance fields. The runtime nevertheless enforces task validation, output shape checks, deterministic routing, resource identity, resource-call budgets, strict missing-adapter failure, and explicit FAILED_EXECUTION/PENDING_RESOURCE/COMPLETE states. There is no evidence in hand that the fallback changed the substantive decision operation on the successful Lichess case.",
+    "known_constraints": [
+      "Treat a hypothesis-rich task as legitimate input; repetition of an input hypothesis is not by itself a reasoning failure.",
+      "Credit prioritization or synthesis only if it changes the decision, reversal condition, resource allocation, or required evidence.",
+      "Do not treat later repository confirmation as proof that the earlier reasoning process was independently discriminative.",
+      "Do not treat same-lineage R&D/Neta agreement as independent triangulation.",
+      "Argue the strongest KEEP case before recommending any protocol change.",
+      "Do not infer hidden chain-of-thought; evaluate only explicit outputs and observable repository facts.",
+      "Prefer no change when an alleged reasoning defect does not alter a live decision or falsifiability."
+    ],
+    "available_resources": [
+      "RND",
+      "NETA",
+      "OWNER",
+      "REPO",
+      "FIELD"
+    ]
+  },
+  "decision_blocked": {
+    "statement": "Does the prior Best-Effort self-calibration reveal a material defect in the reasoning protocol, or was it a legitimate use of hypothesis-rich input where the value came from prioritization, gating, and selecting the next evidence source?",
+    "current_default": "KEEP the current reasoning protocol unchanged unless the counterfactual replay identifies a concrete defect that changes what evidence or action should follow.",
+    "reversal_condition": "ADAPT only if the replay identifies a reasoning rule whose absence caused a materially unsupported resource delta, decision update, or promotion step that would not be prevented by the existing evidence/authority gates."
+  },
+  "signals": [
+    "The original task intentionally contained candidate failure hypotheses before R&D/Neta ran.",
+    "R&D did more than name those hypotheses: it ranked COLLECT_REPO above immediate ADAPT and preserved uncertainty about field and owner authority.",
+    "Neta's three named distinctions overlap strongly with categories already present in the input.",
+    "The prior synthesis did not immediately promote a broad architecture change; it proposed a bounded candidate revision pending REPO/FIELD evidence.",
+    "A later repository inspection confirmed a provenance-persistence implementation mismatch, but no matched canonical-versus-fallback semantic comparison has been run.",
+    "The runtime already rejects schema drift, missing adapters in strict mode, budget overflow, mismatched resource identity, and execution failures.",
+    "A reasoning resource can add value through prioritization, falsifier design, or next-resource choice even if it does not invent a new category.",
+    "No evidence currently shows that the prior Neta output, by itself, changed the final action beyond what R&D diagnosis had already recommended."
+  ],
+  "allowed_resources": [
+    "RND",
+    "NETA",
+    "OWNER",
+    "REPO",
+    "FIELD"
+  ],
+  "context_refs": [
+    "skills/evidence-bounded-best-effort-runtime/skill.md",
+    "runtime/calibration_loop/run.py",
+    "runtime/calibration_loop/adapters.py",
+    "runtime/calibration_loop/copilot_resource_adapter.py",
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/SYSTEM.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
