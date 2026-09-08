@@ -1,0 +1,13 @@
+{
+  "adapters": {
+    "RND": {
+      "command": ["python", "runtime/calibration_loop/copilot_resource_adapter_v02.py"]
+    },
+    "NETA": {
+      "command": ["python", "runtime/calibration_loop/copilot_resource_adapter_v02.py"]
+    },
+    "SCAFFOLD": {
+      "command": ["python", "runtime/calibration_loop/copilot_resource_adapter_v02.py"]
+    }
+  }
+}
