@@ -100,6 +100,12 @@ git push origin --delete \
 
 Every ref in that list was verified contained in `main` at `6b7d674`. Deleting them loses no history. The list deliberately omits `claude/repo-canonicalization-reconciliation-aufvq6`, which carries open PR 18, and the three refs ahead of `main`.
 
+### Retirement completed, 2026-09-08
+
+The owner ran the retirement from outside the proxy. Verified at `main` `74fc4af`: all 21 refs are gone and the remote holds 15, down from 28. Nothing outside the list was removed; every do-not-delete ref survived. See blocker B5 in section 8.
+
+A parallel session then built the durable instrument this pass only described: `docs/BRANCH_INVENTORY.md`, `docs/BRANCH_RETIREMENT_RUNBOOK.md` and `scripts/check_branch_inventory.py`, on PR 21. That turns the branch policy from prose into a CI-checked contract, which is the right home for it. This report stays the record of the 2026-09-06 pass and does not duplicate that work.
+
 ## 3. Artifacts recovered into the canonical lane
 
 All 43 were verified byte-identical to their source blobs after the merge. No status marker was raised.
@@ -222,13 +228,17 @@ Neta H1 has no valid run. A native-Hebrew authority must author or sample the ho
 
 Authority: `OWNER` / `FIELD`.
 
-### B5 — 19 superseded refs cannot be deleted from this session
+### B5 — 19 superseded refs could not be deleted from this session · RESOLVED 2026-09-08
 
-They are strict ancestors of `main` and lose no history. Retirement is blocked by the session's egress proxy, which refuses `DELETE /git/refs/heads/*` and the equivalent `git push --delete`; see "Deletion attempt, 2026-09-06" in section 2 for the evidence and the owner command.
+They were strict ancestors of `main` and lost no history. Retirement was blocked by the session's egress proxy, which refuses `DELETE /git/refs/heads/*` and the equivalent `git push --delete`; see "Deletion attempt, 2026-09-06" in section 2 for the evidence and the owner command.
 
-Counting note: 19 refs carry the `SUPERSEDED` classification from the capture snapshot. Two more became retirable after PR 16 merged, so the owner command in section 2 covers 21. The reconciliation branch itself is a twenty-second candidate but is excluded while PR 18 is open.
+Counting note: 19 refs carried the `SUPERSEDED` classification from the capture snapshot. Two more became retirable after PR 16 merged, so the owner command in section 2 covered 21. The reconciliation branch itself was a twenty-second candidate, excluded while PR 18 is open.
 
-Authority: `OWNER`, unblocked only from outside this proxy.
+Resolved from outside the proxy, as the diagnosis said it would have to be. Verified on 2026-09-08 at `main` `74fc4af`: all 19 refs at `4072bb1` are gone, as are `research/system-design-decision-lane-2026-09-06` and `claude/lichess-prerelease-gaps-qvlbv5`. All 21 retired, nothing else lost. The remote went from 28 refs to 15.
+
+Every ref the report marked do-not-delete survived: `main`, `claude/repo-canonicalization-reconciliation-aufvq6` (PR 18), `research/architecture-clean-ab-2026-09-06` (PR 14), `run/claude-prerelease-prompt-telos-2026-09-06`, and the branches other sessions opened during the pass.
+
+Authority: `OWNER`. Discharged.
 
 B1, B2 and B3 are the same family: the repository can specify admissible evidence but cannot currently generate it. That is an honest stop, not a defect in any hypothesis.
 
