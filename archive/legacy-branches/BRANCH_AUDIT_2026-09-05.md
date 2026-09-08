@@ -19,7 +19,7 @@ This audit classifies every current branch against `main` after canonical consol
 | `neta/v0.1-agent-contract` | MERGED_SAFE_TO_DELETE | PR #1 merged. The frozen `prompts/SYSTEM.md` blob is identical to `main` (`339b9a1be2fd0f1f6f6c7960e5be58e5566d3691`). Git history preserves lineage without requiring the branch. |
 | `refoundation/neta-assurance-v0.2` | MERGED_SAFE_TO_DELETE | Assurance re-foundation merged; branch is fully behind. |
 | `research/wave1-triangulation` | MERGED_SAFE_TO_DELETE | Preregistered research-wave material merged; branch is fully behind. |
-| `research/wave1-evidence-pass1` | KEEP_ARCHIVE_UNTIL_MIGRATED | Contains four post-merge historical commits absent from `main`: `PROMPT_GAP_AUDIT.md`, `RECURSION_LOG.md`, `WAVE1_RESULTS_PASS1.md`, and a stronger historical research-contract gate. PR #11 was intentionally closed rather than forcing an unsafe old-branch merge. |
+| `research/wave1-evidence-pass1` | KEEP_ARCHIVE_UNTIL_MIGRATED | Contains four post-merge historical commits absent from `main`: `archive/legacy-branches/research-wave1-evidence-pass1/PROMPT_GAP_AUDIT.md`, `archive/legacy-branches/research-wave1-evidence-pass1/RECURSION_LOG.md`, `archive/legacy-branches/research-wave1-evidence-pass1/WAVE1_RESULTS_PASS1.md`, and a stronger historical research-contract gate. PR #11 was intentionally closed rather than forcing an unsafe old-branch merge. |
 
 ## Cleanup target
 
