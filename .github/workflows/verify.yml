@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # The branch-inventory check resolves ancestry against every remote ref.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,6 +37,7 @@ jobs:
           scripts/check_architecture_historical_cases.py
           scripts/check_calibration_loop.py
           scripts/check_canonical_state.py
+          scripts/check_branch_inventory.py
           scripts/check_live_adapters.py
           runtime/calibration_loop/routing.py
           runtime/calibration_loop/adapters.py
@@ -46,6 +50,14 @@ jobs:
 
       - name: Run repository canonicalization invariants
         run: python scripts/check_canonical_state.py
+
+      - name: Check branch inventory against the live remote
+        # Fails when a branch exists on the remote that docs/BRANCH_INVENTORY.md does not
+        # declare, when a declared branch is gone, when a branch declared RETIRABLE has
+        # moved or is in fact ahead of `main`, or when docs/CANONICAL_STATE.md and the
+        # inventory disagree about which branches are ahead. Declaring a new branch is a
+        # two-line edit to the inventory; see docs/REPOSITORY_MAP.md rule 8.
+        run: python scripts/check_branch_inventory.py --live
 
       - name: Run Neta agent contract and positive controls
         run: python scripts/check_contract.py
