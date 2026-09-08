@@ -1,0 +1,32 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-OSS-PULSAR-24628",
+  "telos": {
+    "statement": "Choose the next move for apache/pulsar#24628 so the flaky load-manager close test is resolved with the least unnecessary research overhead.",
+    "success_condition": "Determine whether the case is already owned by direct engineering diagnosis or whether a nontrivial learning-allocation problem remains, and identify the next action accordingly."
+  },
+  "current_state": {
+    "summary": "A flaky test fails while closing the extensible load manager after bundles have been loaded. The stack trace shows TableViewLoadDataStoreImpl.get throwing an IllegalStateException because the load-data TableView is unavailable/null during a lookup path reached by LeastResourceUsageWithWeight.select. The failure appears during shutdown/close lifecycle and provides a concrete stack trace but no competing product or architecture decision in the issue body.",
+    "known_constraints": [
+      "Do not use the eventual maintainer comment or closing resolution during diagnosis.",
+      "Do not introduce broad research if direct code/lifecycle debugging already owns the next move.",
+      "Distinguish a shutdown-order race from a broader architectural uncertainty only if evidence supports that distinction.",
+      "Prefer direct reproduction and lifecycle inspection when it can resolve the blocked decision."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should maintainers proceed directly with lifecycle/race diagnosis and synchronization/guarding, or is additional cross-path research needed before acting?",
+    "current_default": "Proceed with direct engineering diagnosis of close/load ordering and TableView lifecycle; do not invoke broader research unless multiple materially different diagnostic paths emerge.",
+    "reversal_condition": "Repository evidence reveals several plausible mechanisms or fixes whose relative evidence value cannot be resolved cheaply through direct debugging."
+  },
+  "signals": [
+    "The issue includes a concrete stack trace and code path.",
+    "The failure occurs around close/shutdown lifecycle.",
+    "There is not yet a documented choice among several expensive evidence paths.",
+    "This is a neighboring case where a good R&D system should know when to bypass itself."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "REPO", "FIELD"],
+  "context_refs": ["https://github.com/apache/pulsar/issues/24628"],
+  "budget": {"max_resource_calls": 4, "max_parallel_calls": 2}
+}
