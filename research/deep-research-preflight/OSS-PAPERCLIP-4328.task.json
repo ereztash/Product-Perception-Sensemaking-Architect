@@ -1,0 +1,32 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-OSS-PAPERCLIP-4328",
+  "telos": {
+    "statement": "Choose the next move for paperclipai/paperclip#4328 so the intermittent blocked-state/comment inconsistency is diagnosed and fixed without committing to the wrong mechanism.",
+    "success_condition": "Preserve the competing mechanisms long enough to identify the cheapest discriminator that changes the production-fix decision, while avoiding a test-only patch that masks a real consistency defect."
+  },
+  "current_state": {
+    "summary": "A CI test intermittently observes an issue status of blocked but zero expected comments. The blocked status is committed inside a transaction, while the comment is posted afterward. Several upstream operations and releaseIssueExecutionAndPromote errors are swallowed. Two mechanisms fit the symptom: the blocked branch may not have been legitimately selected because upstream state/classification differed, or the blocked branch may have committed status while addComment/post-transaction work failed. Suggested directions include logging the swallowed error, moving the comment into the transaction, or polling for the comment in the test.",
+    "known_constraints": [
+      "Do not read the eventual issue comments or resolution before freezing the recommendation.",
+      "Do not assume transactionality is the fix merely because it would make the test deterministic.",
+      "A test polling change is acceptable only if production semantics intentionally permit status-before-comment visibility.",
+      "Prefer evidence that distinguishes upstream-state failure from post-transaction comment failure."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should maintainers first make status+comment atomic, alter the test to wait for the comment, instrument the swallowed failure paths, or repair an upstream classification/race mechanism?",
+    "current_default": "Do not choose a production rewrite or test polling yet; first expose which branch/exception produces the blocked-without-comment state.",
+    "reversal_condition": "A bounded reproduction or instrumentation result identifies whether status commits before comment failure versus an upstream state/classification path causing the inconsistency."
+  },
+  "signals": [
+    "Two mechanisms imply materially different fixes.",
+    "Current catch wrappers erase the evidence needed to choose between them.",
+    "The flaky test reproduces in CI but not locally in isolation.",
+    "A plausible fix could improve the test while leaving the production defect intact."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "REPO", "FIELD"],
+  "context_refs": ["https://github.com/paperclipai/paperclip/issues/4328"],
+  "budget": {"max_resource_calls": 4, "max_parallel_calls": 2}
+}
