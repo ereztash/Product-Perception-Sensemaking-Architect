@@ -1,0 +1,159 @@
+{
+  "plan_id": "RND-SELF-TRIANGULATION-DR-PLAN-1",
+  "status": "FROZEN_AFTER_RND_PREFLIGHT_AND_REPO_RECOVERY",
+  "date": "2026-09-08",
+  "supersedes_for_execution_only": "RND-SELF-TRIANGULATION-DR-PLAN-0",
+  "baseline_preserved": true,
+  "decision": "Stress-test R&D v0.2 from outside its own conceptual lineage and convert only decision-changing contradictions into repository challenge candidates or prospective runtime tests.",
+  "research_sequence": [
+    {
+      "order": 1,
+      "branch": "collective_authority_legitimacy_power",
+      "questions": [
+        "Does the current OWNER/resolution-authority model collapse decision right, knowledge authority, representation and legitimacy?",
+        "Can the system optimize a live decision while the decision boundary or represented stakeholders are illegitimate?",
+        "What source-grounded distinction would be required to prevent that failure?"
+      ],
+      "traditions": [
+        "critical systems heuristics / problem structuring",
+        "participatory design and co-design power literature",
+        "epistemic injustice",
+        "Indigenous relational accountability / Two-Eyed Seeing",
+        "Kaupapa Maori where source-authorized",
+        "participatory action research and praxis"
+      ],
+      "repository_targets": [
+        "docs/AUTHORITY_MAP.md",
+        "docs/SHARED_EPISTEMIC_KERNEL.md"
+      ],
+      "stop_when": "Either a precise missing distinction/challenge case is identified, or further sources only restate that participation/power matter."
+    },
+    {
+      "order": 2,
+      "branch": "deep_uncertainty_irreversibility_plural_values",
+      "questions": [
+        "When is cheapest decision-changing information the wrong allocation rule because probabilities, utilities or commensurable objectives are unavailable?",
+        "How should irreversibility, option value, safety constraints, and robust satisficing alter the rule?",
+        "Are these secondary modifiers or a missing primary boundary?"
+      ],
+      "traditions": [
+        "decision theory and value of information",
+        "robust decision making / decision making under deep uncertainty",
+        "multi-criteria decision analysis",
+        "real options / irreversibility where relevant"
+      ],
+      "repository_targets": [
+        "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "research/rnd-agent/scope-discovery/RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md"
+      ],
+      "stop_when": "A concrete condition is found that changes candidate-move ordering or no such condition survives comparison."
+    },
+    {
+      "order": 3,
+      "branch": "action_as_learning_endogenous_state",
+      "questions": [
+        "When is acting itself the epistemic move rather than downstream execution?",
+        "When does action change goals, state, stakeholders, or what can be known?",
+        "Does the current PRE/MID/POST learning phase and Decision→Execution→Learning contract represent this without forcing a false sequence?"
+      ],
+      "traditions": [
+        "pragmatist inquiry",
+        "participatory action research",
+        "organizational learning / double-loop learning",
+        "reflective practice",
+        "adaptive management / experimentation where relevant"
+      ],
+      "repository_targets": [
+        "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+        "research/rnd-agent/scope-discovery/RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md"
+      ],
+      "stop_when": "A discriminating ACT-TO-LEARN boundary/test is identified or current loop demonstrably already covers it."
+    },
+    {
+      "order": 4,
+      "branch": "context_implementation_transportability",
+      "questions": [
+        "When does valid external evidence fail to transfer because implementation context or local mechanism differs?",
+        "Does RESEARCH→FIELD separation already cover this, or is a reusable context/adaptation discriminator missing?"
+      ],
+      "traditions": [
+        "implementation science",
+        "evidence-based practice",
+        "realist/context-mechanism approaches where relevant",
+        "HCI/design adaptation"
+      ],
+      "repository_targets": [
+        "docs/AUTHORITY_MAP.md",
+        "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md"
+      ],
+      "stop_when": "A repeatable failure not already covered by RESEARCH≠FIELD is found, or branch collapses into existing authority law."
+    },
+    {
+      "order": 5,
+      "branch": "domain_method_boundary_stress",
+      "questions": [
+        "Do external disciplines reveal cases currently miscoded as R1 epistemic allocation when a domain method should be primary?",
+        "Do they reveal a missing neighboring region or only modifiers?"
+      ],
+      "traditions": [
+        "operations research / problem structuring",
+        "implementation science",
+        "design research",
+        "social work / clinical reasoning",
+        "systems engineering where useful"
+      ],
+      "repository_targets": [
+        "research/rnd-agent/scope-discovery/RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md"
+      ],
+      "stop_when": "At least 3 concrete boundary cases and matched neighbors can be specified, or no distinct coding residual appears."
+    },
+    {
+      "order": 6,
+      "branch": "convergence_only_after_challenges",
+      "questions": [
+        "Which R&D constructs recur independently across traditions, after disconfirming branches are complete?",
+        "Does convergence sharpen a boundary or only provide lineage/context?"
+      ],
+      "traditions": [
+        "VOI / experimental design",
+        "pragmatism",
+        "organizational learning",
+        "Japanese continuous improvement / hoshin / kaizen where source-grounded"
+      ],
+      "repository_targets": [
+        "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md conceptual lineage only"
+      ],
+      "stop_when": "No additional convergence changes a boundary, falsifier, or test."
+    }
+  ],
+  "source_rules": [
+    "Use primary/foundational or official sources where possible and peer-reviewed reviews for contested constructs.",
+    "For cultural/Indigenous traditions, prefer authors and institutions from within the named tradition; do not infer from outsider summaries when a source-authorized account exists.",
+    "Do not treat a national culture as homogeneous or use Hofstede-style broad traits as sufficient evidence for a methodology claim.",
+    "For every supporting source, search for a critique, boundary condition, or competing interpretation.",
+    "Separate normative arguments from empirical outcome claims.",
+    "Record what exact repository object or prospective test each finding could change."
+  ],
+  "output_contract": {
+    "for_each_branch": [
+      "external_finding",
+      "source_tradition_and_authority",
+      "supports_or_challenges",
+      "competing_interpretation",
+      "repository_delta_candidate",
+      "status: NO_DELTA | BOUNDARY_CANDIDATE | SCOPE_CHALLENGE | KERNEL_CHALLENGE | RND_TELOS_CHALLENGE | FIELD_HUMAN_REQUIRED",
+      "prospective_test_if_any"
+    ],
+    "final": [
+      "surviving R&D core",
+      "falsified or weakened assumptions",
+      "new candidate distinctions",
+      "challenge set",
+      "claims still blocked",
+      "explicit no-promotion statement"
+    ]
+  },
+  "stopping_condition": "Stop when every high-value branch is either NO_DELTA, converted into a precise repository/test candidate, or handed to FIELD/HUMAN authority, and additional literature no longer changes telos, authority, scope, loop structure, allocation principle, or challenge-set construction.",
+  "promotion_boundary": "External multidisciplinary/cultural triangulation can revise conceptual hypotheses and generate challenge cases. It cannot establish R&D runtime superiority, general performance, or confirmation under the frozen R1-R5 protocol without independent adjudication."
+}
