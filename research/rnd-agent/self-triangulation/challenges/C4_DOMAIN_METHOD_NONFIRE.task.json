@@ -1,0 +1,34 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-C4-DOMAIN-METHOD-NONFIRE",
+  "telos": {
+    "statement": "Choose the next resource move for a consequential multi-stakeholder decision whose problem definition is not yet stable.",
+    "success_condition": "Identify the smallest current bottleneck and allocate work to the resource or method that can legitimately resolve it before buying unnecessary evidence."
+  },
+  "current_state": {
+    "summary": "A city is deciding how to redesign a central public square. Transport staff frame the problem as pedestrian throughput, local businesses frame it as commercial access, disability advocates frame it as accessibility and rest points, residents frame it as noise and public space, and emergency services frame it as vehicle access. Each group has substantial existing data for its own frame. No one currently disputes the quality of those datasets, and no specific missing empirical fact has been identified whose resolution would settle the disagreement. The live blockage is that the stakeholders do not yet share a problem definition, decision criteria, or agreed tradeoff structure. A broad new research program has been proposed because the decision is consequential and contested.",
+    "known_constraints": [
+      "Existing datasets are adequate for the questions each stakeholder currently asks.",
+      "No single additional fact has been identified that would resolve the disagreement among frames.",
+      "The city has access to facilitated problem-structuring and multi-criteria decision processes if those are the appropriate next resource.",
+      "Do not equate consequence or disagreement with a requirement for more research."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "Should the city start a broad R&D/evidence program now, use a problem-structuring/domain method first, or take another bounded step?",
+    "current_default": "The steering group is leaning toward commissioning more research because the stakes and disagreement are high.",
+    "reversal_condition": "Change the default if the current bottleneck is not primarily an evidence-allocation problem."
+  },
+  "signals": [
+    "Stakeholders hold different legitimate frames and criteria.",
+    "Evidence already exists within each frame.",
+    "The unresolved object is the shared framing and tradeoff structure, not an identified empirical gap."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
