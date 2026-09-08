@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 INVENTORY = "docs/BRANCH_INVENTORY.md"
 CANONICAL_STATE = "docs/CANONICAL_STATE.md"
+RUNBOOK = "docs/BRANCH_RETIREMENT_RUNBOOK.md"
 
 CANONICAL_BRANCH = "main"
 
@@ -45,6 +46,9 @@ TIP_SHA = re.compile(r"`([0-9a-f]{10,40})`")
 CAPTURED_AGAINST = re.compile(
     r"Captured against:\s*`" + CANONICAL_BRANCH + r"`\s*@\s*`([0-9a-f]{40})`"
 )
+# Only fenced blocks. A prose mention such as `git push origin --delete <ref>` in a table
+# is documentation, not a command anyone pastes.
+RUNBOOK_DELETE = re.compile(r"```[^\n]*\n(git push origin --delete.*?)\n```", re.DOTALL)
 
 
 class ContractError(Exception):
@@ -191,6 +195,50 @@ def check_active_table_agrees(
         f"{INVENTORY} declares branches ahead of `{CANONICAL_BRANCH}` that "
         f"{CANONICAL_STATE} does not list as active: " + ", ".join(missing),
     )
+
+
+def parse_runbook_commands(text: str | None = None) -> list[frozenset[str]]:
+    """Ref sets named by each pasteable deletion command in the runbook."""
+    text = read(RUNBOOK) if text is None else text
+    commands = []
+    for block in RUNBOOK_DELETE.findall(text):
+        refs = block.replace("git push origin --delete", " ").replace("\\", " ").split()
+        commands.append(frozenset(refs))
+    return commands
+
+
+def check_runbook_matches_inventory(
+    declared: dict[str, dict[str, str]] | None = None,
+    commands: list[frozenset[str]] | None = None,
+) -> None:
+    """Every deletion command must name exactly the refs declared RETIRABLE.
+
+    The runbook carries the same list twice, once as a POSIX block and once as a single
+    line for shells without backslash continuation. Two copies drift, and a drifted copy
+    deletes a set nobody verified.
+    """
+    declared = parse_inventory() if declared is None else declared
+    commands = parse_runbook_commands() if commands is None else commands
+    retirable = frozenset(b for b, r in declared.items() if r["disposition"] == "RETIRABLE")
+
+    require(
+        len(commands) >= 2,
+        f"{RUNBOOK}: expected a POSIX and a single-line deletion command, found "
+        f"{len(commands)}",
+    )
+    for i, refs in enumerate(commands):
+        extra = sorted(refs - retirable)
+        require(
+            not extra,
+            f"{RUNBOOK}: deletion command {i + 1} names refs not declared RETIRABLE in "
+            f"{INVENTORY}: " + ", ".join(extra),
+        )
+        missing = sorted(retirable - refs)
+        require(
+            not missing,
+            f"{RUNBOOK}: deletion command {i + 1} omits refs declared RETIRABLE in "
+            f"{INVENTORY}: " + ", ".join(missing),
+        )
 
 
 # --- live invariants ----------------------------------------------------------
@@ -374,6 +422,26 @@ def positive_controls() -> int:
             lambda: check_active_table_agrees(parse_inventory(_GOOD_INVENTORY), set()),
         ),
         (
+            "runbook-command-omits-a-retirable-ref",
+            lambda: check_runbook_matches_inventory(
+                parse_inventory(_GOOD_INVENTORY),
+                [frozenset(), frozenset()],
+            ),
+        ),
+        (
+            "runbook-command-names-an-unretirable-ref",
+            lambda: check_runbook_matches_inventory(
+                parse_inventory(_GOOD_INVENTORY),
+                [frozenset({"dead/one", "live/one"}), frozenset({"dead/one", "live/one"})],
+            ),
+        ),
+        (
+            "runbook-carries-only-one-command",
+            lambda: check_runbook_matches_inventory(
+                parse_inventory(_GOOD_INVENTORY), [frozenset({"dead/one"})]
+            ),
+        ),
+        (
             "undeclared-branch-on-remote",
             lambda: check_live(
                 parse_inventory(_GOOD_INVENTORY),
@@ -436,6 +504,14 @@ def main() -> None:
         print(
             f"ACTIVE TABLE: {CANONICAL_STATE} and {INVENTORY} agree on "
             f"{len(ahead)} branches ahead of `{CANONICAL_BRANCH}`"
+        )
+
+        commands = parse_runbook_commands()
+        check_runbook_matches_inventory(declared, commands)
+        retirable = sum(1 for r in declared.values() if r["disposition"] == "RETIRABLE")
+        print(
+            f"RUNBOOK: {len(commands)} deletion commands, each naming the same "
+            f"{retirable} retirable refs"
         )
 
         if args.live:

@@ -67,6 +67,26 @@ git push origin --delete \
   rnd/calibration-loop-v0.1
 ```
 
+### Windows
+
+The backslash continuations above are a POSIX shell construct. `cmd.exe` uses `^` and
+PowerShell uses a backtick, so a copied multi-line block silently truncates the branch list
+and deletes only the first ref. Use the single line instead, which is identical in `cmd.exe`,
+PowerShell and bash:
+
+```
+git push origin --delete archive/legacy-docs-2026-09-05 archive/legacy-snapshots claude/lichess-prerelease-gaps-qvlbv5 neta/design-research-spine-v0.1 neta/github-benchmark-v1 neta/hebrew-observatory neta/hebrew-signal-fidelity neta/oss-observatory neta/v0.1-agent-contract refoundation/neta-assurance-v0.2 repo/organization-canonical repo/organization-canonical-v2 repo/organization-final repo/organization-pass repo/organization-pass-2 repo/organization-single-source repo/organization-work research/system-design-decision-lane-2026-09-06 research/wave1-evidence-pass1 research/wave1-triangulation rnd/calibration-loop-v0.1
+```
+
+Without a local clone, from any directory:
+
+```
+git clone https://github.com/ereztash/Product-Perception-Sensemaking-Architect.git
+cd Product-Perception-Sensemaking-Architect
+```
+
+then the single line above.
+
 The GitHub Branches page deletes the same refs one at a time and works equally well.
 
 ## After deleting
@@ -84,6 +104,6 @@ checker exists to catch.
 
 ## What this runbook does not cover
 
-The thirteen branches ahead of `main`. None of them may be deleted by this command; every one
+The fourteen branches ahead of `main`. None of them may be deleted by this command; every one
 carries commits that exist nowhere else. Their dispositions are in
 `docs/BRANCH_INVENTORY.md` and their recovery is a separate `OWNER` decision.

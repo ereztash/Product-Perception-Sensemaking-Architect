@@ -85,6 +85,7 @@ from every agent session. See the runbook.
 | `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 5 | `STRANDED` |
 | `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 1 | `STRANDED` |
 | `claude/repo-cleanup-590u82` | `41a45eea6a` | 1 | 3 | `OPEN_PR_TO_MAIN` |
+| `research/rnd-self-triangulation-2026-09-08` | `440fd2465d` | 5 | 5 | `STRANDED` |
 
 Tips in this table are last-observed values, not pins. An active branch is expected to
 receive commits, and `scripts/check_branch_inventory.py --live` reports such movement
@@ -112,10 +113,18 @@ on `main`. Nothing selects between the versions.
 | `skills/evidence-bounded-best-effort-runtime/skill.md` | 3 | 2 |
 | `runtime/calibration_loop/copilot_resource_adapter.py` | 3 | 1 |
 | `runtime/calibration_loop/copilot-config.best-effort.json` | 3 | 1 |
+| `runtime/calibration_loop/copilot_resource_adapter_v02.py` | 2 | 1 |
+| `runtime/calibration_loop/copilot-config-v02.best-effort.json` | 2 | 1 |
 
-`run/delta-v02-batch-2026-09-08` additionally carries
-`runtime/calibration_loop/copilot_resource_adapter_v02.py`, a second generation of the
-same adapter, also uncanonical.
+The `_v02` rows are a second generation of the same adapter, carried identically by
+`run/delta-v02-batch-2026-09-08` and `research/rnd-self-triangulation-2026-09-08`. Neither
+generation is on `main`, so a change to the adapter now has six side-branch copies to chase
+and no canonical one to change.
+
+`research/rnd-self-triangulation-2026-09-08` was pushed on 2026-09-08 at 14:26, after this
+inventory was first written. `scripts/check_branch_inventory.py --live` failed on it within
+the hour, which is the first observation the instrument produced that review had not already
+made.
 
 `skills/` does not appear in the placement table in `docs/REPOSITORY_MAP.md`. A directory
 that exists on three branches and in no rule is a placement question, not a file question.
