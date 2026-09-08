@@ -1,0 +1,47 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-PREFLIGHT-001",
+  "telos": {
+    "statement": "Use the actual R&D runtime to calibrate the frozen multidisciplinary, multicultural, adversarial triangulation plan for researching R&D itself before external research begins.",
+    "success_condition": "Identify which research branches can materially test R&D's telos, scope, authority model, and allocation logic; demote confirmatory or redundant branches; preserve culture/source boundaries; and freeze the smallest research sequence whose results could change a repository decision or prospective test."
+  },
+  "current_state": {
+    "summary": "R&D broad v0.2 is an IMPLEMENTATION_CANDIDATE. The narrower consequential-decision × nontrivial-epistemic-allocation scope is a RESEARCH_HYPOTHESIS with CONFIRMATORY_N=0 and CONFIRMATION_BLOCKED because same-model self-adjudication is disallowed. A frozen baseline now exists at research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_DR_PLAN_0.json. It proposes adversarial triangulation across decision theory/VOI, operations research, philosophy of science/pragmatism, organizational learning, HCI/design, implementation science, critical systems/complexity, social work/action research, plus documented Japanese continuous-improvement traditions, Indigenous/First Nations and Māori methodologies, Ubuntu/communitarian literature, Latin American participatory action research, and relational-autonomy/collectivist decision literature. The purpose is not to find support but to surface contradictions, omitted variables, authority failures, and challenge cases. No external research has been executed yet.",
+    "known_constraints": [
+      "Do not perform external web research during this preflight run.",
+      "Do not treat conceptual convergence as runtime validation or independent confirmation.",
+      "Do not essentialize national cultures; reason from source-bounded traditions and empirical findings.",
+      "Do not rewrite the frozen DR_PLAN_0 retroactively.",
+      "Every research branch must name what repository object, claim boundary, routing rule, or future test it could change.",
+      "Prefer disconfirming and boundary-condition evidence over analogy collection.",
+      "Keep conceptual robustness, runtime usefulness, field outcome, and cultural legitimacy as separate claims."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "What is the highest-decision-value sequence for a multidisciplinary and multicultural external triangulation of R&D on itself, and which branches should be removed or reframed before any browsing begins?",
+    "current_default": "Start with boundary-breaking traditions and disciplines most likely to challenge R&D's assumptions: critical systems/power/legitimacy, Indigenous/relational authority, participatory action research, decision theory/VOI under irreversibility, and implementation/organizational learning; only then map supporting convergence. Convert surviving contradictions into blind runtime challenge cases instead of promoting theory claims.",
+    "reversal_condition": "R&D identifies a cheaper sequence, a branch that cannot change any live decision, a missing critique with higher expected decision value, or an authority/epistemic limitation that makes the proposed comparison invalid."
+  },
+  "signals": [
+    "The repository already states that same-model agreement is not independent triangulation and that R&D confirmation is blocked.",
+    "The frozen plan explicitly separates conceptual robustness from runtime validation.",
+    "The largest plausible blind spots are not more optimization theory but collective authority, legitimacy, power, irreversibility, plural values, and action-as-learning.",
+    "A useful research result must change a repository-level claim, constraint, routing condition, authority map, or test design; vocabulary similarity alone is zero delta.",
+    "The eventual output should be an adversarial synthesis plus a prospective challenge set, not a literature review."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [
+    "research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_DR_PLAN_0.json",
+    "docs/CANONICAL_STATE.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "research/rnd-agent/scope-discovery/RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md",
+    "docs/AUTHORITY_MAP.md",
+    "docs/SHARED_EPISTEMIC_KERNEL.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
