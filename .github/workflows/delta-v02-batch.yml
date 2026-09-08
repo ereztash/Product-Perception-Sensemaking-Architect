@@ -1,4 +1,4 @@
-name: Calibration Loop v0.2 Delta Batch
+name: OSS R&D Decision Delta Pilot
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   copilot-requests: write
 
 jobs:
-  calibrate:
+  compare:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
@@ -20,23 +20,17 @@ jobs:
       max-parallel: 3
       matrix:
         include:
-          - id: lichess-premove
-            task: research/deep-research-preflight/LICHESS-PREMOVE-OWNERSHIP-2026-09-07.task.json
-          - id: lichess-wtp
-            task: research/deep-research-preflight/LICHESS_WTP_BELIEF_2026-09-06.task.json
-          - id: shaked-close-os
-            task: research/deep-research-preflight/SHAKED_CLOSE_OS_2026-09-07.task.json
-          - id: dr-preflight
-            task: research/deep-research-preflight/DR_PLAN_0.task.json
-          - id: arch-sysdesign
-            task: research/architecture-agent/system-design/CAL_ARCH_SYSDESIGN_001_TASK.json
-          - id: arch-solarch
-            task: research/architecture-agent/system-design/CAL_ARCH_SOLARCH_001_TASK.json
+          - id: checkstyle-20818
+            task: research/deep-research-preflight/OSS-CHECKSTYLE-20818.task.json
+          - id: paperclip-4328
+            task: research/deep-research-preflight/OSS-PAPERCLIP-4328.task.json
+          - id: pulsar-24628
+            task: research/deep-research-preflight/OSS-PULSAR-24628.task.json
     env:
       GITHUB_TOKEN: ${{ github.token }}
-      CANONICAL_RUNTIME_BASE: 74fc4af509965497a7440d9521fc3717b2809f50
       CASE_ID: ${{ matrix.id }}
       TASK_PATH: ${{ matrix.task }}
+      CANONICAL_RUNTIME_BASE: 74fc4af509965497a7440d9521fc3717b2809f50
     steps:
       - name: Checkout exact experiment commit
         uses: actions/checkout@v4
@@ -44,159 +38,67 @@ jobs:
       - name: Install GitHub Copilot CLI
         run: npm install -g @github/copilot
 
-      - name: Validate calibration task
+      - name: Validate task
         run: python scripts/validate_calibration_task.py "$TASK_PATH"
 
-      - name: Record provenance sidecar
+      - name: Freeze strong direct baseline
         shell: bash
         run: |
-          mkdir -p batch
-          COPILOT_VERSION="$(copilot --version 2>&1 | head -n 1 || true)"
+          mkdir -p oss-pilot
           python - <<'PY'
           import json, os
-          case_id = os.environ['CASE_ID']
-          payload = {
-              'case_id': case_id,
-              'task_path': os.environ['TASK_PATH'],
-              'experiment_commit': os.environ['GITHUB_SHA'],
-              'canonical_runtime_base': os.environ['CANONICAL_RUNTIME_BASE'],
-              'runtime_version': '0.2',
-              'execution_adapter': 'runtime/calibration_loop/copilot_resource_adapter_v02.py',
-              'provider': 'github-copilot-cli',
-              'model': 'provider-default',
-              'exact_model_lineage': 'unknown',
-              'provenance_limit': 'Role-conditioned outputs share an unknown provider-selected model lineage and are not independent triangulation.',
-          }
-          with open(f'batch/{case_id}.manifest.json', 'w', encoding='utf-8') as f:
-              json.dump(payload, f, ensure_ascii=False, indent=2)
-              f.write('\n')
+          task=json.load(open(os.environ['TASK_PATH'],encoding='utf-8'))
+          prompt=f'''You are a strong senior engineering decision adviser. Do NOT use or imitate any R&D Agent framework. Based only on the case below, give the best direct next decision and action you would recommend now. Do not browse, do not infer the eventual historical resolution, and do not add generic caveats. State: (1) decision, (2) next action, (3) what would reverse it.\n\nCASE:\n{json.dumps(task,ensure_ascii=False,indent=2)}'''
+          open(f"oss-pilot/{os.environ['CASE_ID']}.baseline.prompt.txt","w",encoding='utf-8').write(prompt)
           PY
-          python - <<'PY'
-          import json, os, subprocess
-          p = f"batch/{os.environ['CASE_ID']}.manifest.json"
-          data = json.load(open(p, encoding='utf-8'))
-          proc = subprocess.run(['copilot', '--version'], text=True, capture_output=True)
-          data['copilot_cli_version'] = (proc.stdout.strip() or proc.stderr.strip() or 'unknown').splitlines()[0]
-          with open(p, 'w', encoding='utf-8') as f:
-              json.dump(data, f, ensure_ascii=False, indent=2)
-              f.write('\n')
-          PY
+          copilot -p "$(cat oss-pilot/${CASE_ID}.baseline.prompt.txt)" -s --no-ask-user --no-custom-instructions > "oss-pilot/${CASE_ID}.baseline.txt"
+          echo "--- BASELINE ${CASE_ID} ---"
+          cat "oss-pilot/${CASE_ID}.baseline.txt"
 
-      - name: Run Calibration Loop v0.2
+      - name: Run canonical Calibration Loop v0.2
         shell: bash
         run: |
           set +e
-          OUT="batch/${CASE_ID}.trace.json"
+          OUT="oss-pilot/${CASE_ID}.rnd.trace.json"
           python runtime/calibration_loop/run.py \
             "$TASK_PATH" \
             --config runtime/calibration_loop/copilot-config-v02.best-effort.json \
             --strict \
             --output "$OUT"
           RC=$?
-          echo "--- TRACE: ${CASE_ID} ---"
+          echo "--- R&D TRACE ${CASE_ID} ---"
           cat "$OUT" || true
           exit $RC
 
-      - name: Upload case trace and provenance
+      - name: Create compact comparison record
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          cid=os.environ['CASE_ID']
+          rec={'case_id':cid,'runtime_version':'0.2','provider':'github-copilot-cli','exact_model_lineage':'unknown','independence_limit':'Baseline and R&D use the same provider-selected model lineage; this is directional decision-delta evidence, not independent confirmation.'}
+          try: rec['baseline']=open(f'oss-pilot/{cid}.baseline.txt',encoding='utf-8').read()
+          except: rec['baseline']=None
+          try:
+            tr=json.load(open(f'oss-pilot/{cid}.rnd.trace.json',encoding='utf-8'))
+            syn=tr.get('synthesis') or {}
+            rec['final_state']=tr.get('final_state')
+            rec['routed_resources']=(tr.get('routing') or {}).get('resources')
+            rec['decision_before']=syn.get('decision_before')
+            rec['decision_after']=syn.get('decision_after')
+            rec['next_move']=syn.get('next_move')
+            rec['resource_deltas']=syn.get('resource_deltas')
+            rec['failure']=tr.get('failure')
+          except Exception as e: rec['trace_error']=str(e)
+          with open(f'oss-pilot/{cid}.comparison.json','w',encoding='utf-8') as f: json.dump(rec,f,ensure_ascii=False,indent=2)
+          print(json.dumps(rec,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload pilot artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: delta-v02-${{ matrix.id }}-${{ github.sha }}
-          path: |
-            batch/${{ matrix.id }}.trace.json
-            batch/${{ matrix.id }}.manifest.json
+          name: oss-rnd-pilot-${{ matrix.id }}-${{ github.sha }}
+          path: oss-pilot/${{ matrix.id }}.*
           if-no-files-found: warn
-
-  aggregate:
-    if: always()
-    needs: calibrate
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Download all case artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: delta-v02-*
-          path: batch
-          merge-multiple: true
-
-      - name: Aggregate observed resource deltas
-        run: |
-          python - <<'PY'
-          import glob, json, os
-          dims = ['decision','action','reversal','evidence','allocation','distinction']
-          cases = []
-          trigger_stats = {}
-          dimension_counts = {d: 0 for d in dims}
-          routed = material = 0
-          for path in sorted(glob.glob('batch/*.trace.json')):
-              trace = json.load(open(path, encoding='utf-8'))
-              task = trace.get('task') or {}
-              routing = trace.get('routing') or {}
-              synthesis = trace.get('synthesis') or {}
-              resources = routing.get('resources') or []
-              neta_routed = 'NETA' in resources
-              fired = ((routing.get('fired') or {}).get('NETA') or [])
-              expected = None
-              diagnosis = trace.get('diagnosis') or {}
-              for item in diagnosis.get('resource_assessment') or []:
-                  if item.get('resource') == 'NETA':
-                      expected = item.get('expected_delta')
-                      break
-              neta_delta = None
-              for item in synthesis.get('resource_deltas') or []:
-                  if item.get('resource') == 'NETA':
-                      neta_delta = item
-                      break
-              observed = (neta_delta or {}).get('observed_delta')
-              neta_material = (neta_delta or {}).get('material') if neta_delta is not None else None
-              if neta_routed:
-                  routed += 1
-                  if neta_material:
-                      material += 1
-                  for trigger in fired:
-                      stat = trigger_stats.setdefault(trigger, {'routed': 0, 'material': 0})
-                      stat['routed'] += 1
-                      if neta_material:
-                          stat['material'] += 1
-                  if observed:
-                      for d in dims:
-                          if observed.get(d) is not None:
-                              dimension_counts[d] += 1
-              cases.append({
-                  'case_id': task.get('task_id') or os.path.basename(path).replace('.trace.json',''),
-                  'final_state': trace.get('final_state'),
-                  'routed_resources': resources,
-                  'neta_routed': neta_routed,
-                  'neta_triggers': fired,
-                  'neta_expected_delta': expected,
-                  'neta_material': neta_material,
-                  'neta_observed_delta': observed,
-                  'decision_before': synthesis.get('decision_before'),
-                  'decision_after': synthesis.get('decision_after'),
-                  'next_move': synthesis.get('next_move'),
-                  'failure': trace.get('failure'),
-              })
-          summary = {
-              'runtime_version': '0.2',
-              'case_count': len(cases),
-              'neta_routed_count': routed,
-              'neta_material_count': material,
-              'neta_yield': (material / routed) if routed else None,
-              'neta_trigger_stats': trigger_stats,
-              'neta_material_delta_dimension_counts': dimension_counts,
-              'cases': cases,
-              'interpretation_limit': 'Small same-provider best-effort sample. Use as initial routing evidence, not a promotion decision by itself.'
-          }
-          with open('batch/BATCH_SUMMARY.json','w',encoding='utf-8') as f:
-              json.dump(summary,f,ensure_ascii=False,indent=2)
-              f.write('\n')
-          print(json.dumps(summary, ensure_ascii=False, indent=2))
-          PY
-
-      - name: Upload batch dataset
-        uses: actions/upload-artifact@v4
-        with:
-          name: delta-v02-batch-${{ github.sha }}
-          path: batch
