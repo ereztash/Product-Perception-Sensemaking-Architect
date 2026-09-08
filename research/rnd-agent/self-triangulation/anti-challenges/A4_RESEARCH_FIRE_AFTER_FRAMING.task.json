@@ -1,0 +1,31 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-A4-RESEARCH-FIRE-AFTER-FRAMING",
+  "telos": {
+    "statement": "Choose the next resource move for a consequential multi-stakeholder decision after the shared problem definition and tradeoff structure are already stable.",
+    "success_condition": "Identify whether the remaining blocker is a specific decision-changing empirical uncertainty and allocate only the evidence needed to resolve it."
+  },
+  "current_state": {
+    "summary": "A city is deciding between two redesigns for a central public square. After a completed facilitated process, transport staff, local businesses, disability advocates, residents, emergency services, and the authorized steering group share the same problem definition, decision criteria, tradeoff weights, and decision rule. Existing data resolve all criteria except one: emergency response delay during large event conditions for Design B. The agreed rule is explicit: choose Design B if its median added emergency-response delay under event conditions is 45 seconds or less; otherwise choose Design A. Current datasets do not contain that measurement. A bounded two-week simulation plus field exercise can estimate the missing quantity with enough precision to cross the agreed threshold, and no stakeholder is asking to reopen the framing or weights. A broad research program and another facilitation round have both been suggested because the decision is consequential.",
+    "known_constraints": [
+      "The shared problem definition, criteria, tradeoff weights, and authority are already stable and documented.",
+      "One specific empirical quantity remains unresolved and is explicitly tied to the choice between Design A and Design B.",
+      "The proposed two-week targeted study can resolve the quantity to the precision required by the agreed decision rule.",
+      "Do not reopen problem framing merely because the decision is consequential or multi-stakeholder."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "Should the city run the targeted emergency-response study, reopen problem structuring, commission broad research, wait, or take another bounded step?",
+    "current_default": "Because the decision is consequential and contested historically, some members are considering another facilitation round before collecting evidence.",
+    "reversal_condition": "Change that default if framing is already closed and the only remaining blocker is a specific empirical uncertainty that directly changes the agreed decision."
+  },
+  "signals": [
+    "Stakeholders already share a stable decision structure.",
+    "A single missing empirical quantity determines which option satisfies the agreed rule.",
+    "A bounded targeted study can resolve that quantity without broad new research."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [],
+  "budget": {"max_resource_calls": 2, "max_parallel_calls": 1}
+}
