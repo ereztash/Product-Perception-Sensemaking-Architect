@@ -1,0 +1,46 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-BEST-EFFORT-SKILL-SELF-2026-09-08",
+  "telos": {
+    "statement": "Determine the smallest evidence-bounded changes that would make the Evidence-Bounded Best-Effort Runtime skill more reliable at preventing fabricated success, silent semantic drift, provenance overclaiming, and unnecessary fallback complexity when running repository-defined agents.",
+    "success_condition": "Produce a bounded skill-improvement decision that identifies the highest-value weakness in the current skill, distinguishes wording gaps from runtime/validation gaps, proposes the smallest reversible revision, and states what should remain unchanged."
+  },
+  "current_state": {
+    "summary": "The current skill freezes the execution target, tries the canonical live path first, classifies blockers, permits fallback adapters only if runtime semantics remain fixed, downgrades provenance when provider/model lineage changes, requires the canonical control flow and durable traces, forbids mock output masquerading as a real run, and prefers bounded FIELD tests over premature BUILD. The skill currently asserts semantic preservation for fallback adapters but does not define an explicit verification procedure or admissibility test for semantic equivalence. It also does not define a bounded stopping rule for repeated fallback attempts, nor an explicit promotion gate for incorporating lessons learned from one successful fallback run into the skill itself. The skill is stored at skills/evidence-bounded-best-effort-runtime/skill.md on this branch and is the object being calibrated.",
+    "known_constraints": [
+      "Do not weaken the invariant that repository agent output must come from the actual runtime/adapters/contracts rather than conversational imitation.",
+      "Do not convert one successful fallback execution into proof that the fallback is generally equivalent to the canonical adapter.",
+      "Do not add process steps unless they reduce a material failure mode or decision error.",
+      "Preserve decision-oriented output and explicit final_state reporting.",
+      "Treat same-lineage or unknown-lineage peer agreement as non-independent.",
+      "Prefer a small reversible skill revision over redesigning the broader repository architecture."
+    ],
+    "available_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What, if anything, should be changed in the Best-Effort Runtime skill before relying on it as a reusable execution protocol?",
+    "current_default": "Keep the current skill unchanged until a concrete failure mode is identified that a small revision can prevent.",
+    "reversal_condition": "A bounded analysis identifies a material failure mode in the current specification and a small change that reduces it without adding disproportionate complexity or weakening execution honesty."
+  },
+  "signals": [
+    "The skill requires fallback semantic equivalence but does not specify how equivalence is checked before trusting a successful fallback trace.",
+    "The skill has a fallback ladder but no explicit retry budget or stop rule, creating a risk of provider/model fishing until something succeeds.",
+    "The skill records provenance downgrade but does not define when a downgrade is so severe that the result should be treated as exploratory only rather than decision-supporting.",
+    "The skill itself was created from one Lichess ownership case, creating a risk of overfitting a general protocol to one successful example.",
+    "Self-application creates a recursion risk: a skill could cite its own successful self-run as evidence for promoting its own rules."
+  ],
+  "allowed_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"],
+  "context_refs": [
+    "skills/evidence-bounded-best-effort-runtime/skill.md",
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/SYSTEM.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
