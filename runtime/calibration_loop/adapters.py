@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Provider-neutral command adapters and deterministic mocks for Calibration Loop v0.1."""
+"""Provider-neutral command adapters and deterministic mocks for Calibration Loop v0.2."""
 
 from __future__ import annotations
 
@@ -42,6 +42,32 @@ class CommandAdapter:
         return payload
 
 
+def _expected(**overrides: bool) -> dict:
+    value = {
+        "decision": False,
+        "action": False,
+        "reversal": False,
+        "evidence": False,
+        "allocation": False,
+        "distinction": False,
+    }
+    value.update(overrides)
+    return value
+
+
+def _observed(**overrides: str | None) -> dict:
+    value = {
+        "decision": None,
+        "action": None,
+        "reversal": None,
+        "evidence": None,
+        "allocation": None,
+        "distinction": None,
+    }
+    value.update(overrides)
+    return value
+
+
 def mock_rnd_diagnosis(task: dict) -> dict:
     """A deliberate deterministic mock for CI; not a model of real R&D judgment."""
     return {
@@ -52,19 +78,22 @@ def mock_rnd_diagnosis(task: dict) -> dict:
                 "resource": "NETA",
                 "expected_contribution": "Challenge framing, proxy substitution and premature intervention.",
                 "authority_ceiling": "Cannot establish architecture doctrine or external empirical validity.",
-                "uncertainty": "Unknown marginal value until compared with other resources on the same task."
+                "uncertainty": "Unknown marginal value until compared with other resources on the same task.",
+                "expected_delta": _expected(decision=True, action=True, reversal=True, allocation=True, distinction=True),
             },
             {
                 "resource": "SCAFFOLD",
                 "expected_contribution": "Generate broad architecture alternatives and candidate judgment dimensions.",
                 "authority_ceiling": "Candidate reasoning only; not independent empirical evidence.",
-                "uncertainty": "May add breadth without changing the blocked decision."
+                "uncertainty": "May add breadth without changing the blocked decision.",
+                "expected_delta": _expected(decision=True, action=True, distinction=True),
             },
             {
                 "resource": "RND",
                 "expected_contribution": "Compare evidence/resource deltas and decide the cheapest next learning move.",
                 "authority_ceiling": "Cannot close OWNER/FIELD/REPO/ENVIRONMENT claims outside their authorities.",
-                "uncertainty": "v0.2 calibration telos is a candidate and not yet validated."
+                "uncertainty": "v0.2 calibration telos is a candidate and not yet validated.",
+                "expected_delta": _expected(decision=True, action=True, reversal=True, evidence=True, allocation=True),
             }
         ],
         "candidate_moves": [
@@ -128,14 +157,27 @@ def mock_scaffold_result(request: dict) -> dict:
 def mock_rnd_synthesis(task: dict, diagnosis: dict, resource_results: list[dict], route: dict) -> dict:
     by_resource = {r.get("resource"): r for r in resource_results if isinstance(r, dict)}
     deltas = []
-    for resource in ("NETA", "SCAFFOLD"):
-        if resource in by_resource:
-            result = by_resource[resource]
-            deltas.append({
-                "resource": resource,
-                "material": True,
-                "unique_delta": result.get("unique_delta", ""),
-            })
+    if "NETA" in by_resource:
+        deltas.append({
+            "resource": "NETA",
+            "material": True,
+            "unique_delta": by_resource["NETA"].get("unique_delta", "Neta changed the state."),
+            "observed_delta": _observed(
+                action="Added a pre-build discrimination step before specifying a full Architecture Agent.",
+                reversal="Made proxy substitution and premature build explicit reversal reasons.",
+                distinction="Separated observable architecture proxies from architecture-specific decision quality.",
+            ),
+        })
+    if "SCAFFOLD" in by_resource:
+        deltas.append({
+            "resource": "SCAFFOLD",
+            "material": True,
+            "unique_delta": by_resource["SCAFFOLD"].get("unique_delta", "Scaffold changed the state."),
+            "observed_delta": _observed(
+                decision="Expanded the candidate judgment surface that must be tested before implementation.",
+                distinction="Added architecture-specific candidate dimensions such as dependency direction and migration reversibility.",
+            ),
+        })
     return {
         "decision_before": task["decision_blocked"]["current_default"],
         "decision_after": "Freeze an Architecture Agent telos/authority brief and judgment fixtures before implementing a full architecture agent.",
@@ -145,6 +187,12 @@ def mock_rnd_synthesis(task: dict, diagnosis: dict, resource_results: list[dict]
             {
                 "resource": d["resource"],
                 "invoked_because": route.get("fired", {}).get(d["resource"], []),
+                "expected_delta": next(
+                    item["expected_delta"]
+                    for item in diagnosis["resource_assessment"]
+                    if item["resource"] == d["resource"]
+                ),
+                "observed_delta": d["observed_delta"],
                 "material": d["material"],
                 "unique_delta": d["unique_delta"],
             }

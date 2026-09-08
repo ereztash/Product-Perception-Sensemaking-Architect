@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Executable controls for Calibration Loop v0.1 routing and trace semantics."""
+"""Executable controls for Calibration Loop v0.2 routing, independence and delta semantics."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
 from routing import route  # noqa: E402
-from run import RuntimeErrorBounded, run, validate_diagnosis  # noqa: E402
+from run import RuntimeErrorBounded, run, validate_diagnosis, validate_synthesis  # noqa: E402
 from validate_calibration_task import ContractError, validate as validate_task  # noqa: E402
 
 FIXTURE = ROOT / "fixtures" / "calibration-valid-task.json"
@@ -44,6 +44,19 @@ def base_needs() -> dict[str, bool]:
     }
 
 
+def empty_expected_delta(**overrides: bool) -> dict:
+    value = {
+        "decision": False,
+        "action": False,
+        "reversal": False,
+        "evidence": False,
+        "allocation": False,
+        "distinction": False,
+    }
+    value.update(overrides)
+    return value
+
+
 def diagnosis(needs: dict[str, bool]) -> dict:
     return {
         "material_question": "What changes the decision?",
@@ -52,7 +65,8 @@ def diagnosis(needs: dict[str, bool]) -> dict:
             "resource": "RND",
             "expected_contribution": "Calibrate resources.",
             "authority_ceiling": "Does not inherit peer authority.",
-            "uncertainty": "Value not yet measured."
+            "uncertainty": "Value not yet measured.",
+            "expected_delta": empty_expected_delta(decision=True, action=True, allocation=True),
         }],
         "candidate_moves": [{
             "move": "TEST",
@@ -70,20 +84,38 @@ def main() -> int:
     validate_task(task)
 
     trace = run(task, config={"adapters": {}}, mock=True, strict=True)
+    require(trace["runtime_version"] == "0.2", "resource-delta accounting must bump runtime trace version")
     require(trace["final_state"] == "COMPLETE", "mock end-to-end run must complete")
     require(trace["routing"]["resources"] == ["NETA", "SCAFFOLD"], "fixture must route independently to Neta and scaffold")
     phases = [(x["resource"], x["phase"]) for x in trace["resource_invocations"]]
     require(phases[0] == ("RND", "DIAGNOSE"), "R&D must diagnose first")
     require(phases[-1] == ("RND", "SYNTHESIZE"), "R&D must synthesize last")
 
-    peer_requests = [x["request"] for x in trace["resource_invocations"] if x["resource"] in {"NETA", "SCAFFOLD"}]
-    for request in peer_requests:
+    peer_invocations = [x for x in trace["resource_invocations"] if x["resource"] in {"NETA", "SCAFFOLD"}]
+    for invocation in peer_invocations:
+        request = invocation["request"]
         require("diagnosis" not in request, "peer analysis request must not receive R&D diagnosis conclusion")
         require("resource_results" not in request, "peer analysis request must not receive another peer's result")
+        require("expected_delta" not in request, "peer must remain blind to R&D's ex-ante expected delta")
+        require(set(invocation["expected_delta"]) == {"decision", "action", "reversal", "evidence", "allocation", "distinction"}, "peer trace must carry the six expected-delta dimensions")
+        require(isinstance(invocation["observed_delta"], dict), "completed peer invocation must be annotated with observed_delta after synthesis")
+        require(invocation["material"] is True, "mock peer deltas should be material")
 
     synthesis = trace["synthesis"]
     require(synthesis["routing_amendment_proposed"] is None, "one mock case must not self-modify routing")
     require({d["resource"] for d in synthesis["resource_deltas"]} == {"NETA", "SCAFFOLD"}, "synthesis must preserve per-resource deltas")
+    for delta in synthesis["resource_deltas"]:
+        derived_material = any(value is not None for value in delta["observed_delta"].values())
+        require(delta["material"] == derived_material, "materiality must be derivable from observed_delta")
+
+    inconsistent = copy.deepcopy(synthesis)
+    inconsistent["resource_deltas"][0]["material"] = False
+    try:
+        validate_synthesis(inconsistent, trace["routing"]["resources"])
+    except RuntimeErrorBounded:
+        pass
+    else:
+        raise AssertionError("material label that conflicts with observed_delta must be rejected")
 
     needs = base_needs()
     needs["proxy_substitution_risk"] = True
@@ -132,10 +164,19 @@ def main() -> int:
     else:
         raise AssertionError("unknown routing trigger must be rejected")
 
+    bad_delta_diag = diagnosis(base_needs())
+    del bad_delta_diag["resource_assessment"][0]["expected_delta"]["decision"]
+    try:
+        validate_diagnosis(bad_delta_diag)
+    except RuntimeErrorBounded:
+        pass
+    else:
+        raise AssertionError("incomplete expected_delta must be rejected")
+
     pending = run(task, config={"adapters": {}}, mock=False, strict=False)
     require(pending["final_state"] == "PENDING_RESOURCE", "unwired real runtime must expose pending R&D rather than fabricate output")
 
-    print("CALIBRATION LOOP OK: routing, independence, authority, non-self-modification and pending-resource controls passed")
+    print("CALIBRATION LOOP OK: routing, independence, authority and prospective resource-delta accounting passed")
     return 0
 
 

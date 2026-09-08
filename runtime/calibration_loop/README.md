@@ -1,4 +1,4 @@
-# Calibration Loop Runtime v0.1
+# Calibration Loop Runtime v0.2
 
 Status: `IMPLEMENTATION_CANDIDATE`
 
@@ -13,14 +13,20 @@ CALIBRATION TASK
       ↓
 R&D DIAGNOSE
       ↓
+EX-ANTE EXPECTED DELTA
+      ↓
 DETERMINISTIC ROUTING GATE
       ├── NETA      when discrimination/proxy/intervention triggers fire
       ├── SCAFFOLD  when broad/novel/architecture synthesis is requested
       └── AUTHORITY handoff when OWNER/REPO/ENVIRONMENT/FIELD owns the remainder
       ↓
+PEER ANALYSIS (blind to expected_delta)
+      ↓
 R&D SYNTHESIZE
       ↓
-TRACE + RESOURCE DELTAS + LEARNING RECORD
+OBSERVED DELTA + MATERIALITY CHECK
+      ↓
+TRACE + LEARNING RECORD
 ```
 
 ## Why routing is deterministic
@@ -28,12 +34,76 @@ TRACE + RESOURCE DELTAS + LEARNING RECORD
 The project does not yet have evidence that a learned orchestrator adds value. A deterministic gate provides the cheapest admissible coordination layer while preserving an auditable record of:
 
 - why a resource was invoked;
-- which resource changed the decision;
-- what unique distinction it added;
+- what R&D expected it could still change before invocation;
+- what actually changed after invocation;
 - whether the invocation was worth its cost;
 - which routing rule should later be challenged.
 
 A future orchestrator must be earned by repeated routing/dependency failures under this simpler system.
+
+## Resource-delta accounting
+
+v0.2 adds prospective resource accounting. The purpose is to distinguish a valid trigger from a useful invocation.
+
+A resource can be correctly routed because its trigger family is present and still produce no material state change. Therefore `material=true/false` is not accepted as an unconstrained model judgment.
+
+For every assessed resource, R&D must commit **before routing** to an `expected_delta` over six decision-state dimensions:
+
+```json
+{
+  "decision": false,
+  "action": false,
+  "reversal": false,
+  "evidence": false,
+  "allocation": false,
+  "distinction": false
+}
+```
+
+The booleans mean only that the resource could still change that dimension if invoked now. They do not predict that it will.
+
+After the peer returns, R&D must report `observed_delta` over the same six dimensions. Each value is either `null` or a concrete description of the state change attributable to that resource.
+
+```json
+{
+  "decision": null,
+  "action": "Changed the next move from BUILD to TEST.",
+  "reversal": null,
+  "evidence": null,
+  "allocation": "Restricted Neta to two bounded passes instead of a standing workstream.",
+  "distinction": "Separated proxy completion from position-specific judgment."
+}
+```
+
+`material` is valid only when it equals whether at least one `observed_delta` field is non-null. The runtime rejects inconsistent labels.
+
+This produces a reusable delta vocabulary:
+
+- `ΔDecision`
+- `ΔAction`
+- `ΔReversal`
+- `ΔEvidence`
+- `ΔAllocation`
+- `ΔDistinction`
+- `Δ0` when all six are null
+
+A distinction may therefore be material without changing the top-level decision, but only if it changes the reusable decision state rather than merely restating or elaborating an existing point.
+
+### Independence guardrail
+
+`expected_delta` is stored in the trace and in the R&D diagnosis, but it is **not sent to Neta or Scaffold**. The peer receives the task and fired focus only. This keeps the ex-ante expectation from becoming a self-fulfilling evaluation target.
+
+R&D sees the expected delta again during synthesis and performs the expected-versus-observed comparison there.
+
+### What this enables
+
+Repeated real traces can support empirical routing metrics such as:
+
+```text
+Neta Yield = material Neta invocations / total Neta invocations
+```
+
+The same yield can later be decomposed by trigger family and delta type. Routing rules should not be changed from one case; repeated traces must show a stable pattern and neighboring non-fire cases must still be checked.
 
 ## Resource roles
 
@@ -58,11 +128,13 @@ Neta is invoked only when at least one Neta trigger fires:
 
 Neta is a peer resource, not a subordinate R&D worker and not a mandatory ceremony. The live adapter loads the canonical Neta prompt from `prompts/SYSTEM.md` and adds only a runtime return-shape bridge.
 
+The v0.2 accounting layer does **not** change Neta's routing law. It makes the value of each invocation measurable before any future routing amendment is considered.
+
 ### SCAFFOLD
 
-`SCAFFOLD` is an external broad-reasoning resource (currently represented by an OpenAI reasoning model in the provided live adapter). It is useful for architecture alternatives, novel synthesis and expert-level reasoning that is cheaper to borrow than to internalize immediately.
+`SCAFFOLD` is an external broad-reasoning resource. It is useful for architecture alternatives, novel synthesis and expert-level reasoning that is cheaper to borrow than to internalize immediately.
 
-R&D must learn from scaffold use rather than treating scaffold output as ground truth. The scaffold prompt is `prompts/SCAFFOLD_RESOURCE_V0_1.md`.
+R&D must learn from scaffold use rather than treating scaffold output as ground truth.
 
 ## Command-adapter protocol
 
@@ -91,7 +163,7 @@ This keeps API keys/provider concerns outside the repository and allows local CL
 A working Responses-API adapter is included:
 
 - `runtime/calibration_loop/openai_resource_adapter.py` — Neta / Scaffold live resource bridge with provider/model provenance retained in `_adapter_meta`.
-- `runtime/calibration_loop/openai_rnd_adapter.py` — strict R&D bridge that preserves the exact control-flow JSON shape required by the runner.
+- `runtime/calibration_loop/openai_rnd_adapter.py` — strict R&D bridge that preserves the control-flow JSON shape required by the runner.
 - `runtime/calibration_loop/openai-config.example.json` — ready command configuration.
 
 No key is stored in the repository.
@@ -104,18 +176,6 @@ export OPENAI_MODEL="gpt-5.6-sol"
 export OPENAI_REASONING_EFFORT="high"
 ```
 
-Optional per-resource overrides:
-
-```bash
-export CALIBRATION_RND_MODEL="gpt-5.6-sol"
-export CALIBRATION_NETA_MODEL="gpt-5.6-sol"
-export CALIBRATION_SCAFFOLD_MODEL="gpt-5.6-sol"
-
-export CALIBRATION_RND_REASONING_EFFORT="high"
-export CALIBRATION_NETA_REASONING_EFFORT="high"
-export CALIBRATION_SCAFFOLD_REASONING_EFFORT="high"
-```
-
 External web search is **off by default**. When a calibration diagnosis genuinely requires external research, enable it for R&D only:
 
 ```bash
@@ -123,32 +183,6 @@ export CALIBRATION_RND_WEB_SEARCH=1
 ```
 
 Do not enable web search merely to increase source volume. The R&D telos remains decision-changing learning, not research accumulation.
-
-### Reference task: CAL-ARCH-001
-
-`fixtures/calibration-valid-task.json` is the first live transfer task and is retained as the reference example:
-
-> What is the smallest evidence-backed architecture capability and evaluation contract worth building next?
-
-It has already been executed manually. Its trace is
-`runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md`, and it produced a material
-decision change: do not define an autonomous architecture agent, first test whether a distinct
-architecture-specific decision capability adds value beyond R&D + Scaffold + REPO/ENVIRONMENT
-evidence. Current status of that question is in `docs/CANONICAL_STATE.md`.
-
-Run it with:
-
-```bash
-python runtime/calibration_loop/run.py \
-  fixtures/calibration-valid-task.json \
-  --config runtime/calibration_loop/openai-config.example.json \
-  --strict \
-  --output runtime/calibration_loop/traces/CAL-ARCH-001.json
-```
-
-A successful run should perform R&D diagnosis, invoke only the resources whose deterministic triggers fire, preserve each independent output and provenance, and then return to R&D for synthesis and a learning record.
-
-If R&D, Neta and Scaffold use the same underlying model family, their agreement is **not independent empirical triangulation**. Separate invocations can still reveal useful role-conditioned deltas, but the shared model lineage must remain visible.
 
 ## Runner modes
 
@@ -167,20 +201,24 @@ python runtime/calibration_loop/run.py task.json --config path/to/local-config.j
 
 ## Trace contract
 
-Every run returns a single JSON envelope containing:
+Every v0.2 run returns a single JSON envelope containing:
 
 - exact task;
 - R&D diagnosis or pending diagnosis request;
 - routing decision and fired triggers;
-- each resource request/result;
+- each peer request/result;
+- `expected_delta` on every routed peer invocation;
+- `observed_delta` and derived-compatible `material` after synthesis;
 - R&D synthesis or pending synthesis request;
 - `resource_deltas` when synthesis exists;
 - a final state of `COMPLETE`, `PENDING_RESOURCE`, `AUTHORITY_STOP`, or `FAILED_EXECUTION`.
 
 Use `--output <path>` to persist the envelope durably.
 
+Existing v0.1 traces remain historical records; v0.2 does not retroactively infer deltas that were not prospectively captured.
+
 ## Learning rule
 
 The runner itself does not rewrite routing rules.
 
-R&D may propose a routing amendment when repeated traces show a stable pattern, for example that Neta is materially useful in a certain trigger family or that an invocation repeatedly produces no decision delta. Any routing amendment must be tested against neighboring non-fire cases before promotion.
+R&D may propose a routing amendment when repeated traces show a stable pattern, for example that Neta is materially useful in a certain trigger family or that an invocation repeatedly produces `Δ0`. Any routing amendment must be tested against neighboring non-fire cases before promotion.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute Calibration Loop v0.1 with deterministic routing and pluggable resource adapters."""
+"""Execute Calibration Loop v0.2 with deterministic routing and measurable resource deltas."""
 
 from __future__ import annotations
 
@@ -24,6 +24,16 @@ from adapters import (  # noqa: E402
     mock_scaffold_result,
 )
 from routing import ALL_NEED_KEYS, route  # noqa: E402
+
+
+DELTA_DIMENSIONS = (
+    "decision",
+    "action",
+    "reversal",
+    "evidence",
+    "allocation",
+    "distinction",
+)
 
 
 class RuntimeErrorBounded(RuntimeError):
@@ -59,6 +69,26 @@ def _nonempty(value: object) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
 
+def validate_expected_delta(value: object, context: str) -> None:
+    if not isinstance(value, dict) or set(value) != set(DELTA_DIMENSIONS):
+        raise RuntimeErrorBounded(f"{context} must contain exactly delta dimensions {list(DELTA_DIMENSIONS)}")
+    if not all(isinstance(value[key], bool) for key in DELTA_DIMENSIONS):
+        raise RuntimeErrorBounded(f"{context} delta dimensions must be booleans")
+
+
+def validate_observed_delta(value: object, context: str) -> None:
+    if not isinstance(value, dict) or set(value) != set(DELTA_DIMENSIONS):
+        raise RuntimeErrorBounded(f"{context} must contain exactly delta dimensions {list(DELTA_DIMENSIONS)}")
+    for key in DELTA_DIMENSIONS:
+        item = value[key]
+        if item is not None and not _nonempty(item):
+            raise RuntimeErrorBounded(f"{context}.{key} must be null or a non-empty string")
+
+
+def delta_is_material(observed_delta: dict) -> bool:
+    return any(observed_delta[key] is not None for key in DELTA_DIMENSIONS)
+
+
 def validate_diagnosis(payload: dict) -> None:
     required = {
         "material_question",
@@ -77,12 +107,18 @@ def validate_diagnosis(payload: dict) -> None:
     assessments = payload["resource_assessment"]
     if not isinstance(assessments, list) or not assessments:
         raise RuntimeErrorBounded("resource_assessment must be a non-empty array")
-    assessment_fields = {"resource", "expected_contribution", "authority_ceiling", "uncertainty"}
+    assessment_fields = {"resource", "expected_contribution", "authority_ceiling", "uncertainty", "expected_delta"}
+    seen_resources: set[str] = set()
     for i, item in enumerate(assessments):
         if not isinstance(item, dict) or set(item) != assessment_fields:
             raise RuntimeErrorBounded(f"resource_assessment[{i}] fields drift")
-        if not all(_nonempty(item[k]) for k in assessment_fields):
-            raise RuntimeErrorBounded(f"resource_assessment[{i}] values must be non-empty strings")
+        for key in ("resource", "expected_contribution", "authority_ceiling", "uncertainty"):
+            if not _nonempty(item[key]):
+                raise RuntimeErrorBounded(f"resource_assessment[{i}].{key} must be a non-empty string")
+        if item["resource"] in seen_resources:
+            raise RuntimeErrorBounded(f"resource_assessment contains duplicate resource: {item['resource']}")
+        seen_resources.add(item["resource"])
+        validate_expected_delta(item["expected_delta"], f"resource_assessment[{i}].expected_delta")
 
     moves = payload["candidate_moves"]
     if not isinstance(moves, list) or not moves:
@@ -101,6 +137,74 @@ def validate_diagnosis(payload: dict) -> None:
         raise RuntimeErrorBounded(f"R&D diagnosis needs drift: missing={sorted(missing)} extra={sorted(extra)}")
     if not all(isinstance(v, bool) for v in needs.values()):
         raise RuntimeErrorBounded("all R&D diagnosis needs must be booleans")
+
+
+def expected_delta_for_resource(diagnosis: dict, resource: str) -> dict:
+    matches = [
+        item["expected_delta"]
+        for item in diagnosis["resource_assessment"]
+        if item["resource"] == resource
+    ]
+    if len(matches) != 1:
+        raise RuntimeErrorBounded(
+            f"routed resource {resource} must have exactly one ex-ante expected_delta in resource_assessment"
+        )
+    return dict(matches[0])
+
+
+def validate_synthesis(payload: dict, routed_resources: tuple[str, ...] | list[str]) -> None:
+    required = {
+        "decision_before",
+        "decision_after",
+        "next_move",
+        "resource_deltas",
+        "learning_records",
+        "stop_or_continue",
+        "routing_amendment_proposed",
+    }
+    if not isinstance(payload, dict):
+        raise RuntimeErrorBounded("R&D synthesis must be object")
+    missing = required - set(payload)
+    extra = set(payload) - required - {"_adapter_meta"}
+    if missing or extra:
+        raise RuntimeErrorBounded(f"R&D synthesis fields drift: missing={sorted(missing)} extra={sorted(extra)}")
+    for key in ("decision_before", "decision_after", "next_move"):
+        if not _nonempty(payload[key]):
+            raise RuntimeErrorBounded(f"R&D synthesis {key} must be non-empty")
+    if payload["stop_or_continue"] not in {"STOP", "CONTINUE"}:
+        raise RuntimeErrorBounded("R&D synthesis stop_or_continue must be STOP or CONTINUE")
+    if not isinstance(payload["learning_records"], list):
+        raise RuntimeErrorBounded("R&D synthesis learning_records must be an array")
+
+    deltas = payload["resource_deltas"]
+    if not isinstance(deltas, list):
+        raise RuntimeErrorBounded("R&D synthesis resource_deltas must be an array")
+    expected_resources = list(routed_resources)
+    seen: list[str] = []
+    delta_fields = {"resource", "material", "unique_delta", "observed_delta"}
+    for i, item in enumerate(deltas):
+        if not isinstance(item, dict) or set(item) != delta_fields:
+            raise RuntimeErrorBounded(f"resource_deltas[{i}] fields drift")
+        resource = item["resource"]
+        if not _nonempty(resource):
+            raise RuntimeErrorBounded(f"resource_deltas[{i}].resource must be non-empty")
+        if resource in seen:
+            raise RuntimeErrorBounded(f"duplicate resource delta: {resource}")
+        seen.append(resource)
+        if not isinstance(item["material"], bool):
+            raise RuntimeErrorBounded(f"resource_deltas[{i}].material must be boolean")
+        if not _nonempty(item["unique_delta"]):
+            raise RuntimeErrorBounded(f"resource_deltas[{i}].unique_delta must be non-empty")
+        validate_observed_delta(item["observed_delta"], f"resource_deltas[{i}].observed_delta")
+        derived = delta_is_material(item["observed_delta"])
+        if item["material"] != derived:
+            raise RuntimeErrorBounded(
+                f"resource_deltas[{i}].material={item['material']} conflicts with observed_delta-derived material={derived}"
+            )
+    if seen != expected_resources:
+        raise RuntimeErrorBounded(
+            f"resource_deltas must preserve routed resource order exactly: expected={expected_resources} got={seen}"
+        )
 
 
 def adapter_map(config: dict) -> dict[str, CommandAdapter]:
@@ -150,7 +254,7 @@ def rnd_diagnose(task: dict, adapters: dict[str, CommandAdapter], mock: bool) ->
         "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
         "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
         "task": task,
-        "instruction": "Diagnose resource↔telos miscalibration, map candidate resource moves, and return exactly the Calibration Loop v0.1 diagnosis shape.",
+        "instruction": "Diagnose resource↔telos miscalibration, map candidate resource moves, commit ex ante to which decision-state dimensions each assessed resource could change, and return exactly the Calibration Loop v0.2 diagnosis shape.",
     }
     if mock:
         diagnosis = mock_rnd_diagnosis(task)
@@ -174,7 +278,7 @@ def rnd_synthesize(task: dict, diagnosis: dict, route_payload: dict, results: li
         "diagnosis": diagnosis,
         "routing": route_payload,
         "resource_results": results,
-        "instruction": "Compare resource deltas, update the blocked decision, choose the cheapest next calibration move, and record what the system learned about future resource allocation. Do not average disagreements away.",
+        "instruction": "Compare resource deltas against the ex-ante expected_delta commitments, update the blocked decision, choose the cheapest next calibration move, and record what the system learned about future resource allocation. For each invoked resource, report observed_delta by decision/action/reversal/evidence/allocation/distinction. Do not average disagreements away.",
     }
     if mock:
         return mock_rnd_synthesis(task, diagnosis, results, route_payload), request
@@ -182,16 +286,24 @@ def rnd_synthesize(task: dict, diagnosis: dict, route_payload: dict, results: li
     if adapter is None:
         return None, request
     synthesis = adapter.invoke(request)
-    if not isinstance(synthesis, dict):
-        raise RuntimeErrorBounded("R&D synthesis must be object")
     return synthesis, request
+
+
+def annotate_peer_invocations(trace: dict, synthesis: dict) -> None:
+    by_resource = {item["resource"]: item for item in synthesis["resource_deltas"]}
+    for invocation in trace["resource_invocations"]:
+        if invocation.get("phase") != "ANALYZE" or invocation.get("resource") not in by_resource:
+            continue
+        delta = by_resource[invocation["resource"]]
+        invocation["observed_delta"] = delta["observed_delta"]
+        invocation["material"] = delta["material"]
 
 
 def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
     validate_task(task)
     adapters = adapter_map(config)
     trace: dict = {
-        "runtime_version": "0.1",
+        "runtime_version": "0.2",
         "rnd_telos_version": "0.2-candidate",
         "task": task,
         "diagnosis": None,
@@ -225,6 +337,10 @@ def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
     if max_calls is not None and required_calls > max_calls:
         raise RuntimeErrorBounded(f"routing requires {required_calls} resource calls but budget allows {max_calls}")
 
+    expected_deltas = {
+        resource: expected_delta_for_resource(diagnosis, resource)
+        for resource in decision.resources
+    }
     requests = {
         resource: resource_request(resource, task, route_payload["fired"].get(resource, []))
         for resource in decision.resources
@@ -237,6 +353,9 @@ def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
                 "resource": resource,
                 "phase": "ANALYZE",
                 "request": requests[resource],
+                "expected_delta": expected_deltas[resource],
+                "observed_delta": None,
+                "material": None,
                 "state": "PENDING_RESOURCE" if resource in missing else "READY",
             })
         if strict:
@@ -263,6 +382,9 @@ def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
                     "resource": resource,
                     "phase": "ANALYZE",
                     "request": requests[resource],
+                    "expected_delta": expected_deltas[resource],
+                    "observed_delta": None,
+                    "material": None,
                     "result": result,
                     "state": "COMPLETE",
                 })
@@ -280,7 +402,9 @@ def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
         trace["final_state"] = "PENDING_RESOURCE"
         return trace
 
+    validate_synthesis(synthesis, decision.resources)
     trace["synthesis"] = synthesis
+    annotate_peer_invocations(trace, synthesis)
     trace["final_state"] = "AUTHORITY_STOP" if decision.authority_handoffs and not decision.resources else "COMPLETE"
     return trace
 
@@ -300,7 +424,7 @@ def main() -> int:
         trace = run(task, config=config, mock=args.mock, strict=args.strict)
     except (OSError, json.JSONDecodeError, ContractError, AdapterError, RuntimeErrorBounded, ValueError) as exc:
         trace = {
-            "runtime_version": "0.1",
+            "runtime_version": "0.2",
             "rnd_telos_version": "0.2-candidate",
             "task_ref": str(args.task),
             "final_state": "FAILED_EXECUTION",
