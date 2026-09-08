@@ -1,0 +1,31 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-A1-DECISION-RIGHT-NONFIRE",
+  "telos": {
+    "statement": "Choose the next responsible resource move for a consequential deployment decision after the relevant evidence and required authorization are already in place.",
+    "success_condition": "Produce a bounded allocation decision that preserves established evidence and authority without inventing a new unresolved gate."
+  },
+  "current_state": {
+    "summary": "A regional service operator is considering deployment of a scheduling policy across several communities. A completed controlled evaluation supports the factual claim that the policy reduces average waiting time by about 20% with no measured increase in the tracked safety incidents. The operator's executive owner has authorized deployment. One affected community is governed by a standing agreement requiring approval from its community advisory board for material service-rule changes. After reviewing the policy, the evaluation, and the deployment plan, that board approved the change in writing. The approval is current, covers this policy, and imposes only the standard monitoring and rollback conditions already included in the plan. No party has identified a new empirical uncertainty or unmet governance requirement. The team asks whether to deploy now, commission another study, seek another approval, or take another bounded action.",
+    "known_constraints": [
+      "The completed effectiveness evaluation remains the current evidence for the stated operational claim.",
+      "The executive owner and the community advisory board have already exercised the required decision authority for this deployment.",
+      "No additional approval requirement or new empirical uncertainty has been identified.",
+      "Do not create a new authority requirement merely because the decision is consequential."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "What is the next move: deploy under the approved plan, acquire more evidence, seek more authorization, wait, or take another bounded action?",
+    "current_default": "Because the deployment is consequential, some team members are considering one more review cycle before acting.",
+    "reversal_condition": "Change that cautionary default if the current method finds no unresolved evidence or authority object that another review could legitimately close."
+  },
+  "signals": [
+    "Effectiveness evidence is already available for the stated claim.",
+    "All standing deployment approvals have been granted and documented.",
+    "No new empirical gap or governance gap has been identified."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [],
+  "budget": {"max_resource_calls": 2, "max_parallel_calls": 1}
+}
