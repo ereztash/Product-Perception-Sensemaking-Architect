@@ -1,0 +1,65 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-BEST-EFFORT-REASONING-META-2026-09-08",
+  "telos": {
+    "statement": "Evaluate the reasoning produced by the prior Best-Effort self-calibration run itself: determine whether R&D diagnosis, routing, Neta contribution, and synthesis materially reduced uncertainty beyond restating assumptions already embedded in the task, and identify the smallest reasoning-protocol change that would reduce circularity, framing dependence, confirmation bias, proxy success, or pseudo-delta in future runs.",
+    "success_condition": "Produce a bounded meta-reasoning decision that separates genuine inference from task-seeded conclusions, tests whether Neta contributed a unique decision-relevant delta, identifies at least one plausible counterfactual framing that could have changed the reasoning, and recommends either KEEP, ADAPT, or FIELD-TEST the reasoning protocol without using successful self-analysis as validation of itself."
+  },
+  "current_state": {
+    "summary": "The previous self-calibration task explicitly supplied five concerns before the agents reasoned: (1) fallback semantic equivalence was asserted but lacked an admissibility test; (2) no retry budget existed; (3) provenance downgrade lacked a threshold for exploratory-only use; (4) the skill was derived from one Lichess case and might be overfit; (5) self-application could create circular self-promotion. R&D then diagnosed the main bottleneck as the missing explicit validation procedure, retry stop rule, and provenance disposition threshold, and recommended COLLECT_REPO before ADAPT. Routing invoked Neta. Neta separated three gaps—semantic-equivalence verification, retry/provider-fishing control, and provenance-use gating—and recommended a semantic-equivalence checklist, bounded fallback attempts, exploratory-only treatment for unknown/materially changed lineage, and a self-promotion guard. R&D synthesis then preserved the current architecture, treated those changes as a bounded candidate revision, and required REPO/FIELD evidence before adoption. A subsequent repository inspection did uncover a concrete mismatch: the Copilot adapter emitted provider/model provenance to stderr, while CommandAdapter discarded stderr on successful calls and the runtime trace did not persist adapter/model provenance. This supports at least one of the prior concerns, but does not by itself establish that the earlier reasoning process was non-circular or optimally discriminative.",
+    "known_constraints": [
+      "Do not count agreement between R&D and Neta as independent evidence when they may share provider/model lineage.",
+      "Do not credit a conclusion merely because it was later found to be true if the reasoning path simply restated a premise already embedded in the task.",
+      "Distinguish predictive correctness from epistemic quality of the reasoning process.",
+      "Do not expose or rely on hidden chain-of-thought; evaluate only explicit diagnosis, routing, resource deltas, synthesis, traces, and observable repository evidence.",
+      "Do not promote a self-reasoning rule based only on this self-application.",
+      "Prefer the smallest reversible reasoning change over adding a broad meta-agent or architecture layer."
+    ],
+    "available_resources": [
+      "RND",
+      "NETA",
+      "SCAFFOLD",
+      "OWNER",
+      "REPO",
+      "FIELD"
+    ]
+  },
+  "decision_blocked": {
+    "statement": "Should the Best-Effort skill's reasoning protocol be changed because the previous self-calibration may have largely echoed the task framing rather than generating a genuinely discriminative diagnosis and resource delta?",
+    "current_default": "Keep the reasoning protocol unchanged; treat the previous self-calibration as a useful demonstration but not evidence that its reasoning process is well calibrated.",
+    "reversal_condition": "The meta-analysis identifies a concrete reasoning failure mode and a small protocol change that would have produced a meaningfully different or more falsifiable decision on the prior run without requiring a new architecture layer."
+  },
+  "signals": [
+    "The previous task named the same three main gaps that R&D and Neta later elevated, creating a serious possibility of premise-to-conclusion echo.",
+    "The later repository inspection found a real provenance-persistence defect, so the prior conclusion was not merely imaginary; however correctness after the fact does not show that the reasoning discriminated among alternatives.",
+    "Neta's stated unique delta was to separate semantic-equivalence verification, retry control, and provenance-use gating, but all three categories were already individually represented in the task signals.",
+    "The previous synthesis changed the decision from KEEP unchanged to a bounded candidate revision pending REPO/FIELD evidence, which is a real decision update, but the update may have been driven by seeded framing rather than unique resource evidence.",
+    "No explicit counterfactual framing test was performed, such as removing the seeded failure hypotheses, presenting evidence that fallback semantic behavior was stable, or asking the agents to argue for KEEP before proposing ADAPT.",
+    "No explicit novelty accounting compared each agent conclusion against information already present in the task before marking a resource delta material.",
+    "A successful self-run can proxy for reasoning quality unless the protocol tests whether the same reasoning survives perturbation or adversarial framing."
+  ],
+  "allowed_resources": [
+    "RND",
+    "NETA",
+    "SCAFFOLD",
+    "OWNER",
+    "REPO",
+    "FIELD"
+  ],
+  "context_refs": [
+    "skills/evidence-bounded-best-effort-runtime/skill.md",
+    "runtime/calibration_loop/run.py",
+    "runtime/calibration_loop/adapters.py",
+    "runtime/calibration_loop/copilot_resource_adapter.py",
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/SYSTEM.md"
+  ],
+  "budget": {
+    "max_resource_calls": 5,
+    "max_parallel_calls": 2
+  }
+}
