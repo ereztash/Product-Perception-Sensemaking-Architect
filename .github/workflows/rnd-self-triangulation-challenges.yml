@@ -1,0 +1,88 @@
+name: R&D Self-Triangulation Challenges
+
+on:
+  push:
+    branches:
+      - research/rnd-self-triangulation-challenges-2026-09-08
+    paths:
+      - '.github/workflows/rnd-self-triangulation-challenges.yml'
+      - 'research/rnd-agent/self-triangulation/challenges/**'
+      - 'runtime/calibration_loop/copilot_resource_adapter_v02.py'
+      - 'runtime/calibration_loop/copilot-config-v02.best-effort.json'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  challenge:
+    strategy:
+      fail-fast: false
+      matrix:
+        case:
+          - C1_DECISION_RIGHT
+          - C2_OPTION_VALUE
+          - C3_TELOS_REVISION
+          - C4_DOMAIN_METHOD_NONFIRE
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Validate blind task
+        run: python scripts/validate_calibration_task.py research/rnd-agent/self-triangulation/challenges/${{ matrix.case }}.task.json
+
+      - name: Run frozen R&D challenge
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/execution_traces
+          OUT="runtime/execution_traces/RND-SELF-TRIANGULATION-${{ matrix.case }}-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/rnd-agent/self-triangulation/challenges/${{ matrix.case }}.task.json \
+            --config runtime/calibration_loop/copilot-config-v02.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Record provenance
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p runtime/execution_traces
+          python - <<'PY'
+          import json, os, subprocess
+          case = '${{ matrix.case }}'
+          p = {
+            'case': case,
+            'experiment_commit': os.environ['GITHUB_SHA'],
+            'runtime_version': '0.2',
+            'provider': 'github-copilot-cli',
+            'model': 'provider-default',
+            'exact_model_lineage': 'unknown',
+            'blindness_note': 'Expected scoring rubric is frozen on a separate adjudication branch and is not present on this execution branch.',
+            'confirmation_limit': 'This run is developmental evidence only until independently adjudicated by a known different model lineage or qualified human/domain adjudicator.'
+          }
+          v = subprocess.run(['copilot','--version'], text=True, capture_output=True)
+          p['copilot_cli_version'] = (v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0]
+          path = f'runtime/execution_traces/RND-SELF-TRIANGULATION-{case}-PROVENANCE.json'
+          with open(path,'w',encoding='utf-8') as f:
+            json.dump(p,f,ensure_ascii=False,indent=2); f.write('\n')
+          PY
+
+      - name: Upload trace and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-self-triangulation-${{ matrix.case }}-${{ github.sha }}
+          path: |
+            runtime/execution_traces/RND-SELF-TRIANGULATION-${{ matrix.case }}-${{ github.sha }}.json
+            runtime/execution_traces/RND-SELF-TRIANGULATION-${{ matrix.case }}-PROVENANCE.json
+          if-no-files-found: warn
