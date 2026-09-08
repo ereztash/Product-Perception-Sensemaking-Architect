@@ -84,6 +84,6 @@ checker exists to catch.
 
 ## What this runbook does not cover
 
-The twelve branches ahead of `main`. None of them may be deleted by this command; every one
+The thirteen branches ahead of `main`. None of them may be deleted by this command; every one
 carries commits that exist nowhere else. Their dispositions are in
 `docs/BRANCH_INVENTORY.md` and their recovery is a separate `OWNER` decision.

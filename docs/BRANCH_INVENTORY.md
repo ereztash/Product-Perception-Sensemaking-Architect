@@ -17,7 +17,8 @@ the enforcement compares reality against.
 
 Review responsibility drifted. On 2026-09-06 two branches were declared active. On
 2026-09-08 twelve were ahead of `main`, carrying 69 files that existed nowhere else, and
-nothing in CI could see it.
+nothing in CI could see it. That count is the observation that produced this file, not a
+live number; the tables below are the live number.
 
 A declaration that no instrument checks is not a rule. It is a note.
 
@@ -83,6 +84,7 @@ from every agent session. See the runbook.
 | `run/product-value-completion-2026-09-06` | `bdaba4849d` | 3 | 8 | `STRANDED` |
 | `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 5 | `STRANDED` |
 | `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 1 | `STRANDED` |
+| `claude/repo-cleanup-590u82` | `41a45eea6a` | 1 | 3 | `OPEN_PR_TO_MAIN` |
 
 Tips in this table are last-observed values, not pins. An active branch is expected to
 receive commits, and `scripts/check_branch_inventory.py --live` reports such movement

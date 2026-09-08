@@ -39,7 +39,7 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Twelve branches are ahead of `main`. The full inventory, with tips, dispositions and the
+Thirteen branches are ahead of `main`. The full inventory, with tips, dispositions and the
 forked artifacts that exist on no branch canonically, is `docs/BRANCH_INVENTORY.md`.
 `scripts/check_branch_inventory.py --live` fails when this table and that inventory
 disagree with the actual remote.
@@ -58,12 +58,13 @@ disagree with the actual remote.
 | `run/meta-calibrate-best-effort-reasoning-2026-09-08` | counterfactual replay of best-effort reasoning | `STRANDED`, no pull request |
 | `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and config | `STRANDED`, no pull request |
 | `skill/evidence-bounded-best-effort-runtime` | evidence-bounded best-effort runtime skill | `STRANDED`, no pull request |
+| `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the retirement runbook | open pull request against `main` |
 
 No branch above holds a research result. They hold experiment inputs, run traces, adapters,
 one skill definition and unexecuted protocols. Recovery, archival or abandonment of each is
 an `OWNER` decision and none is taken here.
 
-Nine of the twelve carry no pull request at all, and a tenth carries one aimed at a side
+Nine of the thirteen carry no pull request at all, and a tenth carries one aimed at a side
 branch. That is the same drift the 2026-09-06 reconciliation recorded, at a larger count:
 the file-level validators cannot see a commit that lives only on an unmerged branch, so the
 branch-level half of the canonical rule was left to review, and review did not hold. The
