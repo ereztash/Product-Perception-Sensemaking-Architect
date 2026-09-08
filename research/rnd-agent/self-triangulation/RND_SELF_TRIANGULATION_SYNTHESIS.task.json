@@ -1,0 +1,50 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-SYNTHESIS-001",
+  "telos": {
+    "statement": "Use the actual R&D runtime to decide what, if anything, the frozen adversarial multidisciplinary and multicultural external findings should change about R&D v0.2, its shared authority/kernel assumptions, its scope hypothesis, and its next evaluation work.",
+    "success_condition": "Classify each external challenge as no-delta, test-only, authority/human-dependent, scope challenge, telos challenge, or constitutional challenge; preserve no-promotion boundaries; identify the smallest prospective challenge set that can discriminate real defects from already-covered distinctions; and recommend no repository amendment unless a change is already justified by the current authority/evidence ceiling."
+  },
+  "current_state": {
+    "summary": "R&D broad v0.2 remains IMPLEMENTATION_CANDIDATE. Narrow scope CONSEQUENTlAL_DECISION × NONTRIVIAL_EPISTEMIC_ALLOCATION remains RESEARCH_HYPOTHESIS with CONFIRMATORY_N=0 and independent confirmation blocked. External research was executed only after frozen DR_PLAN_0, actual R&D preflight, REPO recovery, and frozen DR_PLAN_1. The external deposit is frozen at research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_EXTERNAL_FINDINGS_1.md. It contains six branches. F1: Critical Systems Heuristics, Two-Eyed Seeing/CONSIDER, Kaupapa Māori principles, Fals-Borda/PAR, epistemic injustice, and Ubuntu/relational ethics jointly challenge a possible collapse between factual resolution authority and legitimate standing/representation/decision rights. Strong candidate distinction: RESOLUTION AUTHORITY ≠ DECISION RIGHT ≠ REPRESENTATION/LEGITIMACY. Competing interpretation: current authority-vs-permission separation may already cover this, and LEGITIMACY should not be invented as a truth authority. F2: DMDU, MCDA and irreversibility/option-value literature challenge a scalar reading of 'best expected decision value' / 'cheapest decision-changing information'. Candidate distinction: EXPECTED INFORMATION VALUE ≠ ROBUSTNESS ≠ OPTION VALUE ≠ PLURAL-VALUE FIT. Competing interpretation: reversibility, WAIT/TEST and qualitative cost/risk in v0.2 may already admit these considerations. F3: Deweyan inquiry, double-loop learning, reflection-in-action and PAR challenge treating telos only as a fixed authorized input. Candidate distinctions: TELOS AS AUTHORIZED INPUT ≠ TELOS AS REVISABLE LEARNING TARGET; ACTION AFTER DECISION ≠ ACTION AS INQUIRY. Competing interpretation: RECALIBRATE/UPDATED STATE + OWNER handoff may already cover the behavior but not represent it explicitly. F4: realist evaluation / implementation science distinguishes RESEARCH support from local transportability without context-mechanism fit; competing interpretation is that RESEARCH≠FIELD and CURRENT STATE already fully cover this. F5: Operational Research Problem Structuring Methods show ill-structured multi-stakeholder framing can be DOMAIN_METHOD_PRIMARY rather than epistemic-allocation core; this likely enriches R1/R4 tests rather than adding a region. F6: conceptual convergence with pragmatism, Hoshin Kanri/participative review, relational autonomy and iterative learning is lineage-only and has zero promotion value unless it changes a boundary. External findings explicitly state NO_PROMOTION and require prospective challenge cases plus independent runtime/human adjudication for confirmation.",
+    "known_constraints": [
+      "Do not count external conceptual convergence as runtime validation.",
+      "Do not count same-provider Neta/Scaffold agreement as independent triangulation.",
+      "Do not invent a new authority merely because legitimacy is decision-relevant; distinguish truth resolution from governance/permission/standing.",
+      "Do not modify the shared kernel without cross-agent failure/contradiction, a hidden judgment, a neighboring non-fire case, and a falsifiable gate.",
+      "Do not modify the frozen R1-R5 scope from literature alone; convert candidate weaknesses into prospective unseen cases.",
+      "Do not modify R&D telos from analogy alone; identify a concrete current-case failure or discriminating challenge first.",
+      "Culture-specific findings remain source-bounded; do not generalize a named Indigenous, Māori, Latin American, Japanese or Southern African tradition to a national or global culture.",
+      "The desired output is an allocation and evaluation decision, not a celebratory literature synthesis."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD"]
+  },
+  "decision_blocked": {
+    "statement": "Should any part of R&D v0.2, the shared authority/kernel model, or the frozen scope map change now because of the external triangulation, or should all surviving tensions first be converted into prospective challenge cases; and what is the smallest high-value challenge set?",
+    "current_default": "Change nothing canonical now. Treat F1-F5 as bounded challenge candidates and F6 as conceptual lineage only. Build matched prospective tests for legitimacy/decision-right separation, robustness/option-value allocation, telos-revision/action-as-inquiry, research transportability, and R1-vs-R4 problem-structuring boundary; require independent human/model-lineage adjudication before promotion.",
+    "reversal_condition": "Reverse the no-change default only if the current repository contract is already logically inconsistent with a source-grounded distinction in a way that creates an immediate unsafe/invalid permission or authority claim even before a prospective test, or if an invoked peer identifies a concrete cross-agent contradiction that satisfies the existing constitutional amendment gate."
+  },
+  "signals": [
+    "F1 is the strongest potential constitutional challenge but may belong to permission/governance rather than resolution authority.",
+    "F2 is the strongest challenge to candidate-move allocation wording because irreversibility and deep uncertainty can make robust/option-preserving action preferable to information acquisition.",
+    "F3 is the strongest challenge to the treatment of telos because action can reveal that the goal/problem definition itself should be reopened.",
+    "F4 may be NO_DELTA because existing RESEARCH≠FIELD already blocks transportability inheritance.",
+    "F5 directly targets the known R1/R4 false-fire boundary and is likely high-value for unseen test construction.",
+    "The actual R&D preflight earlier ended AUTHORITY_STOP rather than crediting its own diagnosis as independent resource delta; this may itself be a candidate accounting tension but is not part of the external evidence and must not be silently conflated with F1-F6."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD"],
+  "context_refs": [
+    "research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_DR_PLAN_0.json",
+    "research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_RECOVERY_MAP_0.md",
+    "research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_DR_PLAN_1.json",
+    "research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_EXTERNAL_FINDINGS_1.md",
+    "docs/AUTHORITY_MAP.md",
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "research/rnd-agent/scope-discovery/RND_SCOPE_MAP_V0_2_FROZEN_FOR_CONFIRMATION.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 2
+  }
+}
