@@ -143,6 +143,17 @@ Authoritative statuses live in `docs/CANONICAL_STATE.md`. This is the file index
 5. A branch that is ahead of `main` must be a live, named, documented experiment, listed under "Active branches" in `docs/CANONICAL_STATE.md`.
 6. A stale branch is never evidence that its code or result is current.
 7. Branch names do not define authority.
+8. Every branch on the remote must be declared in `docs/BRANCH_INVENTORY.md` with exactly one disposition,
+   within a day of its newest commit. A branch younger than that may exist undeclared; the rule is that
+   nothing lives only on a side branch indefinitely, not that a branch is declared before its first push.
+
+Rules 1 through 7 were written on 2026-09-05 and enforced by review. By 2026-09-08 twelve
+branches were ahead of `main` against two declared, and sixty-nine files existed on no
+canonical path. Rule 8 exists because the others had no instrument.
+
+`scripts/check_branch_inventory.py --live` compares the declaration against the actual
+remote and fails on any disagreement. Retirement of a contained branch is an `OWNER` action
+executed outside an agent session: `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
 ## Where a new file goes
 
@@ -156,14 +167,27 @@ Authoritative statuses live in `docs/CANONICAL_STATE.md`. This is the file index
 | a frozen benchmark, gate or score | `eval/` |
 | an input to a validator or runner | `fixtures/` |
 | superseded, or kept only for lineage | `archive/` |
+| an agent skill definition | unresolved; see below |
 
 If a file would be decision-relevant and does not fit any row, the ambiguity is the finding. Record it before creating the file.
+
+### Unresolved placement: `skills/`
+
+`skills/evidence-bounded-best-effort-runtime/skill.md` exists on three branches, at two
+different contents, and on none of them canonically. `skills/` matches no row above. A
+skill definition is closest to `prompts/`, since it is text an agent runs, but it was
+created without that decision being made.
+
+Recorded here rather than resolved: choosing the row is an `OWNER` call, and the three
+copies must be reconciled before any of them is placed.
 
 ## Consolidation history
 
 - `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md` — the 2026-09-05 branch audit and tip dispositions.
 - `archive/reconciliation/REPO_STATE_BEFORE_RECONCILIATION_2026-09-06.md` — observed state before the 2026-09-06 reconciliation.
 - `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md` — what moved, what was archived, what stayed blocked.
+- `archive/legacy-branches/BRANCH_AUDIT_2026-09-05.md` — the 2026-09-05 per-branch dispositions.
+- `docs/BRANCH_INVENTORY.md` — the current declaration, and the enforcement that keeps it current.
 
 ## Rule for future work
 

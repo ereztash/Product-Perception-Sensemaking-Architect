@@ -39,16 +39,48 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Only branches carrying a live, unfinished experiment may remain ahead of `main`:
+Fourteen branches are ahead of `main`. The full inventory, with tips, dispositions and the
+forked artifacts that exist on no branch canonically, is `docs/BRANCH_INVENTORY.md`.
+`scripts/check_branch_inventory.py --live` fails when this table and that inventory
+disagree with the actual remote.
 
 | Branch | Purpose | State |
 |---|---|---|
 | `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | blocked, see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
 | `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object | `FAILED_EXECUTION`, no adapter credential in environment |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the branch-deletion blocker (PR 18) | open pull request against `main` |
+| `claude/product-value-completion-run-if7ito` | three strict Calibration Loop runs and the N3 register-test freeze (PR 19) | open pull request against `run/product-value-completion-2026-09-06`, not against `main`; its 31 files cannot reach `main` through it |
+| `run/product-value-completion-2026-09-06` | product-value completion calibration | `STRANDED`, base of PR 19, no pull request of its own |
+| `feat/resource-delta-accounting-v0-2` | prospective resource-delta accounting | `STRANDED`, no pull request |
+| `run/lichess-whitepaper-calibration-2026-09-06` | lichess white-paper and commercial-roadmap calibration | `STRANDED`, no pull request |
+| `run/lichess-premove-ownership-copilot-2026-09-07` | Copilot best-effort adapter and pre-move ownership run | `STRANDED`, no pull request |
+| `run/self-calibrate-best-effort-skill-2026-09-08` | best-effort skill self-calibration | `STRANDED`, no pull request |
+| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | counterfactual replay of best-effort reasoning | `STRANDED`, no pull request |
+| `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and config | `STRANDED`, no pull request |
+| `skill/evidence-bounded-best-effort-runtime` | evidence-bounded best-effort runtime skill | `STRANDED`, no pull request |
+| `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the retirement runbook | open pull request against `main` |
+| `research/rnd-self-triangulation-2026-09-08` | R&D self-triangulation preflight and its v0.2 Copilot adapter | `STRANDED`, no pull request |
 
-Neither branch holds a research result. Both hold experiment inputs and an unexecuted protocol. If either produces a durable trace or outcome, that artifact belongs on `main`.
+No branch above holds a research result. They hold experiment inputs, run traces, adapters,
+one skill definition and unexecuted protocols. Recovery, archival or abandonment of each is
+an `OWNER` decision and none is taken here.
 
-`claude/lichess-prerelease-gaps-qvlbv5` ran in parallel with this reconciliation and edited two of the same files. Both its passes are now merged, so its durable artifacts are canonical and the branch is no longer ahead of `main`. The collision and its resolution are recorded in `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`, section 12.
+Ten of the fourteen carry no pull request at all, and a tenth carries one aimed at a side
+branch. That is the same drift the 2026-09-06 reconciliation recorded, at a larger count:
+the file-level validators cannot see a commit that lives only on an unmerged branch, so the
+branch-level half of the canonical rule was left to review, and review did not hold. The
+enforcement gap and its closure are recorded in `docs/BRANCH_INVENTORY.md`.
+
+Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
+by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen. Deletion
+is refused in every agent session by the egress proxy, so it remains an owner action:
+`docs/BRANCH_RETIREMENT_RUNBOOK.md`.
+
+`claude/lichess-prerelease-gaps-qvlbv5` ran in parallel with the 2026-09-06 reconciliation
+and edited two of the same files. Both its passes merged into `main`, so its durable
+artifacts are readable there and the ref was retired on 2026-09-08. The collision and its
+resolution are
+recorded in `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`, section 12.
 
 ---
 
