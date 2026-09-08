@@ -39,10 +39,28 @@ def main() -> int:
     rnd_prompt = prompt_for("RND", rnd_request)
     assert "resource↔telos calibration" in rnd_prompt
     assert "external_research_needed" in rnd_prompt
+    assert "expected_delta" in rnd_prompt
+    assert all(name in rnd_prompt for name in ("decision", "action", "reversal", "evidence", "allocation", "distinction"))
     rnd_api = build_api_payload("RND", rnd_request)
     assert rnd_api["model"]
     assert rnd_api["reasoning"]["effort"]
     assert "tools" not in rnd_api
+
+    synth_request = {
+        "resource": "RND",
+        "phase": "SYNTHESIZE",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "task": task,
+        "diagnosis": {},
+        "routing": {},
+        "resource_results": [],
+        "instruction": "synthesize",
+    }
+    synth_prompt = prompt_for("RND", synth_request)
+    assert "observed_delta" in synth_prompt
+    assert "material MUST equal" in synth_prompt
+    assert "restatement" in synth_prompt
 
     old = os.environ.get("CALIBRATION_RND_WEB_SEARCH")
     os.environ["CALIBRATION_RND_WEB_SEARCH"] = "1"
@@ -64,6 +82,7 @@ def main() -> int:
     }
     neta_prompt = prompt_for("NETA", neta_request)
     assert 'resource: "NETA"' in neta_prompt
+    assert "expected_delta" in neta_prompt
     validate_semantic_shape(
         "NETA",
         "ANALYZE",
@@ -95,7 +114,7 @@ def main() -> int:
     else:
         raise AssertionError("invalid Neta output unexpectedly passed")
 
-    print("LIVE ADAPTER CONTROLS OK: prompts, routing payloads, web-search toggle and semantic shapes validated offline")
+    print("LIVE ADAPTER CONTROLS OK: prompts, delta bridge, web-search toggle and semantic shapes validated offline")
     return 0
 
 
