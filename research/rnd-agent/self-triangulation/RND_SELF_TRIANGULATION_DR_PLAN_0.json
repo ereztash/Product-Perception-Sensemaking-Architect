@@ -1,0 +1,146 @@
+{
+  "plan_id": "RND-SELF-TRIANGULATION-DR-PLAN-0",
+  "status": "FROZEN_BASELINE",
+  "date": "2026-09-08",
+  "decision": "Determine whether R&D v0.2's telos, scope boundary, authority model, and learning-allocation logic are conceptually robust across materially different disciplinary and epistemic traditions, and identify the smallest evidence-bounded changes or challenge tests that should follow. Do not use conceptual convergence as runtime validation.",
+  "claims_to_resolve": [
+    {
+      "id": "C1",
+      "claim": "The broad telos — improve fit between resources and telos given actual current state — captures a decision-relevant function that is not merely a restatement of one Western management or optimization tradition."
+    },
+    {
+      "id": "C2",
+      "claim": "Material uncertainty removed from a live decision is a useful unit of progress, including in settings where goals are plural, collective, relational, emergent, or ethically constrained."
+    },
+    {
+      "id": "C3",
+      "claim": "Cheapest decision-changing learning is defensible as an allocation principle when value of information, irreversibility, legitimacy, power, safety, and non-instrumental values are material."
+    },
+    {
+      "id": "C4",
+      "claim": "The authority partition OWNER / REPO / ENVIRONMENT / RESEARCH / FIELD is sufficient or can be precisely amended for collective authority, community legitimacy, tacit knowledge, and contested goals."
+    },
+    {
+      "id": "C5",
+      "claim": "The narrower scope hypothesis — consequential decision × nontrivial epistemic allocation — distinguishes R&D's marginal role from ordinary domain method, project management, analysis, and execution across heterogeneous domains."
+    },
+    {
+      "id": "C6",
+      "claim": "R&D's current loop adequately represents feedback, path dependence, adaptive goals, learning from action, and cases where acting changes what can later be known."
+    },
+    {
+      "id": "C7",
+      "claim": "R&D's safeguards are sufficient against proxy substitution, premature optimization, Goodhart effects, epistemic injustice, power asymmetry, and treating measurable uncertainty as the only uncertainty that matters."
+    },
+    {
+      "id": "C8",
+      "claim": "Any apparent cross-disciplinary convergence can be translated into discriminating runtime tests rather than absorbed as vocabulary or same-idea relabeling."
+    }
+  ],
+  "triangulation_axes": {
+    "disciplinary": [
+      "decision theory and value of information",
+      "operations research and robust/multi-criteria decision analysis",
+      "philosophy of science, pragmatism, and applied epistemology",
+      "organizational learning, strategy, and evidence-based management",
+      "HCI, design research, and participatory design",
+      "implementation science and evidence-based practice",
+      "systems thinking, critical systems heuristics, and complexity",
+      "social work, reflective practice, and participatory action research"
+    ],
+    "epistemic_cultural_traditions": [
+      "Japanese continuous-improvement and collective decision traditions where documented in primary or scholarly sources",
+      "Indigenous and First Nations knowledge methodologies, including relational accountability and Two-Eyed Seeing where source-authorized",
+      "Kaupapa Māori and other Māori research traditions where source-authorized",
+      "African communitarian / Ubuntu-informed decision and ethics literature where empirically or philosophically grounded",
+      "Latin American participatory action research and praxis traditions",
+      "relational-autonomy and collectivist decision literature without treating national cultures as homogeneous"
+    ],
+    "methodological": [
+      "theoretical triangulation",
+      "source/data triangulation",
+      "adversarial falsification",
+      "cross-domain case challenge",
+      "method comparison",
+      "independent adjudication as a later confirmation channel"
+    ]
+  },
+  "research_questions": [
+    "Which R&D constructs independently recur across traditions under different names, and which only appear because the research question was framed in R&D vocabulary?",
+    "Which traditions identify decision-controlling variables that R&D currently omits?",
+    "Where does optimization of epistemic spend conflict with legitimacy, relational accountability, irreversibility, justice, safety, or plural values?",
+    "What alternative units of progress compete with material uncertainty removed from a live decision?",
+    "Does OWNER authority assume an individual decision owner where some traditions require distributed or community authority?",
+    "When is learning-through-action superior to pre-decision information gathering, and does the current loop represent that adequately?",
+    "Which neighboring disciplines already solve the same function more completely, making R&D redundant or merely an integration layer?",
+    "What specific clauses, routing rules, authority boundaries, or evaluation tests would change if each critique survives?",
+    "Which critiques are conceptual only, and which can be converted into blind runtime challenge cases?"
+  ],
+  "proposed_external_searches": [
+    "value of information / experimental design / robust decision making under deep uncertainty",
+    "critical systems heuristics boundary critique decision making",
+    "implementation science evidence-to-action adaptation context",
+    "participatory design co-design power epistemic justice decision making",
+    "reflective practice social work uncertainty decision making",
+    "participatory action research Fals-Borda Freire praxis decision knowledge",
+    "Two-Eyed Seeing relational accountability Indigenous research methodology decision",
+    "Kaupapa Māori research methodology collective authority",
+    "Ubuntu communitarian ethics collective decision making uncertainty",
+    "Japanese nemawashi hoshin kanri kaizen collective decision learning",
+    "relational autonomy shared decision making cultural context",
+    "organizational learning exploration exploitation double-loop learning",
+    "pragmatism inquiry Dewey problematic situation decision action learning",
+    "epistemic injustice testimony power decision support"
+  ],
+  "evidence_families": [
+    "primary foundational texts or official methodology sources where available",
+    "peer-reviewed systematic reviews and high-quality empirical studies",
+    "scholarly critiques and boundary-condition literature",
+    "cross-cultural empirical work rather than cultural stereotypes",
+    "repository-internal contracts, traces, and scope hypotheses",
+    "later independent human/expert adjudication for runtime claims"
+  ],
+  "decision_value_by_branch": [
+    {
+      "branch": "B1_core_convergence",
+      "value": "HIGH",
+      "could_change": "Whether R&D's core telos is a defensible integrative abstraction or redundant relabeling."
+    },
+    {
+      "branch": "B2_boundary_failures",
+      "value": "VERY_HIGH",
+      "could_change": "Scope boundary, routing law, or decision about whether R&D should remain broad v0.2."
+    },
+    {
+      "branch": "B3_authority_and_collective_ownership",
+      "value": "VERY_HIGH",
+      "could_change": "OWNER and authority model, especially collective/relational cases."
+    },
+    {
+      "branch": "B4_power_ethics_legitimacy",
+      "value": "VERY_HIGH",
+      "could_change": "Whether cheapest decision-changing learning is an admissible default or requires hard constraints/parallel criteria."
+    },
+    {
+      "branch": "B5_action_learning_feedback",
+      "value": "HIGH",
+      "could_change": "Loop structure when acting is itself the cheapest or only evidence channel."
+    },
+    {
+      "branch": "B6_cross_domain_runtime_challenges",
+      "value": "VERY_HIGH",
+      "could_change": "Which conceptual critiques become new blind scope/routing cases."
+    }
+  ],
+  "anti_confirmation_rules": [
+    "Search explicitly for traditions and findings that contradict R&D, not only analogues.",
+    "Do not count terminological similarity as functional convergence.",
+    "Do not count R&D's synthesis of external literature as independent confirmation of R&D.",
+    "Do not essentialize cultures; use source-bounded traditions and empirical studies.",
+    "Keep conceptual validity, runtime usefulness, field outcome, and cultural legitimacy as separate claims.",
+    "Every surviving critique must name the repository object or future test it could change; otherwise classify it as contextual vocabulary only.",
+    "Every apparent supporting convergence must identify at least one competing interpretation or boundary condition."
+  ],
+  "current_stopping_condition": "Stop external theory research when additional sources no longer change any of: core telos, scope boundary, authority model, allocation principle, loop structure, named failure modes, or the construction of a discriminating challenge set. Then freeze a synthesis and convert only decision-changing residuals into prospective tests. Do not continue literature collection merely to increase source count.",
+  "promotion_boundary": "This research may support, weaken, or revise conceptual robustness claims and may generate better runtime tests. It cannot promote R&D to validated capability, establish general performance, or resolve CONFIRMATION_BLOCKED without an independent adjudication channel."
+}
