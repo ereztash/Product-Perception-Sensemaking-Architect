@@ -1,0 +1,32 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-OSS-CHECKSTYLE-20818",
+  "telos": {
+    "statement": "Choose the next move for checkstyle/checkstyle#20818 so performance-regression CI catches real regressions without creating excessive false alarms or wasting maintainer attention.",
+    "success_condition": "Identify the smallest decision-changing evidence or intervention that best preserves regression-detection value while reducing noisy failures, without assuming the eventual maintainer resolution."
+  },
+  "current_state": {
+    "summary": "A performance-regression workflow is failing too frequently. Reported examples show execution-time differences of 14.39% and 11.74% against a 10% threshold. The issue author says roughly 95% of changes are not expected to kill performance and suggests possibly making the workflow manually triggered by mentors. The issue is collecting ideas rather than committing to a solution. Candidate directions include manual triggering, changing thresholds/sampling, or making measurement more stable.",
+    "known_constraints": [
+      "Do not use the eventual issue comments, closing rationale, or merged fix during diagnosis.",
+      "Preserve the purpose of detecting material performance regressions before merge.",
+      "Distinguish reducing measurement noise from merely reducing how often measurement runs.",
+      "Prefer the cheapest discriminator that could change the intervention choice."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should the project make the performance check manual/conditional, change threshold or sampling, stabilize the benchmark environment/statistics, or do something else first?",
+    "current_default": "Do not disable or manualize the check yet; first determine whether the main problem is measurement instability, trigger scope, or threshold calibration.",
+    "reversal_condition": "Evidence shows one option dominates on false-positive reduction while preserving required regression-detection sensitivity."
+  },
+  "signals": [
+    "Repeated noisy failures consume maintainer attention.",
+    "Multiple materially different intervention paths are open.",
+    "Changing trigger frequency could hide noise without improving measurement validity.",
+    "The value of additional evidence depends on whether it changes the choice among those paths."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "REPO", "FIELD"],
+  "context_refs": ["https://github.com/checkstyle/checkstyle/issues/20818"],
+  "budget": {"max_resource_calls": 4, "max_parallel_calls": 2}
+}
