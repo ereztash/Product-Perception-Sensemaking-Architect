@@ -34,6 +34,19 @@ A declaration that no instrument checks is not a rule. It is a note.
 A branch carrying an unfinished experiment is not thereby exempt. `STRANDED` describes
 where the bytes live, not whether the work was worth doing.
 
+### Two states the checker does not fail on
+
+**Within the first 24 hours.** A branch may exist undeclared while its newest commit is under
+a day old. The invariant is that nothing decision-relevant lives *only* on a side branch, not
+that a branch is declared before its first push. Requiring declaration up front would redden
+every open pull request the moment a `run/` branch is created to drive a workflow, which is
+how a checker gets switched off. Past a day, an undeclared branch fails.
+
+**Merged.** `OPEN_PR_TO_MAIN` is the one disposition whose expected end state is reaching
+`main`. A branch in that state that becomes contained, or disappears, has succeeded; the
+checker reports it as merged and asks for its row to be removed. Every other disposition
+still fails on both, because for them containment or disappearance is drift.
+
 ## Retirable — contained in `main`
 
 None. The retirable lane is empty.

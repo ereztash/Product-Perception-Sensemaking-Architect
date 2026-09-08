@@ -143,7 +143,9 @@ Authoritative statuses live in `docs/CANONICAL_STATE.md`. This is the file index
 5. A branch that is ahead of `main` must be a live, named, documented experiment, listed under "Active branches" in `docs/CANONICAL_STATE.md`.
 6. A stale branch is never evidence that its code or result is current.
 7. Branch names do not define authority.
-8. Every branch on the remote must be declared in `docs/BRANCH_INVENTORY.md` with exactly one disposition.
+8. Every branch on the remote must be declared in `docs/BRANCH_INVENTORY.md` with exactly one disposition,
+   within a day of its newest commit. A branch younger than that may exist undeclared; the rule is that
+   nothing lives only on a side branch indefinitely, not that a branch is declared before its first push.
 
 Rules 1 through 7 were written on 2026-09-05 and enforced by review. By 2026-09-08 twelve
 branches were ahead of `main` against two declared, and sixty-nine files existed on no

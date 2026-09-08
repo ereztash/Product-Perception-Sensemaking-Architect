@@ -20,6 +20,7 @@ import argparse
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +28,12 @@ ROOT = Path(__file__).resolve().parents[1]
 INVENTORY = "docs/BRANCH_INVENTORY.md"
 CANONICAL_STATE = "docs/CANONICAL_STATE.md"
 RUNBOOK = "docs/BRANCH_RETIREMENT_RUNBOOK.md"
+
+# A branch gets one day before it must be declared. The invariant is that nothing
+# decision-relevant lives only on a side branch, not that a branch is declared before
+# its first push. Requiring declaration up front reddens every other pull request the
+# moment a run branch is created, which is how a checker gets switched off.
+GRACE_SECONDS = 24 * 60 * 60
 
 CANONICAL_BRANCH = "main"
 
@@ -302,22 +309,43 @@ def check_live(
     live = {name: sha for name, sha in heads.items() if name != CANONICAL_BRANCH}
 
     undeclared = sorted(set(live) - set(declared))
+    overdue, in_grace = [], []
+    for branch in undeclared:
+        sha = live[branch]
+        if not ensure_object(sha, branch, remote):
+            overdue.append(f"{branch} (unresolvable at {sha[:10]})")
+            continue
+        proc = git("log", "-1", "--format=%ct", sha)
+        age = None
+        if proc.returncode == 0 and proc.stdout.strip().isdigit():
+            age = time.time() - int(proc.stdout.strip())
+        if age is not None and age < GRACE_SECONDS:
+            in_grace.append(f"{branch} ({int(age // 3600)}h)")
+        else:
+            overdue.append(branch)
     require(
-        not undeclared,
-        f"branches exist on {remote} but are not declared in {INVENTORY}: "
-        + ", ".join(undeclared),
+        not overdue,
+        f"branches older than {GRACE_SECONDS // 3600}h exist on {remote} but are not "
+        f"declared in {INVENTORY}: " + ", ".join(overdue),
     )
 
+    # `OPEN_PR_TO_MAIN` is the one disposition whose expected end state is "merged".
+    # A branch in that state that becomes contained, or disappears, has succeeded; a
+    # checker that reddened `main` on every successful merge would be switched off
+    # within a week. Every other disposition still fails on both.
     vanished = sorted(set(declared) - set(live))
+    unexpected = [b for b in vanished if declared[b]["disposition"] != "OPEN_PR_TO_MAIN"]
     require(
-        not vanished,
+        not unexpected,
         f"{INVENTORY} declares branches that no longer exist on {remote}: "
-        + ", ".join(vanished),
+        + ", ".join(unexpected),
     )
+    merged_and_gone = [b for b in vanished if b not in unexpected]
 
     verdicts: dict[str, str] = {}
     moved: list[str] = []
-    for branch in sorted(live):
+    # Undeclared branches inside the grace period have no row to check against yet.
+    for branch in sorted(set(live) & set(declared)):
         sha = live[branch]
         row = declared[branch]
         # A retirable tip is pinned: the runbook is about to delete this ref, and a ref
@@ -339,6 +367,9 @@ def check_live(
             moved.append(f"{branch} {row['tip']}->{sha[:10]}")
         contained = git("merge-base", "--is-ancestor", sha, main_sha).returncode == 0
         if contained:
+            if row["disposition"] == "OPEN_PR_TO_MAIN":
+                verdicts[branch] = "MERGED"
+                continue
             require(
                 row["disposition"] == "RETIRABLE",
                 f"`{branch}` is contained in `{CANONICAL_BRANCH}` but declared "
@@ -355,6 +386,16 @@ def check_live(
 
     if moved:
         print("MOVED SINCE CAPTURE (ahead branches, informational): " + ", ".join(moved))
+    if in_grace:
+        print(
+            f"UNDECLARED, WITHIN THE {GRACE_SECONDS // 3600}h GRACE: "
+            + ", ".join(in_grace)
+        )
+    settled = sorted(merged_and_gone) + sorted(b for b, v in verdicts.items() if v == "MERGED")
+    if settled:
+        print(
+            "MERGED, REMOVE FROM THE INVENTORY: " + ", ".join(settled)
+        )
     return verdicts
 
 
@@ -462,7 +503,7 @@ def positive_controls() -> int:
             ),
         ),
         (
-            "undeclared-branch-on-remote",
+            "undeclared-branch-past-the-grace-period",
             lambda: check_live(
                 parse_inventory(_GOOD_INVENTORY),
                 {**heads, "surprise/branch": "d" * 40},
@@ -473,6 +514,13 @@ def positive_controls() -> int:
             lambda: check_live(
                 parse_inventory(_GOOD_INVENTORY),
                 {"main": heads["main"], "dead/one": heads["dead/one"]},
+            ),
+        ),
+        (
+            "stranded-branch-silently-contained-in-main",
+            lambda: check_live(
+                {"live/one": {"disposition": "STRANDED", "tip": "b" * 10}},
+                {"main": "b" * 40, "live/one": "b" * 40},
             ),
         ),
         (
