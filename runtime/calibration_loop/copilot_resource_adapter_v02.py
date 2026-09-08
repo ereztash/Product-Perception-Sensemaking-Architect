@@ -39,6 +39,20 @@ def extract_json(text: str) -> dict:
     return value
 
 
+def exact_runtime_bridge(resource: str, phase: object, request: dict) -> str:
+    if resource == "RND" and phase == "SYNTHESIZE":
+        routed = ((request.get("routing") or {}).get("resources") or [])
+        return (
+            "\n\n# Exact runner invariant\n"
+            f"routing.resources is exactly {json.dumps(routed, ensure_ascii=False)}. "
+            "resource_deltas MUST contain exactly those routed peer resources, in exactly that order. "
+            "Never include RND DIAGNOSE or RND SYNTHESIZE in resource_deltas. "
+            "If routing.resources is empty, resource_deltas MUST be []. "
+            "For each routed peer, material must equal whether at least one observed_delta dimension is non-null."
+        )
+    return ""
+
+
 def main() -> int:
     try:
         request = json.load(sys.stdin)
@@ -53,6 +67,7 @@ def main() -> int:
         runtime_request = json.dumps(request, ensure_ascii=False, sort_keys=True, indent=2)
         instruction = (
             canonical_prompt
+            + exact_runtime_bridge(resource, phase, request)
             + "\n\n# Runtime request\n"
             + runtime_request
             + "\n\nDo the current runtime task only. Return the exact JSON shape required above."
