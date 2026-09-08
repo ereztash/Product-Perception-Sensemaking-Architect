@@ -71,13 +71,15 @@ the file-level validators cannot see a commit that lives only on an unmerged bra
 branch-level half of the canonical rule was left to review, and review did not hold. The
 enforcement gap and its closure are recorded in `docs/BRANCH_INVENTORY.md`.
 
-Twenty-one further branches are strict ancestors of `main` and are retirable. Deletion is
-blocked from every agent session by the egress proxy; the owner command is
+Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
+by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen. Deletion
+is refused in every agent session by the egress proxy, so it remains an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
 `claude/lichess-prerelease-gaps-qvlbv5` ran in parallel with the 2026-09-06 reconciliation
 and edited two of the same files. Both its passes merged into `main`, so its durable
-artifacts are readable there and the ref is retirable. The collision and its resolution are
+artifacts are readable there and the ref was retired on 2026-09-08. The collision and its
+resolution are
 recorded in `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`, section 12.
 
 ---

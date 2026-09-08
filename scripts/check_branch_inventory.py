@@ -216,10 +216,23 @@ def check_runbook_matches_inventory(
     The runbook carries the same list twice, once as a POSIX block and once as a single
     line for shells without backslash continuation. Two copies drift, and a drifted copy
     deletes a set nobody verified.
+
+    While nothing is retirable the runbook must carry no deletion command at all. A command
+    left behind after a retirement names refs that no longer exist, and a ref name is
+    reusable: a later branch created under one of those names would be deleted by a stale
+    paste.
     """
     declared = parse_inventory() if declared is None else declared
     commands = parse_runbook_commands() if commands is None else commands
     retirable = frozenset(b for b, r in declared.items() if r["disposition"] == "RETIRABLE")
+
+    if not retirable:
+        require(
+            not commands,
+            f"{RUNBOOK} carries {len(commands)} deletion command(s) while {INVENTORY} "
+            f"declares nothing RETIRABLE; a stale command deletes refs nobody verified",
+        )
+        return
 
     require(
         len(commands) >= 2,
@@ -436,6 +449,13 @@ def positive_controls() -> int:
             ),
         ),
         (
+            "runbook-command-while-nothing-is-retirable",
+            lambda: check_runbook_matches_inventory(
+                {"live/one": {"disposition": "STRANDED", "tip": "b" * 10}},
+                [frozenset({"dead/one"}), frozenset({"dead/one"})],
+            ),
+        ),
+        (
             "runbook-carries-only-one-command",
             lambda: check_runbook_matches_inventory(
                 parse_inventory(_GOOD_INVENTORY), [frozenset({"dead/one"})]
@@ -509,10 +529,13 @@ def main() -> None:
         commands = parse_runbook_commands()
         check_runbook_matches_inventory(declared, commands)
         retirable = sum(1 for r in declared.values() if r["disposition"] == "RETIRABLE")
-        print(
-            f"RUNBOOK: {len(commands)} deletion commands, each naming the same "
-            f"{retirable} retirable refs"
-        )
+        if retirable:
+            print(
+                f"RUNBOOK: {len(commands)} deletion commands, each naming the same "
+                f"{retirable} retirable refs"
+            )
+        else:
+            print("RUNBOOK: nothing retirable, and no deletion command left behind")
 
         if args.live:
             verdicts = check_live(declared, remote=args.remote)

@@ -1,7 +1,7 @@
 # Branch Inventory
 
 Status: `CANONICAL`
-Captured: 2026-09-08
+Captured: 2026-09-08, after the retirement
 Captured against: `main` @ `74fc4af509965497a7440d9521fc3717b2809f50`
 
 This file is the branch-level half of the canonical rule. `docs/REPOSITORY_MAP.md` states
@@ -26,7 +26,7 @@ A declaration that no instrument checks is not a rule. It is a note.
 
 | Disposition | Meaning | Action it implies |
 |---|---|---|
-| `RETIRABLE` | Strict ancestor of `main`. Deletion loses no history. | Owner deletes; see `docs/BRANCH_RETIREMENT_RUNBOOK.md`. |
+| `RETIRABLE` | Strict ancestor of `main`. Deletion loses no history. | Owner deletes; see `docs/BRANCH_RETIREMENT_RUNBOOK.md`. Currently unused: no branch holds this disposition. |
 | `OPEN_PR_TO_MAIN` | Ahead of `main`, open pull request targeting `main`. | Merge or close the pull request. |
 | `OPEN_PR_TO_BRANCH` | Ahead of `main`, open pull request targeting a side branch. | Its content cannot reach `main` through that pull request. Retarget or reopen against `main`. |
 | `STRANDED` | Ahead of `main`, no open pull request. Artifacts exist only here. | Recover to `main`, copy to `archive/`, or record why neither. |
@@ -36,8 +36,15 @@ where the bytes live, not whether the work was worth doing.
 
 ## Retirable — contained in `main`
 
-Every tip below was verified with `git merge-base --is-ancestor <tip> origin/main` on
-2026-09-08. All twenty-one are strict ancestors. Deleting them loses no history.
+None. The retirable lane is empty.
+
+## Retired on 2026-09-08
+
+Every tip below was verified with `git merge-base --is-ancestor <tip> origin/main`
+immediately before deletion; all twenty-one were strict ancestors, so no history was lost.
+The owner deleted all twenty-one on 2026-09-08 and the remote went from thirty-five branches
+to fifteen. These rows are lineage: the refs no longer exist, and nothing here is a live
+declaration.
 
 | Branch | Tip | Origin |
 |---|---|---|
@@ -63,10 +70,11 @@ Every tip below was verified with `git merge-base --is-ancestor <tip> origin/mai
 | `research/wave1-triangulation` | `4072bb1282` | superseded by Wave 1 closeout |
 | `rnd/calibration-loop-v0.1` | `4072bb1282` | calibration loop merged |
 
-Seven of those names describe the same job attempted seven times. That is itself the
-finding this file records: the 2026-09-05 audit dispositioned nineteen of these refs
-`MERGED_SAFE_TO_DELETE` and none was deleted, because the deletion write is blocked
-from every agent session. See the runbook.
+Seven of those names describe the same job attempted seven times. That is the finding this
+file was opened on: the 2026-09-05 audit dispositioned nineteen of these refs
+`MERGED_SAFE_TO_DELETE`, and for three days none was deleted, because the deletion write is
+refused in every agent session and the owner action was never surfaced as one command.
+`docs/BRANCH_RETIREMENT_RUNBOOK.md` records the blocker, the procedure and this execution.
 
 ## Ahead of `main`
 
@@ -89,8 +97,8 @@ from every agent session. See the runbook.
 
 Tips in this table are last-observed values, not pins. An active branch is expected to
 receive commits, and `scripts/check_branch_inventory.py --live` reports such movement
-without failing. A `RETIRABLE` tip is pinned: the runbook is about to delete that ref, and
-a ref that moved since capture may no longer be contained in `main`.
+without failing. A `RETIRABLE` tip is pinned: the runbook would be about to delete that
+ref, and a ref that moved since capture may no longer be contained in `main`.
 
 ### PR 19 cannot reach `main`
 
