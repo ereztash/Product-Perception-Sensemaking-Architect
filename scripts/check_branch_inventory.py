@@ -40,6 +40,7 @@ CANONICAL_BRANCH = "main"
 # Closed vocabulary. A branch carries exactly one of these.
 DISPOSITIONS = {
     "RETIRABLE",
+    "SUPERSEDED",
     "OPEN_PR_TO_MAIN",
     "OPEN_PR_TO_BRANCH",
     "STRANDED",
@@ -47,6 +48,9 @@ DISPOSITIONS = {
 
 # Dispositions that assert the branch is ahead of `main`.
 AHEAD_DISPOSITIONS = DISPOSITIONS - {"RETIRABLE"}
+
+# `SUPERSEDED` is only meaningful with a named successor, so the row must name one.
+SUCCESSOR_CELL = re.compile(r"superseded by `([^`]+)`", re.IGNORECASE)
 
 BRANCH_CELL = re.compile(r"^\|\s*`([^`]+)`\s*\|(.*)\|\s*$")
 TIP_SHA = re.compile(r"`([0-9a-f]{10,40})`")
@@ -158,6 +162,31 @@ def parse_active_branches(text: str | None = None) -> set[str]:
 
 
 # --- offline invariants -------------------------------------------------------
+
+def check_superseded_have_successors(text: str | None = None) -> None:
+    """A SUPERSEDED row must name the successor that contains it.
+
+    Without a named successor the disposition is an opinion. With one it is a claim
+    anyone can check with `git merge-base --is-ancestor`.
+    """
+    text = read(INVENTORY) if text is None else text
+    for line in text.splitlines():
+        stripped = line.strip()
+        match = BRANCH_CELL.match(stripped)
+        if not match or "SUPERSEDED" not in match.group(2):
+            continue
+        branch = match.group(1)
+        successor = SUCCESSOR_CELL.search(match.group(2))
+        require(
+            successor is not None,
+            f"{INVENTORY}: `{branch}` is SUPERSEDED without naming a successor; "
+            "write \"superseded by `<branch>`\"",
+        )
+        require(
+            successor.group(1) != branch,
+            f"{INVENTORY}: `{branch}` names itself as its own successor",
+        )
+
 
 def check_declaration_shape(declared: dict[str, dict[str, str]] | None = None) -> None:
     """Every declared branch carries one known disposition and a tip."""
@@ -460,6 +489,18 @@ def positive_controls() -> int:
             ),
         ),
         (
+            "superseded-without-a-named-successor",
+            lambda: check_superseded_have_successors(
+                "| `a/one` | `aaaaaaaaaa` | 2 | 1 | `SUPERSEDED` |\n"
+            ),
+        ),
+        (
+            "superseded-by-itself",
+            lambda: check_superseded_have_successors(
+                "| `a/one` | `aaaaaaaaaa` | 2 | 1 | `SUPERSEDED`, superseded by `a/one` |\n"
+            ),
+        ),
+        (
             "active-branch-not-in-inventory",
             lambda: check_active_table_agrees(
                 parse_inventory(_GOOD_INVENTORY), {"ghost/branch"}
@@ -567,6 +608,7 @@ def main() -> None:
             f"`{CANONICAL_BRANCH}` @ {anchor[:12]}"
         )
 
+        check_superseded_have_successors()
         check_active_table_agrees(declared)
         ahead = sorted(b for b, r in declared.items() if r["disposition"] in AHEAD_DISPOSITIONS)
         print(
