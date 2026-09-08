@@ -12,7 +12,10 @@ Purpose: build an evidence-bounded knowledge spine for adapting chess-error diag
 4. `SOURCE_REGISTER_PASS1.md` — source register with evidence ceilings.
 5. `PASS2_OPERATIONALIZATION.md` — executable descriptive stack: ratings, Maia human priors, engine consequence, board concepts, context and player deviation.
 6. `PASS3_MECHANISM_EVIDENCE.md` — evidence ladder separating observed error form, statistical weakness and cognitive mechanism.
-7. `PASS4_PEDAGOGY.md` — intervention/outcome lane; diagnosis fit is not pedagogical efficacy.
+7. `PASS4_PEDAGOGY.md` — **not produced.** The intervention/outcome lane was deferred, not
+   written: `PASS1_FINDINGS.md` F10 records pedagogical efficacy as the largest unresolved
+   gap, and `PASS6_INSTRUMENT_RECOVERY_AND_STOP.md` hands it off as a separate lane. The
+   numbering is kept so the gap stays visible instead of closing silently.
 8. `PASS5_TIME_ERROR_CROSS.md` — orthogonal `decision quality × time allocation quality` model.
 9. `PASS6_INSTRUMENT_RECOVERY_AND_STOP.md` — recovered open VOC/EVOC/cost-of-time instruments and broad-research stop decision.
 

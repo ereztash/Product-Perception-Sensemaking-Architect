@@ -151,8 +151,9 @@ Read in this order:
 
 1. `docs/CANONICAL_STATE.md` — what is true now, and at what evidence status;
 2. `docs/REPOSITORY_MAP.md` — where things belong and the branch policy;
-3. `docs/SHARED_EPISTEMIC_KERNEL.md` — the constitution;
-4. `CLAUDE.md` — working rules for changing any of it.
+3. `docs/BRANCH_INVENTORY.md` — every branch, its disposition, and what lives only on it;
+4. `docs/SHARED_EPISTEMIC_KERNEL.md` — the constitution;
+5. `CLAUDE.md` — working rules for changing any of it.
 
 Nothing under `research/` is canonical. Nothing under `archive/` is current authority.
 
@@ -161,7 +162,12 @@ Nothing under `research/` is canonical. Nothing under `archive/` is current auth
 - `main` is the only long-lived authoritative branch;
 - work branches are temporary and carry one named purpose;
 - before retirement, decision-relevant artifacts must be merged to `main` or copied under `archive/`;
-- a branch that exists proves nothing about runnability or authority.
+- a branch that exists proves nothing about runnability or authority;
+- every branch on the remote is declared in `docs/BRANCH_INVENTORY.md` and checked by `scripts/check_branch_inventory.py --live`.
+
+Twelve branches are currently ahead of `main` and twenty-one are retirable. Deletion is
+blocked from every agent session by the egress proxy; the owner command is
+`docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
 Consolidation records: `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md` and `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`.
 
@@ -172,6 +178,7 @@ python scripts/check_contract.py
 python scripts/check_research_contract.py
 python scripts/check_rnd_contract.py
 python scripts/check_canonical_state.py
+python scripts/check_branch_inventory.py --live
 ```
 
 CI runs the full contract suite in `.github/workflows/verify.yml`.
