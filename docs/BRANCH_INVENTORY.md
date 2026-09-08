@@ -1,8 +1,8 @@
 # Branch Inventory
 
 Status: `CANONICAL`
-Captured: 2026-09-08, after the retirement
-Captured against: `main` @ `74fc4af509965497a7440d9521fc3717b2809f50`
+Captured: 2026-09-08, after the retirement and the branch-by-branch read
+Captured against: `main` @ `04574ab10e76f56cb30302d47114565bcc9f34ae`
 
 This file is the branch-level half of the canonical rule. `docs/REPOSITORY_MAP.md` states
 the rule; `scripts/check_branch_inventory.py` enforces it; this file is the declaration
@@ -29,6 +29,7 @@ A declaration that no instrument checks is not a rule. It is a note.
 | `RETIRABLE` | Strict ancestor of `main`. Deletion loses no history. | Owner deletes; see `docs/BRANCH_RETIREMENT_RUNBOOK.md`. Currently unused: no branch holds this disposition. |
 | `OPEN_PR_TO_MAIN` | Ahead of `main`, open pull request targeting `main`. | Merge or close the pull request. |
 | `OPEN_PR_TO_BRANCH` | Ahead of `main`, open pull request targeting a side branch. | Its content cannot reach `main` through that pull request. Retarget or reopen against `main`. |
+| `SUPERSEDED` | Ahead of `main`, but every path unique to it also exists on a named successor branch. | Retire when the successor lands. Deleting it before that loses nothing the successor does not hold. |
 | `STRANDED` | Ahead of `main`, no open pull request. Artifacts exist only here. | Recover to `main`, copy to `archive/`, or record why neither. |
 
 A branch carrying an unfinished experiment is not thereby exempt. `STRANDED` describes
@@ -91,22 +92,24 @@ refused in every agent session and the owner action was never surfaced as one co
 
 ## Ahead of `main`
 
-| Branch | Tip | Ahead | New files | Disposition |
-|---|---|---|---|---|
-| `claude/product-value-completion-run-if7ito` | `b358884a97` | 13 | 31 | `OPEN_PR_TO_BRANCH` |
-| `claude/repo-canonicalization-reconciliation-aufvq6` | `b205708e4b` | 10 | 0 | `OPEN_PR_TO_MAIN` |
-| `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 4 | `OPEN_PR_TO_MAIN` |
-| `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 0 | `STRANDED` |
-| `run/claude-prerelease-prompt-telos-2026-09-06` | `5be34ad7fd` | 2 | 2 | `STRANDED` |
-| `run/delta-v02-batch-2026-09-08` | `9ef5c8b433` | 5 | 4 | `STRANDED` |
-| `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 6 | 3 | `STRANDED` |
-| `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | 4 | `STRANDED` |
-| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 7 | `STRANDED` |
-| `run/product-value-completion-2026-09-06` | `bdaba4849d` | 3 | 8 | `STRANDED` |
-| `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 5 | `STRANDED` |
-| `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 1 | `STRANDED` |
-| `claude/repo-cleanup-590u82` | `41a45eea6a` | 1 | 3 | `OPEN_PR_TO_MAIN` |
-| `research/rnd-self-triangulation-2026-09-08` | `440fd2465d` | 5 | 5 | `STRANDED` |
+| Branch | Tip | Unique paths | Disposition |
+|---|---|---|---|
+| `claude/product-value-completion-run-if7ito` | `b358884a97` | 31 | `OPEN_PR_TO_BRANCH` |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | `7c5465ae61` | 0 | `OPEN_PR_TO_MAIN` |
+| `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 4 | `OPEN_PR_TO_MAIN` |
+| `research/rnd-self-triangulation-challenges-2026-09-08` | `9756465715` | 17 | `STRANDED` |
+| `research/rnd-self-triangulation-adjudication-2026-09-08` | `dd59bf7ae1` | 12 | `STRANDED` |
+| `research/rnd-self-triangulation-2026-09-08` | `e56b74d766` | 11 | `SUPERSEDED`, superseded by `research/rnd-self-triangulation-challenges-2026-09-08` |
+| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 7 | `STRANDED` |
+| `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 5 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 3 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 1 | `STRANDED` |
+| `run/product-value-completion-2026-09-06` | `bdaba4849d` | 8 | `SUPERSEDED`, superseded by `claude/product-value-completion-run-if7ito` |
+| `run/delta-v02-batch-2026-09-08` | `db5d10676e` | 5 | `STRANDED` |
+| `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | `STRANDED` |
+| `run/claude-prerelease-prompt-telos-2026-09-06` | `5be34ad7fd` | 2 | `STRANDED` |
+| `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 0 | `SUPERSEDED`, superseded by `main` |
+| `claude/repo-cleanup-590u82` | `04574ab10e` | 2 | `OPEN_PR_TO_MAIN` |
 
 Tips in this table are last-observed values, not pins. An active branch is expected to
 receive commits, and `scripts/check_branch_inventory.py --live` reports such movement
@@ -149,6 +152,59 @@ made.
 
 `skills/` does not appear in the placement table in `docs/REPOSITORY_MAP.md`. A directory
 that exists on three branches and in no rule is a placement question, not a file question.
+
+## Branch-by-branch read, 2026-09-08
+
+Every branch was read. "Unique paths" counts paths that exist on the branch and nowhere on
+`main`, compared tree to tree. It is the number that matters, because a branch can sit many
+commits ahead and still hold nothing: `feat/resource-delta-accounting-v0-2` is six commits
+ahead and has zero unique paths, since `main` took its work as the squash `74fc4af`. A
+commit count is not evidence of content.
+
+### Four branches hold nothing their successor does not
+
+Verified with `git merge-base --is-ancestor`: each is a strict ancestor of the successor
+named in its row. Deleting any of them before its successor lands loses nothing.
+
+Sixteen open questions become twelve.
+
+### The adjudication rubric and the result it grades are on different branches
+
+`research/rnd-self-triangulation-adjudication-2026-09-08` carries
+`RND_SELF_TRIANGULATION_CHALLENGE_RUBRIC_1.md`, frozen to adjudicate the blind challenges.
+
+`research/rnd-self-triangulation-challenges-2026-09-08` carries the challenges `C1` to `C4`
+and `RND_SELF_TRIANGULATION_CHALLENGE_RESULT_1.md`.
+
+Neither branch contains the other. From either one alone, the blind result cannot be graded
+against its own frozen rubric. Both were pushed within an hour of this read, so this is a
+live research program, not archaeology, and the split is `OWNER`'s to resolve.
+
+### The skill has two versions and the newer one is on the smaller branch
+
+`skills/evidence-bounded-best-effort-runtime/skill.md` is 205 lines on
+`skill/evidence-bounded-best-effort-runtime` and 140 lines on the two `run/` branches. The
+205-line version is the later one: it was committed as "tighten best-effort skill after
+self-calibration". A merge that took the run branches' copy would silently revert that
+refinement.
+
+`skills/` still matches no row in the placement table in `docs/REPOSITORY_MAP.md`.
+
+### PR 19 still cannot reach `main`
+
+Its base is `run/product-value-completion-2026-09-06`, which this read confirms is fully
+contained in PR 19's own head. The base branch holds nothing the head does not. Retargeting
+PR 19 at `main` would both unblock its 31 files and make the base branch retirable.
+
+### What is decided and what is not
+
+Decided here: which branches hold nothing, and what each remaining branch actually contains.
+
+Not decided here: whether the twelve remaining branches should be recovered into `main` or
+copied under `archive/`. Each holds real content, several are being written to now, and one
+belongs to a parallel session's open pull request. That is an `OWNER` decision per branch,
+and taking it inside a repository-organization pass would be the same encodability bias the
+kernel forbids.
 
 ## What this inventory does not claim
 
