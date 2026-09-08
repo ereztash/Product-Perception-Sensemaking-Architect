@@ -73,11 +73,37 @@ def prompt_for(resource: str, request: dict) -> str:
 
 def bridge_contract(resource: str, phase: object) -> str:
     if resource == "RND" and phase == "DIAGNOSE":
-        return """# Adapter bridge contract\nReturn exactly ONE JSON object and no Markdown. Required fields:\n- material_question: non-empty string\n- bottleneck: non-empty string\n- resource_assessment: non-empty array; each item has exactly resource, expected_contribution, authority_ceiling, uncertainty (all non-empty strings)\n- candidate_moves: non-empty array; each item has exactly move, resource, expected_decision_value, reversibility (all non-empty strings)\n- needs: object containing exactly these boolean keys: signal_interpretation_ambiguity, multiple_plausible_mechanisms, proxy_substitution_risk, research_to_intervention_transition, broad_reasoning_needed, architecture_alternatives_needed, novel_synthesis_needed, external_research_needed, owner_authority_needed, repo_authority_needed, environment_authority_needed, field_authority_needed\n- rationale: non-empty string\nDo not add fields."""
+        return """# Adapter bridge contract
+Return exactly ONE JSON object and no Markdown. Required fields:
+- material_question: non-empty string
+- bottleneck: non-empty string
+- resource_assessment: non-empty array; each item has exactly resource, expected_contribution, authority_ceiling, uncertainty, expected_delta. The first four are non-empty strings. expected_delta is an object with exactly these boolean keys: decision, action, reversal, evidence, allocation, distinction. Mark true only when this resource could still change that decision-state dimension if invoked now. This is an ex-ante commitment, not a claim that the delta will occur.
+- candidate_moves: non-empty array; each item has exactly move, resource, expected_decision_value, reversibility (all non-empty strings)
+- needs: object containing exactly these boolean keys: signal_interpretation_ambiguity, multiple_plausible_mechanisms, proxy_substitution_risk, research_to_intervention_transition, broad_reasoning_needed, architecture_alternatives_needed, novel_synthesis_needed, external_research_needed, owner_authority_needed, repo_authority_needed, environment_authority_needed, field_authority_needed
+- rationale: non-empty string
+Do not add fields.
+The downstream peer will NOT receive expected_delta; keep the expectation prospective so later comparison does not contaminate peer independence."""
     if resource == "RND" and phase == "SYNTHESIZE":
-        return """# Adapter bridge contract\nReturn exactly ONE JSON object and no Markdown. Required fields:\n- decision_before: string\n- decision_after: string\n- next_move: string\n- resource_deltas: array of objects, each with resource, material (boolean), unique_delta\n- learning_records: array of objects describing what future routing/allocation learned\n- stop_or_continue: STOP or CONTINUE\n- routing_amendment_proposed: null unless repeated evidence justifies a proposed routing change\nPreserve conflicts and authority ceilings. Do not treat same-model peer agreement as independent triangulation."""
+        return """# Adapter bridge contract
+Return exactly ONE JSON object and no Markdown. Required fields:
+- decision_before: string
+- decision_after: string
+- next_move: string
+- resource_deltas: one object per invoked peer resource, in routed order. Each object has exactly resource, material (boolean), unique_delta (non-empty string), observed_delta. observed_delta has exactly decision, action, reversal, evidence, allocation, distinction; each value is either null or a non-empty string describing the concrete state change attributable to that resource relative to the pre-invocation diagnosis. Use null when that dimension did not change. material MUST equal whether at least one observed_delta value is non-null. Do not count restatement, eloquence, agreement, or extra explanation as a delta unless it changes one of those six state dimensions.
+- learning_records: array of objects describing what future routing/allocation learned; preserve expected-vs-observed mismatch when useful
+- stop_or_continue: STOP or CONTINUE
+- routing_amendment_proposed: null unless repeated evidence justifies a proposed routing change
+Preserve conflicts and authority ceilings. Do not treat same-model peer agreement as independent triangulation."""
     if resource in {"NETA", "SCAFFOLD"}:
-        return f"""# Adapter bridge contract\nReturn exactly ONE JSON object and no Markdown with exactly these fields:\n- resource: \"{resource}\"\n- summary: non-empty string\n- unique_delta: non-empty string\n- evidence_refs: array of strings; only references actually present in the request\n- limitations: array of strings\nDo not add fields."""
+        return f"""# Adapter bridge contract
+Return exactly ONE JSON object and no Markdown with exactly these fields:
+- resource: \"{resource}\"
+- summary: non-empty string
+- unique_delta: non-empty string
+- evidence_refs: array of strings; only references actually present in the request
+- limitations: array of strings
+Do not add fields.
+Analyze independently. You are intentionally not shown R&D's ex-ante expected_delta so the later materiality comparison remains prospective rather than self-fulfilling."""
     raise LiveAdapterError(f"unsupported resource/phase: {resource}/{phase}")
 
 
