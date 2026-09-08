@@ -1,0 +1,47 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-LICHESS-WTP-BELIEF-001",
+  "telos": {
+    "statement": "Increase as much as possible the justified belief that at least one real buyer will pay for Decision Lab, while preserving the distinction between market proxies and actual willingness-to-pay evidence.",
+    "success_condition": "Identify the smallest set of admissible next moves that would most increase or decrease justified confidence in willingness to pay, rank them by expected decision value and cost, separate desk-research evidence from FIELD evidence, and specify a stopping rule after which additional research is lower value than asking for money."
+  },
+  "current_state": {
+    "summary": "Target product: ereztash/lichess_app. Canonical product state is main@2390b3510f798cd40e5ae5fd21573edb5e965181. Scientific state: recurring decision structure, held-out prediction, population correction, narrow player-specific residual, and partial cross-platform board-region replication are supported; intervention efficacy, behavioral change, Elo improvement, causal cognitive diagnosis, and generalization of the owner's specific R*/R** finding to other players are not established. Commercial candidate evidence exists in draft PR #95 (head f9788db6220ee9015366ca8276dcabc32e34593e), docs/BUILD_TO_REVENUE_AUDIT.md, which passed Verify. That audit finds: first buyer to test = chess coach; serious player second; platform/API deferred. Minimum sellable configuration = one manually produced, population-corrected decision report on one named player's public archive. Minimum build for first payment = none. The existing research pipeline has already run end-to-end on a supplied Chess.com corpus. No billing, accounts, multi-tenancy, coach workspace, or English self-serve surface is required for a concierge sale. Observed adjacent market anchors: personalized chess software roughly $4.85-$15/month; listed Lichess coaching rates roughly $20-$75/hour. Pricing hypotheses remain unvalidated. The strongest commercial unknowns are whether anyone pays at all, actual WTP, acceptance of a report that may return null, actual owner hours per report, whether a coach finds the output useful, repeat purchase, retention and CAC. The first concierge report does not carry the full pre-engine capture differentiator because historical PGN lacks the player's pre-feedback subjective record; it carries the population-corrected/preregistered/null-admissible research procedure instead.",
+    "known_constraints": [
+      "Do not treat market size, competitor pricing, engagement, interest, compliments, coach hourly rates, or same-model agreement as direct willingness-to-pay evidence.",
+      "Do not claim the owner's R*/R** finding generalizes to another player; the sellable object is the procedure and an honest result including a null.",
+      "Do not recommend product build merely to make the offer look more complete if the same commercial uncertainty can be tested manually.",
+      "Scientific FIELD and commercial FIELD are distinct. A paid concierge report must not be represented as intervention efficacy evidence.",
+      "No additional browsing should be recommended unless it can materially change buyer choice, offer shape, pricing test, or whether to ask for money now.",
+      "OWNER and FIELD authority ceilings must remain explicit.",
+      "The desired output is a resource-allocation decision, not persuasive copy."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "What should be done next, and in what order, to maximize justified confidence that someone will pay for Decision Lab: further external research, a different buyer/offer, pre-sales, paid concierge reports, interviews, prototype/report samples, pricing experiments, or another bounded move?",
+    "current_default": "Stop broad desk research and test a coach-first concierge offer: identify a small set of named coaches, offer a population-corrected written decision report at an explicit price before delivery, accept that the report may return null, measure payment before delivery, owner hours, buyer action after delivery, and repeat purchase before investing in self-serve infrastructure.",
+    "reversal_condition": "Reverse or materially alter this default if R&D identifies a cheaper admissible observation with higher expected decision value, evidence that coach-first is mis-ranked relative to serious players, a missing prerequisite that makes the paid test uninterpretable, a commercial claim outside the current evidence ceiling, or a desk-research branch whose answer could materially change whether/how to ask for money."
+  },
+  "signals": [
+    "The commercial White Paper now explains a plausible path to revenue, but the weakest score remains belief that a real buyer will actually pay.",
+    "PR #95 concluded that no code is required to receive a first payment and that the concierge route has already executed technically; demand, not build, is the unresolved variable.",
+    "Coach-first is supported by observed hourly pricing and reuse across students, but the key proposed ROI mechanism—prep time saved—is still FIELD_REQUIRED.",
+    "A serious-player route has stronger adjacent software WTP evidence but lower price anchors and weaker repeatability per buyer.",
+    "The report wedge and the eventual pre-engine product are not identical; an early sale validates demand for the evidence object, not yet the full product moat.",
+    "The highest-value evidence would be evidence that discriminates between 'people say this is valuable' and 'someone gives up money for it'."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [
+    "ereztash/lichess_app@2390b3510f798cd40e5ae5fd21573edb5e965181:README.md",
+    "ereztash/lichess_app@2390b3510f798cd40e5ae5fd21573edb5e965181:research/mechanism/NETA_FINDING.json",
+    "ereztash/lichess_app@2390b3510f798cd40e5ae5fd21573edb5e965181:research/mechanism/chesscom/CROSS_PLATFORM_DISPOSITION.md",
+    "ereztash/lichess_app:PR#95 docs/BUILD_TO_REVENUE_AUDIT.md (DRAFT CANDIDATE, VERIFY GREEN)",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "docs/CANONICAL_STATE.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
