@@ -1,0 +1,78 @@
+name: R&D Self-Triangulation Synthesis
+
+on:
+  push:
+    branches:
+      - research/rnd-self-triangulation-2026-09-08
+    paths:
+      - '.github/workflows/rnd-self-triangulation-synthesis.yml'
+      - 'research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_SYNTHESIS.task.json'
+      - 'research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_EXTERNAL_FINDINGS_1.md'
+      - 'runtime/calibration_loop/copilot_resource_adapter_v02.py'
+      - 'runtime/calibration_loop/copilot-config-v02.best-effort.json'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Validate synthesis task
+        run: python scripts/validate_calibration_task.py research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_SYNTHESIS.task.json
+
+      - name: Run Calibration Loop v0.2 synthesis
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/execution_traces
+          OUT="runtime/execution_traces/RND-SELF-TRIANGULATION-SYNTHESIS-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/rnd-agent/self-triangulation/RND_SELF_TRIANGULATION_SYNTHESIS.task.json \
+            --config runtime/calibration_loop/copilot-config-v02.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Record provenance
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p runtime/execution_traces
+          python - <<'PY'
+          import json, os, subprocess
+          p = {
+            'experiment_commit': os.environ['GITHUB_SHA'],
+            'canonical_runtime_base': '74fc4af509965497a7440d9521fc3717b2809f50',
+            'runtime_version': '0.2',
+            'provider': 'github-copilot-cli',
+            'model': 'provider-default',
+            'exact_model_lineage': 'unknown',
+            'independence_limit': 'External literature is independent RESEARCH evidence about neighboring constructs. R&D/Neta/Scaffold interpretations share an unknown provider-selected model lineage and are not independent runtime triangulation.'
+          }
+          v = subprocess.run(['copilot','--version'], text=True, capture_output=True)
+          p['copilot_cli_version'] = (v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0]
+          with open('runtime/execution_traces/RND-SELF-TRIANGULATION-SYNTHESIS-PROVENANCE.json','w',encoding='utf-8') as f:
+            json.dump(p,f,ensure_ascii=False,indent=2); f.write('\n')
+          PY
+
+      - name: Upload trace and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-self-triangulation-synthesis-${{ github.sha }}
+          path: |
+            runtime/execution_traces/RND-SELF-TRIANGULATION-SYNTHESIS-${{ github.sha }}.json
+            runtime/execution_traces/RND-SELF-TRIANGULATION-SYNTHESIS-PROVENANCE.json
+          if-no-files-found: warn
