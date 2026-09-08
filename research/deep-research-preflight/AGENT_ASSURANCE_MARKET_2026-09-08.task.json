@@ -1,0 +1,59 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-AGENT-ASSURANCE-MARKET-2026-09-08",
+  "telos": {
+    "statement": "Decide how to allocate the owner's next three months between building breadth of agents into a service catalogue and building a sellable assurance layer that certifies whether an agent's output may be acted on, carrying evidence level, resolution authority, action permission and reversal condition.",
+    "success_condition": "Route the allocation decision to the authority that can actually settle each part of it, and specify the cheapest admissible observation that can change the allocation. A market-existence finding that cannot change the allocation is not success. Explicitly separate what public evidence can settle from what only field contact with the named buyer can settle, and state which of the two is being bought first and why."
+  },
+  "current_state": {
+    "summary": "Date 2026-09-08. The repository holds two earned reasoning peers, Neta for product/design sensemaking and R&D for resource-to-telos calibration. research/agent-discovery/AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md screened twelve candidate agents against Decision Quality, NASA Systems Engineering and SEBoK/ISO 15288 as adversarial completeness probes and recorded NEW_AGENT_PROMOTED = NONE and BROAD_AGENT_DISCOVERY = CLOSED. Each screened candidate received a non-agent form factor rather than a rejection: Architecture as candidate capability, Decision Support as observatory, Requirements Translation as architecture input gate, Question Discovery as front-door gate, Applied Epistemology and VOI as theory and eval lens, Strategy as owner authority, Risk as cross-cutting modifier, Memory as infrastructure, Orchestrator and Execution as NOT_EARNED. The assurance side carries measured evidence. GitHub Wave 1 adjudicated 48 real OSS repositories with 16 holdout, recorded 37 Neta-versus-baseline build-restraint cases of which 14 fully survived adjudication and 8 partially, and found 1 clean Neta failure; minimum viable evidence was not reached because 3 clean failures were required and only 1 was observed, and the wave closed at saturation with 0 prompt updates. The Question Discovery lane ran three escalating tests: a capability profile on 12 natural owner prompts with conditions frozen before running, which fired 3/12, correctly preserved the question 9/12 and over-reframed 0/12, and whose ablation attributed the first material delta to commitment inspection in 2/3 cases, to decision identification in 1/3 and to question selection in 0/3; an 8-case question-space challenge that produced 0/8 clear unique wins for question search; and a 20-case Yishumi holdout on a corpus external to the repository, created before the hypothesis existed and selected mechanically by sheet order, which recorded 95% routing agreement, 0/11 false bypass, 8/8 material-case recall and 0/20 authority violations. That lane explicitly refuted the broad claim that the capability is especially good at finding the highest-leverage question, and replaced it with the narrower surviving claim that it detects when a reasonable question has committed to a next move before the evidence has earned that commitment. QD_MARKET_COMPARISON_V0.md scanned Qzero, Frameback, DTrio, Frame Decisions, Alter AI, Decision Journal, Aivatar and IBM Decision Intelligence, but that scan and QD_NAMING_DECISION_V0.md were both written against the broad claim that the later ablation refuted, and have not been redone against the surviving claim. docs/LESSONS_COVERAGE_AUDIT.md records two standing gaps: no second owner-builder has demonstrated the method, and there is no prospective measure of Neta effectiveness independent of the rubric used to build Neta. The lichess field instrument is built and verified runnable, its execution trace records outcome authority FIELD with status FIELD_REQUIRED, and the frozen recruitment package has never been run. This execution environment holds no OPENAI_API_KEY, ANTHROPIC_API_KEY or COPILOT_TOKEN, so the live adapter path is unavailable and the calibration loop can only run in mock mode here. The owner's stated buyer is a COO, CFO or VP People at a 50 to 300 employee growth-stage company in cybersecurity, fintech or healthtech.",
+    "known_constraints": [
+      "Deep research cannot settle whether the owner's named buyer will pay. Willingness to pay by a 50 to 300 employee company resolves to FIELD and is above the authority ceiling of any public-source scan.",
+      "The value of this research is asymmetric. A negative finding is decisive and cheap; a positive finding leaves the buyer question fully open and therefore cannot by itself authorize the build.",
+      "Cold contacts in the owner's ICP are a non-renewable resource and must not be spent before a cheaper instrument has had its chance to kill the idea.",
+      "Analyst market sizing, vendor claims about their own category and forecasts beyond 2027 are inadmissible as primary evidence. Pricing pages, product changelogs with dates, regulatory text with compliance dates, job postings, attributed first-person buyer statements and deployment post-mortems are admissible.",
+      "Do not treat growth in the AI agent market as evidence for either allocation. It is consistent with both and cannot discriminate between them.",
+      "Do not treat this task as authorization to build a third peer. Broad agent discovery is closed at saturation and adding an agent requires new evidence of a recurring residual outside the existing map.",
+      "Do not rewrite the frozen kill conditions or the stop rule after seeing results. The thresholds are preregistered in the accompanying PLAN document.",
+      "Absence of evidence must be reported as absence, with what was searched, and must not be filled with adjacent material."
+    ],
+    "available_resources": [
+      "RND",
+      "NETA"
+    ]
+  },
+  "decision_blocked": {
+    "statement": "Given that public market evidence cannot settle willingness to pay for the owner's named buyer, what is the cheapest admissible instrument to buy first, how should the deep-research question be scoped so that it can return a decisive negative rather than a reassuring positive, and under what result should field contact be spent rather than withheld?",
+    "current_default": "Scope the deep research as a disconfirmation instrument around four kill conditions, platform absorption, bundled-feature pattern, buyer-size mismatch and the blocker being something other than trust, each answerable alone and each decisive alone. Run it before spending any cold contact, because it burns money rather than a non-renewable resource. Preregister the stop rule: two or more confirmed kills means stop and return to consulting, exactly one means the assurance layer is an internal differentiator rather than a separate product, and zero confirmed kills authorizes spending five ICP contacts and nothing more.",
+    "reversal_condition": "Reverse or materially alter this default if R&D shows that the deep research cannot return a decisive negative on any of the four kill conditions and is therefore not worth its cost, that a cheaper repository or environment observation already settles one of them, that the ordering should be inverted because five field contacts are cheaper in expected total cost than the research, that the material question is a different allocation than agents versus assurance, or that the owner's market premise contains a prematurely fixed object that should itself be qualified before either instrument is bought."
+  },
+  "signals": [
+    "The owner's own question named the object 'a board of agents' before evidence had earned it, which is the exact input pattern the repository's surviving commitment-qualification claim fires on.",
+    "Twelve candidate agents were screened and none earned peer status, so adding agents is the move that has repeatedly failed to earn the next unit of effort in this system.",
+    "Every screened candidate received a non-agent form factor, which suggests the sellable object is a small number of shapes rather than a roster.",
+    "The assurance side carries four independent corpora with a consistent behavioural signature of selective firing and near-zero harm, and almost nothing in the market scan was measured that way.",
+    "If the owner's premise that the world moves toward agent-as-a-service is correct, the binding constraint shifts from having an agent to knowing which output may be acted on, which strengthens rather than weakens the assurance asset.",
+    "The market comparison and naming decision were written against a claim that was later refuted by the ablation, so current positioning material does not describe the surviving claim.",
+    "No external operator has run the method and no field contact of any kind has occurred, so every commercially relevant claim is currently below its reality floor.",
+    "The lichess field instrument is built, verified and unrun, which is evidence that this system reaches operational handoff and then does not spend the contact."
+  ],
+  "allowed_resources": [
+    "RND",
+    "NETA"
+  ],
+  "context_refs": [
+    "research/deep-research-preflight/AGENT_ASSURANCE_MARKET_2026-09-08.PLAN.md",
+    "research/agent-discovery/AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md",
+    "research/question-discovery/QD_CAPABILITY_PROFILE_V2_RUN.md",
+    "research/question-discovery/QD_YISHUMI_HOLDOUT_V0_ADJUDICATION.md",
+    "research/question-discovery/QD_MARKET_COMPARISON_V0.md",
+    "eval/github-benchmark/WAVE1_CLOSEOUT.json",
+    "docs/LESSONS_COVERAGE_AUDIT.md",
+    "docs/REALITY_AUTHORITY_PERMISSION.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
