@@ -1,0 +1,34 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-C2-OPTION-VALUE",
+  "telos": {
+    "statement": "Choose the next resource move for a consequential product decision under deep uncertainty using the current R&D method.",
+    "success_condition": "Select the move that best improves the live decision state while accounting for uncertainty, cost, delay, reversibility, and opportunity effects."
+  },
+  "current_state": {
+    "summary": "A company must decide how to enter a newly regulated market. A six-week research program could substantially improve estimates of demand and competitor response. A reversible limited pilot can instead launch this week under an existing temporary regulatory window. If the company waits more than two weeks, that pilot window closes for nine months. The pilot does not commit the company to full launch, is capped at 5% of planned exposure, has predefined stop conditions, and would generate direct operational evidence. Across the main plausible demand scenarios, the capped pilot keeps both expansion and withdrawal available. The six-week research program is cheaper in cash than the pilot but its delay would eliminate the temporary option.",
+    "known_constraints": [
+      "No currently available study can remove the deep uncertainty entirely.",
+      "The temporary pilot window closes in two weeks and cannot be recovered for nine months.",
+      "The pilot is genuinely reversible at the stated exposure cap and has stop conditions.",
+      "The decision is about the next move, not whether research is valuable in the abstract."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "Should the company buy the six-week research program first, launch the bounded pilot now, wait, or choose another resource move?",
+    "current_default": "The team is leaning toward the research program because it is cheaper in cash and would reduce uncertainty before action.",
+    "reversal_condition": "Change the default if another move has higher decision value after accounting for the effect of delay and future options."
+  },
+  "signals": [
+    "Research reduces uncertainty but consumes the temporary pilot window.",
+    "The pilot is bounded, reversible, and informative.",
+    "Waiting changes the future action set even if it improves information."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
