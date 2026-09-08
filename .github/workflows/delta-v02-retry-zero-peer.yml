@@ -1,0 +1,90 @@
+name: Calibration Loop v0.2 Zero-Peer Retry
+
+on:
+  push:
+    branches:
+      - run/delta-v02-batch-2026-09-08
+    paths:
+      - '.github/workflows/delta-v02-retry-zero-peer.yml'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: lichess-wtp
+            task: research/deep-research-preflight/LICHESS_WTP_BELIEF_2026-09-06.task.json
+          - id: dr-preflight
+            task: research/deep-research-preflight/DR_PLAN_0.task.json
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      CANONICAL_RUNTIME_BASE: 74fc4af509965497a7440d9521fc3717b2809f50
+      CASE_ID: ${{ matrix.id }}
+      TASK_PATH: ${{ matrix.task }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install -g @github/copilot
+      - name: Validate task
+        run: python scripts/validate_calibration_task.py "$TASK_PATH"
+      - name: Record provenance
+        run: |
+          mkdir -p batch
+          python - <<'PY'
+          import json, os, subprocess
+          p = {
+            'case_id': os.environ['CASE_ID'],
+            'task_path': os.environ['TASK_PATH'],
+            'experiment_commit': os.environ['GITHUB_SHA'],
+            'canonical_runtime_base': os.environ['CANONICAL_RUNTIME_BASE'],
+            'runtime_version': '0.2',
+            'execution_adapter': 'runtime/calibration_loop/copilot_resource_adapter_v02.py',
+            'provider': 'github-copilot-cli',
+            'model': 'provider-default',
+            'exact_model_lineage': 'unknown',
+            'retry_reason': 'Initial run emitted an illegal RND resource_delta when routing.resources was empty; bridge tightened without changing task, routing, prompts, or runtime contract.',
+            'provenance_limit': 'Same unknown provider-selected lineage; not independent triangulation.'
+          }
+          v = subprocess.run(['copilot','--version'], text=True, capture_output=True)
+          p['copilot_cli_version'] = (v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0]
+          with open(f"batch/{os.environ['CASE_ID']}.manifest.json",'w',encoding='utf-8') as f:
+            json.dump(p,f,ensure_ascii=False,indent=2); f.write('\n')
+          PY
+      - name: Run v0.2 strict
+        run: |
+          python runtime/calibration_loop/run.py \
+            "$TASK_PATH" \
+            --config runtime/calibration_loop/copilot-config-v02.best-effort.json \
+            --strict \
+            --output "batch/${CASE_ID}.trace.json"
+      - name: Show compact trace result
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          p=f"batch/{os.environ['CASE_ID']}.trace.json"
+          try:
+            t=json.load(open(p,encoding='utf-8'))
+            print(json.dumps({
+              'task_id': (t.get('task') or {}).get('task_id'),
+              'final_state': t.get('final_state'),
+              'routing': t.get('routing'),
+              'resource_deltas': ((t.get('synthesis') or {}).get('resource_deltas')),
+              'failure': t.get('failure')
+            },ensure_ascii=False,indent=2))
+          except Exception as e:
+            print({'read_error':str(e)})
+          PY
+      - name: Upload retry trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: delta-v02-retry-${{ matrix.id }}-${{ github.sha }}
+          path: batch
+          if-no-files-found: warn
