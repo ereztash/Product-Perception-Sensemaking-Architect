@@ -1,13 +1,12 @@
-name: Best Effort Skill Self Calibration
+name: Best Effort Reasoning Meta Calibration
 
 on:
   push:
     branches:
-      - run/self-calibrate-best-effort-skill-2026-09-08
+      - run/meta-calibrate-best-effort-reasoning-2026-09-08
     paths:
       - '.github/workflows/best-effort-lichess-copilot.yml'
-      - 'research/deep-research-preflight/BEST-EFFORT-SKILL-SELF-CALIBRATION-2026-09-08.task.json'
-      - 'skills/evidence-bounded-best-effort-runtime/skill.md'
+      - 'research/deep-research-preflight/BEST-EFFORT-REASONING-META-CALIBRATION-2026-09-08.task.json'
       - 'runtime/calibration_loop/copilot_resource_adapter.py'
       - 'runtime/calibration_loop/copilot-config.best-effort.json'
 
@@ -29,15 +28,15 @@ jobs:
         run: npm install -g @github/copilot
 
       - name: Validate canonical task
-        run: python scripts/validate_calibration_task.py research/deep-research-preflight/BEST-EFFORT-SKILL-SELF-CALIBRATION-2026-09-08.task.json
+        run: python scripts/validate_calibration_task.py research/deep-research-preflight/BEST-EFFORT-REASONING-META-CALIBRATION-2026-09-08.task.json
 
       - name: Run canonical Calibration Loop
         shell: bash
         run: |
           set -euo pipefail
-          OUT="runtime/execution_traces/BE-SKILL-SELF-CAL-${GITHUB_SHA}.json"
+          OUT="runtime/execution_traces/BE-REASONING-META-${GITHUB_SHA}.json"
           python runtime/calibration_loop/run.py \
-            research/deep-research-preflight/BEST-EFFORT-SKILL-SELF-CALIBRATION-2026-09-08.task.json \
+            research/deep-research-preflight/BEST-EFFORT-REASONING-META-CALIBRATION-2026-09-08.task.json \
             --config runtime/calibration_loop/copilot-config.best-effort.json \
             --strict \
             --output "$OUT"
@@ -48,6 +47,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: best-effort-skill-self-calibration-${{ github.sha }}
-          path: runtime/execution_traces/BE-SKILL-SELF-CAL-${{ github.sha }}.json
+          name: best-effort-reasoning-meta-${{ github.sha }}
+          path: runtime/execution_traces/BE-REASONING-META-${{ github.sha }}.json
           if-no-files-found: warn
