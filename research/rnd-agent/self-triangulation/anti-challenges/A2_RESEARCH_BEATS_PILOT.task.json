@@ -1,0 +1,31 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-SELF-TRIANGULATION-A2-RESEARCH-BEATS-PILOT",
+  "telos": {
+    "statement": "Choose the next resource move for a consequential product decision under deep uncertainty when information and action differ materially in reversibility and timing.",
+    "success_condition": "Select the move that best improves the live decision state after accounting for uncertainty, delay, reversibility, opportunity effects, and commitment cost."
+  },
+  "current_state": {
+    "summary": "A company must decide how to enter a newly regulated market. A two-week research program can substantially improve estimates of demand, channel economics, and competitor response. The relevant regulatory launch window remains open for twelve weeks, so completing the study will not close it. A proposed pilot could launch this week, but it requires non-refundable supplier commitments equal to about 40% of planned first-year exposure, locks the company into a six-month operating term, and has no practical stop condition once launched. The pilot would generate direct operational evidence, but withdrawal during the six-month term would still incur most of the committed cost. No currently available study can remove uncertainty entirely. The team is leaning toward the pilot because field evidence feels more concrete than another study.",
+    "known_constraints": [
+      "The two-week research program completes well before the twelve-week launch window closes.",
+      "The proposed pilot is materially committing and not genuinely reversible at the stated exposure level.",
+      "No available study can eliminate deep uncertainty entirely, but the proposed study is expected to change the launch decision across plausible scenarios.",
+      "The decision is about the next move, not whether action-based learning is valuable in the abstract."
+    ],
+    "available_resources": ["RND"]
+  },
+  "decision_blocked": {
+    "statement": "Should the company run the two-week research program first, launch the high-commitment pilot now, wait, or choose another resource move?",
+    "current_default": "The team is leaning toward the pilot because direct field evidence appears more valuable than further analysis.",
+    "reversal_condition": "Change that default if research preserves the future action set and has higher decision value than the proposed pilot after pricing commitment and reversibility."
+  },
+  "signals": [
+    "Research reduces uncertainty without consuming the launch option.",
+    "The proposed pilot is high-exposure and difficult to reverse.",
+    "The research result is expected to change the launch decision across plausible demand scenarios."
+  ],
+  "allowed_resources": ["RND"],
+  "context_refs": [],
+  "budget": {"max_resource_calls": 2, "max_parallel_calls": 1}
+}
