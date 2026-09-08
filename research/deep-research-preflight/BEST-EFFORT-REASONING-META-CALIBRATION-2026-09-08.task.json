@@ -6,19 +6,19 @@
     "success_condition": "Produce a bounded meta-reasoning decision that separates genuine inference from task-seeded conclusions, tests whether Neta contributed a unique decision-relevant delta, identifies at least one plausible counterfactual framing that could have changed the reasoning, and recommends either KEEP, ADAPT, or FIELD-TEST the reasoning protocol without using successful self-analysis as validation of itself."
   },
   "current_state": {
-    "summary": "The previous self-calibration task explicitly supplied five concerns before the agents reasoned: (1) fallback semantic equivalence was asserted but lacked an admissibility test; (2) no retry budget existed; (3) provenance downgrade lacked a threshold for exploratory-only use; (4) the skill was derived from one Lichess case and might be overfit; (5) self-application could create circular self-promotion. R&D then diagnosed the main bottleneck as the missing explicit validation procedure, retry stop rule, and provenance disposition threshold, and recommended COLLECT_REPO before ADAPT. Routing invoked Neta. Neta separated three gaps—semantic-equivalence verification, retry/provider-fishing control, and provenance-use gating—and recommended a semantic-equivalence checklist, bounded fallback attempts, exploratory-only treatment for unknown/materially changed lineage, and a self-promotion guard. R&D synthesis then preserved the current architecture, treated those changes as a bounded candidate revision, and required REPO/FIELD evidence before adoption. A subsequent repository inspection did uncover a concrete mismatch: the Copilot adapter emitted provider/model provenance to stderr, while CommandAdapter discarded stderr on successful calls and the runtime trace did not persist adapter/model provenance. This supports at least one of the prior concerns, but does not by itself establish that the earlier reasoning process was non-circular or optimally discriminative.",
+    "summary": "The previous self-calibration task explicitly supplied five concerns before the agents reasoned: (1) fallback semantic equivalence was asserted but lacked an admissibility test; (2) no retry budget existed; (3) provenance downgrade lacked a threshold for exploratory-only use; (4) the skill was derived from one Lichess case and might be overfit; (5) self-application could create circular self-promotion. R&D then diagnosed the main bottleneck as the missing explicit validation procedure, retry stop rule, and provenance disposition threshold, and recommended COLLECT_REPO before ADAPT. Routing invoked Neta. Neta separated three gaps—semantic-equivalence verification, retry/provider-fishing control, and provenance-use gating—and recommended a semantic-equivalence checklist, bounded fallback attempts, exploratory-only treatment for unknown/materially changed lineage, and a self-promotion guard. R&D synthesis then preserved the current architecture, treated those changes as a bounded candidate revision, and required REPO/FIELD evidence before adoption. A subsequent repository inspection did uncover a concrete mismatch: the Copilot adapter emitted provider/model provenance to stderr, while CommandAdapter discarded stderr on successful calls and the runtime trace did not persist adapter/model provenance. This supports at least one of the prior concerns, but does not by itself establish that the earlier reasoning process was non-circular or optimally discriminative. The first meta-calibration attempt failed because SCAFFOLD was incorrectly declared available despite no configured live adapter; this retry changes only the declared live-resource set, not the reasoning question or evidence.",
     "known_constraints": [
       "Do not count agreement between R&D and Neta as independent evidence when they may share provider/model lineage.",
       "Do not credit a conclusion merely because it was later found to be true if the reasoning path simply restated a premise already embedded in the task.",
       "Distinguish predictive correctness from epistemic quality of the reasoning process.",
       "Do not expose or rely on hidden chain-of-thought; evaluate only explicit diagnosis, routing, resource deltas, synthesis, traces, and observable repository evidence.",
       "Do not promote a self-reasoning rule based only on this self-application.",
-      "Prefer the smallest reversible reasoning change over adding a broad meta-agent or architecture layer."
+      "Prefer the smallest reversible reasoning change over adding a broad meta-agent or architecture layer.",
+      "Do not treat removal of an unavailable resource from the declared resource set as evidence for or against the reasoning hypothesis."
     ],
     "available_resources": [
       "RND",
       "NETA",
-      "SCAFFOLD",
       "OWNER",
       "REPO",
       "FIELD"
@@ -36,12 +36,12 @@
     "The previous synthesis changed the decision from KEEP unchanged to a bounded candidate revision pending REPO/FIELD evidence, which is a real decision update, but the update may have been driven by seeded framing rather than unique resource evidence.",
     "No explicit counterfactual framing test was performed, such as removing the seeded failure hypotheses, presenting evidence that fallback semantic behavior was stable, or asking the agents to argue for KEEP before proposing ADAPT.",
     "No explicit novelty accounting compared each agent conclusion against information already present in the task before marking a resource delta material.",
-    "A successful self-run can proxy for reasoning quality unless the protocol tests whether the same reasoning survives perturbation or adversarial framing."
+    "A successful self-run can proxy for reasoning quality unless the protocol tests whether the same reasoning survives perturbation or adversarial framing.",
+    "The first meta-run attempted to route to an unavailable SCAFFOLD adapter because the task overstated resource availability; that is an execution-input defect and should not be confused with a finding about the prior reasoning quality."
   ],
   "allowed_resources": [
     "RND",
     "NETA",
-    "SCAFFOLD",
     "OWNER",
     "REPO",
     "FIELD"
@@ -59,7 +59,7 @@
     "prompts/SYSTEM.md"
   ],
   "budget": {
-    "max_resource_calls": 5,
+    "max_resource_calls": 4,
     "max_parallel_calls": 2
   }
 }
