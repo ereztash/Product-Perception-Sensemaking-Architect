@@ -1,0 +1,53 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-MECHANISM-TRANSFER-2026-09-09",
+  "telos": {
+    "statement": "Determine the cheapest discriminating experiment that can tell whether a mechanism-bearing intermediate representation extracted from an existing software system contributes transferable design information beyond an equally detailed ordinary product specification, before investing in a mechanism-transfer compiler or verifier.",
+    "success_condition": "Return a preregistration-ready next experiment decision: the exact claim under test, the strongest competing explanation, the minimum comparison arms and controls needed to distinguish them, the primary decision-changing measurement, contamination controls, stopping/reversal conditions, and the smallest executable run that could justify BUILD, ADAPT, or STOP."
+  },
+  "current_state": {
+    "summary": "One exploratory transfer has been executed. Source system: ereztash/lichess_app Decision Lab. A domain-independent contract was manually extracted from the source and supplied to a separate Lovable builder for a different target domain, outbound-sales decision logging. The builder was explicitly not given chess-specific implementation terms such as chess, board, engine or Stockfish. The supplied contract contained a telos, state machine, eleven invariants, an epistemic claim object model, anti-patterns, and an MVP flow. The resulting Decision Trace — Outreach prototype preserved several deep structures: decision evidence before feedback, DECIDE/COMMIT/WAIT_RESULT/REVEAL stages, historical evidence hidden during evidence production, claim states and authority ceilings, NOT_MEASURED states, a deliberate malformed validation fixture, and no claim of sales improvement. An adversarial code audit then found at least four contract failures: EXPLORE was declared as a state but implemented as a side route rather than a reached machine state; one SUPPORTED APP_RECORD claim hard-coded counts inconsistent with seeded data; the positive control validated result.loggedAt while the real user-entered field was result.date, allowing a false-green on the actual substrate; and a back-to-edit action discarded rather than preserved the staged draft. This supports that a rich contract can guide non-trivial cross-domain generation, but there was no baseline/control arm, only one source system, one target domain, one builder, and one run. Therefore the current evidence cannot distinguish mechanism-transfer value from the simpler explanation that a strong builder followed a detailed prompt/specification. The current candidate architecture is source software -> mechanism extraction -> SYSTEM_IR -> target specialization -> code generation -> adversarial contract verification -> repair -> field, but no compiler should be built merely because this representation is encodable.",
+    "known_constraints": [
+      "Do not treat one successful-looking prototype as evidence of general mechanism transfer.",
+      "Do not use output quality alone if the comparison arm receives materially less information; information quantity and target-domain requirements must be matched as closely as possible.",
+      "Do not define success after seeing generated outputs. Freeze scoring dimensions, thresholds and failure classes before generation.",
+      "Separate mechanism preservation from surface similarity, code correctness, aesthetic quality and target-domain outcome effectiveness.",
+      "The builder/model, target domain, implementation budget and evaluation opportunity should be held constant across comparison arms wherever feasible.",
+      "The mechanism-bearing arm must not leak source-domain nouns or UI implementation details that make copying easier.",
+      "The baseline must be genuinely competitive: an ordinary high-quality product/requirements spec containing the same target-domain facts and approximately matched informational content, but without the candidate mechanism representation structure whose unique value is being tested.",
+      "Evaluator knowledge of which arm produced which artifact can contaminate scoring; prefer blinded artifact labels and frozen tests where feasible.",
+      "A green validator that has not been shown to fail on the exact substrate/rule it claims to detect is not discrimination evidence.",
+      "Do not claim that generated software changes real user behavior or business outcomes; this experiment concerns representation-to-implementation transfer, primarily resolvable by REPO/ENVIRONMENT evidence.",
+      "Prefer the smallest reversible experiment whose result can change whether to BUILD a compiler, ADAPT the representation, or STOP and classify the result as specification quality rather than mechanism transfer."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What exact experiment should be executed next to distinguish the claim 'SYSTEM_IR carries transferable mechanism information that materially improves faithful software generation' from the alternative 'the first result is adequately explained by detailed prompt/specification following', and what result should change the decision to build, adapt, or stop?",
+    "current_default": "Do not build a general mechanism-transfer compiler yet. Freeze and execute the cheapest controlled discrimination test first.",
+    "reversal_condition": "Reverse the default only if a prospectively scored comparison shows a material, reproducible advantage attributable to the mechanism-bearing representation under information-matched conditions, or if the R&D analysis identifies a cheaper admissible discriminator that resolves the same build decision. If an information-matched baseline performs equivalently on mechanism-preservation and contract-conformance measures, classify the current advantage as unshown and do not invest in a compiler."
+  },
+  "signals": [
+    "The strongest unresolved confound in the first run is mechanism-bearing IR versus detailed-spec quality, not whether a builder can produce an app from a long prompt.",
+    "The first prototype preserved multiple abstract invariants despite removing source-domain terminology, suggesting a candidate transferable structure worth discriminating rather than dismissing.",
+    "The first audit exposed semantic, topology, evidence-drift and false-green failures, so simple build success is an inadequate outcome metric.",
+    "A useful primary metric likely needs to reward preservation of source-independent invariants and penalize contract violations on actual execution paths, while remaining blind to arm identity.",
+    "Possible designs include paired A/B generation on the same target domain with SYSTEM_IR versus an information-matched conventional specification, ablations of mechanism fields, repeated stochastic runs, and one or more second target domains; the experiment should choose only what changes the current decision rather than maximizing coverage.",
+    "Neta may be useful because proxy substitution is a central risk: scoring visual/product plausibility could falsely stand in for mechanism preservation. Scaffold may be useful for alternative experimental designs, adversarial controls and matched-information construction."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "docs/CANONICAL_STATE.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/SYSTEM.md",
+    "prompts/SCAFFOLD_RESOURCE_V0_1.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
