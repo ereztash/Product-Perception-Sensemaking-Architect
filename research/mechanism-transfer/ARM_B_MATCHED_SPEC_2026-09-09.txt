@@ -1,0 +1,42 @@
+Build a Hebrew RTL web app called "Plant Decision Journal".
+
+PRODUCT BRIEF
+A person cares for several household plants. Before taking a meaningful care action such as watering, fertilizing, pruning, repotting, or moving a plant, they should record what they observed, what they intend to do, and what response they expect. Days later they should record what actually happened. This is a decision-evidence journal, not a horticultural advice system. Do not claim that an action caused an outcome or that the app improves plant health.
+
+GOAL
+Maintain a reliable longitudinal history of plant-care decisions and later outcomes while keeping the original pre-outcome record unchanged.
+
+REQUIRED WORKFLOW
+The application has these sequential stages: record a decision, review and confirm it, wait for an outcome, record the outcome, review expected versus observed response, then view the longitudinal record. The home page should always open at the stage the user currently needs rather than at a feature menu. After the expected-versus-observed review is closed, the user should arrive at the longitudinal record. From there, one clear action can start another decision.
+
+RECORDING A DECISION
+Collect: plant label; observed condition; action category; intended action; intended objective; expected observable response; confidence 0-100; optional alternatives considered; optional rationale.
+During this stage and the confirmation stage, do not display historical patterns, prior success rates, recommendations, care tips, scores, AI critique, or personalized weaknesses.
+Use one visually primary action in each stage. The decision form primary action is "מקבע החלטה".
+The confirmation page shows exactly what will be frozen. A quiet "חזרה לעריכה" returns to the form with every value preserved. The primary confirmation action is "מקבע לרשומה".
+After confirmation, the recorded decision and its committed_at time are immutable.
+An empty alternatives or rationale field means only "not recorded"; it must not be displayed or analyzed as proof the person did not think about it.
+
+WAITING AND RESULT ENTRY
+While waiting, show only the frozen decision. Do not show history, performance summaries or advice. One primary action is "יש תוצאה".
+When a result exists, collect: observed response category; optional note; observation date; logged_at. The observation date may not be earlier than committed_at. Use one save action.
+
+RESULT REVIEW
+Only after a result is saved, show expected response versus observed response. Use separate sections labeled "תצפית" and "פרשנות". Keep the comparison descriptive. Do not provide a causal explanation. If history is insufficient, display NOT_MEASURED rather than inventing a finding. It is acceptable to have no recommendation; do not fabricate a next suggestion.
+
+LONGITUDINAL RECORD
+Show prior frozen decisions and outcomes plus bounded descriptive summaries. Every material summary should have a visible status such as SUPPORTED, PROVISIONAL, NOT_MEASURED, CONTRADICTED or INSUFFICIENT_REALITY. A predictive association must not be labeled as specific to one plant or one person without an appropriate comparison, and a plant-specific pattern must not be described as causal from retrospective history alone. A possible care change is not an established result until tested prospectively. If an active test exists, do not change both the capture questions and the tested care change at the same time.
+
+CLAIMS DATA
+Provide a quiet Claims screen or drawer with at least four examples. Store for each claim:
+claim_id; statement; claim_kind (OBSERVATION, PREDICTION, MECHANISM, INTERVENTION or OUTCOME); resolution_authority (OWNER, APP_RECORD, RESEARCH or FIELD); required_reality; observed_reality; evidence_refs; state; requested_use; permission (ALLOW, DEFER or DENY); reversal_condition.
+At least one intervention or outcome claim must require future FIELD evidence and have permission DEFER or DENY. App history may support facts about what was recorded, but observational history does not establish that an action caused a plant outcome.
+
+VALIDATION
+Add a quiet internal validation screen. Seed at least eight historical records. Add at least one deliberately malformed fixture with an observation date before the commitment time and/or another exact-domain defect. The same validator used for actual user data must reject this malformed value on the same UI field path and accept a valid control. Do not count a check as useful merely because it stays green.
+
+NAVIGATION AND UI
+The interface is Hebrew RTL, desktop-first responsive, calm and research-journal-like, with generous whitespace and minimal chrome. Each workflow stage has exactly one visually primary action; secondary navigation should be quiet. The user should not need to understand the app's internal architecture to know what to do next.
+
+IMPLEMENTATION
+Build a working reversible prototype with local/demo persistence. No external AI API, authentication or backend is required. Do not add recommendation engines, care advice, gamification, or unrelated features.

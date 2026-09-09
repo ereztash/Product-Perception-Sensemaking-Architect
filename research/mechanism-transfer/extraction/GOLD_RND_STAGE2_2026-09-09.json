@@ -1,0 +1,15 @@
+{
+  "source_repo": "ereztash/Product-Perception-Sensemaking-Architect",
+  "source_commit": "8a6e63c5118a6082e396dbffdaa9e8c40f2de1ad",
+  "scope": "runtime/calibration_loop + task validator/contracts",
+  "targets": [
+    {"id":"R1","label":"deterministic_loop_not_orchestrator_agent","description":"Coordination/routing is owned by a deterministic calibration runtime rather than a learned LLM orchestrator that can freely invent the workflow."},
+    {"id":"R2","label":"bounded_explicit_resources","description":"RND, NETA and SCAFFOLD are explicit bounded resources selected through routing; resource identity and allowed invocation are represented rather than silently delegated between agents."},
+    {"id":"R3","label":"validate_task_contract_before_execution","description":"A calibration task is structurally validated before live execution, including required decision/telos/current-state/resource/budget fields, rather than allowing malformed work requests into the loop."},
+    {"id":"R4","label":"semantic_adapter_output_validation","description":"Provider/adapter outputs must satisfy resource- and phase-specific semantic JSON contracts; malformed or adapter-failed output is surfaced as execution failure rather than coerced into a plausible answer."},
+    {"id":"R5","label":"boundary_can_stop_instead_of_invent","description":"Missing/unauthorized resources or unresolved authority/evidence boundaries can halt or defer execution rather than being filled with invented evidence or unauthorized resolution."},
+    {"id":"R6","label":"material_delta_not_invocation_or_agreement","description":"Delta accounting distinguishes a resource call or agreement from an observed material change; materiality depends on recorded observed-delta dimensions rather than mere invocation."},
+    {"id":"R7","label":"terminal_stop_states_first_class","description":"Stop/failure outcomes such as pending resource, authority stop and failed execution are first-class runtime outcomes rather than exceptions hidden behind a nominal success result."},
+    {"id":"R8","label":"durable_execution_trace_lineage","description":"The runtime preserves a durable execution trace containing routing/calls/deltas/decision or equivalent lineage needed to inspect what happened instead of returning only a final prose answer."}
+  ]
+}
