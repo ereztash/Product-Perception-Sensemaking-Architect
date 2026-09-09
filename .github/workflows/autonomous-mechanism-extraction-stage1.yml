@@ -1,0 +1,192 @@
+name: Autonomous Mechanism Extraction Stage 1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/autonomous-mechanism-extraction-stage1.yml'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  extract-and-score:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      SOURCE_SHA: 06828afbc1405a839dfc983a065bcb10109c5e02
+    steps:
+      - name: Checkout experiment repo
+        uses: actions/checkout@v4
+
+      - name: Checkout frozen source
+        uses: actions/checkout@v4
+        with:
+          repository: ereztash/lichess_app
+          ref: 06828afbc1405a839dfc983a065bcb10109c5e02
+          path: _lichess_source
+
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Prepare sanitized source and blind mapping
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/source /tmp/extract /tmp/judge
+          mkdir -p /tmp/source /tmp/extract /tmp/judge runtime/mechanism-extraction-stage1
+          for p in client shared server api package.json tsconfig.json tsconfig.node.json vite.config.ts; do
+            if [ -e "_lichess_source/$p" ]; then cp -a "_lichess_source/$p" /tmp/source/; fi
+          done
+          find /tmp/source -type d \( -name __tests__ -o -name tests -o -name test \) -prune -exec rm -rf {} + || true
+          find /tmp/source -type f \( -iname '*.md' -o -iname '*test.*' -o -iname '*spec.*' \) -delete
+          find /tmp/source -type f | sed 's#^/tmp/source/##' | sort > runtime/mechanism-extraction-stage1/source-files.txt
+          (cd /tmp/source && find . -type f -print0 | sort -z | xargs -0 sha256sum) > runtime/mechanism-extraction-stage1/source-sha256.txt
+          python - <<'PY'
+          import json,secrets
+          order=['S','B'] if secrets.randbits(1)==0 else ['B','S']
+          json.dump({'candidate-1':order[0],'candidate-2':order[1]},open('/tmp/arm-mapping.json','w'),indent=2)
+          PY
+
+      - name: Run blinded extraction pair
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE"
+          arm_for(){ python - "$1" <<'PY'
+          import json,sys
+          print(json.load(open('/tmp/arm-mapping.json'))[sys.argv[1]])
+          PY
+          }
+          prompt_for(){
+            if [ "$1" = S ]; then echo "$ROOT/research/mechanism-transfer/extraction/ARM_S_STRUCTURED_PROMPT.txt"; else echo "$ROOT/research/mechanism-transfer/extraction/ARM_B_BASELINE_PROMPT.txt"; fi
+          }
+          for C in candidate-1 candidate-2; do
+            ARM="$(arm_for "$C")"
+            mkdir -p "/tmp/extract/$C"
+            cp -a /tmp/source/. "/tmp/extract/$C/"
+            PROMPT="$(cat "$(prompt_for "$ARM")")"
+            (cd "/tmp/extract/$C" && copilot -p "$PROMPT" -s --no-ask-user --no-custom-instructions --allow-all-tools --deny-tool='url' > "/tmp/$C.raw")
+            python - "$C" <<'PY'
+          import json,sys,re
+          c=sys.argv[1]; raw=open(f'/tmp/{c}.raw',encoding='utf-8').read().strip()
+          raw=re.sub(r'^```(?:json)?\s*','',raw,flags=re.I); raw=re.sub(r'\s*```$','',raw)
+          try: obj=json.loads(raw)
+          except Exception:
+              start=raw.find('{')
+              if start<0: raise
+              obj,_=json.JSONDecoder().raw_decode(raw[start:])
+          json.dump(obj,open(f'runtime/mechanism-extraction-stage1/{c}.json','w'),ensure_ascii=False,indent=2)
+          open(f'runtime/mechanism-extraction-stage1/{c}.raw.txt','w',encoding='utf-8').write(open(f'/tmp/{c}.raw',encoding='utf-8').read())
+          PY
+          done
+
+      - name: Deterministic integrity checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os,re
+          out={}
+          for c in ['candidate-1','candidate-2']:
+              p=f'runtime/mechanism-extraction-stage1/{c}.json'; x=json.load(open(p))
+              items=x.get('items',[]); invalid=[]; leakage=[]
+              for it in items:
+                  for e in it.get('evidence',[]):
+                      path=e.get('path','').lstrip('./')
+                      if any(s in path.lower() for s in ['readme','docs/','research/','test','spec']): leakage.append(path)
+                      if not os.path.exists('/tmp/source/'+path): invalid.append(path)
+              out[c]={
+                'json_shape': isinstance(x,dict) and isinstance(items,list) and 'telos_hypothesis' in x and 'uncertainties' in x,
+                'item_count':len(items), 'max12':len(items)<=12,
+                'invalid_evidence_paths':sorted(set(invalid)), 'forbidden_path_leakage':sorted(set(leakage))
+              }
+          json.dump(out,open('runtime/mechanism-extraction-stage1/integrity.json','w'),indent=2)
+          PY
+
+      - name: Run three blinded semantic judges
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/judge/source
+          cp -a /tmp/source/. /tmp/judge/source/
+          cp runtime/mechanism-extraction-stage1/candidate-1.json /tmp/judge/candidate-1.json
+          cp runtime/mechanism-extraction-stage1/candidate-2.json /tmp/judge/candidate-2.json
+          cp research/mechanism-transfer/extraction/GOLD_HIDDEN_2026-09-09.json /tmp/judge/gold.json
+          for J in 1 2 3; do
+            cat > /tmp/judge-prompt.txt <<'EOF'
+          You are a blinded evaluator of two mechanism-extraction outputs. You do not know which experimental arm produced either candidate. Evaluate only semantic recovery against gold.json and whether cited production-code evidence in source/ substantively supports the claimed mechanism.
+
+          For every gold target G1-G8, score each candidate:
+          1 = substantively recovers the load-bearing mechanism and cites supporting production code;
+          0.5 = partial recovery but misses a load-bearing element or evidence is only indirect;
+          0 = absent, contradicted, surface-only, or unsupported.
+
+          Do not award points for merely naming a component/function. Do not require wording similarity. A candidate may match a target across multiple items. Count an item as unsupported only when its core preservation claim is not supported by the production snapshot; do not call a valid neighboring mechanism unsupported merely because it is absent from gold.
+
+          Return JSON only in exactly this shape:
+          {
+            "candidate-1":{"scores":{"G1":0,"G2":0,"G3":0,"G4":0,"G5":0,"G6":0,"G7":0,"G8":0},"unsupported_count":0,"notes":[]},
+            "candidate-2":{"scores":{"G1":0,"G2":0,"G3":0,"G4":0,"G5":0,"G6":0,"G7":0,"G8":0},"unsupported_count":0,"notes":[]}
+          }
+          EOF
+            (cd /tmp/judge && copilot -p "$(cat /tmp/judge-prompt.txt)" -s --no-ask-user --no-custom-instructions --allow-all-tools --deny-tool='url' > "/tmp/judge-$J.raw")
+            python - "$J" <<'PY'
+          import json,sys,re
+          j=sys.argv[1]; raw=open(f'/tmp/judge-{j}.raw',encoding='utf-8').read().strip()
+          raw=re.sub(r'^```(?:json)?\s*','',raw,flags=re.I); raw=re.sub(r'\s*```$','',raw)
+          try: obj=json.loads(raw)
+          except Exception:
+              s=raw.find('{'); obj,_=json.JSONDecoder().raw_decode(raw[s:])
+          json.dump(obj,open(f'runtime/mechanism-extraction-stage1/judge-{j}.json','w'),ensure_ascii=False,indent=2)
+          PY
+          done
+
+      - name: Aggregate blind score
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,statistics
+          judges=[json.load(open(f'runtime/mechanism-extraction-stage1/judge-{i}.json')) for i in [1,2,3]]
+          result={}
+          for c in ['candidate-1','candidate-2']:
+              scores={}
+              for g in [f'G{i}' for i in range(1,9)]:
+                  vals=[float(j[c]['scores'][g]) for j in judges]
+                  scores[g]=statistics.median(vals)
+              unsupported=statistics.median([int(j[c].get('unsupported_count',0)) for j in judges])
+              result[c]={'gold_scores':scores,'GOLD_RECALL_POINTS':sum(scores.values()),'unsupported_count_median':unsupported}
+          json.dump(result,open('runtime/mechanism-extraction-stage1/BLIND_SCORE.json','w'),indent=2)
+          print(json.dumps(result,indent=2))
+          PY
+
+      - name: Record provenance
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,os,subprocess
+          v=subprocess.run(['copilot','--version'],text=True,capture_output=True)
+          p={'experiment_commit':os.environ['GITHUB_SHA'],'source_commit':os.environ['SOURCE_SHA'],'provider':'github-copilot-cli','model':'provider-default','exact_model_lineage':'unknown','extractor_runs_per_arm':1,'blind_judges':3,'source_docs_tests_git_removed':True}
+          p['copilot_cli_version']=(v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0]
+          json.dump(p,open('runtime/mechanism-extraction-stage1/provenance.json','w'),indent=2)
+          PY
+
+      - name: Upload blinded score and outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mechanism-extraction-stage1-blinded-${{ github.sha }}
+          path: runtime/mechanism-extraction-stage1/
+          if-no-files-found: error
+
+      - name: Upload arm mapping separately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mechanism-extraction-stage1-mapping-${{ github.sha }}
+          path: /tmp/arm-mapping.json
+          if-no-files-found: error
