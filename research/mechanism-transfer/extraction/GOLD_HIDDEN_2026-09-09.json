@@ -1,0 +1,14 @@
+{
+  "source_repo": "ereztash/lichess_app",
+  "source_commit": "06828afbc1405a839dfc983a065bcb10109c5e02",
+  "targets": [
+    {"id":"G1","label":"measurement_before_intervention","description":"While the player is producing decision evidence, prior record-derived readings and engine insight must not be exposed; feedback becomes available only after the evidence-producing phase ends."},
+    {"id":"G2","label":"one_primary_action","description":"Each interaction state should present one primary action, with any escape/navigation lower-weight; duplicate or competing primary actions violate the product loop."},
+    {"id":"G3","label":"mode_as_permission_contract","description":"Interaction state/mode centrally determines permissions such as whether prior evidence may be shown, whether the engine may speak, and whether the player is producing evidence; screens should not independently invent these permissions."},
+    {"id":"G4","label":"central_next_action_and_none","description":"The next action is derived centrally from product/record state and what is missing; screens render that answer rather than independently deciding. Waiting or no recommendation is a valid first-class outcome."},
+    {"id":"G5","label":"explicit_board_authority","description":"Board interaction authority is explicitly derived by stage/mode; selection, targets, clicks or drags are disabled when authority is none, and undeclared authority is not silently accepted."},
+    {"id":"G6","label":"persisted_record_source_of_truth","description":"Screens should read the persisted record rather than rely on their own local assembled copy for durable product truth across navigation or later rendering."},
+    {"id":"G7","label":"blind_unknown_is_explicit","description":"Missing inputs/context are represented explicitly as blind or unknown so disagreement caused by unavailable information is not conflated with a wrong decision/recommendation."},
+    {"id":"G8","label":"record_missing_not_inferred_weakness","description":"Action selection is justified by what the record is missing, not by inferred player weakness or personalized measurements that would change exposure and contaminate later evidence."}
+  ]
+}

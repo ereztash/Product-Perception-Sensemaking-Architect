@@ -1,0 +1,232 @@
+name: Executable Contract Repair Stage 1
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'research/mechanism-transfer/executable-contract/RUN_STAGE1.txt'
+
+permissions:
+  contents: read
+  actions: read
+  copilot-requests: write
+
+jobs:
+  repair-pair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      NODE_PATH: /tmp/contract-env/node_modules
+    steps:
+      - name: Checkout frozen experiment commit
+        uses: actions/checkout@v4
+
+      - name: Install execution dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install -g @github/copilot
+          npm install --prefix /tmp/contract-env --silent jsdom@26.1.0
+
+      - name: Recover prior generated artifact and seed identical broken base
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/prior /tmp/executable-repair/base runtime/executable-contract-stage1
+          gh run download 34331181765 \
+            -n mechanism-transfer-stage1-candidates-bf346508d2491bfc9cd5666c43d30eeedadbad20 \
+            -D /tmp/prior
+          cp /tmp/prior/candidate-1/index.html /tmp/executable-repair/base/index.html
+          cp /tmp/prior/candidate-1/styles.css /tmp/executable-repair/base/styles.css
+          cp /tmp/prior/candidate-1/app.js /tmp/executable-repair/base/app.js
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/executable-repair/base/app.js')
+          s=p.read_text(encoding='utf-8')
+          old='const edit = document.querySelector("#edit"); if (edit) edit.onclick = () => go("DECIDE");'
+          new='const edit = document.querySelector("#edit"); if (edit) edit.onclick = () => { store.draft = null; go("DECIDE"); };'
+          if old not in s: raise SystemExit('seed transform C1 anchor missing')
+          s=s.replace(old,new,1)
+          old='if (data.observationDate < store.current.committedAt)'
+          new='if (today < store.current.committedAt)'
+          if old not in s: raise SystemExit('seed transform C2 anchor missing')
+          s=s.replace(old,new,1)
+          old='const close = document.querySelector("#close-reveal"); if (close) close.onclick = () => go("EXPLORE");'
+          new='const close = document.querySelector("#close-reveal"); if (close) close.onclick = () => go("DECIDE");'
+          if old not in s: raise SystemExit('seed transform C4 anchor missing')
+          s=s.replace(old,new,1)
+          # C3 is intentionally inherited from prior candidate-1: actual !== expected.
+          if 'passed = actual !== expected' not in s: raise SystemExit('inherited C3 defect missing')
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check /tmp/executable-repair/base/app.js
+          sha256sum /tmp/executable-repair/base/index.html /tmp/executable-repair/base/styles.css /tmp/executable-repair/base/app.js \
+            > runtime/executable-contract-stage1/broken-base-sha256.txt
+
+      - name: Randomize blinded arm order and prepare isolated directories
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,secrets
+          order=['E','P'] if secrets.randbits(1)==0 else ['P','E']
+          json.dump({'candidate-1':order[0],'candidate-2':order[1]},open('/tmp/arm-mapping.json','w'),indent=2)
+          open('/tmp/arm-mapping.json','a').write('\n')
+          PY
+          for C in candidate-1 candidate-2; do
+            mkdir -p "/tmp/executable-repair/$C"
+            cp /tmp/executable-repair/base/{index.html,styles.css,app.js} "/tmp/executable-repair/$C/"
+            cp research/mechanism-transfer/executable-contract/CONTRACT.md "/tmp/executable-repair/$C/CONTRACT.md"
+          done
+          python - <<'PY'
+          import json,shutil,hashlib,pathlib
+          m=json.load(open('/tmp/arm-mapping.json'))
+          for c,arm in m.items():
+              d=pathlib.Path('/tmp/executable-repair')/c
+              if arm=='E':
+                  src=pathlib.Path('research/mechanism-transfer/executable-contract/PUBLIC_CONTRACT_TESTS.cjs')
+                  dst=d/'contract-tests.cjs'
+              else:
+                  src=pathlib.Path('research/mechanism-transfer/executable-contract/PUBLIC_TEST_CASES_PROSE.md')
+                  dst=d/'TEST_CASES.md'
+              shutil.copy2(src,dst)
+              h=hashlib.sha256(dst.read_bytes()).hexdigest()
+              (d/'IMMUTABLE_INPUT_SHA256.txt').write_text(h+'  '+dst.name+'\n')
+          PY
+
+      - name: Repair blinded pair
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE"
+          arm_for() {
+            python - "$1" <<'PY'
+          import json,sys
+          print(json.load(open('/tmp/arm-mapping.json'))[sys.argv[1]])
+          PY
+          }
+          for C in candidate-1 candidate-2; do
+            ARM="$(arm_for "$C")"
+            DIR="/tmp/executable-repair/$C"
+            if [ "$ARM" = "E" ]; then
+              PROMPT='Repair the existing Plant Decision Journal in the current directory. Work only with files in the current directory; do not inspect parent directories or repository files. Read CONTRACT.md and inspect the app. Before changing index.html, styles.css, or app.js, create repair-report.json containing a JSON object with detected_contract_violations: an array of contract IDs among C1,C2,C3,C4 that you believe are currently violated, each with a short evidence string. Then repair the app. contract-tests.cjs is an immutable executable form of the public contract cases and contains no hidden evaluator. Do not edit, replace, rename, weaken, or bypass it. You may and should run `node contract-tests.cjs` repeatedly; NODE_PATH is already configured so its dependencies resolve. Continue repairing within this single session until the public executable contract is green or you conclude you cannot make it green. Preserve the static HTML/CSS/JS architecture and regression constraints. Do not install packages, use network access, or add advice/causal claims. When done, output a concise completion note.'
+            else
+              PROMPT='Repair the existing Plant Decision Journal in the current directory. Work only with files in the current directory; do not inspect parent directories or repository files. Read CONTRACT.md and TEST_CASES.md and inspect the app. Before changing index.html, styles.css, or app.js, create repair-report.json containing a JSON object with detected_contract_violations: an array of contract IDs among C1,C2,C3,C4 that you believe are currently violated, each with a short evidence string. Then repair the app using the contract semantics and the public cases described in prose. TEST_CASES.md is immutable. Do not edit, replace, rename, or weaken it. There are no executable public contract tests in this arm. Preserve the static HTML/CSS/JS architecture and regression constraints. Do not install packages, use network access, or add advice/causal claims. When done, output a concise completion note.'
+            fi
+            (
+              cd "$DIR"
+              copilot -p "$PROMPT" -s --no-ask-user --no-custom-instructions \
+                --allow-all-tools --deny-tool='url' --deny-tool='shell(git push)' \
+                > "$ROOT/runtime/executable-contract-stage1/$C-agent-response.txt"
+            )
+          done
+
+      - name: Blind hidden scoring
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/executable-contract-stage1/blinded-candidates runtime/executable-contract-stage1/blinded-scores
+          for C in candidate-1 candidate-2; do
+            DIR="/tmp/executable-repair/$C"
+            mkdir -p "runtime/executable-contract-stage1/blinded-candidates/$C"
+            cp "$DIR"/{index.html,styles.css,app.js} "runtime/executable-contract-stage1/blinded-candidates/$C/"
+            [ -f "$DIR/repair-report.json" ] && cp "$DIR/repair-report.json" "runtime/executable-contract-stage1/blinded-candidates/$C/" || true
+            set +e
+            node research/mechanism-transfer/executable-contract/HIDDEN_EVALUATOR.cjs "$DIR" \
+              > "/tmp/$C-hidden.json"
+            set -e
+          done
+          python - <<'PY'
+          import json,hashlib,pathlib
+          mapping=json.load(open('/tmp/arm-mapping.json'))
+          target={'C1','C2','C3','C4'}
+          for c,arm in mapping.items():
+              d=pathlib.Path('/tmp/executable-repair')/c
+              score=json.load(open(f'/tmp/{c}-hidden.json'))
+              immutable=d/('contract-tests.cjs' if arm=='E' else 'TEST_CASES.md')
+              frozen=(d/'IMMUTABLE_INPUT_SHA256.txt').read_text().split()[0]
+              current=hashlib.sha256(immutable.read_bytes()).hexdigest() if immutable.exists() else 'MISSING'
+              integrity=(current==frozen)
+              # Merge immutable-input integrity into the syntax/integrity preregistered gate.
+              for g in score['gates']:
+                  if g['name']=='H6_SYNTAX':
+                      g['name']='H6_SYNTAX_AND_INPUT_INTEGRITY'
+                      g['pass']=bool(g['pass'] and integrity)
+                      g['detail']={'syntax_detail':g.get('detail'),'immutable_input_unchanged':integrity}
+              score['critical_failures']=sum(1 for g in score['gates'] if not g['pass'])
+              score.pop('behavioral_failures',None)
+              report_path=d/'repair-report.json'
+              detected=[]
+              report_valid=False
+              if report_path.exists():
+                  try:
+                      report=json.loads(report_path.read_text())
+                      rows=report.get('detected_contract_violations',[])
+                      for row in rows:
+                          if isinstance(row,str): detected.append(row)
+                          elif isinstance(row,dict): detected.append(row.get('id') or row.get('contract_id'))
+                      detected=[x for x in detected if x in target]
+                      report_valid=True
+                  except Exception:
+                      pass
+              score['detection_recall']={'detected_unique':len(set(detected)),'of_seeded':4,'report_valid_json':report_valid}
+              score['input_integrity']=integrity
+              out=pathlib.Path('runtime/executable-contract-stage1/blinded-scores')/(c+'.json')
+              out.write_text(json.dumps(score,ensure_ascii=False,indent=2)+'\n')
+          PY
+          cat runtime/executable-contract-stage1/blinded-scores/candidate-1.json
+          cat runtime/executable-contract-stage1/blinded-scores/candidate-2.json
+
+      - name: Record provenance
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,os,subprocess,hashlib,pathlib
+          v=subprocess.run(['copilot','--version'],text=True,capture_output=True)
+          files=[
+            'research/mechanism-transfer/executable-contract/PREREGISTRATION_STAGE1_2026-09-09.md',
+            'research/mechanism-transfer/executable-contract/CONTRACT.md',
+            'research/mechanism-transfer/executable-contract/PUBLIC_TEST_CASES_PROSE.md',
+            'research/mechanism-transfer/executable-contract/PUBLIC_CONTRACT_TESTS.cjs',
+            'research/mechanism-transfer/executable-contract/HIDDEN_EVALUATOR.cjs',
+          ]
+          hashes={p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest() for p in files}
+          p={
+            'experiment_commit':os.environ['GITHUB_SHA'],
+            'builder':'github-copilot-cli',
+            'model':'provider-default',
+            'exact_model_lineage':'unknown',
+            'copilot_cli_version':(v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0],
+            'prior_base_run':34331181765,
+            'prior_base_candidate':'candidate-1',
+            'repair_sessions_per_arm':1,
+            'hidden_evaluator_absent_from_repair_directories':True,
+            'frozen_input_sha256':hashes,
+          }
+          pathlib.Path('runtime/executable-contract-stage1/provenance.json').write_text(json.dumps(p,indent=2)+'\n')
+          PY
+
+      - name: Upload blinded outputs and scores
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: executable-contract-stage1-blinded-${{ github.sha }}
+          path: |
+            runtime/executable-contract-stage1/blinded-candidates/
+            runtime/executable-contract-stage1/blinded-scores/
+            runtime/executable-contract-stage1/*-agent-response.txt
+            runtime/executable-contract-stage1/broken-base-sha256.txt
+            runtime/executable-contract-stage1/provenance.json
+          if-no-files-found: error
+
+      - name: Upload mapping separately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: executable-contract-stage1-mapping-${{ github.sha }}
+          path: /tmp/arm-mapping.json
+          if-no-files-found: error
