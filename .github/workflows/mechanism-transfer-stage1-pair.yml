@@ -1,0 +1,132 @@
+name: Mechanism Transfer Stage 1 Pair
+
+on:
+  push:
+    branches:
+      - research/rnd-self-triangulation-2026-09-08
+    paths:
+      - '.github/workflows/mechanism-transfer-stage1-pair.yml'
+      - 'research/rnd-agent/self-triangulation/mechanism-transfer/ARM_A_SYSTEM_IR_2026-09-09.txt'
+      - 'research/rnd-agent/self-triangulation/mechanism-transfer/ARM_B_MATCHED_SPEC_2026-09-09.txt'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  generate-pair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Freeze execution harness and randomize arm order
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/mechanism-transfer-stage1
+          cat > runtime/mechanism-transfer-stage1/HARNESS.txt <<'EOF'
+          EXECUTION HARNESS — identical for both experimental arms.
+          Work only in the current empty directory. Implement the requested product as a working static single-page web app using exactly local files index.html, styles.css, and app.js (additional local JSON/test files are allowed only if the product needs them). Use vanilla HTML/CSS/JavaScript and localStorage; no frameworks, package installs, external APIs, external assets, or network access. The visible product title must be "Plant Decision Journal" regardless of any title in the product prompt, to reduce evaluator arm leakage. Do not merely describe or plan the app: write the working files. Do not read parent directories or repository instructions. Do not repair or iterate after the first completed implementation. When finished, output only a short completion note.
+          EOF
+          python - <<'PY'
+          import json, secrets
+          order = ['A','B'] if secrets.randbits(1) == 0 else ['B','A']
+          mapping = {'candidate-1': order[0], 'candidate-2': order[1]}
+          with open('/tmp/stage1-mapping.json','w',encoding='utf-8') as f:
+              json.dump(mapping,f,indent=2); f.write('\n')
+          PY
+          sha256sum research/rnd-agent/self-triangulation/mechanism-transfer/ARM_A_SYSTEM_IR_2026-09-09.txt \
+                    research/rnd-agent/self-triangulation/mechanism-transfer/ARM_B_MATCHED_SPEC_2026-09-09.txt \
+                    runtime/mechanism-transfer-stage1/HARNESS.txt \
+            > runtime/mechanism-transfer-stage1/input-sha256.txt
+
+      - name: Generate blinded candidate pair
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE"
+          HARNESS="$(cat runtime/mechanism-transfer-stage1/HARNESS.txt)"
+          arm_for() {
+            python - "$1" <<'PY'
+          import json,sys
+          print(json.load(open('/tmp/stage1-mapping.json'))[sys.argv[1]])
+          PY
+          }
+          prompt_path() {
+            if [ "$1" = "A" ]; then
+              echo "$ROOT/research/rnd-agent/self-triangulation/mechanism-transfer/ARM_A_SYSTEM_IR_2026-09-09.txt"
+            else
+              echo "$ROOT/research/rnd-agent/self-triangulation/mechanism-transfer/ARM_B_MATCHED_SPEC_2026-09-09.txt"
+            fi
+          }
+          for C in candidate-1 candidate-2; do
+            ARM="$(arm_for "$C")"
+            PFILE="$(prompt_path "$ARM")"
+            mkdir -p "/tmp/mechanism-transfer/$C" "$ROOT/runtime/mechanism-transfer-stage1/$C"
+            PROMPT="$HARNESS
+
+          $(cat "$PFILE")"
+            (
+              cd "/tmp/mechanism-transfer/$C"
+              copilot -p "$PROMPT" -s --no-ask-user --no-custom-instructions \
+                --allow-all-tools --deny-tool='url' --deny-tool='shell(git push)' \
+                > "$ROOT/runtime/mechanism-transfer-stage1/$C-agent-response.txt"
+            )
+            cp -a "/tmp/mechanism-transfer/$C/." "$ROOT/runtime/mechanism-transfer-stage1/$C/"
+          done
+
+      - name: Record pre-score syntax checks and provenance
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          for C in candidate-1 candidate-2; do
+            if [ -f "runtime/mechanism-transfer-stage1/$C/app.js" ]; then
+              node --check "runtime/mechanism-transfer-stage1/$C/app.js" \
+                > "runtime/mechanism-transfer-stage1/$C-node-check.txt" 2>&1
+              echo "$?" > "runtime/mechanism-transfer-stage1/$C-node-check.exit"
+            else
+              echo "MISSING_APP_JS" > "runtime/mechanism-transfer-stage1/$C-node-check.txt"
+              echo "127" > "runtime/mechanism-transfer-stage1/$C-node-check.exit"
+            fi
+          done
+          python - <<'PY'
+          import json, os, subprocess
+          v=subprocess.run(['copilot','--version'],text=True,capture_output=True)
+          p={
+            'experiment_commit':os.environ['GITHUB_SHA'],
+            'builder':'github-copilot-cli',
+            'copilot_cli_version':(v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0],
+            'model':'provider-default',
+            'exact_model_lineage':'unknown',
+            'format':'static-html-css-js',
+            'generation_turns_per_candidate':1,
+            'repair_turns_before_score':0
+          }
+          with open('runtime/mechanism-transfer-stage1/provenance.json','w',encoding='utf-8') as f:
+            json.dump(p,f,indent=2); f.write('\n')
+          PY
+          find runtime/mechanism-transfer-stage1 -maxdepth 2 -type f -print | sort
+
+      - name: Upload blinded candidates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mechanism-transfer-stage1-candidates-${{ github.sha }}
+          path: runtime/mechanism-transfer-stage1/
+          if-no-files-found: error
+
+      - name: Upload arm mapping separately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mechanism-transfer-stage1-mapping-${{ github.sha }}
+          path: /tmp/stage1-mapping.json
+          if-no-files-found: error
