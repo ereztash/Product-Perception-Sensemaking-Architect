@@ -1,0 +1,77 @@
+name: Mechanism Transfer R&D Best Effort
+
+on:
+  push:
+    branches:
+      - research/rnd-self-triangulation-2026-09-08
+    paths:
+      - '.github/workflows/mechanism-transfer-rnd-best-effort.yml'
+      - 'research/rnd-agent/self-triangulation/MECHANISM_TRANSFER_EXPERIMENT_2026-09-09.task.json'
+      - 'runtime/calibration_loop/copilot_resource_adapter_v02.py'
+      - 'runtime/calibration_loop/copilot-config-v02.best-effort.json'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Validate frozen task
+        run: python scripts/validate_calibration_task.py research/rnd-agent/self-triangulation/MECHANISM_TRANSFER_EXPERIMENT_2026-09-09.task.json
+
+      - name: Run Calibration Loop v0.2 through best-effort Copilot adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/execution_traces
+          OUT="runtime/execution_traces/MECHANISM-TRANSFER-RND-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/rnd-agent/self-triangulation/MECHANISM_TRANSFER_EXPERIMENT_2026-09-09.task.json \
+            --config runtime/calibration_loop/copilot-config-v02.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Record provenance
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p runtime/execution_traces
+          python - <<'PY'
+          import json, os, subprocess
+          p = {
+            'experiment_commit': os.environ['GITHUB_SHA'],
+            'runtime_version': '0.2',
+            'provider': 'github-copilot-cli',
+            'model': 'provider-default',
+            'exact_model_lineage': 'unknown',
+            'authority': 'BEST_EFFORT_EXECUTION_ONLY_NOT_CANONICAL_EVIDENCE',
+            'independence_limit': 'Role-conditioned calls through one provider lineage are not independent triangulation.'
+          }
+          v = subprocess.run(['copilot','--version'], text=True, capture_output=True)
+          p['copilot_cli_version'] = (v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0]
+          with open('runtime/execution_traces/MECHANISM-TRANSFER-RND-PROVENANCE.json','w',encoding='utf-8') as f:
+            json.dump(p,f,ensure_ascii=False,indent=2); f.write('\n')
+          PY
+
+      - name: Upload trace and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mechanism-transfer-rnd-${{ github.sha }}
+          path: |
+            runtime/execution_traces/MECHANISM-TRANSFER-RND-${{ github.sha }}.json
+            runtime/execution_traces/MECHANISM-TRANSFER-RND-PROVENANCE.json
+          if-no-files-found: warn
