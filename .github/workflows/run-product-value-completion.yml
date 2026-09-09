@@ -1,0 +1,86 @@
+name: Live Product Value Completion Calibration
+
+# The OpenAI transport for CAL-PRODUCT-VALUE-001. Retained and runnable, but not
+# auto-fired on the work branch: that branch executes the same task through the
+# local command adapter (runtime/calibration_loop/claude-cli-config.json), and no
+# OPENAI_API_KEY is provisioned, so an automatic run here can only fail at the
+# preflight. Dispatch this workflow deliberately once the secret exists.
+on:
+  push:
+    branches:
+      - run/product-value-completion-2026-09-06
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Assert adapter credential is present
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "${OPENAI_API_KEY}" ]; then
+            echo "BLOCKER: repository secret OPENAI_API_KEY is absent or empty in the Actions environment."
+            echo "This is an ENVIRONMENT authority blocker, not a research result."
+            exit 1
+          fi
+          echo "OPENAI_API_KEY is present (name only; value never printed)."
+
+      - name: Validate calibration task
+        run: python scripts/validate_calibration_task.py fixtures/calibration-product-value-completion-2026-09-06.json
+
+      - name: Repository contract suite
+        run: |
+          python scripts/check_contract.py
+          python scripts/check_research_contract.py
+          python scripts/check_rnd_contract.py
+          python scripts/check_canonical_state.py
+          python scripts/check_calibration_loop.py
+
+      - name: Execute live calibration loop
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-5.6-sol
+          OPENAI_REASONING_EFFORT: high
+          CALIBRATION_RND_REASONING_EFFORT: high
+          CALIBRATION_NETA_REASONING_EFFORT: high
+          CALIBRATION_SCAFFOLD_REASONING_EFFORT: high
+          CALIBRATION_RND_WEB_SEARCH: '1'
+          OPENAI_MAX_OUTPUT_TOKENS: '32000'
+          CALIBRATION_RND_MAX_OUTPUT_TOKENS: '48000'
+          OPENAI_TIMEOUT_SECONDS: '1500'
+        run: |
+          python runtime/calibration_loop/run.py \
+            fixtures/calibration-product-value-completion-2026-09-06.json \
+            --config runtime/calibration_loop/openai-config.example.json \
+            --strict \
+            --output runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json
+
+      - name: Print trace
+        if: always()
+        run: |
+          if [ -f runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json ]; then
+            cat runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json
+          else
+            echo 'trace not produced'
+          fi
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CAL-PRODUCT-VALUE-001
+          path: runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001.json
+          if-no-files-found: warn

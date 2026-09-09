@@ -1,0 +1,125 @@
+{
+  "artifact_type": "EXECUTION_PREPARATION_MANIFEST",
+  "canonical_main": "6b7d674b9d8177672c62a86f60fcc4376dface63",
+  "failed_actions_run": 34038991817,
+  "new_agent_outputs": [],
+  "original_task_blob": "1d16a95697afcd5e41bef55fc86fb933296edb22",
+  "original_work_head": "473a27d471a87fa34c86cd3612a40b8a1eb66b72",
+  "original_work_tree": "2bc54764f727f1c8d0bc6662250689b0b9707bfb",
+  "original_workflow_blob": "ef474486ab9f5d5d68af56f8564aca1c367f1ee2",
+  "runtime_modified": false,
+  "secret_state": "ABSENT_IN_AUTHENTICATED_SETTINGS_UI",
+  "semantic_promotions": [],
+  "source_files": [
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "ae45fe22f71bf383d54d991f9e45dda5e7943d51",
+      "path": "README.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "57631b257e1a8dd92da6a976e6dc7110aae5a29b",
+      "path": "docs/CANONICAL_STATE.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "67cd6958bc3f257840a1b770cf2494da649fc507",
+      "path": "docs/ECOSYSTEM_TELOS.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "31833733a2f796547f643c49df9899ed8ba67960",
+      "path": "docs/SHARED_EPISTEMIC_KERNEL.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "4d53b8fc97ad1928f6cf8ce7e8c0e24290608efe",
+      "path": "docs/AGENT_AUTHORITY_BOUNDARIES.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "c744953c4f56e66f5f147c77cb6c5cb842649380",
+      "path": "docs/PEER_HANDOFF_PROTOCOL.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "a863e1dff7313b52269082c31d3f734f497d5998",
+      "path": "CLAUDE.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "03e6c4e25a4fadc189ea26942d38249297371ee9",
+      "path": "prompts/RND_AGENT_V0_2_CANDIDATE.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "339b9a1be2fd0f1f6f6c7960e5be58e5566d3691",
+      "path": "prompts/SYSTEM.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "c736f0cec3cdf3b653d4ca9224550a42051e3930",
+      "path": "runtime/calibration_loop/README.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "8fc82280bbaf0ae4d207749485992f8a05c0c9bd",
+      "path": "runtime/calibration_loop/run.py"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "fd7137e0653f39f6e52b1fa85b76109004087bcd",
+      "path": "runtime/calibration_loop/routing.py"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "5427e2bbb3ca5a7a5ff78a9ebb374254de9a7a2f",
+      "path": "runtime/calibration_loop/openai_rnd_adapter.py"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "41cb756a91f23f9de5f3633f113846595b8d6d53",
+      "path": "runtime/calibration_loop/openai_resource_adapter.py"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "41e27d3bc55b615f7862fe37bf3ecc674816400c",
+      "path": "scripts/validate_calibration_task.py"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "37bdf9ada0959b1051eda433c2d4dfa298669ca1",
+      "path": "runtime/calibration_loop/adapters.py"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "edb8394f2690670af8999846aec1aa11d4434e0a",
+      "path": "runtime/calibration_loop/openai-config.example.json"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "2c875293faee3cf91f206b29be99550cc72cc65e",
+      "path": "schemas/calibration-task.schema.json"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "d95ac8a3128cde0c56a1323f35ddcb16b9fda90c",
+      "path": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "d646e37551eb240a6dbaec6423d69c4e302fed8d",
+      "path": "prompts/SCAFFOLD_RESOURCE_V0_1.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "95e51b51df1aee59e9599a415bd2a4e9bce451eb",
+      "path": "docs/DECISION_EXECUTION_LEARNING_LOOP.md"
+    },
+    {
+      "canonical_tree_verified": true,
+      "git_blob_sha": "2a97f7158ae78d956b890fe56d3765e10b40b719",
+      "path": "docs/REPOSITORY_MAP.md"
+    }
+  ]
+}
