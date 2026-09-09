@@ -382,6 +382,7 @@ This contract does not justify an Execution Agent.
 - `runtime/execution_traces/DEL-LICHESS-AUDIT-PROMOTION-001.json` — `WAIT_AUTHORITY`, REPO action executed and verified;
 - `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json` — `STOP`, FIELD;
 - `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-002.json` — `STOP`, the same decision carried onto the current candidate;
+- `runtime/execution_traces/DEL-LICHESS-LEARNING-COST-001.json` — `STOP`, an OWNER copy pass on the product measured in-repo before and after; comprehension of the shorter screens is `FIELD_REQUIRED`, and the candidate it produces is not the one `FIELD-INSTRUMENT-002` carried forward;
 - `runtime/handoffs/HANDOFF-LICHESS-ENV-001.json`, superseded by `HANDOFF-LICHESS-ENV-002.json`;
 - `runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json`;
 - `research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md` — the readable pass record;
