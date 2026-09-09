@@ -39,20 +39,23 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Fifteen branches are ahead of `main`, all read branch by branch on 2026-09-08.
-`docs/BRANCH_INVENTORY.md` holds the tips, unique-path counts and what each contains;
-`scripts/check_branch_inventory.py --live` fails when this table and that inventory disagree
-with the actual remote.
+Eighteen branches are ahead of `main`, all read branch by branch and re-measured tree to
+tree on 2026-09-09. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
+each contains; `scripts/check_branch_inventory.py --live` fails when this table and that
+inventory disagree with the actual remote, and now also when a published count or a named
+successor does not survive a tree-to-tree check.
 
 | Branch | Purpose | State |
 |---|---|---|
-| `claude/product-value-completion-run-if7ito` | three strict Calibration Loop runs and the N3 register-test freeze (PR 19) | `OPEN_PR_TO_BRANCH`; base is `run/product-value-completion-2026-09-06`, so its 31 files cannot reach `main` through it |
-| `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the retirement record (PR 18) | `OPEN_PR_TO_MAIN`, parallel session, written to today |
+| `claude/product-value-completion-run-if7ito` | three strict Calibration Loop runs and the N3 register-test freeze (PR 19) | `OPEN_PR_TO_MAIN`; retargeted at `main` on 2026-09-09, so its 31 files can now reach it |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the retirement record (PR 18) | `OPEN_PR_TO_MAIN`, parallel session, zero new files |
 | `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | `OPEN_PR_TO_MAIN`, blocked; see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
-| `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the branch-by-branch read | `OPEN_PR_TO_MAIN` |
-| `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix C1-C4 and its result | `STRANDED`, live, no pull request |
-| `research/rnd-self-triangulation-adjudication-2026-09-08` | frozen adjudication rubric for those challenges | `STRANDED`, live, no pull request |
-| `research/rnd-self-triangulation-2026-09-08` | self-triangulation preflight and synthesis | `SUPERSEDED` by the challenges branch |
+| `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the branch-by-branch read (PR 22) | `OPEN_PR_TO_MAIN` |
+| `research/rnd-self-triangulation-anti-challenges-2026-09-08` | anti-challenges `A1`-`A4` and the blind challenge matrix they invert | `STRANDED`, live, no pull request |
+| `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | frozen anti-challenge rubric and its result | `STRANDED`, live, no pull request |
+| `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix `C1`-`C4` and its result | `SUPERSEDED` by the anti-challenges branch |
+| `research/rnd-self-triangulation-adjudication-2026-09-08` | frozen adjudication rubric for those challenges | `SUPERSEDED` by the anti-adjudication branch |
+| `research/rnd-self-triangulation-2026-09-08` | self-triangulation preflight, synthesis and the 2026-09-09 mechanism-transfer arms | `STRANDED`; was declared `SUPERSEDED` and stopped being contained when it received new work |
 | `run/meta-calibrate-best-effort-reasoning-2026-09-08` | counterfactual replay of best-effort reasoning | `STRANDED`, no pull request |
 | `run/self-calibrate-best-effort-skill-2026-09-08` | best-effort skill self-calibration | `SUPERSEDED` by the meta-calibration branch |
 | `run/lichess-premove-ownership-copilot-2026-09-07` | Copilot best-effort adapter and pre-move ownership run | `SUPERSEDED` by the meta-calibration branch |
@@ -60,22 +63,24 @@ with the actual remote.
 | `run/product-value-completion-2026-09-06` | product-value completion calibration | `SUPERSEDED` by PR 19's head |
 | `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and the first Neta yield batch | `STRANDED`, no pull request |
 | `run/lichess-whitepaper-calibration-2026-09-06` | lichess white-paper and commercial-roadmap calibration | `STRANDED`, no pull request |
-| `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object | `STRANDED`, `FAILED_EXECUTION`, no adapter credential in environment |
-| `feat/resource-delta-accounting-v0-2` | prospective resource-delta accounting | `SUPERSEDED` by `main`; zero unique paths, taken as the squash `74fc4af` |
+| `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object, plus ten frozen `RND_TELOS_*` and narrow-benchmark documents | `STRANDED`, `FAILED_EXECUTION`, no adapter credential in environment |
+| `feat/resource-delta-accounting-v0-2` | prospective resource-delta accounting | `SUPERSEDED` by `main`; one path, the relocated audit document, since `main` took its work as the squash `74fc4af` |
 
-Five carry nothing their named successor does not. `feat/resource-delta-accounting-v0-2` is
-the clearest: six commits ahead, zero unique paths, because `main` took its work as the
-squash `74fc4af`.
+Six carry nothing their named successor does not, allowing the one relocation the inventory
+declares. `feat/resource-delta-accounting-v0-2` is the clearest: six commits ahead, one
+path, because `main` took its work as the squash `74fc4af`.
 
-Two hold halves of one live experiment that cannot be run apart. The frozen adjudication
+Four hold halves of two live experiments that cannot be run apart. The frozen adjudication
 rubric is on `...-adjudication-...`; the blind challenges and their result are on
-`...-challenges-...`; neither branch contains the other. Resolving that is `OWNER`'s.
+`...-challenges-...`; the same split repeats one generation later across the two `anti-*`
+branches. In neither pair does either branch contain the other. Resolving that is `OWNER`'s.
 
 No branch above holds a promoted research result. Recovery, archival or abandonment of each
 remaining branch is an `OWNER` decision and none is taken here.
 
 Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
-by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen. Deletion
+by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen; five
+new research branches have been pushed since. Deletion
 is refused in every agent session by the egress proxy, so it remains an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
