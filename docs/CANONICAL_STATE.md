@@ -39,7 +39,7 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Eighteen branches are ahead of `main`, all read branch by branch and re-measured tree to
+Nineteen branches are ahead of `main`, all read branch by branch and re-measured tree to
 tree on 2026-09-09. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
 each contains; `scripts/check_branch_inventory.py --live` fails when this table and that
 inventory disagree with the actual remote, and now also when a published count or a named
@@ -51,6 +51,7 @@ successor does not survive a tree-to-tree check.
 | `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the retirement record (PR 18) | `OPEN_PR_TO_MAIN`, parallel session, zero new files |
 | `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | `OPEN_PR_TO_MAIN`, blocked; see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
 | `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the branch-by-branch read (PR 22) | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | the lichess copy-pass trace `DEL-LICHESS-LEARNING-COST-001` (PR 23) | `OPEN_PR_TO_MAIN`, parallel session; carries three of this branch's six commits replayed under new SHAs |
 | `research/rnd-self-triangulation-anti-challenges-2026-09-08` | anti-challenges `A1`-`A4` and the blind challenge matrix they invert | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | frozen anti-challenge rubric and its result | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix `C1`-`C4` and its result | `SUPERSEDED` by the anti-challenges branch |
@@ -80,7 +81,7 @@ remaining branch is an `OWNER` decision and none is taken here.
 
 Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
 by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen; five
-new research branches have been pushed since. Deletion
+research branches and one trace branch have been pushed since. Deletion
 is refused in every agent session by the egress proxy, so it remains an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
