@@ -1,0 +1,60 @@
+Build a Hebrew RTL web app called "Decision Trace — Plant Care".
+
+TARGET DOMAIN
+A person cares for several household plants. Before taking a meaningful care action such as watering, fertilizing, pruning, repotting, or moving a plant, they record what they observed, what they intend to do, and what response they expect. Days later they record what actually happened. The app is a decision-evidence journal, not a horticultural advice system. It must not claim that any action caused a plant outcome or that it improves plant health.
+
+TELOS
+Create a trustworthy longitudinal record of plant-care decisions so later patterns can be examined without changing or contaminating the evidence that produced them.
+
+SYSTEM IR
+
+STATE MACHINE
+DECIDE -> COMMIT -> WAIT_RESULT -> REVEAL -> EXPLORE
+
+INVARIANTS
+I1. Measurement before interpretation: in DECIDE and COMMIT, show no historical pattern, prior success rate, recommendation, care tip, score, AI critique, or personalized weakness.
+I2. Exactly one primary action per interaction state. Quiet secondary navigation is allowed.
+I3. State determines what comes next. Screens render the state; they must not independently invent conflicting workflows.
+I4. Missing recorded reasoning is missing data, not evidence that the person did not consider something.
+I5. A pattern that predicts an outcome is not automatically specific to this plant or this person.
+I6. A plant-specific residual is not automatically a causal mechanism.
+I7. A plausible care intervention is not an established outcome until prospectively tested.
+I8. Do not change what is measured and the intervention at the same time during a test.
+I9. Every important validation rule needs a deliberate failing example on the same field/substrate and a valid negative control. A permanently green check is not evidence.
+I10. App records may support observations about recorded decisions; only future observed outcomes can support an outcome claim, and observational history alone cannot establish causality.
+I11. "No next recommendation" is a valid state. Never manufacture advice to fill the screen.
+
+EPISTEMIC OBJECT
+Any material finding must be representable with:
+claim_id; statement; claim_kind = OBSERVATION | PREDICTION | MECHANISM | INTERVENTION | OUTCOME; resolution_authority = OWNER | APP_RECORD | RESEARCH | FIELD; required_reality; observed_reality; evidence_refs; state = SUPPORTED | PROVISIONAL | NOT_MEASURED | CONTRADICTED | INSUFFICIENT_REALITY; requested_use; permission = ALLOW | DEFER | DENY; reversal_condition.
+
+TARGET-DOMAIN ENTITY AND RECORD
+A decision record contains:
+plant label; observed condition; action category; intended action; intended objective; expected observable response; confidence 0-100; optional alternatives considered; optional rationale; committed_at.
+After commitment, the decision evidence is immutable.
+A result contains: observed response category; optional note; observation date; logged_at.
+A result observation date may not precede committed_at.
+
+INTERACTION CONTRACT
+Home resolves directly to the current state, not a feature dashboard.
+DECIDE captures the decision record. One primary action: "מקבע החלטה".
+COMMIT shows exactly what will be frozen and allows a quiet "חזרה לעריכה" that returns with all draft values preserved. One primary action: "מקבע לרשומה".
+WAIT_RESULT shows only the frozen decision and one primary action: "יש תוצאה". No history or analysis.
+RESULT LOGGING records observed response, optional note and date, with one save action.
+REVEAL may only appear after a result exists. It separates "תצפית" from "פרשנות", compares expected and observed response descriptively, does not provide causal explanation, and says NOT_MEASURED when evidence is insufficient.
+Closing REVEAL must transition the core machine to EXPLORE.
+EXPLORE shows the longitudinal record and bounded descriptive summaries with epistemic status. It may offer one clear primary action to begin a new DECIDE cycle.
+Include a quiet Claims surface showing at least four claim objects with distinct states and permissions, including a FIELD-required intervention/outcome claim that is DEFER or DENY.
+Include a quiet internal Validation surface. Seed at least eight historical records. Include one deliberately malformed fixture whose observation date precedes commitment and/or another exact-domain defect. The validator must fail the malformed fixture on the same actual field path used by the UI and pass a valid control.
+
+ANTI-PATTERNS
+Do not show analytics while a decision is being recorded.
+Do not rewrite or critique the user's care action before commitment.
+Do not treat an empty alternatives field as proof no alternative was considered.
+Do not label a retrospective correlation as a personal or plant-specific causal mechanism.
+Do not claim improvement from retrospective data.
+Do not make a side route pretend to be a state transition.
+Do not validate a surrogate timestamp when the actual user-entered observation date is the field that matters.
+
+IMPLEMENTATION BOUNDARY
+Reversible prototype only. No external AI API, auth, or backend required. Local/demo persistence is enough. Hebrew RTL, desktop-first responsive, quiet research-journal feel, generous whitespace, minimal chrome. Build a working flow, not a mockup. Do not add features beyond this contract.
