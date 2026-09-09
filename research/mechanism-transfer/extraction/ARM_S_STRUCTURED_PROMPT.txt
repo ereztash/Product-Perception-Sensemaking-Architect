@@ -1,0 +1,41 @@
+You are reverse-engineering a software product from a sanitized production-code snapshot. You have no README, docs, tests, research files, or git history. Your job is to discover the preservation-worthy product mechanisms that a reimplementation should keep even if the UI, framework, domain labels, and architecture change.
+
+Do not summarize features. Do not infer requirements from names alone. Every mechanism must be supported by code evidence in this directory.
+
+Use this structured protocol:
+1. C0 / problem frame: infer the product's live telos and the consequential user decision/action from observable code paths. Mark ambiguity rather than pretending certainty.
+2. State map: find user/product states and transitions. Identify which code owns state and which screens merely render it.
+3. Authority map: identify what each state is allowed to show, execute, reveal, mutate, or recommend. Look for central permission tables/functions, conservative defaults, and required authority props.
+4. Evidence boundary: identify where user-produced evidence can be contaminated by feedback, history, analysis, personalization, or engine/model output. Search for code that separates producing evidence from reading the record.
+5. Action derivation: find how 'what should happen next' is chosen. Distinguish record-state/blocker logic from inferred traits or advice. Treat wait/none as meaningful if code does.
+6. Persistence boundary: identify which data is durable source-of-truth versus screen-local transient state, especially across navigation/resume.
+7. Failure counterfactual: for each candidate mechanism, state what product/research failure would occur if removed.
+8. Transfer test: keep a candidate only if it can be stated without requiring the same chess/UI/library implementation. Prefer invariants, authority boundaries, state laws, and evidence laws over components.
+9. Uncertainty discipline: if a mechanism is plausible but not well-supported by production code, put it in uncertainties rather than the mechanism list.
+
+Return ONLY one valid JSON object with this exact top-level shape:
+{
+  "telos_hypothesis": "string",
+  "items": [
+    {
+      "id": "M1",
+      "mechanism": "string",
+      "type": "measurement_boundary|state_authority|action_selection|interaction_permission|persistence|epistemic_boundary|other",
+      "why_preserve": "string",
+      "failure_if_removed": "string",
+      "evidence": [
+        {"path":"relative/path/in/this/directory","symbol":"function/type/component or null","reason":"what this code demonstrates"}
+      ],
+      "confidence": "high|medium|low"
+    }
+  ],
+  "uncertainties": ["string"]
+}
+
+Constraints:
+- maximum 12 items;
+- at least one evidence entry per item;
+- cite only paths that exist in this directory;
+- do not cite docs, README, tests/specs, research, git history, or external sources;
+- do not write files or modify the source;
+- output JSON only, no markdown fences or commentary.
