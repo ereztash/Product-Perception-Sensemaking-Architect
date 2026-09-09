@@ -1,0 +1,269 @@
+name: Autonomous Mechanism Extraction Stage 2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/autonomous-mechanism-extraction-stage2.yml'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  replicate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - source_id: lessons
+            source_repo: ereztash/lessons
+            source_sha: 252f1446582afa5e627bc397dae516399dc49b75
+            gold_file: GOLD_LESSONS_STAGE2_2026-09-09.json
+            replicate: 1
+          - source_id: lessons
+            source_repo: ereztash/lessons
+            source_sha: 252f1446582afa5e627bc397dae516399dc49b75
+            gold_file: GOLD_LESSONS_STAGE2_2026-09-09.json
+            replicate: 2
+          - source_id: rnd
+            source_repo: ereztash/Product-Perception-Sensemaking-Architect
+            source_sha: 8a6e63c5118a6082e396dbffdaa9e8c40f2de1ad
+            gold_file: GOLD_RND_STAGE2_2026-09-09.json
+            replicate: 1
+          - source_id: rnd
+            source_repo: ereztash/Product-Perception-Sensemaking-Architect
+            source_sha: 8a6e63c5118a6082e396dbffdaa9e8c40f2de1ad
+            gold_file: GOLD_RND_STAGE2_2026-09-09.json
+            replicate: 2
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Checkout experiment repo
+        uses: actions/checkout@v4
+        with:
+          path: experiment
+
+      - name: Checkout frozen out-of-sample source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.source_repo }}
+          ref: ${{ matrix.source_sha }}
+          path: source_repo
+
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Prepare source snapshot and blind mapping
+        shell: bash
+        env:
+          SOURCE_ID: ${{ matrix.source_id }}
+          REPLICATE: ${{ matrix.replicate }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/source /tmp/extract /tmp/judge
+          mkdir -p /tmp/source /tmp/extract /tmp/judge "experiment/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+
+          if [ "$SOURCE_ID" = "lessons" ]; then
+            mkdir -p /tmp/source/saas/app/scripts
+            cp -a source_repo/saas/app/scripts/genesis /tmp/source/saas/app/scripts/
+            [ -f source_repo/saas/app/package.json ] && cp source_repo/saas/app/package.json /tmp/source/saas/app/package.json || true
+            [ -f source_repo/saas/app/tsconfig.json ] && cp source_repo/saas/app/tsconfig.json /tmp/source/saas/app/tsconfig.json || true
+          else
+            mkdir -p /tmp/source/runtime /tmp/source/scripts
+            cp -a source_repo/runtime/calibration_loop /tmp/source/runtime/
+            [ -f source_repo/scripts/validate_calibration_task.py ] && cp source_repo/scripts/validate_calibration_task.py /tmp/source/scripts/ || true
+            if [ -d source_repo/contracts ]; then cp -a source_repo/contracts /tmp/source/contracts; fi
+          fi
+
+          rm -rf /tmp/source/.git
+          find /tmp/source -type d \( -name __tests__ -o -name tests -o -name test -o -name docs -o -name research -o -name prompts \) -prune -exec rm -rf {} + || true
+          find /tmp/source -type f \( -iname '*.md' -o -iname '*.markdown' -o -iname '*.rst' -o -iname '*.txt' -o -iname '*.test.ts' -o -iname '*.test.tsx' -o -iname '*.test.js' -o -iname '*.test.py' -o -iname '*.spec.ts' -o -iname '*.spec.tsx' -o -iname '*.spec.js' -o -iname 'test_*.py' -o -iname '*_test.py' \) -delete
+          find /tmp/source -type d -empty -delete || true
+
+          OUT="experiment/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+          find /tmp/source -type f | sed 's#^/tmp/source/##' | sort > "$OUT/source-files.txt"
+          (cd /tmp/source && find . -type f -print0 | sort -z | xargs -0 sha256sum) > "$OUT/source-sha256.txt"
+
+          python - <<'PY'
+          import json,secrets
+          order=['S','B'] if secrets.randbits(1)==0 else ['B','S']
+          json.dump({'candidate-1':order[0],'candidate-2':order[1]},open('/tmp/arm-mapping.json','w'),indent=2)
+          PY
+
+      - name: Run frozen extraction pair
+        shell: bash
+        env:
+          SOURCE_ID: ${{ matrix.source_id }}
+          REPLICATE: ${{ matrix.replicate }}
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE/experiment"
+          OUT="$ROOT/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+          arm_for(){ python - "$1" <<'PY'
+          import json,sys
+          print(json.load(open('/tmp/arm-mapping.json'))[sys.argv[1]])
+          PY
+          }
+          prompt_for(){
+            if [ "$1" = S ]; then echo "$ROOT/research/mechanism-transfer/extraction/ARM_S_STRUCTURED_PROMPT.txt"; else echo "$ROOT/research/mechanism-transfer/extraction/ARM_B_BASELINE_PROMPT.txt"; fi
+          }
+
+          for C in candidate-1 candidate-2; do
+            ARM="$(arm_for "$C")"
+            mkdir -p "/tmp/extract/$C"
+            cp -a /tmp/source/. "/tmp/extract/$C/"
+            PROMPT="$(cat "$(prompt_for "$ARM")")"
+            (cd "/tmp/extract/$C" && copilot -p "$PROMPT" -s --no-ask-user --no-custom-instructions --allow-all-tools --deny-tool='url' > "/tmp/$C.raw")
+            python - "$C" "$OUT" <<'PY'
+          import json,sys,re,pathlib
+          c,out=sys.argv[1],sys.argv[2]
+          raw=pathlib.Path(f'/tmp/{c}.raw').read_text(encoding='utf-8').strip()
+          cleaned=re.sub(r'^```(?:json)?\s*','',raw,flags=re.I); cleaned=re.sub(r'\s*```$','',cleaned)
+          try: obj=json.loads(cleaned)
+          except Exception:
+              s=cleaned.find('{')
+              if s<0: raise
+              obj,_=json.JSONDecoder().raw_decode(cleaned[s:])
+          pathlib.Path(out,f'{c}.json').write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          pathlib.Path(out,f'{c}.raw.txt').write_text(raw+'\n',encoding='utf-8')
+          PY
+          done
+
+      - name: Deterministic integrity checks
+        shell: bash
+        env:
+          SOURCE_ID: ${{ matrix.source_id }}
+          REPLICATE: ${{ matrix.replicate }}
+        run: |
+          set -euo pipefail
+          OUT="experiment/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+          python - "$OUT" <<'PY'
+          import json,os,sys
+          outdir=sys.argv[1]; out={}
+          for c in ['candidate-1','candidate-2']:
+              x=json.load(open(f'{outdir}/{c}.json'))
+              items=x.get('items',[]); invalid=[]; leakage=[]
+              for it in items:
+                  for e in it.get('evidence',[]):
+                      path=e.get('path','').lstrip('./')
+                      low=path.lower()
+                      if any(s in low for s in ['readme','docs/','research/','prompts/','.md','test/','tests/','__tests__']): leakage.append(path)
+                      if not os.path.exists('/tmp/source/'+path): invalid.append(path)
+              out[c]={'json_shape':isinstance(x,dict) and isinstance(items,list) and 'telos_hypothesis' in x and 'uncertainties' in x,
+                      'item_count':len(items),'max12':len(items)<=12,
+                      'invalid_evidence_paths':sorted(set(invalid)),'forbidden_path_leakage':sorted(set(leakage))}
+          json.dump(out,open(f'{outdir}/integrity.json','w'),indent=2)
+          PY
+
+      - name: Run three blinded judges
+        shell: bash
+        env:
+          SOURCE_ID: ${{ matrix.source_id }}
+          REPLICATE: ${{ matrix.replicate }}
+          GOLD_FILE: ${{ matrix.gold_file }}
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE/experiment"
+          OUT="$ROOT/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+          cp -a /tmp/source /tmp/judge/source
+          cp "$OUT/candidate-1.json" /tmp/judge/candidate-1.json
+          cp "$OUT/candidate-2.json" /tmp/judge/candidate-2.json
+          cp "$ROOT/research/mechanism-transfer/extraction/$GOLD_FILE" /tmp/judge/gold.json
+
+          cat > /tmp/judge-prompt.txt <<'EOF'
+          You are a blinded evaluator of two reverse-engineering outputs. You do not know which experimental arm produced either candidate. Evaluate semantic recovery only against gold.json and whether cited production-code evidence in source/ substantively supports the claimed mechanism.
+
+          For EVERY target in gold.json, score each candidate:
+          1 = substantively recovers the load-bearing preservation mechanism and cites supporting production code;
+          0.5 = partial recovery but misses a load-bearing element or evidence is only indirect;
+          0 = absent, contradicted, surface-only, or unsupported.
+
+          Do not award points for merely naming a class/function/component. Do not require wording similarity. A target may be recovered across multiple items. Count an item as unsupported only when its core preservation claim is not supported by the source snapshot; do not penalize valid neighboring mechanisms merely because they are absent from gold.
+
+          Return JSON only:
+          {
+            "candidate-1":{"scores":{"<every exact gold id>":0},"unsupported_count":0,"notes":[]},
+            "candidate-2":{"scores":{"<every exact gold id>":0},"unsupported_count":0,"notes":[]}
+          }
+          Every exact target id in gold.json must appear once in each scores object. Scores may only be 0, 0.5, or 1.
+          EOF
+
+          for J in 1 2 3; do
+            (cd /tmp/judge && copilot -p "$(cat /tmp/judge-prompt.txt)" -s --no-ask-user --no-custom-instructions --allow-all-tools --deny-tool='url' > "/tmp/judge-$J.raw")
+            python - "$J" "$OUT" <<'PY'
+          import json,sys,re,pathlib
+          j,out=sys.argv[1],sys.argv[2]
+          raw=pathlib.Path(f'/tmp/judge-{j}.raw').read_text(encoding='utf-8').strip()
+          cleaned=re.sub(r'^```(?:json)?\s*','',raw,flags=re.I); cleaned=re.sub(r'\s*```$','',cleaned)
+          try: obj=json.loads(cleaned)
+          except Exception:
+              s=cleaned.find('{'); obj,_=json.JSONDecoder().raw_decode(cleaned[s:])
+          pathlib.Path(out,f'judge-{j}.json').write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          done
+
+      - name: Aggregate blinded pair score
+        shell: bash
+        env:
+          SOURCE_ID: ${{ matrix.source_id }}
+          REPLICATE: ${{ matrix.replicate }}
+          GOLD_FILE: ${{ matrix.gold_file }}
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE/experiment"
+          OUT="$ROOT/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+          python - "$OUT" "$ROOT/research/mechanism-transfer/extraction/$GOLD_FILE" <<'PY'
+          import json,statistics,sys
+          outdir,goldpath=sys.argv[1],sys.argv[2]
+          ids=[x['id'] for x in json.load(open(goldpath))['targets']]
+          judges=[json.load(open(f'{outdir}/judge-{i}.json')) for i in [1,2,3]]
+          result={}
+          for c in ['candidate-1','candidate-2']:
+              scores={}
+              for g in ids:
+                  vals=[float(j[c]['scores'][g]) for j in judges]
+                  scores[g]=statistics.median(vals)
+              result[c]={'gold_scores':scores,'GOLD_RECALL_POINTS':sum(scores.values()),
+                         'unsupported_count_median':statistics.median([int(j[c].get('unsupported_count',0)) for j in judges])}
+          json.dump(result,open(f'{outdir}/BLIND_SCORE.json','w'),indent=2)
+          print(json.dumps(result,indent=2))
+          PY
+
+      - name: Record provenance
+        if: always()
+        shell: bash
+        env:
+          SOURCE_ID: ${{ matrix.source_id }}
+          SOURCE_SHA: ${{ matrix.source_sha }}
+          REPLICATE: ${{ matrix.replicate }}
+        run: |
+          OUT="experiment/runtime/mechanism-extraction-stage2/${SOURCE_ID}-r${REPLICATE}"
+          python - "$OUT" <<'PY'
+          import json,os,subprocess,sys
+          out=sys.argv[1]; v=subprocess.run(['copilot','--version'],text=True,capture_output=True)
+          p={'experiment_commit':os.environ['GITHUB_SHA'],'source_id':os.environ['SOURCE_ID'],'source_commit':os.environ['SOURCE_SHA'],
+             'replicate':int(os.environ['REPLICATE']),'provider':'github-copilot-cli','model':'provider-default','exact_model_lineage':'unknown',
+             'structured_prompt_frozen_from_stage1':True,'blind_judges':3,'source_docs_tests_git_removed':True}
+          p['copilot_cli_version']=(v.stdout.strip() or v.stderr.strip() or 'unknown').splitlines()[0]
+          json.dump(p,open(f'{out}/provenance.json','w'),indent=2)
+          PY
+
+      - name: Upload blinded pair
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extraction-stage2-${{ matrix.source_id }}-r${{ matrix.replicate }}-blinded-${{ github.sha }}
+          path: experiment/runtime/mechanism-extraction-stage2/${{ matrix.source_id }}-r${{ matrix.replicate }}/
+          if-no-files-found: error
+
+      - name: Upload pair mapping separately
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extraction-stage2-${{ matrix.source_id }}-r${{ matrix.replicate }}-mapping-${{ github.sha }}
+          path: /tmp/arm-mapping.json
+          if-no-files-found: error
