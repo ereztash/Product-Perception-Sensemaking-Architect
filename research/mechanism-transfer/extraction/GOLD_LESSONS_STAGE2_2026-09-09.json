@@ -1,0 +1,15 @@
+{
+  "source_repo": "ereztash/lessons",
+  "source_commit": "252f1446582afa5e627bc397dae516399dc49b75",
+  "scope": "saas/app/scripts/genesis/",
+  "targets": [
+    {"id":"L1","label":"projectspec_ir_boundary","description":"Elicitation produces an explicit ProjectSpec intermediate representation that separates domain discovery from scaffold generation."},
+    {"id":"L2","label":"multidimensional_elicitation_before_generation","description":"The system deliberately extracts actors/roles, entities/relationships, transactions, invariants/constraints, anti-patterns, vocabulary and voice before generation rather than generating directly from the intent paragraph."},
+    {"id":"L3","label":"sharpness_is_blocking_compile_gate","description":"Sharpness/validity rules are enforced as blocking compile errors with explicit error codes; invalid IR is rejected rather than merely warned about or rendered anyway."},
+    {"id":"L4","label":"validate_before_render_no_partial_scaffold","description":"The compile path validates the IR before rendering artifacts so a failing specification does not produce a partial or apparently successful scaffold."},
+    {"id":"L5","label":"single_ir_drives_all_artifacts","description":"Generated artifacts are rendered from the same IR/source-of-truth, preserving common structural slots while domain content varies instead of independently templating unrelated files."},
+    {"id":"L6","label":"anti_generic_domain_referential_constraints","description":"The validator operationalizes anti-generic quality through domain-referential constraints such as entity-citing anti-patterns, declarative invariants, vocabulary substitutions and domain voice rather than generic best-practice language."},
+    {"id":"L7","label":"stability_measured_across_repeated_elicitation","description":"Reliability of LLM elicitation is measured across repeated runs using explicit stability metrics/thresholds rather than assumed from a single good-looking extraction."},
+    {"id":"L8","label":"domain_fixture_separated_from_generic_compiler","description":"Domain-specific input/fixture knowledge is separated from generic elicitation, validation and compilation machinery so the same pipeline can operate across domains while preserving the compiler structure."}
+  ]
+}
