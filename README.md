@@ -165,8 +165,9 @@ Nothing under `research/` is canonical. Nothing under `archive/` is current auth
 - a branch that exists proves nothing about runnability or authority;
 - every branch on the remote is declared in `docs/BRANCH_INVENTORY.md` and checked by `scripts/check_branch_inventory.py --live`.
 
-Eighteen branches are currently ahead of `main` and nothing is retirable: the twenty-one
-contained refs were deleted on 2026-09-08, and five research branches have been pushed since.
+Nineteen branches are currently ahead of `main` and nothing is retirable: the twenty-one
+contained refs were deleted on 2026-09-08, and five research branches and one trace branch
+have been pushed since.
 Deletion is refused in every agent session by the egress proxy, so it is an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
