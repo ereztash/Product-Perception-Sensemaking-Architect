@@ -102,7 +102,7 @@ one of these numbers and fails on any that does not match.
 | `claude/product-value-completion-run-if7ito` | `1ceec96412` | 15 | 31 | `OPEN_PR_TO_MAIN` |
 | `claude/repo-canonicalization-reconciliation-aufvq6` | `dabb85a27a` | 12 | 0 | `OPEN_PR_TO_MAIN` |
 | `claude/repo-cleanup-590u82` | `120946bb4c` | 4 | 4 | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | `18ba612741` | 5 | 1 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `619c23d39d` | 6 | 3 | `OPEN_PR_TO_MAIN` |
 | `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 1 | `SUPERSEDED`, superseded by `main` |
 | `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 14 | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-2026-09-08` | `bf346508d2` | 17 | 17 | `STRANDED` |
@@ -189,6 +189,8 @@ branches then declared.
 | `runtime/calibration_loop/copilot-config.best-effort.json` | 3 | 1 |
 | `runtime/calibration_loop/copilot_resource_adapter_v02.py` | 6 | 1 |
 | `runtime/calibration_loop/copilot-config-v02.best-effort.json` | 6 | 1 |
+| `runtime/calibration_loop/claude_cli_adapter.py` | 2 | 1 |
+| `runtime/calibration_loop/claude-cli-config.json` | 2 | 1 |
 
 The `_v02` rows are a second generation of the same adapter, carried identically by six
 branches: `run/delta-v02-batch-2026-09-08`, `research/rnd-self-triangulation-2026-09-08`
@@ -206,6 +208,12 @@ that exists on three branches and in no rule is a placement question, not a file
 The single most-copied path is `docs/BRANCH_AUDIT_2026-09-05.md`, on fifteen branches at
 one blob. It is the one case where `main` does hold the content, under the canonical path
 recorded in **Relocations** above.
+
+The two `claude_cli_*` rows appeared on 2026-09-10, when `claude/ux-ui-analysis-v6ao5u`
+took the Claude CLI adapter that `claude/product-value-completion-run-if7ito` already
+carried. Identical blobs, so nothing has diverged yet; two open pull requests now propose
+the same file to `main` from different branches, and whichever merges second will find it
+already there.
 
 ## Branch-by-branch read, 2026-09-08, re-measured 2026-09-09
 
