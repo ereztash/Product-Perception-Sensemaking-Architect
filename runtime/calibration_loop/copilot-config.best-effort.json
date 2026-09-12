@@ -1,0 +1,10 @@
+{
+  "adapters": {
+    "RND": {
+      "command": ["python", "runtime/calibration_loop/copilot_resource_adapter.py"]
+    },
+    "NETA": {
+      "command": ["python", "runtime/calibration_loop/copilot_resource_adapter.py"]
+    }
+  }
+}
