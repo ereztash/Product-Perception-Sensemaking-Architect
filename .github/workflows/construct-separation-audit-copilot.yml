@@ -1,0 +1,51 @@
+name: Construct Separation Audit
+
+on:
+  push:
+    branches:
+      - run/construct-separation-audit-2026-09-12
+    paths:
+      - '.github/workflows/construct-separation-audit-copilot.yml'
+      - 'research/deep-research-preflight/CONSTRUCT-SEPARATION-AUDIT-2026-09-12.task.json'
+      - 'runtime/calibration_loop/copilot_resource_adapter.py'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Validate canonical task
+        run: python scripts/validate_calibration_task.py research/deep-research-preflight/CONSTRUCT-SEPARATION-AUDIT-2026-09-12.task.json
+
+      - name: Run canonical Calibration Loop
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="runtime/execution_traces/CONSTRUCT-SEPARATION-AUDIT-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/deep-research-preflight/CONSTRUCT-SEPARATION-AUDIT-2026-09-12.task.json \
+            --config runtime/calibration_loop/copilot-config.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: construct-separation-audit-${{ github.sha }}
+          path: runtime/execution_traces/CONSTRUCT-SEPARATION-AUDIT-${{ github.sha }}.json
+          if-no-files-found: warn
