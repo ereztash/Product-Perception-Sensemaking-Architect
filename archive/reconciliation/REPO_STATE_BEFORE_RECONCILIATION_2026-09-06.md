@@ -52,7 +52,7 @@ Ahead/behind are measured against `origin/main` at capture time.
 - `HISTORICAL_ONLY` — none observed at capture time.
 - `UNKNOWN_REQUIRES_REVIEW` — none observed at capture time. No branch was merged under this label.
 
-All 17 `SUPERSEDED` refs point at `4072bb1`, an earlier ancestor of `main`. They are the residue of the 2026-09-05 consolidation described in `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`, where the GitHub tooling could move refs but could not delete them.
+All 19 `SUPERSEDED` refs point at `4072bb1`, an earlier ancestor of `main`. They are the residue of the 2026-09-05 consolidation described in `archive/legacy-branches/BRANCH_MANIFEST_2026-09-05.md`, where the GitHub tooling could move refs but could not delete them.
 
 ## Open pull requests at capture time
 
