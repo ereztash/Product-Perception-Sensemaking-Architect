@@ -1,8 +1,8 @@
 # Branch Inventory
 
 Status: `CANONICAL`
-Captured: 2026-09-09, after re-measuring every count tree to tree
-Captured against: `main` @ `5e156cd291da2eedfe415fd7340dcc545af44d1f`
+Captured: 2026-09-12, re-anchored after `main` moved and five branches appeared
+Captured against: `main` @ `8ce05519813da536a956735aba3ed327c9cdbf08`
 
 This file is the branch-level half of the canonical rule. `docs/REPOSITORY_MAP.md` states
 the rule; `scripts/check_branch_inventory.py` enforces it; this file is the declaration
@@ -100,9 +100,9 @@ one of these numbers and fails on any that does not match.
 | Branch | Tip | Ahead | New files | Disposition |
 |---|---|---|---|---|
 | `claude/product-value-completion-run-if7ito` | `1ceec96412` | 15 | 31 | `OPEN_PR_TO_MAIN` |
-| `claude/repo-canonicalization-reconciliation-aufvq6` | `dabb85a27a` | 12 | 0 | `OPEN_PR_TO_MAIN` |
-| `claude/repo-cleanup-590u82` | `120946bb4c` | 4 | 4 | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | `619c23d39d` | 6 | 3 | `OPEN_PR_TO_MAIN` |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | `919f7642b4` | 14 | 0 | `OPEN_PR_TO_MAIN` |
+| `claude/repo-cleanup-590u82` | `2f30b946b7` | 9 | 4 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `115f295056` | 11 | 8 | `OPEN_PR_TO_MAIN` |
 | `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 1 | `SUPERSEDED`, superseded by `main` |
 | `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 14 | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-2026-09-08` | `bf346508d2` | 17 | 17 | `STRANDED` |
@@ -111,12 +111,15 @@ one of these numbers and fails on any that does not match.
 | `research/rnd-self-triangulation-anti-challenges-2026-09-08` | `3b51465235` | 23 | 23 | `STRANDED` |
 | `research/rnd-self-triangulation-challenges-2026-09-08` | `9756465715` | 18 | 18 | `SUPERSEDED`, superseded by `research/rnd-self-triangulation-anti-challenges-2026-09-08` |
 | `run/claude-prerelease-prompt-telos-2026-09-06` | `5be34ad7fd` | 2 | 12 | `STRANDED` |
+| `run/construct-separation-audit-2026-09-12` | `ec8c193024` | 5 | 4 | `STRANDED` |
 | `run/delta-v02-batch-2026-09-08` | `c064fa1d58` | 10 | 9 | `STRANDED` |
 | `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 6 | 4 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
 | `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | 5 | `STRANDED` |
-| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 8 | `STRANDED` |
+| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 8 | `SUPERSEDED`, superseded by `run/nico-ux-paired-2026-09-12` |
+| `run/nico-ux-paired-2026-09-12` | `07ddf30252` | 20 | 12 | `STRANDED` |
 | `run/product-value-completion-2026-09-06` | `bdaba4849d` | 3 | 9 | `SUPERSEDED`, superseded by `claude/product-value-completion-run-if7ito` |
 | `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 6 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `run/tpoae-rnd-best-effort-2026-09-12` | `25ec110ab8` | 16 | 10 | `SUPERSEDED`, superseded by `run/nico-ux-paired-2026-09-12` |
 | `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 2 | `STRANDED` |
 
 Tips in this table are last-observed values, not pins. An active branch is expected to
@@ -183,19 +186,24 @@ branches then declared.
 
 | Artifact | Branches | Distinct contents |
 |---|---|---|
-| `.github/workflows/best-effort-lichess-copilot.yml` | 3 | 3 |
-| `skills/evidence-bounded-best-effort-runtime/skill.md` | 3 | 2 |
-| `runtime/calibration_loop/copilot_resource_adapter.py` | 3 | 1 |
-| `runtime/calibration_loop/copilot-config.best-effort.json` | 3 | 1 |
+| `.github/workflows/best-effort-lichess-copilot.yml` | 5 | 3 |
+| `skills/evidence-bounded-best-effort-runtime/skill.md` | 5 | 2 |
+| `runtime/calibration_loop/copilot_resource_adapter.py` | 6 | 3 |
+| `runtime/calibration_loop/copilot-config.best-effort.json` | 6 | 1 |
 | `runtime/calibration_loop/copilot_resource_adapter_v02.py` | 6 | 1 |
 | `runtime/calibration_loop/copilot-config-v02.best-effort.json` | 6 | 1 |
-| `runtime/calibration_loop/claude_cli_adapter.py` | 2 | 1 |
+| `runtime/calibration_loop/claude_cli_adapter.py` | 2 | 2 |
 | `runtime/calibration_loop/claude-cli-config.json` | 2 | 1 |
 
 The `_v02` rows are a second generation of the same adapter, carried identically by six
-branches: `run/delta-v02-batch-2026-09-08`, `research/rnd-self-triangulation-2026-09-08`
-and the four `challenges`/`adjudication` branches. Neither generation is on `main`, so a
-change to the adapter has nine side-branch copies to chase and no canonical one to change.
+branches. Neither generation is on `main`, so a change to the adapter has twelve
+side-branch copies to chase and no canonical one to change.
+
+`copilot_resource_adapter.py` went from one content across three branches on 2026-09-08 to
+three contents across six on 2026-09-12. `claude_cli_adapter.py` was identical on two
+branches on 2026-09-10 and is two different files on those same two branches now: PR 19 and
+PR 23 each propose one to `main`. A forked artifact with no canonical copy does not stay
+merely duplicated; it diverges, and then someone has to choose.
 
 `research/rnd-self-triangulation-2026-09-08` was pushed on 2026-09-08 at 14:26, after this
 inventory was first written. `scripts/check_branch_inventory.py --live` failed on it within
@@ -261,10 +269,18 @@ to resolve. The instrument records that it recurred; it does not resolve it.
 ### The skill has two versions and the newer one is on the smaller branch
 
 `skills/evidence-bounded-best-effort-runtime/skill.md` is 205 lines on
-`skill/evidence-bounded-best-effort-runtime` and 140 lines on the two `run/` branches. The
+`skill/evidence-bounded-best-effort-runtime` and 140 lines on four `run/` branches. The
 205-line version is the later one: it was committed as "tighten best-effort skill after
 self-calibration". A merge that took the run branches' copy would silently revert that
 refinement.
+
+On 2026-09-12 this stopped being a note and became a gate. `run/nico-ux-paired-2026-09-12`
+now holds every path `skill/evidence-bounded-best-effort-runtime` holds, so path
+containment would have called it `SUPERSEDED` and licensed deleting the only copy of the
+205-line file. `--live` now also compares content: a successor must hold each path at the
+branch's version or at a version its own history contains. `main` taking a branch's work as
+a squash passes that test; a parallel branch sitting on an older copy does not. The row
+stays `STRANDED`, and a positive control reproduces the case.
 
 `skills/` still matches no row in the placement table in `docs/REPOSITORY_MAP.md`.
 

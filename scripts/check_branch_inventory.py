@@ -410,6 +410,52 @@ def tree_paths(ref: str) -> frozenset[str]:
     return paths
 
 
+def tree_blobs(ref: str) -> dict[str, str]:
+    """{path: blob sha} for the tree at `ref`."""
+    proc = git("ls-tree", "-r", ref)
+    require(proc.returncode == 0, f"cannot read the tree at {ref}")
+    blobs: dict[str, str] = {}
+    for line in proc.stdout.splitlines():
+        meta, _, path = line.partition("\t")
+        parts = meta.split()
+        if len(parts) == 3 and parts[1] == "blob":
+            blobs[path] = parts[2]
+    return blobs
+
+
+def content_lost(branch_tip: str, successor_tip: str, exempt: set[str]) -> set[str]:
+    """Paths whose version on the branch the successor has never held.
+
+    A successor that descends from the branch cannot lose anything, so ancestry short
+    circuits the whole check. Otherwise a differing blob is only safe if it appears
+    somewhere in the successor's history of that path: that is what distinguishes "the
+    successor moved past this version" from "the successor never had it". `main` taking
+    a branch's work as a squash lands in the first case; a parallel branch carrying an
+    older copy of the same file lands in the second.
+    """
+    if git("merge-base", "--is-ancestor", branch_tip, successor_tip).returncode == 0:
+        return set()
+
+    ours, theirs = tree_blobs(branch_tip), tree_blobs(successor_tip)
+    lost: set[str] = set()
+    for path, blob in ours.items():
+        if path in exempt or path not in theirs or theirs[path] == blob:
+            continue
+        history = git("rev-list", successor_tip, "--", path)
+        if history.returncode != 0:
+            lost.add(path)
+            continue
+        seen = False
+        for commit in history.stdout.split():
+            found = git("ls-tree", commit, "--", path)
+            if found.returncode == 0 and blob in found.stdout:
+                seen = True
+                break
+        if not seen:
+            lost.add(path)
+    return lost
+
+
 def check_relocations_resolve(
     relocations: dict[str, str] | None = None,
     resolve=tree_paths,
@@ -466,12 +512,18 @@ def check_superseded_containment(
     relocations: dict[str, str] | None = None,
     resolve=tree_paths,
     anchor: str = CANONICAL_BRANCH,
+    content=None,
 ) -> None:
-    """A named successor must actually carry every path the branch holds.
+    """A named successor must carry every path the branch holds, at content it has held.
 
     `SUPERSEDED` is what licenses deletion once the successor lands. Left unchecked it
     is an opinion that ages: a predecessor can receive a commit after the claim is
     written and quietly stop being contained.
+
+    Paths alone are not enough. Two branches can hold the same path at different
+    content, and the older copy on the successor makes the claim look true while the
+    refinement on the predecessor would be lost in the merge. `content` is the
+    blob-level check; pass `None` to run the path check only.
     """
     declared = parse_inventory() if declared is None else declared
     relocations = parse_relocations() if relocations is None else relocations
@@ -498,6 +550,17 @@ def check_superseded_containment(
             + (" ..." if len(missing) > 4 else "")
             + "; it is STRANDED, or the missing paths are a declared relocation",
         )
+        if content is not None:
+            successor_tip = anchor if successor == CANONICAL_BRANCH else declared[successor]["tip"]
+            lost = content(row["tip"], successor_tip, set(relocations))
+            require(
+                not lost,
+                f"{INVENTORY}: `{branch}` is declared SUPERSEDED by `{successor}`, which "
+                f"carries {len(lost)} of its path(s) at content it has never held: "
+                + ", ".join(sorted(lost)[:4])
+                + (" ..." if len(lost) > 4 else "")
+                + "; the path survives the merge and the version on this branch does not",
+            )
 
 
 def check_live(
@@ -642,12 +705,21 @@ _FAKE_TREES: dict[str, frozenset[str]] = {
     "main": frozenset({"kept.md", "archive/moved.md"}),
     "bbbbbbbbbb": frozenset({"moved.md", "unique.md"}),
     "cccccccccc": frozenset({"moved.md", "kept.md"}),
+    # A successor that took every path and stalled on an older copy of one of them.
+    "dddddddddd": frozenset({"moved.md", "unique.md", "kept.md"}),
 }
 
 
 def _fake_trees(ref: str) -> frozenset[str]:
     require(ref in _FAKE_TREES, f"control fixture has no tree for {ref}")
     return _FAKE_TREES[ref]
+
+
+def _fake_content(branch_tip: str, successor_tip: str, exempt: set[str]) -> set[str]:
+    """`live/three` holds every path `live/one` does, one of them at older content."""
+    if (branch_tip, successor_tip) == ("bbbbbbbbbb", "dddddddddd"):
+        return {"unique.md"} - exempt
+    return set()
 
 
 def positive_controls() -> int:
@@ -845,6 +917,26 @@ def positive_controls() -> int:
             ),
         ),
         (
+            "successor-carries-the-path-at-content-it-never-held",
+            # The predecessor's refinement and the successor's older copy of the same
+            # file. Path containment passes; the merge would silently revert it. This is
+            # the skill.md case: 205 lines on one branch, 140 on its supposed successor.
+            lambda: check_superseded_containment(
+                {
+                    "live/one": {
+                        "disposition": "SUPERSEDED",
+                        "tip": "bbbbbbbbbb",
+                        "successor": "live/three",
+                    },
+                    "live/three": {"disposition": "STRANDED", "tip": "dddddddddd"},
+                },
+                {},
+                _fake_trees,
+                "main",
+                _fake_content,
+            ),
+        ),
+        (
             "relocation-exemption-cannot-hide-a-real-path",
             # The exemption covers `moved.md` only. `unique.md` still fails, so a
             # relocation row cannot be widened into a blanket excuse.
@@ -926,7 +1018,9 @@ def main() -> None:
 
             check_relocations_resolve(relocations, anchor=anchor)
             check_new_file_counts(declared, anchor=anchor)
-            check_superseded_containment(declared, relocations, anchor=anchor)
+            check_superseded_containment(
+                declared, relocations, anchor=anchor, content=content_lost
+            )
             counted = sum(
                 1
                 for r in declared.values()

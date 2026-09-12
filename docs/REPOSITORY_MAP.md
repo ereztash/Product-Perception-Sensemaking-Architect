@@ -157,7 +157,11 @@ publishes. A count in that file is measured tree to tree, `git ls-tree -r --name
 both sides; never `git diff main...branch`, which compares against the merge base and
 answers a different question. Eleven of sixteen rows were wrong for three days because the
 published number and the prose describing it came from different commands, and nothing
-compared either to the repository. Retirement of a contained branch is an `OWNER` action
+compared either to the repository.
+
+`SUPERSEDED` is checked the same way. The named successor must carry every path the branch
+holds and hold each at the branch's content or at a version its own history contains. Paths
+alone would license deleting a branch whose refinement a successor never took. Retirement of a contained branch is an `OWNER` action
 executed outside an agent session: `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
 ## Where a new file goes
