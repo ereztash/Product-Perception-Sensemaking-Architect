@@ -1,0 +1,58 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-INSTRUMENT-TELOS-001",
+  "decision": {
+    "statement": "Determine whether a large class of ereztash/lichess_app's journey problems are one mechanism, the Instrument-Telos Gap, or are better explained by six competitors frozen before the audit: UX legibility, time-to-value, the unreachable learning layer, dual-ontology leakage, market mismatch, or no structural problem.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "REPO",
+    "evidence_refs": [
+      "ereztash/lichess_app research/instrument-telos/DR_PLAN_0.md, seven hypotheses and a discrimination table frozen before the ledger",
+      "ereztash/lichess_app research/instrument-telos/ACTION_VALUE_LEDGER.md, sixteen reachable costly actions walked at 390x844",
+      "ereztash/lichess_app research/instrument-telos/COUNTERFACTUAL_DELETE_AUDIT.md and VALUE_DEBT_MAP.md",
+      "ereztash/lichess_app research/instrument-telos/ITG_TRACE.json, task CAL-LICHESS-INSTRUMENT-TELOS-001, final_state COMPLETE",
+      "ereztash/lichess_app research/instrument-telos/FALSIFICATION_REPORT.md and DECISION.md"
+    ],
+    "reversal_condition": "A FIELD participant who passes M1 to M5 at A0, fails M6, and when asked what continuing buys answers in terms of the system rather than themselves while pointing at the counter. No competing hypothesis predicts that posture. Conversely, M6 passing at A0 with participants naming a payoff the product can produce refutes the surviving region as well."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Freeze the state and the competing hypotheses before any audit; build a cost ledger by walking the built bundle; run the delete test, the value-debt map, the ontology classification, the burden audit, the repayment map and the telos chain; then invoke the actual Calibration Loop against the frozen audit and try to kill the hypothesis.",
+    "completed_action": "The hypothesis was refuted where it is most testable and survives only where it is least distinguishable. The Calibration Loop, run with three validator refusals recorded, reached the same partition independently and named the bottleneck before doing anything else: the lens had no recorded refusal. It then found one, in evidence already in hand: the repository had already run this mission's delete test on the read fields and cut them from required to sampled with the reason written down, and shared/reveal.ts consumes the surviving field on the next screen. It ruled the two denominators a category error, since rendering them costs nothing and the delete audit's unit is a costly action. It opened a REPO-decidable fork on a tap residual, which was closed by decomposing the existing walks rather than re-walking: the residual is script exploration, and the instrument layer is about a fifth of real taps. The designed exchange rate was then derived from the shipped rules: 401 decisions for the first claim, with both walks inside the body of that distribution.",
+    "status": "COMPLETE",
+    "artifact_refs": [
+      "ereztash/lichess_app research/instrument-telos/",
+      "ereztash/lichess_app shared/confidence-asked.ts"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "No orchestration surface, no merged denominator, no flag change, no threshold or sampling-rate change, no wording pass, and the FIELD stimulus untouched. One correctness defect repaired.",
+    "observed_state": "One comment corrected: the file said nothing downstream reads the read fields, and the shipped build reads one of them on the next screen. Comments do not ship, so the page bundle is unchanged. npm run verify passes.",
+    "status": "SUPPORTED",
+    "evidence_refs": [
+      "ereztash/lichess_app npm run verify on the commit carrying this trace"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "Whether a cold player experiences the surviving region as an instrument-telos gap, as distance, or as no problem at all.",
+    "observation": "Not observed. Zero humans have used this build.",
+    "status": "UNRESOLVED",
+    "evidence_refs": [
+      "ereztash/lichess_app research/instrument-telos/FIELD_DISCRIMINATION_MAP.md, which names four FIELD outcomes that weaken the hypothesis and one that strengthens it"
+    ]
+  },
+  "learning": {
+    "decision_delta": "A hypothesis proposed by the owner was tested rather than confirmed, and lost its strongest region. The thing that made the difference was not new evidence: it was requiring the lens to have a recorded refusal before it could be credited, and then finding that refusal inside the repository's own history.",
+    "claim_updates": [
+      "REFUTED in the per-decision region: the core loop repays every decision and is about four fifths of the taps.",
+      "RECLASSIFIED: the two denominators are a trust and ontology defect, not an instrument-burden one. A zero-cost render is outside the unit.",
+      "SUPPORTED, bounded: two uncovered costs on independent surfaces share one structure, the payoff exists and is not where the cost is paid.",
+      "DERIVED from the shipped rules rather than guessed: the first claim costs about 401 decisions, and the product never says so.",
+      "UNRESOLVED at FIELD: whether any of this is what a stranger experiences."
+    ],
+    "resource_delta": "Fourteen audit documents, one calibration run at one of six permitted resource calls, and one corrected comment. No product behaviour changed.",
+    "next_move": "Run FIELD on the frozen build. The smallest candidate intervention, stating the exchange rate where the shortfall is rendered, waits behind it and may be killed by it.",
+    "stop_or_continue": "STOP. The surviving region is indistinguishable from its pre-registered competitors on repository evidence, which is the definition of a question that has left REPO authority."
+  }
+}
