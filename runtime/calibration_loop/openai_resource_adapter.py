@@ -66,14 +66,30 @@ CONTEXT_DOC_BYTES = int(os.environ.get("CALIBRATION_CONTEXT_DOC_BYTES", "60000")
 CONTEXT_TOTAL_BYTES = int(os.environ.get("CALIBRATION_CONTEXT_TOTAL_BYTES", "400000"))
 
 
+# What the last `context_documents` call actually delivered, so a trace can say so.
+#
+# THE ADJACENT TRANSPORT ASSUMPTION, FOUND BY PROBING THE FIRST ONE. The original defect was that
+# peers received context_refs as paths they could not open. That was repaired; what was NOT repaired
+# is that nothing anywhere records whether the documents arrived. A run whose every ref is
+# unresolvable still reaches COMPLETE, the peer is told so in its own manifest and correctly
+# withholds claims, and the trace a reader later audits contains no trace of any of it.
+#
+# So the manifest becomes provenance. `claude_cli_adapter` writes it into the sidecar beside the
+# model and the session id, where an auditor can see that a peer was asked about five documents and
+# handed none.
+LAST_DELIVERY: dict[str, object] = {"requested": 0, "delivered": 0, "manifest": []}
+
+
 def context_documents(refs: object) -> str:
     """Resolve a task's `context_refs` into their contents, bounded and honestly labelled.
 
     Transport, not method. The refs are the ones the task already names; nothing is added,
     reordered or summarised, and a ref that cannot be resolved is reported rather than dropped.
     """
+    LAST_DELIVERY.update({"requested": 0, "delivered": 0, "manifest": []})
     if not isinstance(refs, list) or not refs:
         return ""
+    LAST_DELIVERY["requested"] = len(refs)
 
     delivered: list[str] = []
     manifest: list[str] = []
@@ -108,6 +124,8 @@ def context_documents(refs: object) -> str:
         manifest.append(f"- `{ref}` delivered{note}")
         delivered.append(f"## {ref}{note}\n\n{body}")
 
+    LAST_DELIVERY["delivered"] = len(delivered)
+    LAST_DELIVERY["manifest"] = list(manifest)
     if not manifest:
         return ""
 

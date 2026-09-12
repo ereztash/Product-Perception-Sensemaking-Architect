@@ -170,6 +170,22 @@ def main() -> int:
     finally:
         _ora.CONTEXT_DOC_BYTES = original_cap
 
+    # The delivery is RECORDED, not only performed. A peer handed nothing still produces a run
+    # that reaches COMPLETE; the trace has to be able to say which happened.
+    import openai_resource_adapter as _ora2
+    prompt_for("NETA", ctx_request)
+    assert _ora2.LAST_DELIVERY["requested"] == 1
+    assert _ora2.LAST_DELIVERY["delivered"] == 1
+    assert any("delivered" in line for line in _ora2.LAST_DELIVERY["manifest"])
+
+    prompt_for("NETA", {
+        "resource": "NETA", "phase": "ANALYZE",
+        "task": {"context_refs": ["docs/NO_SUCH_DOCUMENT.md", "docs/ALSO_GONE.md"]},
+        "requested_focus": ["proxy_substitution_risk"],
+    })
+    assert _ora2.LAST_DELIVERY["requested"] == 2
+    assert _ora2.LAST_DELIVERY["delivered"] == 0, "a run with nothing delivered must record that"
+
     # No context_refs must not fabricate a section.
     bare = prompt_for("NETA", {
         "resource": "NETA",

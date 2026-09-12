@@ -27,6 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from openai_resource_adapter import (  # noqa: E402
+    LAST_DELIVERY,
     LiveAdapterError,
     parse_json_object,
     prompt_for,
@@ -129,6 +130,9 @@ def provenance(resource: str, requested_model: str, envelope: dict) -> dict:
         "num_turns": envelope.get("num_turns"),
         "stop_reason": envelope.get("stop_reason"),
         "total_cost_usd": envelope.get("total_cost_usd"),
+        # What the peer was actually handed, not what the task named. A run can reach COMPLETE with
+        # every context document unresolvable; without this the trace cannot tell the two apart.
+        "context_delivery": dict(LAST_DELIVERY),
         "independence_caveat": (
             "Same model lineage as the other resources in this run. Agreement between "
             "resources is role-conditioned execution, not independent triangulation."
