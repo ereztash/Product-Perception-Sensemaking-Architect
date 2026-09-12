@@ -1,0 +1,46 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-UX-REASONING-TPOAE-COPILOT-2026-09-12",
+  "telos": {
+    "statement": "Determine whether the proposed diagnostic reasoning framework Truth → Perception → Action → Ownership → Effect is a sound, discriminating, and decision-useful way to diagnose product failures in Decision Lab, or whether it collapses distinct constructs, mixes levels of analysis, omits material mechanisms, or should be represented in a different structure.",
+    "success_condition": "Return a bounded decision about whether to USE_EXISTING, ADAPT, TEST, or RETIRE the five-part framework; identify the smallest set of distinctions that actually changes diagnosis and intervention choice; name the strongest competing decomposition; specify what can be resolved conceptually now versus what requires FIELD evidence; and produce a falsifiable next move rather than a prettier taxonomy."
+  },
+  "current_state": {
+    "summary": "A product-analysis reasoning chain was proposed during review of Decision Lab: Reality → Model → Representation → Interpretation → Action → Learning. From it, five diagnostic questions were derived: (1) Truth — what does the system actually know? (2) Perception — what does the user think the system knows? (3) Action — what should the user do next with that state? (4) Ownership — can the user carry the distinction/judgment themselves rather than merely follow the system, especially where transfer matters? (5) Effect — did the resulting action actually change the target behavior/outcome? The current intuition is that these five questions correspond to distinct failure classes: instrument/research failure, representation failure, interaction/journey failure, learning/transfer failure, and intervention-effect failure. Motivation was deliberately not made a primitive because it may be an outcome produced by several of these mechanisms. Ownership was acknowledged as product-specific rather than universal. The framework was generated analytically from a causal chain, not validated against a corpus of product failures. The live question is whether this is a genuinely useful decomposition or merely a compelling verbal compression.",
+    "known_constraints": [
+      "Do not promote a memorable five-part list into a canonical method merely because it sounds coherent.",
+      "Do not force MECE if the underlying system is causal, recursive, or has moderators rather than serial stages.",
+      "Separate epistemic state, user perception, action selection, behavior execution, learning/transfer, and downstream outcome if they are not the same construct.",
+      "Ownership may be a moderator, mechanism, or product-specific requirement rather than a universal stage; test that rather than assuming it.",
+      "Action clarity is not identical to action execution; motivation, ability, opportunity, trust, cost and expected value may intervene.",
+      "Effect may exist at several levels: immediate behavior, transfer, retention, skill change, external outcome. Do not collapse them.",
+      "The framework should be judged by discrimination power: does locating a failure in one component lead to a materially different next intervention or evidence request?",
+      "A useful framework should survive neighboring cases outside Decision Lab; a framework that only redescribes this one product should not be called general.",
+      "Prefer the smallest reversible test or comparison that can determine whether the framework improves diagnosis over an ordinary product-analysis baseline.",
+      "Same-model peer agreement is not independent validation."
+    ],
+    "available_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should Truth → Perception → Action → Ownership → Effect be adopted as the working diagnostic framework for product reasoning in Decision Lab, and if so in what exact structural form; or should it be adapted/rejected before it influences future audits, UX decisions, or product instrumentation?",
+    "current_default": "Do not canonize the five-part framework yet. Use it only as a provisional heuristic until its constructs, topology, omissions, and discrimination value have been challenged against at least one strong alternative and a small set of real cases.",
+    "reversal_condition": "Promote or adapt the framework only if analysis shows that its components map to distinct failure mechanisms with different corrective actions/evidence needs, that fatal overlaps/omissions are either resolved or explicitly modeled, and that a minimal comparison can test whether it improves diagnosis beyond an ordinary unstructured product review."
+  },
+  "signals": [
+    "Truth and Effect look like endpoint validity questions, while Perception, Action and Ownership may be mediating mechanisms; this may mean the five items are not the same ontological type.",
+    "The deeper chain Reality → Model → Representation → Interpretation → Action → Learning may be more structurally coherent than the five questions, suggesting the five are projections or audit lenses rather than stages.",
+    "Perception may itself contain comprehension, trust, salience, interpretation and perceived value; one label may hide several materially different mechanisms.",
+    "Action may conflate knowing the next action with choosing it, initiating it, completing it and paying its cost.",
+    "Ownership may explain transfer in Decision Lab but may be irrelevant to products whose telos is one-shot execution, implying it could be conditional rather than universal.",
+    "Effect may be recursively fed back into Truth because observed effects update the system's model; a linear chain may miss the closed loop.",
+    "Motivation was excluded as a primitive on the theory that it is an outcome of other mechanisms, but this is not established; expected payoff or effort may be independent bottlenecks.",
+    "A competing formulation could be a fault tree or layered model such as Epistemic Validity → Representation Fidelity → Decision/Action Affordance → Internalization/Transfer → Outcome, with moderators such as motivation/trust/cost rather than a flat list.",
+    "The practical value criterion is not elegance. If two frameworks produce the same diagnosis and next move on the same cases, the extra framework has Δ0."
+  ],
+  "allowed_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"],
+  "context_refs": [],
+  "budget": {
+    "max_resource_calls": 3,
+    "max_parallel_calls": 2
+  }
+}
