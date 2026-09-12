@@ -1,0 +1,50 @@
+name: TPOAE R&D Calibration
+
+on:
+  push:
+    branches:
+      - run/tpoae-rnd-best-effort-2026-09-12
+    paths:
+      - '.github/workflows/tpoae-rnd-copilot.yml'
+      - 'research/deep-research-preflight/UX-REASONING-TPOAE-COPILOT-2026-09-12.task.json'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout exact branch commit
+        uses: actions/checkout@v4
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Validate canonical task
+        run: python scripts/validate_calibration_task.py research/deep-research-preflight/UX-REASONING-TPOAE-COPILOT-2026-09-12.task.json
+
+      - name: Run canonical Calibration Loop
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="runtime/execution_traces/TPOAE-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/deep-research-preflight/UX-REASONING-TPOAE-COPILOT-2026-09-12.task.json \
+            --config runtime/calibration_loop/copilot-config.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tpoae-rnd-${{ github.sha }}
+          path: runtime/execution_traces/TPOAE-${{ github.sha }}.json
+          if-no-files-found: warn
