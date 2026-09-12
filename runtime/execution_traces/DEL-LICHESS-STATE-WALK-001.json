@@ -1,0 +1,60 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-STATE-WALK-001",
+  "decision": {
+    "statement": "Decide whether the shipped ereztash/lichess_app product, after the repair passes and without a new orchestration surface, is coherent enough to hand to cold users, by walking every materially different user state in a real browser rather than deriving it from architecture or documentation.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "REPO",
+    "evidence_refs": [
+      "ereztash/lichess_app research/player-path/PRODUCT_STATE_WALK.md, the seventeen-state table, the reachable state machine and the nine-collapse inspection",
+      "ereztash/lichess_app research/player-path/FIELD_RUN_CURRENT.md, pre-registered before any participant",
+      "ereztash/lichess_app tests/layout/a-live-game-that-can-reach-its-second-decision.layout.test.ts, the walk that found the defect, with its positive control measured red",
+      "ereztash/lichess_app tests/client/a-ply-that-was-also-a-state.test.ts, the truth table underneath it",
+      "ereztash/lichess_app shared/evidence-policy.ts EVIDENCE_POLICY_VERSION 4, which admits only purpose play into discovery",
+      "ereztash/lichess_app docs/decisions/D25-evidence-architecture.md, the decision that left EXPERIMENTAL_LEARNING_ENABLED off"
+    ],
+    "reversal_condition": "A FIELD session in which a cold participant reaches a candidate pattern, or in which the two denominators on the record page are read as one population without prompting. Either observation changes what the walk concluded about reachability or about C-1."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Freeze the head, implement nothing, walk the built bundle in Chromium at phone width from a fresh profile through every one of seventeen named states, report NOT_REACHABLE where a state cannot be reached by pressing controls, derive the state machine from what was reachable, inspect nine named construct collapses, score a six-question orientation audit and the negative states, then classify what remains by authority and repair only the smallest REPO correctness defect.",
+    "completed_action": "Ten walks. Six states are NOT_REACHABLE because EXPERIMENTAL_LEARNING_ENABLED is off and the learning surfaces are absent from the built bundle. One defect was found by pressing a button and finding nothing happened: a live game under the default reveal timing could not reach its second decision, because the reveal's ply and the sentinel for 'no reveal is open' were the same value, minus one, and every game dealt by newGame starts there. The cost was not one button: purpose play is the only purpose discovery admits, play requires a live decision that is not the game's first, so the discovery population could not be fed by the default route at all. Repaired. Eight of the nine named collapses are not collapsed and the product states each boundary in its own words; the ninth is not applicable because its surfaces are off. One collapse not on the list was found and left standing for the owner: two evidence lanes with two floors and two denominators report on one screen with nothing saying they are two.",
+    "status": "COMPLETE",
+    "artifact_refs": [
+      "ereztash/lichess_app research/player-path/PRODUCT_STATE_WALK.md",
+      "ereztash/lichess_app research/player-path/FIELD_RUN_CURRENT.md",
+      "ereztash/lichess_app client/src/lib/continuation.ts",
+      "ereztash/lichess_app client/src/pages/Home.tsx"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "The repaired tree passes npm run verify with every gate green and every positive control red, and the new layout walk fails when the old sentinel is restored.",
+    "observed_state": "npm run verify EXIT=0 on the repaired tree. The new walk passes on the repaired build and fails at the missing continuation on the inverted one, measured rather than asserted.",
+    "status": "SUPPORTED",
+    "evidence_refs": [
+      "ereztash/lichess_app npm run verify on the commit carrying this trace",
+      "ereztash/lichess_app tests/layout/a-live-game-that-can-reach-its-second-decision.layout.test.ts, inverted control run"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "Whether a cold chess player, with no explanation, understands what the product is for, can say where they are in it, can choose and complete the next action, and can tell the difference between the system holding more evidence and themselves having improved.",
+    "observation": "Not observed. Zero humans have used this build.",
+    "status": "UNRESOLVED",
+    "evidence_refs": [
+      "ereztash/lichess_app research/player-path/FIELD_RUN_CURRENT.md, measures M1 to M8 and the interpretation rules frozen before the run"
+    ]
+  },
+  "learning": {
+    "decision_delta": "The question 'is the product coherent enough for cold users' was answerable by the repository for exactly one of its halves. Reachability, claim boundaries and state transitions are REPO facts and were settled by walking. Comprehension, orientation, payoff and pull are FIELD facts and no amount of further repository reasoning moves them.",
+    "claim_updates": [
+      "REFUTED: that the walk could be done from architecture. The one material defect was invisible to every unit test of the pieces, because each piece was correct about the arguments it was given; what was wrong was a number's meaning, which only shows when a person presses the button.",
+      "SUPPORTED: the product's claim boundaries hold under a walk. Detector silence, self-report, executed versus intended move, rating and goal are each separated in the product's own sentences on the screens where they could have collapsed.",
+      "UNRESOLVED and routed to OWNER: which of the two evidence lanes is the product. Both ship, with different floors and different denominators, and choosing is not a repository question."
+    ],
+    "resource_delta": "One repository correctness blocker removed at the cost of one changed type, one changed call site, two tests and one measured positive control. No new surface, no new architecture, no new wording pass.",
+    "next_move": "Run FIELD on the frozen build, against the pre-registration, without changing it.",
+    "stop_or_continue": "STOP. The remaining uncertainty is human comprehension, value and action, which belongs to FIELD."
+  }
+}
