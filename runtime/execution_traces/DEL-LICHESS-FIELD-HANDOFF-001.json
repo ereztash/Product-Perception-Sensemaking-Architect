@@ -29,7 +29,7 @@
   "verified_state": {
     "authority": "REPO",
     "expected_state": "The stimulus is frozen and the package does not alter it: no copy change, no route change, no merged evidence paths, no learning flag, no orchestration, no onboarding, and C-1 unrepaired.",
-    "observed_state": "The only tree changes are markdown under docs/decisions/ and research/player-path/. The built bundle is unchanged, and npm run verify passes on the tree carrying the package.",
+    "observed_state": "The only tree changes are markdown under docs/decisions/ and research/player-path/. The build is content-hashed and the page bundle stays index-D_Il6CdA.js across them, so the stimulus is the same bytes; only /build-identity.json differs, naming the head commit and the build time, and it is read by the self-check overlay alone. npm run verify passes on the tree carrying the package.",
     "status": "SUPPORTED",
     "evidence_refs": [
       "ereztash/lichess_app npm run verify on the commit carrying the session package",
@@ -51,7 +51,7 @@
       "UNRESOLVED and now correctly seated: every claim about cold-player comprehension. WAITING_AUTHORITY is the disposition, not debt, and it is not a failed execution.",
       "SUPPORTED: that preparing the instrument is separable from running it. The package is complete and the measurement is not, and reporting those as one thing would be the substitution the protocol forbids."
     ],
-    "resource_delta": "One decision record, five session documents, no product change. The stimulus under test is byte-identical to the build the pre-registration names.",
+    "resource_delta": "One decision record, five session documents, no product change. The page bundle under test is byte-identical to the build the pre-registration names, and the session package makes its content hash the pre-session check.",
     "next_move": "A person runs three to five sessions from research/player-path/field/README.md and fills one participant file per session before recruiting the next.",
     "stop_or_continue": "STOP. FIELD_READY / HUMAN_PARTICIPANTS_REQUIRED."
   }
