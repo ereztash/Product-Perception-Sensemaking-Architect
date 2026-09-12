@@ -1,8 +1,8 @@
 # Branch Inventory
 
 Status: `CANONICAL`
-Captured: 2026-09-08, after the retirement
-Captured against: `main` @ `74fc4af509965497a7440d9521fc3717b2809f50`
+Captured: 2026-09-12, re-anchored after `main` moved and five branches appeared
+Captured against: `main` @ `8ce05519813da536a956735aba3ed327c9cdbf08`
 
 This file is the branch-level half of the canonical rule. `docs/REPOSITORY_MAP.md` states
 the rule; `scripts/check_branch_inventory.py` enforces it; this file is the declaration
@@ -29,6 +29,7 @@ A declaration that no instrument checks is not a rule. It is a note.
 | `RETIRABLE` | Strict ancestor of `main`. Deletion loses no history. | Owner deletes; see `docs/BRANCH_RETIREMENT_RUNBOOK.md`. Currently unused: no branch holds this disposition. |
 | `OPEN_PR_TO_MAIN` | Ahead of `main`, open pull request targeting `main`. | Merge or close the pull request. |
 | `OPEN_PR_TO_BRANCH` | Ahead of `main`, open pull request targeting a side branch. | Its content cannot reach `main` through that pull request. Retarget or reopen against `main`. |
+| `SUPERSEDED` | Ahead of `main`, but every path unique to it also exists on a named successor branch. | Retire when the successor lands. Deleting it before that loses nothing the successor does not hold. |
 | `STRANDED` | Ahead of `main`, no open pull request. Artifacts exist only here. | Recover to `main`, copy to `archive/`, or record why neither. |
 
 A branch carrying an unfinished experiment is not thereby exempt. `STRANDED` describes
@@ -91,56 +92,118 @@ refused in every agent session and the owner action was never surfaced as one co
 
 ## Ahead of `main`
 
+"New files" counts paths that exist in the branch tree at the tip below and in no path of
+the `main` tree at the anchor above. Both sides are pinned commits, so each row stays
+checkable as branches move. `scripts/check_branch_inventory.py --live` recomputes every
+one of these numbers and fails on any that does not match.
+
 | Branch | Tip | Ahead | New files | Disposition |
 |---|---|---|---|---|
-| `claude/product-value-completion-run-if7ito` | `b358884a97` | 13 | 31 | `OPEN_PR_TO_BRANCH` |
-| `claude/repo-canonicalization-reconciliation-aufvq6` | `b205708e4b` | 10 | 0 | `OPEN_PR_TO_MAIN` |
-| `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 4 | `OPEN_PR_TO_MAIN` |
-| `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 0 | `STRANDED` |
-| `run/claude-prerelease-prompt-telos-2026-09-06` | `5be34ad7fd` | 2 | 2 | `STRANDED` |
-| `run/delta-v02-batch-2026-09-08` | `9ef5c8b433` | 5 | 4 | `STRANDED` |
-| `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 6 | 3 | `STRANDED` |
-| `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | 4 | `STRANDED` |
-| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 7 | `STRANDED` |
-| `run/product-value-completion-2026-09-06` | `bdaba4849d` | 3 | 8 | `STRANDED` |
-| `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 5 | `STRANDED` |
-| `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 1 | `STRANDED` |
-| `claude/repo-cleanup-590u82` | `41a45eea6a` | 1 | 3 | `OPEN_PR_TO_MAIN` |
-| `research/rnd-self-triangulation-2026-09-08` | `440fd2465d` | 5 | 5 | `STRANDED` |
+| `claude/product-value-completion-run-if7ito` | `1ceec96412` | 15 | 31 | `OPEN_PR_TO_MAIN` |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | `919f7642b4` | 14 | 0 | `OPEN_PR_TO_MAIN` |
+| `claude/repo-cleanup-590u82` | `2f30b946b7` | 9 | 4 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `115f295056` | 11 | 8 | `OPEN_PR_TO_MAIN` |
+| `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 1 | `SUPERSEDED`, superseded by `main` |
+| `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 14 | `OPEN_PR_TO_MAIN` |
+| `research/rnd-self-triangulation-2026-09-08` | `bf346508d2` | 17 | 17 | `STRANDED` |
+| `research/rnd-self-triangulation-adjudication-2026-09-08` | `dd59bf7ae1` | 13 | 13 | `SUPERSEDED`, superseded by `research/rnd-self-triangulation-anti-adjudication-2026-09-08` |
+| `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | `45e4019676` | 15 | 15 | `STRANDED` |
+| `research/rnd-self-triangulation-anti-challenges-2026-09-08` | `3b51465235` | 23 | 23 | `STRANDED` |
+| `research/rnd-self-triangulation-challenges-2026-09-08` | `9756465715` | 18 | 18 | `SUPERSEDED`, superseded by `research/rnd-self-triangulation-anti-challenges-2026-09-08` |
+| `run/claude-prerelease-prompt-telos-2026-09-06` | `5be34ad7fd` | 2 | 12 | `STRANDED` |
+| `run/construct-separation-audit-2026-09-12` | `ec8c193024` | 5 | 4 | `STRANDED` |
+| `run/delta-v02-batch-2026-09-08` | `c064fa1d58` | 10 | 9 | `STRANDED` |
+| `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 6 | 4 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | 5 | `STRANDED` |
+| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 8 | `SUPERSEDED`, superseded by `run/nico-ux-paired-2026-09-12` |
+| `run/nico-ux-paired-2026-09-12` | `07ddf30252` | 20 | 12 | `STRANDED` |
+| `run/product-value-completion-2026-09-06` | `bdaba4849d` | 3 | 9 | `SUPERSEDED`, superseded by `claude/product-value-completion-run-if7ito` |
+| `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 6 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `run/tpoae-rnd-best-effort-2026-09-12` | `25ec110ab8` | 16 | 10 | `SUPERSEDED`, superseded by `run/nico-ux-paired-2026-09-12` |
+| `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 2 | `STRANDED` |
 
 Tips in this table are last-observed values, not pins. An active branch is expected to
 receive commits, and `scripts/check_branch_inventory.py --live` reports such movement
-without failing. A `RETIRABLE` tip is pinned: the runbook would be about to delete that
-ref, and a ref that moved since capture may no longer be contained in `main`.
+without failing; the new-file count stays true because it is measured at the tip the row
+names. A `RETIRABLE` tip is pinned: the runbook would be about to delete that ref, and a
+ref that moved since capture may no longer be contained in `main`.
 
-### PR 19 cannot reach `main`
+## Relocations
 
-PR 19 has head `claude/product-value-completion-run-if7ito` and base
-`run/product-value-completion-2026-09-06`. Both are ahead of `main`. Merging PR 19
-moves 31 files from one side branch to another. No pull request currently targets
-`main` from either.
+`main` carries these paths under a different name. A branch that predates the move still
+holds the old path, which is not a path that exists only on that branch. The exemption is
+declared here so `scripts/check_branch_inventory.py --live` can verify it: the canonical
+path must exist on `main` and the old path must not.
 
-This is the structural version of the drift: the work looks reviewed, and the review
-terminates outside the canonical lane.
+| Path on side branches | Canonical path on `main` |
+|---|---|
+| `docs/BRANCH_AUDIT_2026-09-05.md` | `archive/legacy-branches/BRANCH_AUDIT_2026-09-05.md` |
+
+Fifteen of the eighteen branches carry the old path, all at one identical blob. `main`
+holds a later copy: it spells out the three `archive/legacy-branches/` filenames the
+side-branch copy names bare. The exemption covers this one path and nothing else, so it
+cannot be widened into a blanket excuse for a stale branch.
+
+## The counts in this file were wrong until 2026-09-09
+
+The first version of this table published `git diff --diff-filter=A --name-only
+main...branch`. Three-dot compares against the merge base, so it reports nothing for work
+`main` absorbed as a squash and nothing for paths the branch has carried since before the
+fork point. The prose above the table said "compared tree to tree". The two do not agree.
+
+Eleven of sixteen rows were wrong. `run/claude-prerelease-prompt-telos-2026-09-06` was
+published as 2 new files and holds 12: ten frozen `RND_TELOS_*` and
+`RND_NARROW_TELOS_BENCHMARK_*` documents existed only there and the number said otherwise.
+`research/architecture-clean-ab-2026-09-06` was published as 4 and holds 14.
+
+The instrument passed green throughout, because nothing compared the published number to
+the trees. That is the same substitution this repository is built to catch, occurring in
+the file that names it: a measurement was replaced by a cheaper one that answers a
+different question, and the gate could not tell.
+
+Repaired at the instrument, not in prose. `--live` now recomputes every count and every
+successor claim tree to tree, with positive controls including one that reproduces the
+three-dot error and fails on it.
+
+### PR 19 was retargeted at `main` and now can reach it
+
+The 2026-09-08 read recorded that PR 19 had head `claude/product-value-completion-run-if7ito`
+and base `run/product-value-completion-2026-09-06`: both ahead of `main`, so merging it
+would have moved 31 files from one side branch to another and no pull request targeted
+`main` from either. As of 2026-09-09 its base is `main`.
+
+The finding is closed and the base branch is now `SUPERSEDED` by PR 19's own head, which
+carries every path it has. It stays recorded because it is the structural form of the
+drift this file exists for: work that looks reviewed while the review terminates outside
+the canonical lane.
 
 ### Forked artifacts with no canonical copy
 
-The same four artifacts exist on several branches, at different contents, with no copy
-on `main`. Nothing selects between the versions.
+The same artifacts exist on several branches, at different contents, with no copy on
+`main`. Nothing selects between the versions. Recounted 2026-09-09 across all eighteen
+branches; every count below is higher than the 2026-09-08 reading, which sampled only the
+branches then declared.
 
 | Artifact | Branches | Distinct contents |
 |---|---|---|
-| `.github/workflows/best-effort-lichess-copilot.yml` | 3 | 3 |
-| `skills/evidence-bounded-best-effort-runtime/skill.md` | 3 | 2 |
-| `runtime/calibration_loop/copilot_resource_adapter.py` | 3 | 1 |
-| `runtime/calibration_loop/copilot-config.best-effort.json` | 3 | 1 |
-| `runtime/calibration_loop/copilot_resource_adapter_v02.py` | 2 | 1 |
-| `runtime/calibration_loop/copilot-config-v02.best-effort.json` | 2 | 1 |
+| `.github/workflows/best-effort-lichess-copilot.yml` | 5 | 3 |
+| `skills/evidence-bounded-best-effort-runtime/skill.md` | 5 | 2 |
+| `runtime/calibration_loop/copilot_resource_adapter.py` | 6 | 3 |
+| `runtime/calibration_loop/copilot-config.best-effort.json` | 6 | 1 |
+| `runtime/calibration_loop/copilot_resource_adapter_v02.py` | 6 | 1 |
+| `runtime/calibration_loop/copilot-config-v02.best-effort.json` | 6 | 1 |
+| `runtime/calibration_loop/claude_cli_adapter.py` | 2 | 2 |
+| `runtime/calibration_loop/claude-cli-config.json` | 2 | 1 |
 
-The `_v02` rows are a second generation of the same adapter, carried identically by
-`run/delta-v02-batch-2026-09-08` and `research/rnd-self-triangulation-2026-09-08`. Neither
-generation is on `main`, so a change to the adapter now has six side-branch copies to chase
-and no canonical one to change.
+The `_v02` rows are a second generation of the same adapter, carried identically by six
+branches. Neither generation is on `main`, so a change to the adapter has twelve
+side-branch copies to chase and no canonical one to change.
+
+`copilot_resource_adapter.py` went from one content across three branches on 2026-09-08 to
+three contents across six on 2026-09-12. `claude_cli_adapter.py` was identical on two
+branches on 2026-09-10 and is two different files on those same two branches now: PR 19 and
+PR 23 each propose one to `main`. A forked artifact with no canonical copy does not stay
+merely duplicated; it diverges, and then someone has to choose.
 
 `research/rnd-self-triangulation-2026-09-08` was pushed on 2026-09-08 at 14:26, after this
 inventory was first written. `scripts/check_branch_inventory.py --live` failed on it within
@@ -149,6 +212,94 @@ made.
 
 `skills/` does not appear in the placement table in `docs/REPOSITORY_MAP.md`. A directory
 that exists on three branches and in no rule is a placement question, not a file question.
+
+The single most-copied path is `docs/BRANCH_AUDIT_2026-09-05.md`, on fifteen branches at
+one blob. It is the one case where `main` does hold the content, under the canonical path
+recorded in **Relocations** above.
+
+The two `claude_cli_*` rows appeared on 2026-09-10, when `claude/ux-ui-analysis-v6ao5u`
+took the Claude CLI adapter that `claude/product-value-completion-run-if7ito` already
+carried. Identical blobs, so nothing has diverged yet; two open pull requests now propose
+the same file to `main` from different branches, and whichever merges second will find it
+already there.
+
+## Branch-by-branch read, 2026-09-08, re-measured 2026-09-09
+
+Every branch was read. The new-file count is the number that matters, because a branch can
+sit many commits ahead and still hold almost nothing: `feat/resource-delta-accounting-v0-2`
+is six commits ahead and holds one path, the relocated audit document, since `main` took
+its work as the squash `74fc4af`. A commit count is not evidence of content.
+
+The converse also holds, and is what the three-dot error hid:
+`run/claude-prerelease-prompt-telos-2026-09-06` is two commits ahead and holds twelve paths
+that exist nowhere on `main`.
+
+### Six branches hold nothing their successor does not
+
+Each row's successor carries every path the branch has, allowing the one relocation above.
+`--live` verifies this tree to tree on every run, so a predecessor that receives a commit
+and stops being contained fails the gate instead of aging quietly inside a claim.
+
+That is not a hypothetical. `research/rnd-self-triangulation-2026-09-08` was declared
+`SUPERSEDED` by the challenges branch on 2026-09-08 and received the five-path
+mechanism-transfer set on 2026-09-09. It is `STRANDED` now, and it took a hand comparison to
+notice, which is why the check exists.
+
+Eighteen open questions become twelve.
+
+### The rubric and the result it grades are on different branches, twice
+
+`research/rnd-self-triangulation-adjudication-2026-09-08` carries
+`RND_SELF_TRIANGULATION_CHALLENGE_RUBRIC_1.md`, frozen to adjudicate the blind challenges.
+`research/rnd-self-triangulation-challenges-2026-09-08` carries the challenges `C1` to `C4`
+and `RND_SELF_TRIANGULATION_CHALLENGE_RESULT_1.md`. Neither contains the other.
+
+On 2026-09-09 the same split reappeared one generation later.
+`research/rnd-self-triangulation-anti-adjudication-2026-09-08` carries
+`anti-adjudication/ANTI_CHALLENGE_RUBRIC_V0.md` and `ANTI_CHALLENGE_RESULT_1.md`;
+`research/rnd-self-triangulation-anti-challenges-2026-09-08` carries the anti-challenges
+`A1` to `A4` and their workflow. Neither contains the other either. Each `anti-*` branch
+does contain its own predecessor, which is why the two older branches are now `SUPERSEDED`
+and the split moved rather than closed.
+
+From either branch of a pair alone, the blind result cannot be graded against its own
+frozen rubric. This is a live research program, not archaeology, and the split is `OWNER`'s
+to resolve. The instrument records that it recurred; it does not resolve it.
+
+### The skill has two versions and the newer one is on the smaller branch
+
+`skills/evidence-bounded-best-effort-runtime/skill.md` is 205 lines on
+`skill/evidence-bounded-best-effort-runtime` and 140 lines on four `run/` branches. The
+205-line version is the later one: it was committed as "tighten best-effort skill after
+self-calibration". A merge that took the run branches' copy would silently revert that
+refinement.
+
+On 2026-09-12 this stopped being a note and became a gate. `run/nico-ux-paired-2026-09-12`
+now holds every path `skill/evidence-bounded-best-effort-runtime` holds, so path
+containment would have called it `SUPERSEDED` and licensed deleting the only copy of the
+205-line file. `--live` now also compares content: a successor must hold each path at the
+branch's version or at a version its own history contains. `main` taking a branch's work as
+a squash passes that test; a parallel branch sitting on an older copy does not. The row
+stays `STRANDED`, and a positive control reproduces the case.
+
+`skills/` still matches no row in the placement table in `docs/REPOSITORY_MAP.md`.
+
+### PR 19 has been retargeted
+
+The 2026-09-08 read recommended retargeting PR 19 at `main`, on the grounds that its base
+`run/product-value-completion-2026-09-06` holds nothing PR 19's own head does not. That was
+done. PR 19's 31 files can now reach `main`, and the base branch is `SUPERSEDED` by the
+head.
+
+### What is decided and what is not
+
+Decided here: which branches hold nothing, and what each remaining branch actually contains.
+
+Not decided here: whether the twelve remaining branches should be recovered into `main` or
+copied under `archive/`. Each holds real content, several are being written to now, and two
+belong to parallel sessions' open pull requests. That is an `OWNER` decision per branch,
+and taking it inside a repository-organization pass would be the same encodability bias the
+kernel forbids.
 
 ## What this inventory does not claim
 

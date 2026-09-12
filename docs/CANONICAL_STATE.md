@@ -39,48 +39,54 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Fourteen branches are ahead of `main`. The full inventory, with tips, dispositions and the
-forked artifacts that exist on no branch canonically, is `docs/BRANCH_INVENTORY.md`.
-`scripts/check_branch_inventory.py --live` fails when this table and that inventory
-disagree with the actual remote.
+Twenty-two branches are ahead of `main`, all read branch by branch and re-measured tree
+to tree, re-anchored on 2026-09-12 after `main` moved. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
+each contains; `scripts/check_branch_inventory.py --live` fails when this table and that
+inventory disagree with the actual remote, and now also when a published count or a named
+successor does not survive a tree-to-tree check.
 
 | Branch | Purpose | State |
 |---|---|---|
-| `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | blocked, see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
-| `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object | `FAILED_EXECUTION`, no adapter credential in environment |
-| `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the branch-deletion blocker (PR 18) | open pull request against `main` |
-| `claude/product-value-completion-run-if7ito` | three strict Calibration Loop runs and the N3 register-test freeze (PR 19) | open pull request against `run/product-value-completion-2026-09-06`, not against `main`; its 31 files cannot reach `main` through it |
-| `run/product-value-completion-2026-09-06` | product-value completion calibration | `STRANDED`, base of PR 19, no pull request of its own |
-| `feat/resource-delta-accounting-v0-2` | prospective resource-delta accounting | `STRANDED`, no pull request |
+| `claude/product-value-completion-run-if7ito` | three strict Calibration Loop runs and the N3 register-test freeze (PR 19) | `OPEN_PR_TO_MAIN`; retargeted at `main` on 2026-09-09, so its 31 files can now reach it |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the retirement record (PR 18) | `OPEN_PR_TO_MAIN`, parallel session, zero new files |
+| `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | `OPEN_PR_TO_MAIN`, blocked; see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
+| `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the branch-by-branch read (PR 22) | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | four lichess decision traces and two runtime defects found by running the loop (PR 23) | `OPEN_PR_TO_MAIN`, parallel session; carries three of the cleanup branch's commits replayed under new SHAs, and not the three holding `research/deep-research-preflight/AGENT_*` |
+| `run/nico-ux-paired-2026-09-12` | paired UX comparison and the TPOAE reasoning run | `STRANDED`, live, no pull request; now the head of the best-effort lineage |
+| `run/tpoae-rnd-best-effort-2026-09-12` | TPOAE R&D best-effort run | `SUPERSEDED` by the paired-UX branch |
+| `run/construct-separation-audit-2026-09-12` | construct-separation audit task and its workflow | `STRANDED`, live, no pull request |
+| `research/rnd-self-triangulation-anti-challenges-2026-09-08` | anti-challenges `A1`-`A4` and the blind challenge matrix they invert | `STRANDED`, live, no pull request |
+| `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | frozen anti-challenge rubric and its result | `STRANDED`, live, no pull request |
+| `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix `C1`-`C4` and its result | `SUPERSEDED` by the anti-challenges branch |
+| `research/rnd-self-triangulation-adjudication-2026-09-08` | frozen adjudication rubric for those challenges | `SUPERSEDED` by the anti-adjudication branch |
+| `research/rnd-self-triangulation-2026-09-08` | self-triangulation preflight, synthesis and the 2026-09-09 mechanism-transfer arms | `STRANDED`; was declared `SUPERSEDED` and stopped being contained when it received new work |
+| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | counterfactual replay of best-effort reasoning | `SUPERSEDED` by the paired-UX branch |
+| `run/self-calibrate-best-effort-skill-2026-09-08` | best-effort skill self-calibration | `SUPERSEDED` by the meta-calibration branch |
+| `run/lichess-premove-ownership-copilot-2026-09-07` | Copilot best-effort adapter and pre-move ownership run | `SUPERSEDED` by the meta-calibration branch |
+| `skill/evidence-bounded-best-effort-runtime` | the 205-line skill definition, later than the 140-line copy every `run/` branch carries | `STRANDED`; the paired-UX branch holds the path and not this content, so it is not superseded |
+| `run/product-value-completion-2026-09-06` | product-value completion calibration | `SUPERSEDED` by PR 19's head |
+| `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and the first Neta yield batch | `STRANDED`, no pull request |
 | `run/lichess-whitepaper-calibration-2026-09-06` | lichess white-paper and commercial-roadmap calibration | `STRANDED`, no pull request |
-| `run/lichess-premove-ownership-copilot-2026-09-07` | Copilot best-effort adapter and pre-move ownership run | `STRANDED`, no pull request |
-| `run/self-calibrate-best-effort-skill-2026-09-08` | best-effort skill self-calibration | `STRANDED`, no pull request |
-| `run/meta-calibrate-best-effort-reasoning-2026-09-08` | counterfactual replay of best-effort reasoning | `STRANDED`, no pull request |
-| `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and config | `STRANDED`, no pull request |
-| `skill/evidence-bounded-best-effort-runtime` | evidence-bounded best-effort runtime skill | `STRANDED`, no pull request |
-| `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the retirement runbook | open pull request against `main` |
-| `research/rnd-self-triangulation-2026-09-08` | R&D self-triangulation preflight and its v0.2 Copilot adapter | `STRANDED`, no pull request |
+| `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object, plus ten frozen `RND_TELOS_*` and narrow-benchmark documents | `STRANDED`, `FAILED_EXECUTION`, no adapter credential in environment |
+| `feat/resource-delta-accounting-v0-2` | prospective resource-delta accounting | `SUPERSEDED` by `main`; one path, the relocated audit document, since `main` took its work as the squash `74fc4af` |
 
-No branch above holds a research result. They hold experiment inputs, run traces, adapters,
-one skill definition and unexecuted protocols. Recovery, archival or abandonment of each is
-an `OWNER` decision and none is taken here.
+Seven carry nothing their named successor does not, allowing the one relocation the
+inventory declares. `feat/resource-delta-accounting-v0-2` is the clearest: six commits ahead, one
+path, because `main` took its work as the squash `74fc4af`.
 
-Ten of the fourteen carry no pull request at all, and a tenth carries one aimed at a side
-branch. That is the same drift the 2026-09-06 reconciliation recorded, at a larger count:
-the file-level validators cannot see a commit that lives only on an unmerged branch, so the
-branch-level half of the canonical rule was left to review, and review did not hold. The
-enforcement gap and its closure are recorded in `docs/BRANCH_INVENTORY.md`.
+Four hold halves of two live experiments that cannot be run apart. The frozen adjudication
+rubric is on `...-adjudication-...`; the blind challenges and their result are on
+`...-challenges-...`; the same split repeats one generation later across the two `anti-*`
+branches. In neither pair does either branch contain the other. Resolving that is `OWNER`'s.
+
+No branch above holds a promoted research result. Recovery, archival or abandonment of each
+remaining branch is an `OWNER` decision and none is taken here.
 
 Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
-by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen. Deletion
+by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen; five
+research branches, one trace branch and three run branches have been pushed since. Deletion
 is refused in every agent session by the egress proxy, so it remains an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
-
-`claude/lichess-prerelease-gaps-qvlbv5` ran in parallel with the 2026-09-06 reconciliation
-and edited two of the same files. Both its passes merged into `main`, so its durable
-artifacts are readable there and the ref was retired on 2026-09-08. The collision and its
-resolution are
-recorded in `archive/reconciliation/RECONCILIATION_REPORT_2026-09-06.md`, section 12.
 
 ---
 

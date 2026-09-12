@@ -64,7 +64,7 @@ The GitHub Branches page deletes the same refs one at a time and works equally w
 Twenty-one refs deleted by the owner from a local clone, after
 `check_branch_inventory.py --live` confirmed all twenty-one were strict ancestors of `main`
 at `74fc4af5`. The remote went from thirty-five branches to fifteen: `main` plus fourteen
-ahead of it.
+ahead of it. Nine branches have been pushed since, so the live count is twenty-three.
 
 Retired: `archive/legacy-docs-2026-09-05`, `archive/legacy-snapshots`,
 `claude/lichess-prerelease-gaps-qvlbv5`, `neta/design-research-spine-v0.1`,
@@ -98,6 +98,6 @@ declaration that outlives its object is exactly what it exists to catch.
 
 ## What this runbook does not cover
 
-The fourteen branches ahead of `main`. None of them may be deleted by this command; every one
-carries commits that exist nowhere else. Their dispositions are in
+The twenty-two branches ahead of `main`. None of them may be deleted by this command; every
+one carries commits that exist nowhere else. Their dispositions are in
 `docs/BRANCH_INVENTORY.md` and their recovery is a separate `OWNER` decision.
