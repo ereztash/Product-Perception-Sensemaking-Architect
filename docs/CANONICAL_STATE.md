@@ -51,7 +51,7 @@ successor does not survive a tree-to-tree check.
 | `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the retirement record (PR 18) | `OPEN_PR_TO_MAIN`, parallel session, zero new files |
 | `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | `OPEN_PR_TO_MAIN`, blocked; see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
 | `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the branch-by-branch read (PR 22) | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | the lichess copy-pass trace `DEL-LICHESS-LEARNING-COST-001` and the learning-journey trace `DEL-LICHESS-LEARNING-JOURNEY-001` (PR 23) | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | the lichess copy-pass trace `DEL-LICHESS-LEARNING-COST-001`, the learning-journey trace `DEL-LICHESS-LEARNING-JOURNEY-001` and the player-path trace `DEL-LICHESS-PLAYER-PATH-001` (PR 23) | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-anti-challenges-2026-09-08` | anti-challenges `A1`-`A4` and the blind challenge matrix they invert | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | frozen anti-challenge rubric and its result | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix `C1`-`C4` and its result | `SUPERSEDED` by the anti-challenges branch |
