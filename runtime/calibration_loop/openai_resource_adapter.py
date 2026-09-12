@@ -57,6 +57,88 @@ def safe_repo_path(ref: str) -> Path:
     return candidate
 
 
+# A peer reasoning from filenames is a peer reasoning from nothing, and it does not fail
+# loudly -- it produces thinner output, which reads as a capability gap in whatever the run
+# was measuring. Bounds are named constants rather than magic numbers because a silently
+# truncated document is worse than an absent one: the peer would believe it had read the whole
+# thing. Every truncation and every failure is reported to the peer in the manifest below.
+CONTEXT_DOC_BYTES = int(os.environ.get("CALIBRATION_CONTEXT_DOC_BYTES", "60000"))
+CONTEXT_TOTAL_BYTES = int(os.environ.get("CALIBRATION_CONTEXT_TOTAL_BYTES", "400000"))
+
+
+# What the last `context_documents` call actually delivered, so a trace can say so.
+#
+# THE ADJACENT TRANSPORT ASSUMPTION, FOUND BY PROBING THE FIRST ONE. The original defect was that
+# peers received context_refs as paths they could not open. That was repaired; what was NOT repaired
+# is that nothing anywhere records whether the documents arrived. A run whose every ref is
+# unresolvable still reaches COMPLETE, the peer is told so in its own manifest and correctly
+# withholds claims, and the trace a reader later audits contains no trace of any of it.
+#
+# So the manifest becomes provenance. `claude_cli_adapter` writes it into the sidecar beside the
+# model and the session id, where an auditor can see that a peer was asked about five documents and
+# handed none.
+LAST_DELIVERY: dict[str, object] = {"requested": 0, "delivered": 0, "manifest": []}
+
+
+def context_documents(refs: object) -> str:
+    """Resolve a task's `context_refs` into their contents, bounded and honestly labelled.
+
+    Transport, not method. The refs are the ones the task already names; nothing is added,
+    reordered or summarised, and a ref that cannot be resolved is reported rather than dropped.
+    """
+    LAST_DELIVERY.update({"requested": 0, "delivered": 0, "manifest": []})
+    if not isinstance(refs, list) or not refs:
+        return ""
+    LAST_DELIVERY["requested"] = len(refs)
+
+    delivered: list[str] = []
+    manifest: list[str] = []
+    budget = CONTEXT_TOTAL_BYTES
+
+    for ref in refs:
+        if not isinstance(ref, str) or not ref.strip():
+            manifest.append(f"- (invalid ref entry) NOT DELIVERED: not a non-empty string")
+            continue
+        try:
+            body = safe_repo_path(ref).read_text(encoding="utf-8")
+        except (LiveAdapterError, OSError, UnicodeDecodeError) as exc:
+            # Named, not swallowed. A peer told a document is missing can say so in its own
+            # output; a peer told nothing will reason as though it had read it.
+            manifest.append(f"- `{ref}` NOT DELIVERED: {exc}")
+            continue
+
+        raw = body.encode("utf-8")
+        if budget <= 0:
+            manifest.append(f"- `{ref}` NOT DELIVERED: total context budget exhausted")
+            continue
+
+        cap = min(CONTEXT_DOC_BYTES, budget)
+        if len(raw) > cap:
+            body = raw[:cap].decode("utf-8", errors="ignore")
+            note = f" (TRUNCATED to {cap} of {len(raw)} bytes)"
+            budget -= cap
+        else:
+            note = f" ({len(raw)} bytes, whole)"
+            budget -= len(raw)
+
+        manifest.append(f"- `{ref}` delivered{note}")
+        delivered.append(f"## {ref}{note}\n\n{body}")
+
+    LAST_DELIVERY["delivered"] = len(delivered)
+    LAST_DELIVERY["manifest"] = list(manifest)
+    if not manifest:
+        return ""
+
+    header = (
+        "\n# Referenced context documents\n\n"
+        "These are the documents this task's `context_refs` name. They are delivered verbatim and "
+        "bounded; a truncation or a failure is stated on the document itself and in the manifest. "
+        "Do not assume the contents of anything listed as NOT DELIVERED.\n\n"
+        "### Delivery manifest\n" + "\n".join(manifest) + "\n"
+    )
+    return header + ("\n\n" + "\n\n".join(delivered) if delivered else "")
+
+
 def prompt_for(resource: str, request: dict) -> str:
     ref = request.get("prompt_ref") or RESOURCE_DEFAULT_PROMPTS[resource]
     if not isinstance(ref, str) or not ref.strip():
@@ -67,6 +149,11 @@ def prompt_for(resource: str, request: dict) -> str:
         if not isinstance(telos_ref, str) or not telos_ref.strip():
             raise LiveAdapterError("telos_ref must be a non-empty string when present")
         parts.append("\n# Referenced telos document\n" + safe_repo_path(telos_ref).read_text(encoding="utf-8"))
+    task = request.get("task")
+    if isinstance(task, dict):
+        documents = context_documents(task.get("context_refs"))
+        if documents:
+            parts.append(documents)
     parts.append(bridge_contract(resource, request.get("phase")))
     return "\n\n".join(parts)
 
@@ -93,7 +180,8 @@ Return exactly ONE JSON object and no Markdown. Required fields:
 - learning_records: array of objects describing what future routing/allocation learned; preserve expected-vs-observed mismatch when useful
 - stop_or_continue: STOP or CONTINUE
 - routing_amendment_proposed: null unless repeated evidence justifies a proposed routing change
-Preserve conflicts and authority ceilings. Do not treat same-model peer agreement as independent triangulation."""
+Preserve conflicts and authority ceilings IN learning_records; there is no separate field for them. Do not treat same-model peer agreement as independent triangulation.
+Do not add fields. The runner validates this object for exactly the keys above and rejects the run on any extra key."""
     if resource in {"NETA", "SCAFFOLD"}:
         return f"""# Adapter bridge contract
 Return exactly ONE JSON object and no Markdown with exactly these fields:

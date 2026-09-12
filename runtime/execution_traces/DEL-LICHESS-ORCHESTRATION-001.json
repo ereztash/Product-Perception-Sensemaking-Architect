@@ -1,0 +1,67 @@
+{
+ "trace_version": "0.1",
+ "trace_id": "DEL-LICHESS-ORCHESTRATION-001",
+ "decision": {
+  "statement": "Decide whether an orchestration surface in ereztash/lichess_app may render what deriveNextAction proposes, and what such a surface may state about where the player stands, without inventing a claim the frozen evidence ceiling forbids or breaking the product's own published refusal to recommend what to learn.",
+  "decision_owner": "OWNER",
+  "resolution_authority": "REPO",
+  "evidence_refs": [
+   "ereztash/lichess_app research/journey-pass/CURRENT_STATE.md, frozen before implementation and corrected once, for a routing error it names",
+   "ereztash/lichess_app research/journey-pass/DR_PLAN_2.md, frozen before the run with H-1 named as the favoured hypothesis",
+   "ereztash/lichess_app research/journey-pass/ORCH_TRACE.json, task CAL-LICHESS-ORCHESTRATION-001, final_state COMPLETE",
+   "ereztash/lichess_app research/journey-pass/RUN_AND_DECISION.md",
+   "ereztash/lichess_app docs/decisions/D22-next-action-ownership.md, mode DEFER at evidence level E2, unchanged by this pass",
+   "ereztash/lichess_app tests/layout/a-walk-the-derivation-can-be-wrong-about.layout.test.ts, D22 reversal condition 1 performed on the built app",
+   "ereztash/lichess_app research/journey-pass/IMPLEMENTATION_REPORT.md and FIELD_STATUS.md"
+  ],
+  "reversal_condition": "The owner repeats the same six-part orientation request after the ordering repair has shipped. Recurrence keeps the ownership hypothesis live and reopens D22; non-recurrence shows the binding constraint was ordering and that D22 never needed reopening. That is an OWNER reading, it costs nothing, and it discriminates between two hypotheses that otherwise need a field trial to separate."
+ },
+ "execution": {
+  "executor_type": "AGENT",
+  "planned_action": "Freeze the current state and a plan naming the favoured hypothesis; perform the one reversal condition of the prior decision record that is available without a person; run the Calibration Loop on the decision that remained; build only what the run's disposition permits, in the order it sequences; demonstrate every new invariant red before the repair.",
+  "completed_action": "The run refused the hypothesis cut itself rather than any one hypothesis. It found that the owner's six-part request is five orientation questions and one action question, and that all three of the ownership hypotheses argued only the action question while inheriting the prior decision record's frame instead of testing it -- a proxy substitution located inside the framing rather than downstream. H-4, the ordering repair carried as a rival of unknown weight, was promoted to first; H-1 was downgraded to conditionally admissible behind three named constraints; H-2 was denied on a second and independent ground, that the two agreeing walk states are the most-determined branches of the union where the derivation has almost no choice to make; H-3 was rejected as over-deferral. The run then named two REPO-closable facts outranking the original question, one of which was a correctness defect: the shipped shortfall figure said thirty where sixty are required, on the record every arrival has. Checked and true. Built: the ordering repair in both its parts, the shortfall correction, and four claim-boundary repairs with their controls. Not built: the ownership hypothesis, at any level.",
+  "status": "COMPLETE",
+  "artifact_refs": [
+   "ereztash/lichess_app research/journey-pass/ (seven files)",
+   "ereztash/lichess_app shared/reveal.ts bestMoveWasPlaced and PLACEMENT_IS_NOT_CONSIDERATION",
+   "ereztash/lichess_app scripts/placement-scan.ts, GATE-PLACEMENT-NOT-EVIDENCE",
+   "ereztash/lichess_app scripts/journey-scan.ts, GATE-ELSEWHERE-NOT-MEASURED",
+   "ereztash/lichess_app shared/decisions-elsewhere.ts",
+   "ereztash/lichess_app shared/record-dashboard.ts shortBy, and client/src/components/WhatIsUnclear.tsx",
+   "ereztash/lichess_app client/src/pages/Record.tsx, the goal above the counts",
+   "ereztash/lichess_app tests/client/an-engine-depth-is-not-a-rating.test.tsx"
+  ]
+ },
+ "verified_state": {
+  "authority": "REPO",
+  "expected_state": "Forty-four gates pass, forty-four positive controls go red, the full verify chain is green, and every new invariant has been shown red before its repair and green after.",
+  "observed_state": "Gates went 42 to 44 and all controls went red. Five invariants were demonstrated by mutation: restoring the mechanism note turns two assertions red; dropping the placement caveat turns one red; restoring the measurement verb turns three red; putting the repeated quantity back on every row turns one red naming the count; putting the goal back behind its measured gate turns one red. A sixth, the opponent control, turns all three of its assertions red on the single most natural improvement somebody would make to that screen. Two ceilings were raised with attribution, and in both cases the weight was looked for first: the reveal's fold moved two words for a correction, and the entry gzip moved a tenth after 1.1 kB raw and 0.4 kB gzipped were taken back out by giving the clause its own module.",
+  "status": "SUPPORTED",
+  "evidence_refs": [
+   "ereztash/lichess_app research/journey-pass/IMPLEMENTATION_REPORT.md"
+  ]
+ },
+ "outcome": {
+  "authority": "FIELD",
+  "target": "A cold player entering the product perceives a coherent journey: what they are trying to achieve, what the system knows and does not, what to do now, why, and what is not established.",
+  "observation": "None. Three cold users have ever used this product; two of three could not complete the core move; that was repaired and no cold user has seen the repaired build. Nobody has been observed using the learning layer, the record page, or anything in this pass.",
+  "status": "UNRESOLVED",
+  "evidence_refs": [
+   "ereztash/lichess_app research/journey-pass/FIELD_STATUS.md, marked NOT_FIELD_VALIDATED with a per-claim authority table",
+   "ereztash/lichess_app research/player-path/FIELD_TEST_PROTOCOL.md, whose row 0 is a live stop rule"
+  ]
+ },
+ "learning": {
+  "decision_delta": "The run's material change was not to any hypothesis but to the cut between them. Naming H-1 as the favoured hypothesis in the frozen plan is what made that legible: the refusal landed on the question I had asked rather than on the answer I preferred. Two further corrections came back in the peer's favour. The walk I offered as evidence for ownership was turned around -- agreement at the two most-determined branches of a union says nothing about the branches with degrees of freedom -- and a cost argument I had questioned in the prior decision record was left standing because I had checked it and found it narrower than it looked rather than wrong.",
+  "claim_updates": [
+   "A caveat can be true in one direction and unwritten in the other, and the unwritten direction is the one a claim gets made on. The absence direction of the placement ambiguity had been stated for a long time; the presence direction, where the product actually spoke, had not.",
+   "A number can be correct as a record fact and false as an instruction. The shortfall was the gap on the binding side, which is true of the bucket, and it was rendered as what the player must go and produce, which was out by a factor of two on a fresh record.",
+   "A repeated number is a denominator assembled by repetition, and the gate that guards denominators cannot see it, because there is no percentage in it and no goal.",
+   "A safeguard placed by position can become an absence. The goal was put last so it could never render beside a count, and it inherited the condition of the section it landed in, so it disappeared from the screen where it mattered most.",
+   "A scanner for a defect that gets documented when it is fixed cannot read prose. The first version of the elsewhere gate reported the two files it had just been written to clear."
+  ],
+  "resource_delta": "One material delta from NETA. Routing was deterministic and fired three authority flags. NETA's invocation carries _adapter_meta inline with a 4-of-4 context delivery manifest; the two RND invocations carry none, because RND provenance routes to a sidecar written only when CALIBRATION_ADAPTER_PROVENANCE is set, and it was not set for this run. Recorded rather than repaired: a second run produces a different synthesis, and attaching this decision's provenance to a different decision's trace would be worse than an absent field. The independence caveat is unaffected and is the stronger limit -- every resource shares one model lineage, so agreement between them is role-conditioned execution.",
+  "next_move": "One OWNER reading, costing nothing: after the ordering repair ships, observe whether the same six-part orientation request recurs. Then FIELD, whose protocol exists and whose row 0 stop rule is still live.",
+  "stop_or_continue": "CONTINUE"
+ }
+}

@@ -1,0 +1,58 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-FIELD-HANDOFF-001",
+  "decision": {
+    "statement": "Route the remaining uncertainty about ereztash/lichess_app from REPO to FIELD: whether the shipped product, with its two known structural facts left visible, is understandable and worth continuing through without founder interpretation.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "FIELD",
+    "evidence_refs": [
+      "ereztash/lichess_app research/player-path/PRODUCT_STATE_WALK.md, the walk that exhausted REPO authority",
+      "ereztash/lichess_app research/player-path/FIELD_RUN_CURRENT.md, pre-registered against commit 4c39563",
+      "ereztash/lichess_app research/player-path/field/, the session package",
+      "ereztash/lichess_app docs/decisions/D26-primary-evidence-path.md, the owner's decision and its reversal conditions"
+    ],
+    "reversal_condition": "A FIELD run whose primary bottleneck comes back CLAIM_BOUNDARY with participant-level evidence of denominator confusion makes the consolidation the next move rather than a premature one. A run in which participants stop before a denominator matters says nothing about it either way, and the deferral stands untouched."
+  },
+  "execution": {
+    "executor_type": "HUMAN",
+    "planned_action": "Run the frozen protocol with three to five cold chess players: no explanation before first use, every intervention tagged A0 to A3, M1 to M8 scored under rules frozen before the first session, C-1 observed through a probe that does not point at it.",
+    "completed_action": "Not run. The agent cannot recruit or access cold participants, and the owner's instruction forbids substituting simulated ones. The recruitment and session package was prepared instead: screening, the moderator script with every probe written verbatim, the per-participant file, and the analysis template with its diagnosis-to-evidence trace left empty.",
+    "status": "WAITING_AUTHORITY",
+    "artifact_refs": [
+      "ereztash/lichess_app research/player-path/field/README.md",
+      "ereztash/lichess_app research/player-path/field/RECRUITMENT.md",
+      "ereztash/lichess_app research/player-path/field/SESSION_SCRIPT.md",
+      "ereztash/lichess_app research/player-path/field/PARTICIPANT_TEMPLATE.md",
+      "ereztash/lichess_app research/player-path/field/ANALYSIS_TEMPLATE.md"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "The stimulus is frozen and the package does not alter it: no copy change, no route change, no merged evidence paths, no learning flag, no orchestration, no onboarding, and C-1 unrepaired.",
+    "observed_state": "The only tree changes are markdown under docs/decisions/ and research/player-path/. The build is content-hashed and the page bundle stays index-D_Il6CdA.js across them, so the stimulus is the same bytes; only /build-identity.json differs, naming the head commit and the build time, and it is read by the self-check overlay alone. npm run verify passes on the tree carrying the package.",
+    "status": "SUPPORTED",
+    "evidence_refs": [
+      "ereztash/lichess_app npm run verify on the commit carrying the session package",
+      "ereztash/lichess_app research/player-path/FIELD_RUN_CURRENT.md, build under test 4c39563"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "Cold-player comprehension, orientation, next-action selection, execution, claim boundary, payoff, organic continuation and negative-state comprehension, measured behaviourally before it is asked about.",
+    "observation": "Not observed. Zero humans have used this build.",
+    "status": "UNRESOLVED",
+    "evidence_refs": [
+      "ereztash/lichess_app research/player-path/FIELD_RUN_CURRENT.md"
+    ]
+  },
+  "learning": {
+    "decision_delta": "The owner resolved the question the walk routed to them, and separated the decision from its implementation: decisions is the destination denominator, blitzGames is a context, and the consolidation waits so that C-1 is observed on an unrepaired build rather than inferred from an audit that already knew the architecture held two paths.",
+    "claim_updates": [
+      "UNRESOLVED and now correctly seated: every claim about cold-player comprehension. WAITING_AUTHORITY is the disposition, not debt, and it is not a failed execution.",
+      "SUPPORTED: that preparing the instrument is separable from running it. The package is complete and the measurement is not, and reporting those as one thing would be the substitution the protocol forbids."
+    ],
+    "resource_delta": "One decision record, five session documents, no product change. The page bundle under test is byte-identical to the build the pre-registration names, and the session package makes its content hash the pre-session check.",
+    "next_move": "A person runs three to five sessions from research/player-path/field/README.md and fills one participant file per session before recruiting the next.",
+    "stop_or_continue": "STOP. FIELD_READY / HUMAN_PARTICIPANTS_REQUIRED."
+  }
+}

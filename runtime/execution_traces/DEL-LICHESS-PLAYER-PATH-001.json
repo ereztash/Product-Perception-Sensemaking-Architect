@@ -1,0 +1,67 @@
+{
+ "trace_version": "0.1",
+ "trace_id": "DEL-LICHESS-PLAYER-PATH-001",
+ "decision": {
+  "statement": "Decide what process carries a player of ereztash/lichess_app from 'I want to get better at chess' to a next act they judge worth taking, without promising an outcome the evidence ceiling forbids, without rating as a unit of progress, and while working in the state where no personal pattern is ever found; then build only what that decision earns.",
+  "decision_owner": "OWNER",
+  "resolution_authority": "REPO",
+  "evidence_refs": [
+   "ereztash/lichess_app research/player-path/DR_PLAN_1.md, frozen at ae707ab before the calibration run and before any external search, naming H-1 as the favoured hypothesis in advance",
+   "ereztash/lichess_app research/player-path/PATH_TRACE.json, task CAL-LICHESS-PLAYER-PATH-001, final_state COMPLETE, produced by runtime/calibration_loop/run.py",
+   "ereztash/lichess_app research/player-path/PATH_PROVENANCE.jsonl, three phases, context delivery manifest and independence caveat on each",
+   "ereztash/lichess_app research/player-path/PAIRED_RUN_NICO_UX.json, task CAL-NICO-UX-PAIRED-2026-09-12 on a different provider lineage, carrying no _adapter_meta",
+   "ereztash/lichess_app research/player-path/CANDIDATE_PROCESSES.md, six candidate processes against three gating questions",
+   "ereztash/lichess_app research/player-path/DECISION.md and PLAYER_PATH.md",
+   "ereztash/lichess_app client/src/components/RevealPanel.tsx and shared/reveal.ts, EVIDENCE_LABEL, read as the answer to REPO question (a)",
+   "ereztash/lichess_app tests/layout/import-row.layout.test.tsx, the import panel measured in a real engine at 390px and 1440px"
+  ],
+  "reversal_condition": "The protocol in ereztash/lichess_app research/player-path/FIELD_TEST_PROTOCOL.md returns T_payoff = no for most participants while U_exchange = yes. That is M1 with the frame landing and not being believed, which means the exchange framing is not the binding constraint and copy is the wrong layer to repair it at. Separately, T_import = acts-on-ranking for most participants falsifies the perceptual half of this lane's build whatever the geometry measures, and the import repair did not do what it was built to do."
+ },
+ "execution": {
+  "executor_type": "AGENT",
+  "planned_action": "Freeze a plan naming the favoured hypothesis before the run; run the actual Calibration Loop against the frozen state with provenance retained; take the run's COLLECT_REPO instruction literally by answering its three questions inside the repository before building anything; build only what those answers bound; add a mechanical invariant with a positive control demonstrated red on the pre-repair state; inspect real mobile frames; hand the remaining uncertainty to FIELD.",
+  "completed_action": "The run refused the plan's favoured hypothesis. Its payload, a personal-inference promise, is outcome-shaped and unreachable under the frozen evidence ceiling, and its second component, an aspiration frame, was found to carry an unnamed rating-denominator collision. H-3 was promoted out of the hypothesis race into an already-supported REPO plus OWNER defect with no field debt. All three REPO questions were answered by inspection and measurement: the n=1 payoff exists and is already labelled by evidence kind; the import panel rendered its conclusion about 800px below the numbers it denies and in the provenance register; the evidence-type statement existed twice as a caveat and never as a reason to act. The build is the finding moved above its numbers, the evidence-type statement attached as a reason to act, the same repair on the record dashboard with its own separate construct, one new gate with a positive control, and a real-engine layout test. Looking at a real 390x844 frame then found a fourth defect the build had not caused: the import panel's scope label collapsed to 73.59px against a 90px floor the same repository already enforces on the other consumer of that CSS.",
+  "status": "COMPLETE",
+  "artifact_refs": [
+   "ereztash/lichess_app research/player-path/ (fourteen files)",
+   "ereztash/lichess_app shared/import-diagnostic.ts LIVE_DECISION_ADDS",
+   "ereztash/lichess_app client/src/components/ImportDiagnostic.tsx Finding",
+   "ereztash/lichess_app client/src/components/RecordDashboard.tsx BucketFinding",
+   "ereztash/lichess_app scripts/journey-scan.ts findFindingsBelowTheirNumbers and scripts/run_gates.ts GATE-FINDING-OUTRANKS-ITS-NUMBERS",
+   "ereztash/lichess_app tests/fixtures/journey/FindingBelowItsNumbers.tsx",
+   "ereztash/lichess_app tests/layout/import-row.layout.test.tsx",
+   "ereztash/lichess_app client/src/index.css .import-diagnostic .bucket-list li.unmeasurable"
+  ]
+ },
+ "verified_state": {
+  "authority": "REPO",
+  "expected_state": "Forty-two gates pass, forty-two positive controls go red, the full verify chain is green, and the finding renders above and larger than the numbers it denies at both a phone and a desktop width.",
+  "observed_state": "Forty-two gates pass and forty-two controls go red. The rank assertion was demonstrated red by mutation before it was trusted: with the finding at the smallest type token it reports 11px against 16px at both widths while every ordering assertion stays green, which is the state the source-scanning gate alone would have called repaired. The scope-collapse assertion was demonstrated red on the pre-repair CSS at 390px.",
+  "status": "SUPPORTED",
+  "evidence_refs": [
+   "ereztash/lichess_app research/player-path/IMPLEMENTATION_REPORT.md",
+   "ereztash/lichess_app research/player-path/FALSE_GREEN_NOTES.md, five greens shown wrong"
+  ]
+ },
+ "outcome": {
+  "authority": "FIELD",
+  "target": "A cold player, arriving with no explanation, understands what this product uniquely offers, can take the first act, gets something from the first decision, and does not expect the product to be measuring their improvement.",
+  "observation": "None. No cold user has seen any of this. The standing n=3 failure, where two of three cold testers could not complete the core move, remains unrevalidated after its repair.",
+  "status": "UNRESOLVED",
+  "evidence_refs": [
+   "ereztash/lichess_app research/player-path/FIELD_TEST_PROTOCOL.md, five mechanisms with a variable-to-rule cross-check"
+  ]
+ },
+ "learning": {
+  "decision_delta": "The favoured hypothesis was refused on its content rather than on its priority. Naming it in the frozen plan before the run is what made the refusal legible as a result instead of as a change of mind. Two of the three learning records in the run are mismatches against pre-committed expectations, and both are in the peer's favour: allocation was pre-committed false for NETA and observed true, and proxy-substitution risk was correctly predicted as live but mislocated, sitting inside the proposed intervention rather than in a downstream authority invocation.",
+  "claim_updates": [
+   "An evidence-type statement and an outcome statement can be made of almost the same words and sit on different rungs of the ladder. 'An import cannot produce a calibration gap' needs no field permission; 'something recurring in you will be found' needs R6 it cannot have.",
+   "A peer that inspects nothing should return evidence null, and this one did. Its material delta was entirely in decision, action, reversal, allocation and distinction, which is the correct shape for reasoning rather than observation.",
+   "A source-scanning gate can hold an ordering and cannot hold a rank. The two halves of 'outranks' need two different instruments, and the repository had only one.",
+   "A documented CSS fix with a documented reason was handed straight back by a more specific selector in the same file, with the only instrument able to see it aimed at the other consumer of that CSS. Coverage of a rule is not coverage of its consumers."
+  ],
+  "resource_delta": "One material delta, from NETA, with evidence null. Routing was deterministic and fired all four authority flags. Every resource in the run shares one model lineage and the provenance file says so per phase, so agreement between them is role-conditioned execution rather than triangulation. The earlier paired run on a different provider lineage carries no _adapter_meta at all, so its served resource identity is not recoverable from its trace and its lineage claim rests on a workflow definition rather than on the record.",
+  "next_move": "FIELD. The protocol distinguishes value comprehension, journey legibility, action clarity, payoff and product-contract mismatch, prefers an observed continuation behaviour to a reported intention, and its decision rules read only variables it collects. It subsumes the standing revalidation of the core move.",
+  "stop_or_continue": "CONTINUE"
+ }
+}

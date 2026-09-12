@@ -40,6 +40,7 @@ CANONICAL_BRANCH = "main"
 # Closed vocabulary. A branch carries exactly one of these.
 DISPOSITIONS = {
     "RETIRABLE",
+    "SUPERSEDED",
     "OPEN_PR_TO_MAIN",
     "OPEN_PR_TO_BRANCH",
     "STRANDED",
@@ -48,7 +49,14 @@ DISPOSITIONS = {
 # Dispositions that assert the branch is ahead of `main`.
 AHEAD_DISPOSITIONS = DISPOSITIONS - {"RETIRABLE"}
 
+# `SUPERSEDED` is only meaningful with a named successor, so the row must name one.
+SUCCESSOR_CELL = re.compile(r"superseded by `([^`]+)`", re.IGNORECASE)
+
 BRANCH_CELL = re.compile(r"^\|\s*`([^`]+)`\s*\|(.*)\|\s*$")
+# `| `old/path` | `canonical/path` |` under the Relocations heading. A path that `main`
+# carries under a different name is not a path the branch holds alone, but the exemption
+# has to be declared and checked, not assumed by the reader.
+RELOCATION_CELL = re.compile(r"^\|\s*`([^`]+)`\s*\|\s*`([^`]+)`\s*\|\s*$")
 TIP_SHA = re.compile(r"`([0-9a-f]{10,40})`")
 CAPTURED_AGAINST = re.compile(
     r"Captured against:\s*`" + CANONICAL_BRANCH + r"`\s*@\s*`([0-9a-f]{40})`"
@@ -123,7 +131,31 @@ def parse_inventory(text: str | None = None) -> dict[str, dict[str, str]]:
             tip is not None,
             f"{INVENTORY}: `{branch}` is declared without a tip SHA",
         )
-        declared[branch] = {"disposition": found[0], "tip": tip.group(1)}
+
+        # `| tip | ahead | new files | disposition |`. The new-file count is the number
+        # the whole file exists to publish, so it is parsed and later checked against the
+        # trees rather than read as prose.
+        new_files: int | None = None
+        if section and section.startswith("Ahead of"):
+            cells = [cell.strip() for cell in rest.split("|")]
+            require(
+                len(cells) >= 4,
+                f"{INVENTORY}: `{branch}` has {len(cells)} cells after the branch name; "
+                "the ahead table is | tip | ahead | new files | disposition |",
+            )
+            require(
+                cells[2].isdigit(),
+                f"{INVENTORY}: `{branch}` declares new files as {cells[2]!r}, not a count",
+            )
+            new_files = int(cells[2])
+
+        successor = SUCCESSOR_CELL.search(rest)
+        declared[branch] = {
+            "disposition": found[0],
+            "tip": tip.group(1),
+            "new_files": new_files,
+            "successor": successor.group(1) if successor else None,
+        }
 
     require(declared != {}, f"{INVENTORY}: no branch rows parsed; the declaration is empty")
     return declared
@@ -137,6 +169,42 @@ def parse_captured_against(text: str | None = None) -> str:
         f"{INVENTORY}: no `Captured against: \\`{CANONICAL_BRANCH}\\` @ <40-hex>` line",
     )
     return match.group(1)
+
+
+def parse_relocations(text: str | None = None) -> dict[str, str]:
+    """Return {path on side branches: canonical path on `main`}.
+
+    A file `main` kept under a new name still exists on `main`. Without a declared
+    exemption every branch that predates the move looks like it holds a unique path,
+    and a `SUPERSEDED` row that is true would fail. The exemption is declared here and
+    verified against `main`, so it cannot quietly become a hole.
+    """
+    text = read(INVENTORY) if text is None else text
+    relocations: dict[str, str] = {}
+    inside = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            inside = stripped.lower().endswith("relocations")
+            continue
+        if not inside:
+            continue
+        match = RELOCATION_CELL.match(stripped)
+        if not match:
+            continue
+        old, new = match.group(1), match.group(2)
+        if old == "Path on side branches":
+            continue
+        require(
+            old not in relocations,
+            f"{INVENTORY}: `{old}` is declared relocated more than once",
+        )
+        require(
+            old != new,
+            f"{INVENTORY}: `{old}` is declared relocated to itself",
+        )
+        relocations[old] = new
+    return relocations
 
 
 def parse_active_branches(text: str | None = None) -> set[str]:
@@ -158,6 +226,31 @@ def parse_active_branches(text: str | None = None) -> set[str]:
 
 
 # --- offline invariants -------------------------------------------------------
+
+def check_superseded_have_successors(text: str | None = None) -> None:
+    """A SUPERSEDED row must name the successor that contains it.
+
+    Without a named successor the disposition is an opinion. With one it is a claim
+    anyone can check with `git merge-base --is-ancestor`.
+    """
+    text = read(INVENTORY) if text is None else text
+    for line in text.splitlines():
+        stripped = line.strip()
+        match = BRANCH_CELL.match(stripped)
+        if not match or "SUPERSEDED" not in match.group(2):
+            continue
+        branch = match.group(1)
+        successor = SUCCESSOR_CELL.search(match.group(2))
+        require(
+            successor is not None,
+            f"{INVENTORY}: `{branch}` is SUPERSEDED without naming a successor; "
+            "write \"superseded by `<branch>`\"",
+        )
+        require(
+            successor.group(1) != branch,
+            f"{INVENTORY}: `{branch}` names itself as its own successor",
+        )
+
 
 def check_declaration_shape(declared: dict[str, dict[str, str]] | None = None) -> None:
     """Every declared branch carries one known disposition and a tip."""
@@ -289,6 +382,122 @@ def ensure_object(sha: str, branch: str, remote: str = "origin") -> bool:
         return True
     git("fetch", "--quiet", remote, branch)
     return git("cat-file", "-e", f"{sha}^{{commit}}").returncode == 0
+
+
+_TREE_CACHE: dict[str, frozenset[str]] = {}
+
+
+def tree_paths(ref: str) -> frozenset[str]:
+    """Every path in the tree at `ref`, read tree to tree.
+
+    Not `git diff main...ref`. Three-dot compares against the merge base, so it reports
+    nothing for work `main` absorbed as a squash and nothing for paths the branch has
+    carried since before the fork point. The count this file publishes is "paths that
+    exist on the branch and nowhere on `main`", and only a tree-to-tree read answers it.
+    """
+    if ref in _TREE_CACHE:
+        return _TREE_CACHE[ref]
+    proc = git("ls-tree", "-r", "--name-only", ref)
+    require(
+        proc.returncode == 0,
+        f"cannot read the tree at {ref}: {proc.stderr.strip() or 'unknown object'}; "
+        "deepen the clone (actions/checkout with fetch-depth: 0), or re-declare the row "
+        "at a tip that still exists",
+    )
+    paths = frozenset(line for line in proc.stdout.splitlines() if line)
+    require(paths != frozenset(), f"the tree at {ref} is empty")
+    _TREE_CACHE[ref] = paths
+    return paths
+
+
+def check_relocations_resolve(
+    relocations: dict[str, str] | None = None,
+    resolve=tree_paths,
+    anchor: str = CANONICAL_BRANCH,
+) -> None:
+    """Each declared relocation must be a fact about `main`, not a convenience."""
+    relocations = parse_relocations() if relocations is None else relocations
+    if not relocations:
+        return
+    main_paths = resolve(anchor)
+    for old, new in sorted(relocations.items()):
+        require(
+            new in main_paths,
+            f"{INVENTORY}: `{old}` is declared relocated to `{new}`, which is not on "
+            f"`{CANONICAL_BRANCH}`; the exemption would excuse a path that exists nowhere",
+        )
+        require(
+            old not in main_paths,
+            f"{INVENTORY}: `{old}` is declared relocated but still exists on "
+            f"`{CANONICAL_BRANCH}`; it never moved",
+        )
+
+
+def check_new_file_counts(
+    declared: dict[str, dict[str, str]] | None = None,
+    resolve=tree_paths,
+    anchor: str = CANONICAL_BRANCH,
+) -> None:
+    """The published count must equal the tree-to-tree count at the declared tip.
+
+    Both sides are pinned commits: the branch at the tip the row names, `main` at the
+    anchor the file names. The assertion therefore stays true as branches move, and a
+    row that was measured with the wrong command fails instead of reading as evidence.
+    """
+    declared = parse_inventory() if declared is None else declared
+    main_paths = resolve(anchor)
+    for branch, row in sorted(declared.items()):
+        if row["disposition"] == "RETIRABLE":
+            continue
+        expected = row.get("new_files")
+        if expected is None:
+            continue
+        actual = len(resolve(row["tip"]) - main_paths)
+        require(
+            actual == expected,
+            f"{INVENTORY}: `{branch}` @ {row['tip']} declares {expected} new file(s) "
+            f"against `{CANONICAL_BRANCH}` @ {anchor[:10]}, tree to tree it holds "
+            f"{actual}",
+        )
+
+
+def check_superseded_containment(
+    declared: dict[str, dict[str, str]] | None = None,
+    relocations: dict[str, str] | None = None,
+    resolve=tree_paths,
+    anchor: str = CANONICAL_BRANCH,
+) -> None:
+    """A named successor must actually carry every path the branch holds.
+
+    `SUPERSEDED` is what licenses deletion once the successor lands. Left unchecked it
+    is an opinion that ages: a predecessor can receive a commit after the claim is
+    written and quietly stop being contained.
+    """
+    declared = parse_inventory() if declared is None else declared
+    relocations = parse_relocations() if relocations is None else relocations
+    for branch, row in sorted(declared.items()):
+        if row["disposition"] != "SUPERSEDED":
+            continue
+        successor = row.get("successor")
+        if successor is None:
+            continue  # check_superseded_have_successors owns this failure
+        if successor == CANONICAL_BRANCH:
+            successor_paths = resolve(anchor)
+        else:
+            require(
+                successor in declared,
+                f"{INVENTORY}: `{branch}` names `{successor}` as its successor, and "
+                f"`{successor}` is not declared; the claim cannot be checked",
+            )
+            successor_paths = resolve(declared[successor]["tip"])
+        missing = sorted((resolve(row["tip"]) - successor_paths) - set(relocations))
+        require(
+            not missing,
+            f"{INVENTORY}: `{branch}` is declared SUPERSEDED by `{successor}`, which "
+            f"does not carry {len(missing)} of its path(s): {', '.join(missing[:4])}"
+            + (" ..." if len(missing) > 4 else "")
+            + "; it is STRANDED, or the missing paths are a declared relocation",
+        )
 
 
 def check_live(
@@ -426,6 +635,21 @@ _GOOD_STATE = """### Active branches
 """
 
 
+# Trees for the controls. `main` carries `kept.md` and the archived copy of a file the
+# side branches still hold at its old path; `live/one` predates both and adds one path of
+# its own; `live/two` is a partial successor that never took `unique.md`.
+_FAKE_TREES: dict[str, frozenset[str]] = {
+    "main": frozenset({"kept.md", "archive/moved.md"}),
+    "bbbbbbbbbb": frozenset({"moved.md", "unique.md"}),
+    "cccccccccc": frozenset({"moved.md", "kept.md"}),
+}
+
+
+def _fake_trees(ref: str) -> frozenset[str]:
+    require(ref in _FAKE_TREES, f"control fixture has no tree for {ref}")
+    return _FAKE_TREES[ref]
+
+
 def positive_controls() -> int:
     """Prove each invariant can fail. A gate that cannot go red is not a gate."""
     heads = {
@@ -457,6 +681,18 @@ def positive_controls() -> int:
             "canonical-branch-dispositioned",
             lambda: check_declaration_shape(
                 {"main": {"disposition": "STRANDED", "tip": "c" * 10}}
+            ),
+        ),
+        (
+            "superseded-without-a-named-successor",
+            lambda: check_superseded_have_successors(
+                "| `a/one` | `aaaaaaaaaa` | 2 | 1 | `SUPERSEDED` |\n"
+            ),
+        ),
+        (
+            "superseded-by-itself",
+            lambda: check_superseded_have_successors(
+                "| `a/one` | `aaaaaaaaaa` | 2 | 1 | `SUPERSEDED`, superseded by `a/one` |\n"
             ),
         ),
         (
@@ -534,6 +770,98 @@ def positive_controls() -> int:
             "remote-unreachable",
             lambda: remote_heads("no-such-remote-for-controls"),
         ),
+        (
+            "relocation-target-absent-from-main",
+            lambda: check_relocations_resolve(
+                {"old/path.md": "archive/path.md"}, _fake_trees, "main"
+            ),
+        ),
+        (
+            "relocation-of-a-path-main-still-has",
+            lambda: check_relocations_resolve(
+                {"kept.md": "archive/moved.md"}, _fake_trees, "main"
+            ),
+        ),
+        (
+            "declared-relocated-to-itself",
+            lambda: parse_relocations(
+                "## Relocations\n\n| `same.md` | `same.md` |\n"
+            ),
+        ),
+        (
+            "new-file-count-does-not-match-the-tree",
+            lambda: check_new_file_counts(
+                {"live/one": {"disposition": "STRANDED", "tip": "bbbbbbbbbb", "new_files": 9}},
+                _fake_trees,
+                "main",
+            ),
+        ),
+        (
+            "new-file-count-taken-with-a-three-dot-diff",
+            # `live/one` forked before `main` gained `kept.md`, so three-dot reports one
+            # added path and the tree holds two. The wrong command is the failure this
+            # control exists for: eleven of sixteen rows carried three-dot numbers.
+            lambda: check_new_file_counts(
+                {"live/one": {"disposition": "STRANDED", "tip": "bbbbbbbbbb", "new_files": 1}},
+                _fake_trees,
+                "main",
+            ),
+        ),
+        (
+            "new-file-count-that-is-not-a-count",
+            lambda: parse_inventory(
+                _GOOD_INVENTORY.replace("| 2 | 1 | `STRANDED` |", "| 2 | some | `STRANDED` |")
+            ),
+        ),
+        (
+            "successor-does-not-carry-a-path-of-its-predecessor",
+            lambda: check_superseded_containment(
+                {
+                    "live/one": {
+                        "disposition": "SUPERSEDED",
+                        "tip": "bbbbbbbbbb",
+                        "successor": "live/two",
+                    },
+                    "live/two": {"disposition": "STRANDED", "tip": "cccccccccc"},
+                },
+                {},
+                _fake_trees,
+                "main",
+            ),
+        ),
+        (
+            "successor-that-is-not-declared",
+            lambda: check_superseded_containment(
+                {
+                    "live/one": {
+                        "disposition": "SUPERSEDED",
+                        "tip": "bbbbbbbbbb",
+                        "successor": "ghost/branch",
+                    }
+                },
+                {},
+                _fake_trees,
+                "main",
+            ),
+        ),
+        (
+            "relocation-exemption-cannot-hide-a-real-path",
+            # The exemption covers `moved.md` only. `unique.md` still fails, so a
+            # relocation row cannot be widened into a blanket excuse.
+            lambda: check_superseded_containment(
+                {
+                    "live/one": {
+                        "disposition": "SUPERSEDED",
+                        "tip": "bbbbbbbbbb",
+                        "successor": "live/two",
+                    },
+                    "live/two": {"disposition": "STRANDED", "tip": "cccccccccc"},
+                },
+                {"moved.md": "archive/moved.md"},
+                _fake_trees,
+                "main",
+            ),
+        ),
     ]
 
     for name, fn in controls:
@@ -567,6 +895,7 @@ def main() -> None:
             f"`{CANONICAL_BRANCH}` @ {anchor[:12]}"
         )
 
+        check_superseded_have_successors()
         check_active_table_agrees(declared)
         ahead = sorted(b for b, r in declared.items() if r["disposition"] in AHEAD_DISPOSITIONS)
         print(
@@ -585,6 +914,7 @@ def main() -> None:
         else:
             print("RUNBOOK: nothing retirable, and no deletion command left behind")
 
+        relocations = parse_relocations()
         if args.live:
             verdicts = check_live(declared, remote=args.remote)
             retirable = sum(1 for v in verdicts.values() if v == "RETIRABLE")
@@ -593,6 +923,31 @@ def main() -> None:
                 f"{retirable} contained in `{CANONICAL_BRANCH}`, "
                 f"{len(verdicts) - retirable} ahead, declaration matches"
             )
+
+            check_relocations_resolve(relocations, anchor=anchor)
+            check_new_file_counts(declared, anchor=anchor)
+            check_superseded_containment(declared, relocations, anchor=anchor)
+            counted = sum(
+                1
+                for r in declared.values()
+                if r["disposition"] != "RETIRABLE" and r.get("new_files") is not None
+            )
+            superseded = sum(1 for r in declared.values() if r["disposition"] == "SUPERSEDED")
+            print(
+                f"TREES: {counted} new-file counts and {superseded} successor claims "
+                f"verified tree to tree against `{CANONICAL_BRANCH}` @ {anchor[:10]}, "
+                f"{len(relocations)} declared relocation(s)"
+            )
+
+            head = git("rev-parse", f"{args.remote}/{CANONICAL_BRANCH}")
+            if head.returncode == 0 and not head.stdout.strip().startswith(anchor):
+                drift = git("rev-list", "--count", f"{anchor}..{head.stdout.strip()}")
+                if drift.returncode == 0:
+                    print(
+                        f"ANCHOR: `{CANONICAL_BRANCH}` is {drift.stdout.strip()} commit(s) "
+                        f"past the anchor; the counts above describe "
+                        f"`{CANONICAL_BRANCH}` @ {anchor[:10]}, not its head"
+                    )
         else:
             print("LIVE: skipped (pass --live to compare against the remote)")
 
