@@ -51,7 +51,7 @@ successor does not survive a tree-to-tree check.
 | `claude/repo-canonicalization-reconciliation-aufvq6` | reconciliation-report corrections and the retirement record (PR 18) | `OPEN_PR_TO_MAIN`, parallel session, zero new files |
 | `research/architecture-clean-ab-2026-09-06` | protocol-conforming Architecture clean A/B (PR 14) | `OPEN_PR_TO_MAIN`, blocked; see `eval/architecture-agent/EXECUTION_BLOCKER_2026-09-06.md` |
 | `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the branch-by-branch read (PR 22) | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | the lichess copy-pass trace `DEL-LICHESS-LEARNING-COST-001` (PR 23) | `OPEN_PR_TO_MAIN`, one new file |
+| `claude/ux-ui-analysis-v6ao5u` | the lichess copy-pass trace `DEL-LICHESS-LEARNING-COST-001` and the learning-journey trace `DEL-LICHESS-LEARNING-JOURNEY-001` (PR 23) | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-anti-challenges-2026-09-08` | anti-challenges `A1`-`A4` and the blind challenge matrix they invert | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | frozen anti-challenge rubric and its result | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix `C1`-`C4` and its result | `SUPERSEDED` by the anti-challenges branch |
@@ -386,6 +386,7 @@ This contract does not justify an Execution Agent.
 - `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json` — `STOP`, FIELD;
 - `runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-002.json` — `STOP`, the same decision carried onto the current candidate;
 - `runtime/execution_traces/DEL-LICHESS-LEARNING-COST-001.json` — `STOP`, an OWNER copy pass on the product measured in-repo before and after; comprehension of the shorter screens is `FIELD_REQUIRED`, and the candidate it produces is not the one `FIELD-INSTRUMENT-002` carried forward;
+- `runtime/execution_traces/DEL-LICHESS-LEARNING-JOURNEY-001.json` — `STOP`, an OWNER architecture decision worked through a live Calibration Loop run against a plan frozen before it. The run killed two of the three things that plan proposed to build, and the chosen architecture scopes its states to a claim or a rule rather than to the player. Whether a cold user can state the journey is `FIELD_REQUIRED`; two transport defects in this repository's own runtime were found by running it and are repaired with controls;
 - `runtime/handoffs/HANDOFF-LICHESS-ENV-001.json`, superseded by `HANDOFF-LICHESS-ENV-002.json`;
 - `runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json`;
 - `research/lichess-prerelease/PRERELEASE_GAP_PASS_2026-09-06.md` — the readable pass record;

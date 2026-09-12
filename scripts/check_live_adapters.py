@@ -114,7 +114,72 @@ def main() -> int:
     else:
         raise AssertionError("invalid Neta output unexpectedly passed")
 
-    print("LIVE ADAPTER CONTROLS OK: prompts, delta bridge, web-search toggle and semantic shapes validated offline")
+    # Every bridge contract must state the closure its validator enforces. The SYNTHESIZE
+    # contract was the only one of the three that did not, while asking the model to "preserve
+    # conflicts" with no field to put them in -- and a live run duly returned an extra
+    # `_conflicts_preserved` key and was rejected after both peers had already been paid for.
+    for phase in ("DIAGNOSE", "SYNTHESIZE"):
+        contract = prompt_for("RND", {
+            "resource": "RND", "phase": phase,
+            "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+            "task": task, "instruction": phase.lower(),
+        })
+        assert "Do not add fields" in contract, f"{phase} bridge contract omits its closure rule"
+    synth_contract = prompt_for("RND", {
+        "resource": "RND", "phase": "SYNTHESIZE",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "task": task, "instruction": "synthesize",
+    })
+    assert "IN learning_records" in synth_contract, "SYNTHESIZE asks for conflicts with no field named"
+
+    # Context delivery. A task names context_refs; before this existed the peer received the
+    # PATHS and, with Read disabled in the CLI adapter, could open none of them. The failure is
+    # silent: a starved peer produces thinner output, which reads as a reason to add resources.
+    ctx_request = {
+        "resource": "NETA",
+        "phase": "ANALYZE",
+        "task": {"context_refs": ["docs/SHARED_EPISTEMIC_KERNEL.md"]},
+        "requested_focus": ["proxy_substitution_risk"],
+    }
+    with_ctx = prompt_for("NETA", ctx_request)
+    kernel = (ROOT / "docs" / "SHARED_EPISTEMIC_KERNEL.md").read_text(encoding="utf-8")
+    assert "Referenced context documents" in with_ctx
+    assert "docs/SHARED_EPISTEMIC_KERNEL.md` delivered" in with_ctx
+    # The document itself, not its name.
+    assert kernel[:400] in with_ctx, "context_refs delivered a path rather than the document"
+
+    # A ref that cannot be resolved is REPORTED, never dropped: a peer told nothing about a
+    # missing document reasons as though it had read one.
+    missing = prompt_for("NETA", {
+        "resource": "NETA",
+        "phase": "ANALYZE",
+        "task": {"context_refs": ["docs/NO_SUCH_DOCUMENT.md"]},
+        "requested_focus": ["proxy_substitution_risk"],
+    })
+    assert "NOT DELIVERED" in missing
+    assert "NO_SUCH_DOCUMENT" in missing
+
+    # Truncation is stated on the document, so a bounded read is never mistaken for a whole one.
+    import openai_resource_adapter as _ora
+    original_cap = _ora.CONTEXT_DOC_BYTES
+    try:
+        _ora.CONTEXT_DOC_BYTES = 200
+        clipped = prompt_for("NETA", ctx_request)
+        assert "TRUNCATED to 200 of" in clipped
+        assert kernel[:400] not in clipped
+    finally:
+        _ora.CONTEXT_DOC_BYTES = original_cap
+
+    # No context_refs must not fabricate a section.
+    bare = prompt_for("NETA", {
+        "resource": "NETA",
+        "phase": "ANALYZE",
+        "task": {"context_refs": []},
+        "requested_focus": ["proxy_substitution_risk"],
+    })
+    assert "Referenced context documents" not in bare
+
+    print("LIVE ADAPTER CONTROLS OK: prompts, delta bridge, web-search toggle, context delivery and semantic shapes validated offline")
     return 0
 
 

@@ -1,0 +1,66 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-LEARNING-JOURNEY-001",
+  "decision": {
+    "statement": "Decide which product-learning architecture the next layer of ereztash/lichess_app should express, so that a player moves from a desired improvement goal through personal diagnosis into meaningful action and visible progress without conflating effort, mastery, transfer, rating, statistical confidence and causal impact, and then build the smallest complete slice that makes the chosen architecture perceptible end to end.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "REPO",
+    "evidence_refs": [
+      "ereztash/lichess_app research/learning-journey/DR_PLAN_0.md, frozen at 5b2b144 before the R&D run and before any external search",
+      "ereztash/lichess_app research/learning-journey/RND_TRACE.json, final_state COMPLETE, produced by runtime/calibration_loop/run.py --strict",
+      "ereztash/lichess_app research/learning-journey/RND_PROVENANCE.jsonl",
+      "ereztash/lichess_app research/learning-journey/EXTERNAL_EVIDENCE.md, six branches scored against the decision value the plan declared in advance",
+      "ereztash/lichess_app research/learning-journey/CANDIDATE_ARCHITECTURES.md",
+      "ereztash/lichess_app research/learning-journey/PRODUCT_STATE_MACHINE.md",
+      "ereztash/lichess_app origin/claude/generalize-research-pipeline-75k53u fd3f8ca, research/mechanism/replication100/REPLICATION_100_REPORT.md and research/mechanism/null-calibration/PREREGISTRATION_2026-09-12.md"
+    ],
+    "reversal_condition": "The field protocol in research/learning-journey/FIELD_TEST_PROTOCOL.md returns a cold user who can state the construct a stage counts and what the product has not established, and still has no expectation of returning. That is mechanism M2 rather than M1: legibility was not the binding constraint, the slice bought the wrong thing, and the next work is the first session rather than the ledger. Separately, a cold user answering yes to 'is the app measuring how close you are to that goal' falsifies the non-denominator safeguard in perception whatever the code computes, and the goal note is removed."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Freeze a research plan before any external search or R&D invocation; run the actual Calibration Loop against the frozen state through an admissible command adapter with provenance retained; perform bounded external research over the six declared branches; force a decision through an evidence matrix in which epistemic integrity is a gate rather than an averaged axis; specify the product state machine before writing UI; implement the smallest complete vertical slice; verify with the repository's own suite, gates, positive controls and bundle budget; inspect the result on a real phone viewport.",
+    "completed_action": "DR_PLAN_0 frozen at 5b2b144 with four hypotheses, five candidates, a falsifier each, six external branches each carrying a declared expected decision value, and a written statement of what the plan expected to be wrong about. The Calibration Loop ran live (final_state COMPLETE): R&D DIAGNOSE, routing fired NETA on four triggers and SCAFFOLD on two with OWNER and FIELD handoffs, and R&D SYNTHESIZE returned the disposition DISCRIMINATE_FIRST with NETA material on five dimensions. Two runtime defects were found by running it and repaired before the run of record, both transport: context_refs reached peers as paths while the CLI adapter disables Read, and the SYNTHESIZE bridge contract omitted the closure its own validator enforces while asking for conflicts it named no field for. The chosen architecture is the pattern-centered loop: states belong to a claim or a rule, not to the player. Built in lichess_app: shared/learning-journey.ts (nine stages, each with construct, denominator, next act and stated limit), shared/goal.ts (the goal as copy, not a node), JourneyLedger and GoalNote, the journey-readings adapter, two gates with positive-control fixtures, loop-position extended so grade stops being a terminal and its instrument-versus-person overclaim repaired, and two bundle ceilings raised with per-move attribution.",
+    "status": "COMPLETED",
+    "artifact_refs": [
+      "ereztash/lichess_app branch claude/ux-ui-analysis-v6ao5u, commit 7ee419f",
+      "ereztash/lichess_app research/learning-journey/",
+      "ereztash/lichess_app shared/learning-journey.ts",
+      "ereztash/lichess_app scripts/journey-scan.ts, GATE-GOAL-NOT-A-DENOMINATOR and GATE-CONSTRUCT-NAMED",
+      "runtime/calibration_loop/openai_resource_adapter.py context_documents",
+      "scripts/check_live_adapters.py context-delivery and bridge-closure controls"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "npm run verify green on the lichess_app tree: typecheck, production build, the full suite including the new state-machine and loop-pointer tests, every gate, every positive control red on its fixture, and the bundle under the stated budget. In this repository, check_contract, check_research_contract, check_canonical_state, check_calibration_loop and check_live_adapters pass, and the mock calibration run still completes.",
+    "observed_state": "npm run verify green on commit 7ee419f: 3,262 tests pass and 36 skip, 38 gates pass, 38 positive controls red, bundle within budget at entry 676.5/677 kB raw, 211.8/212 gzipped and 768.9/769 initial. Every new invariant was confirmed by breaking it on purpose. In this repository all five checks pass and the mock run completes; the context-delivery and bridge-closure controls were each broken on purpose and watched go red.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "npm run verify on ereztash/lichess_app claude/ux-ui-analysis-v6ao5u 7ee419f",
+      "ereztash/lichess_app research/learning-journey/IMPLEMENTATION_REPORT.md",
+      "python scripts/check_live_adapters.py"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "A cold user, after one session on the built product, states what the system is currently trying to learn about them, what they should do next, what the number on the screen counts, and what the product has not established, and does not believe the app is measuring distance to any goal they wrote.",
+    "observation": "",
+    "status": "FIELD_REQUIRED",
+    "evidence_refs": [
+      "ereztash/lichess_app research/learning-journey/FIELD_TEST_PROTOCOL.md"
+    ]
+  },
+  "learning": {
+    "decision_delta": "The run moved the disposition from build-the-default to DISCRIMINATE_FIRST and killed two of the three things the frozen plan proposed to build. A GOAL node does not survive its own logic: a state machine asserts that its members advance, so a goal inside one either advances and acquires the denominator the safeguard forbids, or does not and is decoration inside a machine whose shape promises progression. A named empty OUTCOME state is a place for an unreachable causal claim to accumulate; the honest terminal is claim disposition, which is already implemented. The plan also predicted the learning-science branch would be largely no-delta and was wrong: the typical-versus-maximum transfer distinction is what the whole design now turns on.",
+    "claim_updates": [
+      "Guided practice, prompted recall and unprompted play are three constructs and never one number. beginLearningTransfer measures maximum transfer, what a player can do when prompted; typical transfer, what they do when nobody prompts them, is measurable from decisions the product already records and was never measured.",
+      "The shipped six-bucket detector's silence is a statement about the detector. It returns not-separable on the owner's whole 2,209-game record while the frozen research pipeline finds a residual on that same record which survives its own within-game permutation null, so 'no pattern cleared the threshold' was true of the instrument and false as a description of a person.",
+      "The only prescription the evidence licenses is procedural: what the product will do next and what it will then be able to say. The efficacy register requires an INTERVENTION or OUTCOME claim the discovery pipeline states is unreachable under any result, and the strongest commercial instance of that architecture ships it with no sample sizes and no transfer evidence.",
+      "A safeguard expressed as an intention is not a safeguard. 'The goal is never a denominator' was a statement about the product's arithmetic and not about the reader's, so it became a gate over element adjacency rather than a comment.",
+      "The cardinality argument both peers made is half right, and the half matters. Claims are singular by construction with the reduction rule already named and rendered (othersWithheld); learning rules are genuinely plural and concurrent. The mismatch is real exactly where transfer lives and nowhere else, which narrowed the build from rewriting the player-scoped pointer to adding the ledger that had no surface."
+    ],
+    "resource_delta": "Two transport repairs to this runtime, neither touching the routing law or the epistemic method, both covered by controls: peers now receive the contents of the context_refs a task already names, bounded, with a manifest stating every truncation and failure; and the SYNTHESIZE bridge contract states the closure its validator enforces and names learning_records as where conflicts go. The first was found by a smoke run's own synthesis reporting that it had been handed paths it could not open, and it matters beyond this run because a context-starved peer produces thinner output, which reads as a capability gap and biases every sufficiency test toward BUILD. The second cost one complete run after both peers had been paid for. Recorded and not patched: schemas/calibration-task.schema.json's resource enum omits RESEARCH, which docs/SHARED_EPISTEMIC_KERNEL.md lists as a resolution authority, so a task whose evidence ceiling is a RESEARCH-owned fact cannot name RESEARCH as available.",
+    "next_move": "FIELD runs research/learning-journey/FIELD_TEST_PROTOCOL.md against the built slice with three to five cold users who have seen no earlier build. Its decision rule separates mechanism M1, legibility, from M2, payoff, and either result closes the question the architecture choice was resting on. No further repository or research work changes that decision.",
+    "stop_or_continue": "STOP"
+  }
+}
