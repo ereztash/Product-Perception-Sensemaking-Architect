@@ -102,7 +102,7 @@ one of these numbers and fails on any that does not match.
 | `claude/product-value-completion-run-if7ito` | `1ceec96412` | 15 | 31 | `OPEN_PR_TO_MAIN` |
 | `claude/repo-canonicalization-reconciliation-aufvq6` | `919f7642b4` | 14 | 0 | `OPEN_PR_TO_MAIN` |
 | `claude/repo-cleanup-590u82` | `2f30b946b7` | 9 | 4 | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | `115f295056` | 11 | 8 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `c58693ad42` | 15 | 11 | `OPEN_PR_TO_MAIN` |
 | `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 1 | `SUPERSEDED`, superseded by `main` |
 | `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 14 | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-2026-09-08` | `bf346508d2` | 17 | 17 | `STRANDED` |
@@ -246,6 +246,23 @@ mechanism-transfer set on 2026-09-09. It is `STRANDED` now, and it took a hand c
 notice, which is why the check exists.
 
 Eighteen open questions become twelve.
+
+### A file named `1` is on its way to `main`
+
+`claude/ux-ui-analysis-v6ao5u` (PR 23) carries a 6,633-byte file at the repository root
+named `1`, added by `684aed3` on 2026-09-12. It is not junk: it holds three JSONL
+provenance records from a real Calibration Loop run, each naming the adapter, the served
+model, the cost and a context-delivery manifest. It is output captured by a mistyped shell
+redirect, `>1` where `>&1` was meant.
+
+Two things follow. The content belongs under `runtime/calibration_loop/traces/` by the
+placement table in `docs/REPOSITORY_MAP.md`, and no rule places anything at the root under
+that name. And the records themselves report `requested: 9, delivered: 0` for context: every
+`prompt_ref` in that run failed to resolve, so the provenance documents a run whose inputs
+never arrived.
+
+Recorded, not acted on. The branch belongs to a parallel session and its pull request is
+that session's to correct.
 
 ### The rubric and the result it grades are on different branches, twice
 
