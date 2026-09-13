@@ -114,6 +114,7 @@ one of these numbers and fails on any that does not match.
 | `run/construct-separation-audit-2026-09-12` | `ec8c193024` | 5 | 4 | `STRANDED` |
 | `run/delta-v02-batch-2026-09-08` | `c064fa1d58` | 10 | 9 | `STRANDED` |
 | `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 6 | 4 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `run/lichess-move-rnd-recursive-2026-09-13` | `5fe0f74361` | 18 | 12 | `STRANDED` |
 | `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | 5 | `STRANDED` |
 | `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 8 | `SUPERSEDED`, superseded by `run/nico-ux-paired-2026-09-12` |
 | `run/nico-ux-paired-2026-09-12` | `07ddf30252` | 20 | 12 | `STRANDED` |
@@ -246,6 +247,17 @@ mechanism-transfer set on 2026-09-09. It is `STRANDED` now, and it took a hand c
 notice, which is why the check exists.
 
 Eighteen open questions become twelve.
+
+### Executable code landed in a research directory
+
+`run/lichess-move-rnd-recursive-2026-09-13` puts three `.py` files under
+`research/deep-research-preflight/`: `framework_fit_experiment.py`, its `_v2`, and
+`compute_move_sequence_evidence.py`. That directory holds eight files on `main` and all
+eight are `.json`. The placement table in `docs/REPOSITORY_MAP.md` sends "code that
+coordinates or executes" to `runtime/` or `scripts/`.
+
+The branch is live and has no pull request, so nothing is proposing this to `main` yet.
+Recorded as a placement question for its owner, not resolved here.
 
 ### A file named `1` is on its way to `main`
 

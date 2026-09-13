@@ -39,7 +39,7 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Twenty-two branches are ahead of `main`, all read branch by branch and re-measured tree
+Twenty-three branches are ahead of `main`, all read branch by branch and re-measured tree
 to tree, re-anchored on 2026-09-12 after `main` moved. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
 each contains; `scripts/check_branch_inventory.py --live` fails when this table and that
 inventory disagree with the actual remote, and now also when a published count or a named
@@ -55,6 +55,7 @@ successor does not survive a tree-to-tree check.
 | `run/nico-ux-paired-2026-09-12` | paired UX comparison and the TPOAE reasoning run | `STRANDED`, live, no pull request; now the head of the best-effort lineage |
 | `run/tpoae-rnd-best-effort-2026-09-12` | TPOAE R&D best-effort run | `SUPERSEDED` by the paired-UX branch |
 | `run/construct-separation-audit-2026-09-12` | construct-separation audit task and its workflow | `STRANDED`, live, no pull request |
+| `run/lichess-move-rnd-recursive-2026-09-13` | recursive lichess move diagnosis and two framework-fit experiments | `STRANDED`, live, no pull request; puts three `.py` files under `research/deep-research-preflight/` |
 | `research/rnd-self-triangulation-anti-challenges-2026-09-08` | anti-challenges `A1`-`A4` and the blind challenge matrix they invert | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | frozen anti-challenge rubric and its result | `STRANDED`, live, no pull request |
 | `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenge matrix `C1`-`C4` and its result | `SUPERSEDED` by the anti-challenges branch |
@@ -84,7 +85,7 @@ remaining branch is an `OWNER` decision and none is taken here.
 
 Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
 by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen; five
-research branches, one trace branch and three run branches have been pushed since. Deletion
+research branches, one trace branch and four run branches have been pushed since. Deletion
 is refused in every agent session by the egress proxy, so it remains an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
