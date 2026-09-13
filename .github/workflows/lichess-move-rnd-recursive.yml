@@ -1,0 +1,70 @@
+name: Lichess Move-Level R&D Calibration
+
+on:
+  push:
+    branches:
+      - run/lichess-move-rnd-recursive-2026-09-13
+    paths:
+      - '.github/workflows/lichess-move-rnd-recursive.yml'
+      - 'research/deep-research-preflight/LICHESS-MOVE-DIAGNOSIS-2026-09-13.task.json'
+      - 'runtime/calibration_loop/copilot_resource_adapter.py'
+      - 'runtime/calibration_loop/copilot-config.best-effort.json'
+
+permissions:
+  contents: read
+  copilot-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout agent repository
+        uses: actions/checkout@v4
+
+      - name: Checkout lichess move evidence
+        uses: actions/checkout@v4
+        with:
+          repository: ereztash/lichess_app
+          path: external/lichess_app
+
+      - name: Install analysis dependencies
+        run: |
+          python -m pip install --quiet pandas pyarrow zstandard python-chess
+          npm install -g @github/copilot
+
+      - name: Verify move evidence is readable
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          p='external/lichess_app/research/mechanism/data/decisions_erez281.parquet'
+          df=pd.read_parquet(p)
+          print({'rows': len(df), 'cols': len(df.columns), 'games': int(df.game_id.nunique()) if 'game_id' in df else None})
+          print('columns_sample', list(df.columns)[:30])
+          PY
+
+      - name: Validate calibration task
+        run: python scripts/validate_calibration_task.py research/deep-research-preflight/LICHESS-MOVE-DIAGNOSIS-2026-09-13.task.json
+
+      - name: Run canonical Calibration Loop on move evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="runtime/execution_traces/BE-LICHESS-MOVE-DIAGNOSIS-${GITHUB_SHA}.json"
+          python runtime/calibration_loop/run.py \
+            research/deep-research-preflight/LICHESS-MOVE-DIAGNOSIS-2026-09-13.task.json \
+            --config runtime/calibration_loop/copilot-config.best-effort.json \
+            --strict \
+            --output "$OUT"
+          echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
+          cat "$OUT"
+
+      - name: Upload trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lichess-move-rnd-${{ github.sha }}
+          path: runtime/execution_traces/BE-LICHESS-MOVE-DIAGNOSIS-${{ github.sha }}.json
+          if-no-files-found: warn
