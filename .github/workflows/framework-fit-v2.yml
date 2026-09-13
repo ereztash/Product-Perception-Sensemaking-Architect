@@ -1,0 +1,38 @@
+name: Lichess Framework Fit Experiment V2
+
+on:
+  push:
+    branches:
+      - run/lichess-move-rnd-recursive-2026-09-13
+    paths:
+      - '.github/workflows/framework-fit-v2.yml'
+      - 'research/deep-research-preflight/framework_fit_experiment_v2.py'
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout experiment repository
+        uses: actions/checkout@v4
+      - name: Checkout lichess evidence repository
+        uses: actions/checkout@v4
+        with:
+          repository: ereztash/lichess_app
+          path: external/lichess_app
+      - name: Install dependencies
+        run: python -m pip install --quiet pandas pyarrow zstandard python-chess scikit-learn pysubgroup
+      - name: Run discrimination-aware framework fit
+        run: |
+          python research/deep-research-preflight/framework_fit_experiment_v2.py
+          test -s runtime/framework_fit_results_v2.json
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: framework-fit-v2-${{ github.sha }}
+          path: runtime/framework_fit_results_v2.json
+          if-no-files-found: warn
