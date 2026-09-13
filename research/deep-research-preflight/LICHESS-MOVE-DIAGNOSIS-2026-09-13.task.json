@@ -1,37 +1,36 @@
 {
   "calibration_version": "0.1",
-  "task_id": "CAL-LICHESS-MOVE-DIAGNOSIS-2026-09-13",
+  "task_id": "CAL-LICHESS-MOVE-DIAGNOSIS-R2-2026-09-13",
   "telos": {
-    "statement": "Use the player's full move-level Decision Lab / Stockfish evidence to produce the strongest evidence-bounded diagnosis that is genuinely useful to the player now: prioritized recurring weaknesses, recurring strengths, personal decision rules, and the highest-value next learning target. The result must be suitable for a product surface, not a research paper.",
-    "success_condition": "Inspect the actual move-level data and existing validated research artifacts in the checked-out lichess_app repository, distinguish context from mechanism and observation from cognitive explanation, search for both strengths and weaknesses, and end with a short prioritized user-facing output plus the smallest next analysis or field test only if it could still change that output. Stop when another analysis pass is unlikely to change the top priorities, action, reversal condition, or evidence status."
+    "statement": "Use Erez281's actual move-level Stockfish dataset to determine whether sequence-level evidence changes the current player diagnosis. The concrete target is to distinguish 'persistent liability left unresolved' from the broader hypothesis that spending a tempo to repair/stabilize positions is a recurring source of later advantage, and to surface any genuine recurring strength that deserves player-facing priority.",
+    "success_condition": "Before returning the R&D diagnosis, execute at least one direct Python/shell analysis against external/lichess_app/research/mechanism/data/decisions_erez281.parquet (and scored traces or existing provenance scripts when necessary). Produce at least one newly computed sequence-level result that is not merely copied from the task summary or a prior report. Compare future evaluation trajectories across relevant action signatures where possible. Search at least one successful-sequence/strength candidate as well as the known weakness. If direct computation cannot be completed, say so and do not claim it was inspected. Continue only if the new computation can change the player-facing diagnosis, training allocation, reversal condition, or evidence status; otherwise return STOP/Δ0."
   },
   "current_state": {
-    "summary": "The GitHub Actions workspace will contain the canonical agent repository plus a second checkout at external/lichess_app. The player is Erez281. The primary decision table is external/lichess_app/research/mechanism/data/decisions_erez281.parquet and contains the player's move-level features and post-move outcomes derived from Stockfish traces. The scored trace artifact is external/lichess_app/research/mechanism/data/scored_erez281_sf171_d12_mpv3.jsonl.zst. A same-rating population decision table is available at external/lichess_app/research/mechanism/data/decisions_population_2026-06.parquet. Existing research artifacts under external/lichess_app/research/mechanism/ include validated findings, invariance tests, examples, prediction checks, and R** mechanism localization. One already-supported pattern is elevated risk when an own under-defended piece remains unresolved across decision cycles; the user has now asked a broader question: what does the entire move dataset actually say about how they play, including whether apparently defensive or tempo-sacrificing repair moves often lead to better subsequent positions? R&D must inspect the local data/files directly before answering. Do not merely restate this summary.",
+    "summary": "Recursive pass 1 completed through the canonical Calibration Loop. It preserved the current supported diagnosis: repeated non-resolution of persistent under-defended pieces remains the strongest historical player-specific weakness. It explicitly refused to promote the broader 'repair/tempo moves create advantage' story or a strength story because no new sequence-level computation was demonstrated. Pass 1 returned next_move=USE_EXISTING and stop_or_continue=CONTINUE. Therefore this pass must execute the USE_EXISTING move against the actual move rows, not restate the existing mechanism report. The GitHub Actions workspace contains external/lichess_app at current main. Primary table: external/lichess_app/research/mechanism/data/decisions_erez281.parquet (59,419 rows, 155 columns, 2,161 games in pass-1 environment verification). Scored trace: external/lichess_app/research/mechanism/data/scored_erez281_sf171_d12_mpv3.jsonl.zst. Population table: external/lichess_app/research/mechanism/data/decisions_population_2026-06.parquet. Existing provenance/localization scripts are under external/lichess_app/research/mechanism/analysis/, including rstarstar_provenance.py and rstarstar_persistent_followup.py.",
     "known_constraints": [
-      "Do not infer attention, tunnel vision, calculation depth, motivation, or any other cognitive cause from board traces alone.",
-      "Do not equate fewer errors with gaining an advantage; if claiming a repair or tempo investment leads to advantage, require actual subsequent evaluation evidence.",
-      "Do not treat a pattern discovered post hoc on the same data as independently validated; label exploratory findings accordingly.",
-      "Do not let a coarse label such as opening, black, middlegame, time pressure, or tactics substitute for a stronger underlying pattern when the evidence supports one.",
-      "Search for strengths and successful recurring sequences as actively as for weaknesses.",
-      "Prefer conclusions that can change what the player studies, notices, or asks themselves before a move.",
-      "Keep statistical machinery in the evidence layer; the final player-facing wording should be plain and actionable.",
-      "Use existing repository evidence and direct analysis before proposing new instrumentation or product work.",
-      "A new analysis should continue only if it can change the prioritized diagnosis, training allocation, product output, reversal condition, or evidence status."
+      "MUST execute direct local analysis before final diagnosis. Reading only prose reports does not satisfy this pass.",
+      "MUST include in the semantic output at least one concrete newly computed sequence-level quantity or clearly state FAILED_DIRECT_COMPUTATION.",
+      "Do not infer attention, tunnel vision, calculation depth, motivation, or other cognitive cause from board traces alone.",
+      "Do not equate fewer immediate errors with later advantage. Advantage requires a later evaluation/outcome trajectory, e.g. next own decision(s), not just current y_wp_loss.",
+      "Do not treat post-hoc discovery on this same history as independent validation. New strength candidates remain exploratory unless already held out elsewhere.",
+      "Do not let opening/black/time-pressure labels substitute for a more specific decision pattern.",
+      "Search for successful recurring sequences or strengths as actively as failure sequences.",
+      "Do not propose product rebuilding. The output is a player diagnosis and the cheapest next evidence move.",
+      "Statistics may support the reasoning, but user-facing wording must be short and ordinary-language."
     ],
     "available_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"]
   },
   "decision_blocked": {
-    "statement": "What should Decision Lab actually tell this player, today, after using the full historical move-level evidence rather than only the interpretations already written about it?",
-    "current_default": "The safest current product output is that persistent under-defended liabilities are a major recurring weakness, while claims about openings, playing Black, tempo-sacrificing repair moves, strengths, and downstream advantage remain secondary or unresolved.",
-    "reversal_condition": "Direct inspection of the full move-level dataset and durable research artifacts identifies a stronger or more general priority, a reproducible strength, or evidence that changes how the persistent-liability finding should be translated into the player's next learning action or product output."
+    "statement": "After looking at actual sequences, should Decision Lab still tell Erez primarily 'you leave live liabilities unresolved', or should it upgrade/broaden the player-facing rule to something like 'you undervalue spending a tempo to stabilize before continuing', or surface a different strength/weakness as a higher priority?",
+    "current_default": "Keep the narrow supported rule: when a problem remains live on the board across decision cycles, Erez is unusually vulnerable if he again leaves it unresolved. Treat 'repair moves create later advantage' and positive strength rules as unproven.",
+    "reversal_condition": "A direct sequence analysis shows a reproducible later-evaluation difference after resolving versus not resolving comparable liability states, or identifies another recurring player-specific strength/weakness with enough support to change the top player-facing priority or learning allocation."
   },
   "signals": [
-    "The product already holds tens of thousands of decision-level rows, not merely aggregate interpretations.",
-    "The user wants to see the product output on their own moves, not another abstract product discussion.",
-    "Existing work has focused more heavily on failure regions than on recurring successful sequences or personal strengths.",
-    "The user specifically suspects that some moves which spend a tempo to stabilize or repair a position may create later advantage, which requires sequence-level evidence rather than single-move error rates.",
-    "A useful diagnosis may be a small set of personal decision rules rather than a taxonomy of chess topics.",
-    "R&D has permission to inspect local files under external/lichess_app with shell/Python tools during the run; the underlying data is the object of analysis."
+    "Pass 1 returned CONTINUE specifically because the full move history had not yet been exploited at sequence level.",
+    "The decision table contains game_id, ply, eval_before_cp, y_eval_after_cp, board-state features and post-move outcomes, enabling same-game temporal joins across the player's next decisions.",
+    "Existing localization distinguishes persistent/resolved/unresolved action signatures; those scripts can be reused rather than reinvented.",
+    "A valid second pass should be capable of falsifying the attractive story that 'repairing costs a tempo but creates advantage'.",
+    "A useful product output may include a strength only if the dataset actually supports a recurring successful rule rather than merely the absence of a known failure."
   ],
   "allowed_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"],
   "context_refs": [
