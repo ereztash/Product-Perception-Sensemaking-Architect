@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/lichess-move-rnd-recursive.yml'
       - 'research/deep-research-preflight/LICHESS-MOVE-DIAGNOSIS-2026-09-13.task.json'
+      - 'research/deep-research-preflight/compute_move_sequence_evidence.py'
       - 'runtime/calibration_loop/copilot_resource_adapter.py'
       - 'runtime/calibration_loop/copilot-config.best-effort.json'
 
@@ -32,7 +33,7 @@ jobs:
 
       - name: Install analysis dependencies
         run: |
-          python -m pip install --quiet pandas pyarrow zstandard python-chess
+          python -m pip install --quiet pandas pyarrow zstandard python-chess scikit-learn
           npm install -g @github/copilot
 
       - name: Verify move evidence is readable
@@ -44,6 +45,11 @@ jobs:
           print({'rows': len(df), 'cols': len(df.columns), 'games': int(df.game_id.nunique()) if 'game_id' in df else None})
           print('columns_sample', list(df.columns)[:30])
           PY
+
+      - name: Execute R&D-selected USE_EXISTING evidence move
+        run: |
+          python research/deep-research-preflight/compute_move_sequence_evidence.py
+          test -s runtime/move_sequence_evidence.json
 
       - name: Validate calibration task
         run: python scripts/validate_calibration_task.py research/deep-research-preflight/LICHESS-MOVE-DIAGNOSIS-2026-09-13.task.json
@@ -61,10 +67,12 @@ jobs:
           echo "TRACE_PATH=$OUT" >> "$GITHUB_ENV"
           cat "$OUT"
 
-      - name: Upload trace
+      - name: Upload evidence and trace
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lichess-move-rnd-${{ github.sha }}
-          path: runtime/execution_traces/BE-LICHESS-MOVE-DIAGNOSIS-${{ github.sha }}.json
+          path: |
+            runtime/move_sequence_evidence.json
+            runtime/execution_traces/BE-LICHESS-MOVE-DIAGNOSIS-${{ github.sha }}.json
           if-no-files-found: warn
