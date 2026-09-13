@@ -1,0 +1,49 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-LICHESS-MOVE-DIAGNOSIS-2026-09-13",
+  "telos": {
+    "statement": "Use the player's full move-level Decision Lab / Stockfish evidence to produce the strongest evidence-bounded diagnosis that is genuinely useful to the player now: prioritized recurring weaknesses, recurring strengths, personal decision rules, and the highest-value next learning target. The result must be suitable for a product surface, not a research paper.",
+    "success_condition": "Inspect the actual move-level data and existing validated research artifacts in the checked-out lichess_app repository, distinguish context from mechanism and observation from cognitive explanation, search for both strengths and weaknesses, and end with a short prioritized user-facing output plus the smallest next analysis or field test only if it could still change that output. Stop when another analysis pass is unlikely to change the top priorities, action, reversal condition, or evidence status."
+  },
+  "current_state": {
+    "summary": "The GitHub Actions workspace will contain the canonical agent repository plus a second checkout at external/lichess_app. The player is Erez281. The primary decision table is external/lichess_app/research/mechanism/data/decisions_erez281.parquet and contains the player's move-level features and post-move outcomes derived from Stockfish traces. The scored trace artifact is external/lichess_app/research/mechanism/data/scored_erez281_sf171_d12_mpv3.jsonl.zst. A same-rating population decision table is available at external/lichess_app/research/mechanism/data/decisions_population_2026-06.parquet. Existing research artifacts under external/lichess_app/research/mechanism/ include validated findings, invariance tests, examples, prediction checks, and R** mechanism localization. One already-supported pattern is elevated risk when an own under-defended piece remains unresolved across decision cycles; the user has now asked a broader question: what does the entire move dataset actually say about how they play, including whether apparently defensive or tempo-sacrificing repair moves often lead to better subsequent positions? R&D must inspect the local data/files directly before answering. Do not merely restate this summary.",
+    "known_constraints": [
+      "Do not infer attention, tunnel vision, calculation depth, motivation, or any other cognitive cause from board traces alone.",
+      "Do not equate fewer errors with gaining an advantage; if claiming a repair or tempo investment leads to advantage, require actual subsequent evaluation evidence.",
+      "Do not treat a pattern discovered post hoc on the same data as independently validated; label exploratory findings accordingly.",
+      "Do not let a coarse label such as opening, black, middlegame, time pressure, or tactics substitute for a stronger underlying pattern when the evidence supports one.",
+      "Search for strengths and successful recurring sequences as actively as for weaknesses.",
+      "Prefer conclusions that can change what the player studies, notices, or asks themselves before a move.",
+      "Keep statistical machinery in the evidence layer; the final player-facing wording should be plain and actionable.",
+      "Use existing repository evidence and direct analysis before proposing new instrumentation or product work.",
+      "A new analysis should continue only if it can change the prioritized diagnosis, training allocation, product output, reversal condition, or evidence status."
+    ],
+    "available_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What should Decision Lab actually tell this player, today, after using the full historical move-level evidence rather than only the interpretations already written about it?",
+    "current_default": "The safest current product output is that persistent under-defended liabilities are a major recurring weakness, while claims about openings, playing Black, tempo-sacrificing repair moves, strengths, and downstream advantage remain secondary or unresolved.",
+    "reversal_condition": "Direct inspection of the full move-level dataset and durable research artifacts identifies a stronger or more general priority, a reproducible strength, or evidence that changes how the persistent-liability finding should be translated into the player's next learning action or product output."
+  },
+  "signals": [
+    "The product already holds tens of thousands of decision-level rows, not merely aggregate interpretations.",
+    "The user wants to see the product output on their own moves, not another abstract product discussion.",
+    "Existing work has focused more heavily on failure regions than on recurring successful sequences or personal strengths.",
+    "The user specifically suspects that some moves which spend a tempo to stabilize or repair a position may create later advantage, which requires sequence-level evidence rather than single-move error rates.",
+    "A useful diagnosis may be a small set of personal decision rules rather than a taxonomy of chess topics.",
+    "R&D has permission to inspect local files under external/lichess_app with shell/Python tools during the run; the underlying data is the object of analysis."
+  ],
+  "allowed_resources": ["RND", "NETA", "OWNER", "REPO", "FIELD"],
+  "context_refs": [
+    "docs/SHARED_EPISTEMIC_KERNEL.md",
+    "docs/AGENT_AUTHORITY_BOUNDARIES.md",
+    "docs/DECISION_EXECUTION_LEARNING_LOOP.md",
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "prompts/SYSTEM.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
