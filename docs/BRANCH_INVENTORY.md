@@ -102,7 +102,7 @@ one of these numbers and fails on any that does not match.
 | `claude/product-value-completion-run-if7ito` | `1ceec96412` | 15 | 31 | `OPEN_PR_TO_MAIN` |
 | `claude/repo-canonicalization-reconciliation-aufvq6` | `919f7642b4` | 14 | 0 | `OPEN_PR_TO_MAIN` |
 | `claude/repo-cleanup-590u82` | `2f30b946b7` | 9 | 4 | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | `c58693ad42` | 15 | 11 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `190c974544` | 17 | 10 | `OPEN_PR_TO_MAIN` |
 | `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 1 | `SUPERSEDED`, superseded by `main` |
 | `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 14 | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-2026-09-08` | `bf346508d2` | 17 | 17 | `STRANDED` |
@@ -259,22 +259,43 @@ coordinates or executes" to `runtime/` or `scripts/`.
 The branch is live and has no pull request, so nothing is proposing this to `main` yet.
 Recorded as a placement question for its owner, not resolved here.
 
-### A file named `1` is on its way to `main`
+### The gate this repository ships is red on `main`
 
-`claude/ux-ui-analysis-v6ao5u` (PR 23) carries a 6,633-byte file at the repository root
-named `1`, added by `684aed3` on 2026-09-12. It is not junk: it holds three JSONL
-provenance records from a real Calibration Loop run, each naming the adapter, the served
-model, the cost and a context-delivery manifest. It is output captured by a mistyped shell
-redirect, `>1` where `>&1` was meant.
+`scripts/check_branch_inventory.py --live`, run against `main`'s own tree on 2026-09-14,
+fails. `main` declares fourteen branches anchored at `74fc4af5`, and seven live branches
+older than a day are undeclared there: the four `rnd-self-triangulation` branches and the
+three `run/*-2026-09-12` branches.
 
-Two things follow. The content belongs under `runtime/calibration_loop/traces/` by the
-placement table in `docs/REPOSITORY_MAP.md`, and no rule places anything at the root under
-that name. And the records themselves report `requested: 9, delivered: 0` for context: every
-`prompt_ref` in that run failed to resolve, so the provenance documents a run whose inputs
-never arrived.
+The instrument is not broken. It is reporting exactly the drift it was built to report,
+against a declaration that has not been updated since PR 21. This branch holds the current
+declaration, twenty-three branches anchored at `8ce05519`, and it has not merged. Until it
+does, every pull request that touches `main` inherits a red `contract` job that is not
+about its own diff.
 
-Recorded, not acted on. The branch belongs to a parallel session and its pull request is
-that session's to correct.
+That is the cost of the tourniquet being in a draft: the measurement is right and nobody
+downstream can act on it.
+
+### The trace validator is a hand-written list
+
+`.github/workflows/verify.yml` validates execution traces by naming six files explicitly.
+`runtime/execution_traces/` holds six on `main`, so the list happens to be complete there
+today. `claude/ux-ui-analysis-v6ao5u` carries thirteen, so seven of its traces would enter
+`main` having never been validated, and the job would still be green.
+
+A gate whose coverage is a list someone must remember to extend is the same defect as a
+count whose command nobody checked. PR 23 found this independently and is repairing it on
+its own branch; recorded here rather than repaired twice in the same file.
+
+### A file named `1` reached the repository root, and was removed
+
+`claude/ux-ui-analysis-v6ao5u` carried a 6,633-byte file at the repository root named `1`,
+added by `684aed3` on 2026-09-12. It was not junk: three JSONL provenance records from a
+real Calibration Loop run, output captured by a mistyped shell redirect, `>1` where `>&1`
+was meant. The records reported `requested: 9, delivered: 0`, so every `prompt_ref` in that
+run failed to resolve.
+
+Its owner removed it in `e41aab9` on 2026-09-14. Kept here as lineage: a branch read found
+it, the branch's own session fixed it, and no gate was involved at any point.
 
 ### The rubric and the result it grades are on different branches, twice
 
