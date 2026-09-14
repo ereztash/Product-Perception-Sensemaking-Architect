@@ -111,12 +111,15 @@ one of these numbers and fails on any that does not match.
 | `research/rnd-self-triangulation-anti-challenges-2026-09-08` | `3b51465235` | 23 | 23 | `STRANDED` |
 | `research/rnd-self-triangulation-challenges-2026-09-08` | `9756465715` | 18 | 18 | `SUPERSEDED`, superseded by `research/rnd-self-triangulation-anti-challenges-2026-09-08` |
 | `run/claude-prerelease-prompt-telos-2026-09-06` | `5be34ad7fd` | 2 | 12 | `STRANDED` |
+| `run/construct-separation-audit-2026-09-12` | `ec8c193024` | 6 | 5 | `STRANDED` |
 | `run/delta-v02-batch-2026-09-08` | `c064fa1d58` | 10 | 9 | `STRANDED` |
 | `run/lichess-premove-ownership-copilot-2026-09-07` | `9badd02a2b` | 6 | 4 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
 | `run/lichess-whitepaper-calibration-2026-09-06` | `4be4625f9a` | 4 | 5 | `STRANDED` |
 | `run/meta-calibrate-best-effort-reasoning-2026-09-08` | `bd0ae563d7` | 14 | 8 | `STRANDED` |
+| `run/nico-ux-paired-2026-09-12` | `07ddf30252` | 20 | 12 | `STRANDED` |
 | `run/product-value-completion-2026-09-06` | `bdaba4849d` | 3 | 9 | `SUPERSEDED`, superseded by `claude/product-value-completion-run-if7ito` |
 | `run/self-calibrate-best-effort-skill-2026-09-08` | `1896497474` | 9 | 6 | `SUPERSEDED`, superseded by `run/meta-calibrate-best-effort-reasoning-2026-09-08` |
+| `run/tpoae-rnd-best-effort-2026-09-12` | `25ec110ab8` | 16 | 10 | `SUPERSEDED`, superseded by `run/nico-ux-paired-2026-09-12` |
 | `skill/evidence-bounded-best-effort-runtime` | `e022cc642f` | 2 | 2 | `STRANDED` |
 
 Tips in this table are last-observed values, not pins. An active branch is expected to

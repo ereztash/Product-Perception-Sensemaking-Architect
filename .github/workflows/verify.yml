@@ -86,15 +86,23 @@ jobs:
       - name: Validate real Architecture corpus execution trace
         run: python scripts/validate_decision_trace.py runtime/execution_traces/DEL-ARCH-CORPUS-001.json
 
-      - name: Validate lichess pre-release execution traces
+      # Enumerated, not listed. This step named seven traces by hand while five more
+      # sat in the same directory unvalidated, so a trace could be added and be wrong
+      # and CI would stay green. A longer list is the same defect with a later expiry
+      # date; the walk is what makes a new trace impossible to miss.
+      - name: Validate every execution trace
         run: |
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-001.json
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-RELEASE-STALE-PR-002.json
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-AUDIT-PROMOTION-001.json
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-001.json
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-002.json
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-LEARNING-COST-001.json
-          python scripts/validate_decision_trace.py runtime/execution_traces/DEL-LICHESS-LEARNING-JOURNEY-001.json
+          shopt -s nullglob
+          traces=(runtime/execution_traces/*.json)
+          if [ ${#traces[@]} -eq 0 ]; then
+            echo "No execution traces found. The directory moved or the glob is wrong;"
+            echo "a step that validates nothing must not report success."
+            exit 1
+          fi
+          echo "validating ${#traces[@]} execution traces"
+          for t in "${traces[@]}"; do
+            python scripts/validate_decision_trace.py "$t"
+          done
 
       - name: Check Architecture historical benchmark corpus
         run: python scripts/check_architecture_historical_cases.py

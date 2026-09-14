@@ -99,6 +99,6 @@ declaration that outlives its object is exactly what it exists to catch.
 
 ## What this runbook does not cover
 
-The nineteen branches ahead of `main`. None of them may be deleted by this command; every
+The twenty-two branches ahead of `main`. None of them may be deleted by this command; every
 one carries commits that exist nowhere else. Their dispositions are in
 `docs/BRANCH_INVENTORY.md` and their recovery is a separate `OWNER` decision.
