@@ -1,0 +1,213 @@
+{
+  "artifact_type": "COMPETITOR_RESEARCH",
+  "as_of": "2026-09-06",
+  "dimensions": [
+    "D1 signal and problem interpretation",
+    "D2 diagnosis and candidate mechanisms",
+    "D3 evaluation and cheapest discriminating test",
+    "D4 evidence lineage and human review",
+    "D5 authority, permission and stop/reversal semantics",
+    "D6 workflow access and action execution",
+    "D7 externally measured decision/commercial outcomes"
+  ],
+  "field_claims_not_established": [
+    "external-user comprehension",
+    "material comparative decision improvement",
+    "willingness to pay",
+    "repeat use",
+    "commercial moat",
+    "market-wide unmet need"
+  ],
+  "interpretations": [
+    {
+      "based_on": [
+        "COMP-01",
+        "COMP-02",
+        "COMP-03",
+        "COMP-04",
+        "COMP-05",
+        "COMP-07",
+        "COMP-08",
+        "COMP-09",
+        "COMP-10"
+      ],
+      "classification": "INTERPRETATION OF COMPETITIVE GAP",
+      "id": "GAP-H1",
+      "required_authority": "FIELD for comparative usability/value; REPO for actual enforcement; independent admissible adjudication for research promotion.",
+      "statement": "The candidate distinction may be claim-level authority/permission/reversal and allocation of learning effort across product/research decisions, rather than tracing, evaluation, pattern synthesis or generic human approval.",
+      "status": "HYPOTHESIS",
+      "unresolved": "Whether this distinction improves decisions enough to warrant adoption or payment; whether configured incumbent workflows plus skilled operators already provide it. Absence from these pages is not proof of absence."
+    },
+    {
+      "based_on": [
+        "COMP-09",
+        "COMP-10",
+        "COMP-03",
+        "COMP-07"
+      ],
+      "classification": "INTERPRETATION OF COMPETITIVE GAP",
+      "id": "GAP-H2",
+      "statement": "Competitive set depends on the chosen job: AI engineering evaluation/debugging versus customer/product decision sensemaking. The original five products do not exhaust the latter.",
+      "status": "HYPOTHESIS",
+      "unresolved": "OWNER target workflow and FIELD substitution behavior. Do not choose a segment or roadmap from this research packet."
+    }
+  ],
+  "method": "Bounded public search beginning with LangSmith, Braintrust, Langfuse, Giskard and Patronus, expanded into agent debugging/optimization and product/customer sensemaking. Only first-party documentation and vendor pages retained. Observed means documentation observed, not hands-on verification or independent outcome evidence. No performance, market-share, pricing or exclusivity inference.",
+  "observations": [
+    {
+      "capability": "Online and offline evaluations, reusable datasets from traces, version comparison and regression checking.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D3",
+        "D4",
+        "D6"
+      ],
+      "documented_user_outcome": "Assess changes and catch regressions in agent behavior.",
+      "id": "COMP-01",
+      "limits": "Documentation of evaluation workflows does not establish comparative decision value of this repo.",
+      "product": "LangSmith",
+      "source": "https://docs.langchain.com/langsmith/evaluation"
+    },
+    {
+      "capability": "Groups production traces by usage and poor interactions; supports configurable categories, drill-down and transfer to datasets or annotation queues. Multi-turn evaluation addresses intent, outcomes and trajectories.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "documented_user_outcome": "Find recurring usage/failure patterns and focus subsequent investigation.",
+      "id": "COMP-02",
+      "limits": "Vendor documentation; automatic pattern interpretation is already offered. No direct test against Neta was performed.",
+      "product": "LangSmith Insights Agent",
+      "published": "2025-10-23",
+      "source": "https://www.langchain.com/blog/insights-agent-multiturn-evals-langsmith"
+    },
+    {
+      "capability": "Managed-runtime agent investigates logs, experiments and datasets; creates or edits prompts, scorers, datasets, facets, views, dashboards and automations with approval; embeds current page context and persists threads.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "documented_user_outcome": "Move from project evidence to investigations and reviewable evaluation changes within an existing workflow.",
+      "id": "COMP-03",
+      "limits": "Approval and data investigation already exist. Approval UI is not demonstrated equivalent to this repo's claim-specific resolution authority contract.",
+      "product": "Braintrust Loop",
+      "source": "https://www.braintrust.dev/docs/loop"
+    },
+    {
+      "capability": "Manual annotation, end-user feedback, datasets, side-by-side prompt/model/code experiments, CI/CD regression gates, deterministic code evaluators and online LLM judges.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D3",
+        "D4",
+        "D6"
+      ],
+      "documented_user_outcome": "Turn production examples into repeatable checks and reviewed comparisons.",
+      "id": "COMP-04",
+      "limits": "Annotation tooling is not itself an independent adjudicator. No basis to claim evidence collection or traceability as exclusive.",
+      "product": "Langfuse",
+      "source": "https://langfuse.com/docs/evaluation/overview"
+    },
+    {
+      "capability": "Hub supports collaborative annotation, versioned test cases, custom business checks, continuous red teaming and scheduled evaluations. Open-source library provides pytest behavioral scenarios, vulnerability scans and RAG quality scans.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D2",
+        "D3",
+        "D4",
+        "D6"
+      ],
+      "documented_user_outcome": "Detect functional or security failures and organize repeatable checks.",
+      "id": "COMP-05",
+      "limits": "The docs explicitly do not treat scan results as a safety/compliance guarantee. This is not a head-to-head product outcome result.",
+      "product": "Giskard",
+      "published": "2026-09-03 (page last updated)",
+      "source": "https://docs.giskard.ai/"
+    },
+    {
+      "capability": "Current homepage centers Digital World Models and simulation infrastructure for agent actions in digital workflows; also lists Lynx hallucination detection, FinanceBench, BLUR and GLIDER evaluation research.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D3"
+      ],
+      "documented_user_outcome": "Provide simulated training/evaluation environments and specialized evaluation research.",
+      "id": "COMP-06",
+      "limits": "Current documentation link redirected to the homepage in this inspection. Availability and scope of historical evaluation products, including Percival, were not verified; do not carry old product descriptions forward as current. Simulation is not FIELD validation of Neta/R&D.",
+      "product": "Patronus AI",
+      "source": "https://www.patronus.ai/"
+    },
+    {
+      "capability": "Assistant investigates trace span trees and compares failures with successful runs. With opik connect it can read local source, propose changes, run an agent and verify with test suites.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D6"
+      ],
+      "documented_user_outcome": "Connect trace diagnosis to code changes and regression verification.",
+      "id": "COMP-07",
+      "limits": "Vendor-documented execution loop already overlaps diagnosis-to-change. It does not prove field/business impact or equivalence of epistemic authority semantics.",
+      "product": "Opik / Ollie",
+      "source": "https://www.comet.com/docs/opik/ollie"
+    },
+    {
+      "additional_source": "https://arize.com/docs/ax/set-up-with-ai-assistants",
+      "capability": "Homepage describes Signal surfacing issues, root causes and review-ready fixes, and Alyx running evals and debugging agents. Docs support coding-agent access via skills and MCP.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D2",
+        "D3",
+        "D6"
+      ],
+      "documented_user_outcome": "Investigate and improve agent behavior from existing engineering workflows.",
+      "id": "COMP-08",
+      "limits": "Homepage claims are weaker evidence than hands-on verification. No independent performance claims are adopted.",
+      "product": "Arize AX / Alyx / Signal",
+      "source": "https://arize.com/"
+    },
+    {
+      "additional_source": "https://dovetail.com/",
+      "capability": "Chat can generate structured insight reports using project data; current site describes AI analysis across calls, documents, surveys and customer touchpoints with customer-voice highlights.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D1",
+        "D2",
+        "D4",
+        "D6"
+      ],
+      "documented_user_outcome": "Make customer evidence reusable in product sensemaking and share reports.",
+      "id": "COMP-09",
+      "limits": "Closer alternative for product/customer sensemaking than a trace-only comparator. Source-backed synthesis is already offered; field effectiveness was not measured here.",
+      "product": "Dovetail",
+      "published": "2025-09-15",
+      "source": "https://dovetail.com/changelog/create-insights-from-chat/"
+    },
+    {
+      "additional_source": "https://www.productboard.com/blog/how-to-trust-ai-outputs/",
+      "capability": "Pulse documentation describes conversational feedback analysis, follow-up questions and shareable insight reports. Productboard's guidance explicitly retains strategy and prioritization tradeoffs with a human owner.",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "dimensions": [
+        "D1",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "documented_user_outcome": "Use customer feedback in PM decisions while retaining human review.",
+      "id": "COMP-10",
+      "limits": "Support-page evidence was retrieved through indexed first-party search excerpts; a related comparison-page full-text open failed. Human ownership is not an exclusive differentiator.",
+      "product": "Productboard Pulse / AI",
+      "source": "https://support.productboard.com/hc/en-us/articles/34627982878483-Generate-insight-reports-with-Productboard-Pulse"
+    }
+  ],
+  "roadmap_authority": "NONE. This packet provides bounded evidence inputs. Only actual R&D SYNTHESIZE output may originate the requested roadmap.",
+  "status": "PUBLIC_DOCUMENTATION_OBSERVATIONS_NOT_PRODUCT_TRIALS"
+}

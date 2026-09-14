@@ -1,0 +1,57 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-REGISTER-TEST-001",
+  "decision": {
+    "statement": "Execute roadmap row N3-REGISTER-TEST from the CAL-PRODUCT-VALUE-001 synthesis now that the OWNER has closed O4-FIRST-EXTERNAL-CONTACT-AUTHORIZATION, by freezing the protocol first and then running whatever part of it the environment admits.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "FIELD",
+    "evidence_refs": [
+      "runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001-claude-cli.json",
+      "research/product-value-completion/N3_REGISTER_TEST_PROTOCOL_V0_FROZEN.md"
+    ],
+    "reversal_condition": "If an admissible reader cannot be obtained at all, the row stops being a probe and becomes a standing FIELD requirement; if the pilot had shown the question to be unanswerable or the artifacts to contain no decision, the row would be replaced by artifact repair rather than reader recruitment."
+  },
+  "execution": {
+    "executor_type": "MIXED",
+    "planned_action": "Freeze the protocol before any reader sees any artifact, then hand exactly one artifact and one question to a reader who is not the owner and not of the artifacts' model lineage, and score the answer against the frozen rubric.",
+    "completed_action": "Protocol frozen. Reader admissibility could not be satisfied: the environment provides only an Anthropic Claude CLI and no credential for any other provider, and the owner is excluded by construction. An instrument pilot was run instead, with two same-lineage readers, one artifact each, fresh subprocess, neutral working directory, all tools disabled and no repository access. Both answers were scored against the frozen rubric and retained verbatim. The pilot found that both candidate artifacts label the reversal condition explicitly, so the frozen question can be satisfied by locating a labelled field. A v1 amendment was written as a proposal and deliberately not applied to the frozen protocol.",
+    "status": "PARTIAL",
+    "artifact_refs": [
+      "research/product-value-completion/N3_REGISTER_TEST_PILOT_2026-09-06.md",
+      "research/product-value-completion/n3-register-test-pilot/READER_A.json",
+      "research/product-value-completion/n3-register-test-pilot/READER_B.json",
+      "runtime/handoffs/HANDOFF-REGISTER-TEST-FIELD-001.json"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "A frozen protocol exists, both candidate artifacts actually contain a decision and a reversal condition, and the question is answerable in one turn without clarification.",
+    "observed_state": "Protocol frozen before any run. Artifact A carries decision.statement and decision.reversal_condition; artifact B carries a decision and a Reversal condition section at line 233. Both pilot readers answered in one turn and neither asked for clarification. The rubric discriminated rather than passing everything: reader A was scored INCONCLUSIVE on the pre-registered KEY_SCAN confound, reader B PASS. The instrument is runnable.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "research/product-value-completion/N3_REGISTER_TEST_PROTOCOL_V0_FROZEN.md",
+      "research/product-value-completion/N3_REGISTER_TEST_PILOT_2026-09-06.md"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "One admissible reader stating, in their own words, the decision an existing artifact records and what would reverse it.",
+    "observation": "",
+    "status": "FIELD_REQUIRED",
+    "evidence_refs": [
+      "runtime/handoffs/HANDOFF-REGISTER-TEST-FIELD-001.json"
+    ]
+  },
+  "learning": {
+    "decision_delta": "None to the roadmap. N3 is not discriminated, so M-A, M-B and M-C remain unranked and no roadmap row was reordered. What changed is the blocker's identity: before this pass N3 was blocked on OWNER authorization, and it is now blocked on reader lineage, which is a different authority with a different remedy.",
+    "claim_updates": [
+      "Authorization and admissibility are separate gates. Closing O4 removed permission to make external contact and did not by itself produce an admissible reader.",
+      "Both existing candidate artifacts self-label their reversal condition, so the frozen question under-detects the mechanism it targets. Found by pilot, before an admissible reader was spent.",
+      "The same missing resource blocks two roadmap rows at once: a non-Anthropic lineage would serve both this probe and X1-INDEPENDENT-ADJUDICATION-CHANNEL, which four other lanes wait on.",
+      "A pass by a same-lineage reader is close to uninformative about a human; a failure would have been informative, since an artifact opaque to a system fluent in its own idiom would be opaque to a stranger. The asymmetry is why the pilot is retained and why it settles nothing."
+    ],
+    "resource_delta": "Two model calls and one protocol freeze located a defect in the test item before any external reader was recruited. Recruiting first and discovering the label confound afterwards would have consumed a scarce admissible reader on a weakened instrument.",
+    "next_move": "FIELD recruits one reader per HANDOFF-REGISTER-TEST-FIELD-001. In parallel, OWNER may provision a non-Anthropic credential, which would serve this row and X1 together. Neither is repository work.",
+    "stop_or_continue": "WAIT_AUTHORITY"
+  }
+}

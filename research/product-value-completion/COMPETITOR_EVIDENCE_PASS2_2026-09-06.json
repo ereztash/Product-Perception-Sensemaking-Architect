@@ -1,0 +1,165 @@
+{
+  "artifact_type": "COMPETITOR_RESEARCH_PASS2",
+  "as_of": "2026-09-06",
+  "status": "PUBLIC_DOCUMENTATION_OBSERVATIONS_NOT_PRODUCT_TRIALS",
+  "relation_to_pass1": "ADDITIVE. research/product-value-completion/COMPETITOR_EVIDENCE_2026-09-06.json is retained unchanged. This pass adds observations, corrects one pass-1 limitation, and widens the comparator set beyond LLM-evaluation platforms. Pass-1 IDs are not rewritten.",
+  "method": "Bounded public search re-run over the five named products plus deliberate search for closer neighbours outside the LLM-observability category. Only first-party vendor documentation and vendor product pages were retained as OBSERVED. Vendor comparison articles and third-party blogs were used only to locate candidates and are never recorded as observed capability. Observed means documentation read, not hands-on trial, not benchmark, not outcome evidence.",
+  "why_pass2_exists": "Pass 1 sampled only the AI-evaluation/observability category plus two product-analytics tools. That sampling frame could not detect the category whose data model is structurally closest to this repository's claim contract. Assurance-case tooling was absent from pass 1 and is added here.",
+  "dimensions": [
+    "D1 signal and problem interpretation",
+    "D2 diagnosis and candidate mechanisms",
+    "D3 evaluation and cheapest discriminating test",
+    "D4 evidence lineage and human review",
+    "D5 authority, permission and stop/reversal semantics",
+    "D6 workflow access and action execution",
+    "D7 externally measured decision/commercial outcomes"
+  ],
+  "observations": [
+    {
+      "id": "COMP-06R",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Patronus AI / Percival",
+      "corrects": "COMP-06",
+      "correction_note": "Pass 1 recorded that the Patronus documentation link redirected to the homepage and therefore declined to carry Percival forward. A first-party Percival product page was reachable in this pass, so the capability is now observed rather than unverified.",
+      "capability": "Documented as an agent that detects 20+ failure modes in agentic traces across reasoning, system-execution, planning/coordination and domain-specific categories, and suggests optimizations. Documented episodic-memory behaviour: 'Each time you confirm an issue or annotate a missed failure mode, Percival learns.'",
+      "documented_user_outcome": "Reduce manual analysis of failing agent traces and receive suggested fixes.",
+      "dimensions": ["D1", "D2", "D3"],
+      "limits": "Product page states no scope, accuracy-threshold or applicability limits. It makes no documented claim about human approval requirement, resolution authority, permission or reversal. Vendor time-saving figures reported in press coverage are not adopted here.",
+      "source": "https://www.patronus.ai/percival"
+    },
+    {
+      "id": "COMP-11",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "LangSmith Fleet + Engine",
+      "capability": "First-party platform page documents Fleet as 'No-code agents for your entire team', Engine as clustering 'production failures into prioritized issues', deployment that can 'Run human-in-the-loop approvals, background agents, and multi-agent coordination', and identity features listing 'RBAC / ABAC' and 'SSO / SAML'. Evaluation runs 'LLM-as-judge, code-based, or multi-turn evaluators on real production traces'.",
+      "documented_user_outcome": "Operate a governed fleet of agents with approval gates on actions and prioritized failure triage.",
+      "dimensions": ["D2", "D3", "D5", "D6"],
+      "limits": "The LangSmith docs home page read in the same pass did not itself document human-in-the-loop approval, RBAC/ABAC or issue-clustering-with-PR. The stronger governance description sits on the marketing platform page. Approval and access control here govern ACTIONS and workspace resources. No documented claim-level evidence status, required-reality floor, or claim resolution authority.",
+      "source": "https://www.langchain.com/langsmith-platform",
+      "additional_source": "https://docs.langchain.com/langsmith/home"
+    },
+    {
+      "id": "COMP-12",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Adelard ASCE (assurance case environment)",
+      "category": "ASSURANCE_CASE_TOOLING",
+      "capability": "Documents structured graphical arguments with native support for CAE, GSN, Bow Tie and Fault Tree; 'Centralise and connect evidence from documents, spreadsheets, databases, other assurance cases'; 'traffic-light confidence indicators to instantly see which parts of the case have been successfully developed and where further effort is needed'; 'seamless change control' producing a 'comprehensive summary showing what's changed across evidence, narrative, and structure'; tailored stakeholder views and automated structural checks.",
+      "documented_user_outcome": "Build, review and maintain a defensible claim-evidence argument and see the impact of change on it.",
+      "dimensions": ["D4", "D5"],
+      "limits": "Authoring is manual. No AI-driven generation or diagnosis is documented on the page. Authorization workflow for accepting a claim is not explicitly detailed; collaboration is described as views, task tracking and comments. This is not an agent and does not perform sensemaking.",
+      "source": "https://www.adelard.com/asce/"
+    },
+    {
+      "id": "COMP-13",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Argevide PREMIS",
+      "category": "ASSURANCE_CASE_TOOLING",
+      "capability": "Documents modular GSN arguments online plus Eliminative Argumentation with defeaters; 'Role-based access control (RBAC) for all actions on assurance cases' with predefined roles 'manager, editor, auditor and viewer' or custom roles; self-assessment and third-party reviews with methods supporting uncertainty such as Dempster-Shafer; out-of-the-box integration with SharePoint, Confluence and Jira Cloud that 'monitors and reports on changes to evidence in integrated repositories'; 'checks if your reviews and assessments are up to date' and alerts on modified parts of the argument requiring re-review; complete change history of all assurance cases; live evidence data including safety/reliability performance indicators.",
+      "documented_user_outcome": "Maintain a reviewed claim-evidence argument whose review state is invalidated when its underlying evidence changes.",
+      "dimensions": ["D4", "D5"],
+      "limits": "Manual/human authoring and review. No documented autonomous diagnosis, competing-mechanism generation or discriminator design. Role-based access controls WHO MAY EDIT a case; it is not established from this page that it encodes per-claim resolution authority in the sense used in this repository. Not a product trial.",
+      "source": "https://www.argevide.com/assurance-case/"
+    },
+    {
+      "id": "COMP-14",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Cloverpop (decision intelligence category)",
+      "category": "DECISION_INTELLIGENCE",
+      "capability": "First-party homepage documents capturing 'decision interactions as structured data', 'repeatable, data-driven templates', a system that 'learns, adapts, and compounds over time', and linkage of decisions to 'measurable growth, efficiency, and risk reduction'.",
+      "documented_user_outcome": "Standardize how decisions are made and connect them to business outcomes.",
+      "dimensions": ["D1", "D7"],
+      "limits": "The homepage did NOT document decision alternatives, explicit criteria, evidence or assumption recording, decision owner/authority designation, or decision reversal/revisiting. Absence from a homepage is not proof of product absence. Third-party descriptions of Cloverpop structuring alternatives, criteria and evidence were NOT adopted as observed.",
+      "source": "https://www.cloverpop.com/"
+    },
+    {
+      "id": "COMP-15",
+      "classification": "OBSERVED RESEARCH ACTIVITY, NOT A PRODUCT",
+      "product": "LLM-automated assurance cases (SmartGSN; LLM-as-judge GSN review; agentic RAG CAE generation)",
+      "category": "ACADEMIC_ADJACENT",
+      "capability": "Published work automates instantiation of GSN assurance cases from patterns using LLMs, applies the LLM-as-judge paradigm to reviewing GSN-compliant assurance cases, and builds agentic RAG grounded in formal Claim-Argument-Evidence logic for EU Cyber Resilience Act compliance. SmartGSN is an online tool.",
+      "documented_user_outcome": "Reduce manual effort of authoring and reviewing assurance arguments.",
+      "dimensions": ["D2", "D4"],
+      "limits": "Research-stage. The same literature records that automatically generated arguments 'may appear structurally valid but can lack logical coherence or omit critical evidential links'. Not evidence of a commercial competitor and not evidence about this repository.",
+      "source": "https://arxiv.org/html/2410.16675",
+      "additional_source": "https://arxiv.org/html/2608.19509"
+    },
+    {
+      "id": "COMP-16",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Giskard (current docs re-read)",
+      "capability": "Hub documents shared workspaces, role-based access, collaborative annotation workflows, custom failure categories, custom business checks, scheduled agent evaluations, continuous threat detection, and enterprise controls (2FA, audit logs, SSO). Open-source library documents pytest behavioural scenarios, vulnerability_scan and quality_scan.",
+      "documented_user_outcome": "Detect functional and security failures and organize repeatable checks with team review.",
+      "dimensions": ["D3", "D4", "D6"],
+      "limits": "Documentation states explicitly: 'Scan results are not a safety or compliance guarantee.' Confirms pass-1 COMP-05 rather than superseding it.",
+      "source": "https://docs.giskard.ai/"
+    },
+    {
+      "id": "COMP-17",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Langfuse (current docs re-read)",
+      "capability": "Evaluation overview documents annotation queues and manual scoring, reusable datasets, side-by-side experiments across prompt/model/code, LLM-as-judge on live production traces, CI/CD gates that block deploys on regressions, deterministic code evaluators, and score trend dashboards.",
+      "documented_user_outcome": "Turn production examples into repeatable checks and reviewed comparisons.",
+      "dimensions": ["D3", "D4", "D6"],
+      "limits": "The documentation contains no explicit statements about evidence status, authority to resolve a claim, permission hierarchy or claim reversal. Confirms pass-1 COMP-04.",
+      "source": "https://langfuse.com/docs/evaluation/overview"
+    },
+    {
+      "id": "COMP-18",
+      "classification": "OBSERVED COMPETITOR CAPABILITY",
+      "product": "Braintrust Loop (current docs re-read)",
+      "capability": "Documents an agent that investigates logs, experiments and datasets and can create or edit prompts, scorers, datasets, facets, custom views, dashboards and automations. 'Every action that creates or modifies an object pauses for your approval', with an auto-accept setting the docs warn 'applies to every write Loop makes in the thread, including changes that affect production'. Documented inability to act without approval unless auto-accept is on, to reach data outside the project/organization, to delete most objects, to change org settings/members/API keys/billing, or to modify application code or deployments.",
+      "documented_user_outcome": "Move from project evidence to reviewable evaluation changes inside an existing workflow.",
+      "dimensions": ["D1", "D2", "D3", "D4", "D5", "D6"],
+      "limits": "The documentation does not describe claim-level evidence status, resolution authority, permission semantics tied to claims, or reversal mechanics for Loop's actions. Approval is per-write, not per-claim. Confirms and sharpens pass-1 COMP-03.",
+      "source": "https://www.braintrust.dev/docs/loop"
+    }
+  ],
+  "interpretations": [
+    {
+      "id": "GAP-H3",
+      "classification": "INTERPRETATION OF COMPETITIVE GAP",
+      "status": "HYPOTHESIS",
+      "based_on": ["COMP-12", "COMP-13", "COMP-15"],
+      "statement": "The nearest structural neighbour to this repository's claim/evidence/status/authority/reversal contract is assurance-case tooling, not LLM-evaluation tooling. PREMIS in particular already documents role-based control over actions on claims, review states that expire, uncertainty handling, evidence-change monitoring that reopens review, and full change history.",
+      "consequence_if_true": "A pass-1 differentiation framed as 'claim-level authority/permission/reversal semantics' would be weaker than pass 1 assumed, because a commercial category already ships much of that contract.",
+      "unresolved": "Whether PREMIS/ASCE role permissions are equivalent to per-claim resolution authority with a required-reality floor, and whether either category serves the product/design sensemaking job at all. Neither product was trialled.",
+      "required_authority": "FIELD for comparative usability and value; hands-on trial for capability equivalence; REPO for what this system actually enforces."
+    },
+    {
+      "id": "GAP-H4",
+      "classification": "INTERPRETATION OF COMPETITIVE GAP",
+      "status": "HYPOTHESIS",
+      "based_on": ["COMP-03", "COMP-11", "COMP-12", "COMP-13", "COMP-18", "COMP-06R"],
+      "statement": "Observed division of labour across the widened comparator set: assurance-case tools carry the claim-evidence contract but require human authoring and perform no diagnosis; agent-evaluation platforms automate diagnosis and gate actions by approval but carry no claim-level epistemic status. No observed product was documented as doing both.",
+      "consequence_if_true": "The candidate position is the intersection, not either pole.",
+      "unresolved": "Whether the intersection is a real user job or an artifact of the sampling frame. Absence from documentation is not absence from product, and a documented absence is not evidence that users want the missing thing.",
+      "required_authority": "FIELD"
+    },
+    {
+      "id": "GAP-H5",
+      "classification": "INTERPRETATION OF COMPETITIVE GAP",
+      "status": "HYPOTHESIS",
+      "based_on": ["COMP-11", "COMP-18"],
+      "statement": "Approval gates in LangSmith Fleet and Braintrust Loop are permission over ACTIONS and workspace objects. This repository's permission is attached to a CLAIM and its requested use, with an evidence floor below which a use is denied. These may be different mechanisms serving different failures.",
+      "unresolved": "Whether operators experience that distinction as material, or whether an action-level approval gate already absorbs the failure this repository's claim-level permission is designed to prevent.",
+      "required_authority": "FIELD"
+    }
+  ],
+  "explicit_non_findings": [
+    "No competitor was trialled hands-on in this pass.",
+    "No head-to-head comparison against Neta or R&D was performed.",
+    "No market-wide absence claim is made. Every 'not documented' statement is a statement about a page read on 2026-09-06.",
+    "No pricing, market-share, retention or willingness-to-pay evidence was collected.",
+    "Vendor comparison articles authored by competing vendors were used only for candidate discovery and are recorded nowhere as observed capability."
+  ],
+  "field_claims_not_established": [
+    "external-user comprehension",
+    "material comparative decision improvement",
+    "willingness to pay",
+    "repeat use",
+    "commercial moat",
+    "market-wide unmet need",
+    "capability equivalence between this repository's claim contract and assurance-case role permissions"
+  ],
+  "roadmap_authority": "NONE. This packet is bounded evidence input only. Only actual R&D SYNTHESIZE output from the Calibration Loop runtime may originate the value-completion roadmap. Competitor presence or absence of a capability is never permission to build."
+}
