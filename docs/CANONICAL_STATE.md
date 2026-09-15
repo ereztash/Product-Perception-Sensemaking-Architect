@@ -39,7 +39,7 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Twenty-three branches are ahead of `main`, all read branch by branch and re-measured tree
+Twenty-four branches are ahead of `main`, all read branch by branch and re-measured tree
 to tree, re-anchored on 2026-09-12 after `main` moved. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
 each contains; `scripts/check_branch_inventory.py --live` fails when this table and that
 inventory disagree with the actual remote, and now also when a published count or a named
@@ -69,9 +69,10 @@ successor does not survive a tree-to-tree check.
 | `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and the first Neta yield batch | `STRANDED`, no pull request |
 | `run/lichess-whitepaper-calibration-2026-09-06` | lichess white-paper and commercial-roadmap calibration | `STRANDED`, no pull request |
 | `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object, plus ten frozen `RND_TELOS_*` and narrow-benchmark documents | `STRANDED`, `FAILED_EXECUTION`, no adapter credential in environment |
+| `feat/rnd-composed-baseline-claim-lineage-v0-2-1` | the R&D v0.2.1 candidate, composed baseline and claim lineage | `SUPERSEDED` by `main`; zero new paths, taken as the squash `34b68c7` |
 | `feat/resource-delta-accounting-v0-2` | prospective resource-delta accounting | `SUPERSEDED` by `main`; one path, the relocated audit document, since `main` took its work as the squash `74fc4af` |
 
-Seven carry nothing their named successor does not, allowing the one relocation the
+Eight carry nothing their named successor does not, allowing the one relocation the
 inventory declares. `feat/resource-delta-accounting-v0-2` is the clearest: six commits ahead, one
 path, because `main` took its work as the squash `74fc4af`.
 
@@ -85,7 +86,8 @@ remaining branch is an `OWNER` decision and none is taken here.
 
 Nothing is retirable. The twenty-one refs that were strict ancestors of `main` were deleted
 by the owner on 2026-09-08, taking the remote from thirty-five branches to fifteen; five
-research branches, one trace branch and four run branches have been pushed since. Deletion
+research branches, one trace branch, four run branches and two feature branches have been
+pushed since. Deletion
 is refused in every agent session by the egress proxy, so it remains an owner action:
 `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 

@@ -1,8 +1,8 @@
 # Branch Inventory
 
 Status: `CANONICAL`
-Captured: 2026-09-12, re-anchored after `main` moved and five branches appeared
-Captured against: `main` @ `8ce05519813da536a956735aba3ed327c9cdbf08`
+Captured: 2026-09-15, re-anchored after `main` took a branch as a squash
+Captured against: `main` @ `34b68c75fcbda71c85a4efb1d533234f71ffd600`
 
 This file is the branch-level half of the canonical rule. `docs/REPOSITORY_MAP.md` states
 the rule; `scripts/check_branch_inventory.py` enforces it; this file is the declaration
@@ -100,10 +100,11 @@ one of these numbers and fails on any that does not match.
 | Branch | Tip | Ahead | New files | Disposition |
 |---|---|---|---|---|
 | `claude/product-value-completion-run-if7ito` | `1ceec96412` | 15 | 31 | `OPEN_PR_TO_MAIN` |
-| `claude/repo-canonicalization-reconciliation-aufvq6` | `919f7642b4` | 14 | 0 | `OPEN_PR_TO_MAIN` |
-| `claude/repo-cleanup-590u82` | `2f30b946b7` | 9 | 4 | `OPEN_PR_TO_MAIN` |
-| `claude/ux-ui-analysis-v6ao5u` | `190c974544` | 17 | 10 | `OPEN_PR_TO_MAIN` |
+| `claude/repo-canonicalization-reconciliation-aufvq6` | `94843e5c6f` | 15 | 0 | `OPEN_PR_TO_MAIN` |
+| `claude/repo-cleanup-590u82` | `41ee8b3935` | 13 | 4 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `17ccc75033` | 19 | 10 | `OPEN_PR_TO_MAIN` |
 | `feat/resource-delta-accounting-v0-2` | `9f1cf9bf65` | 6 | 1 | `SUPERSEDED`, superseded by `main` |
+| `feat/rnd-composed-baseline-claim-lineage-v0-2-1` | `a17188cdca` | 6 | 0 | `SUPERSEDED`, superseded by `main` |
 | `research/architecture-clean-ab-2026-09-06` | `e617caff68` | 9 | 14 | `OPEN_PR_TO_MAIN` |
 | `research/rnd-self-triangulation-2026-09-08` | `bf346508d2` | 17 | 17 | `STRANDED` |
 | `research/rnd-self-triangulation-adjudication-2026-09-08` | `dd59bf7ae1` | 13 | 13 | `SUPERSEDED`, superseded by `research/rnd-self-triangulation-anti-adjudication-2026-09-08` |
