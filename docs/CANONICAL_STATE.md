@@ -39,9 +39,10 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Twenty-two branches are ahead of `main`. Nineteen were read branch by branch and re-measured
-tree to tree on 2026-09-09; the three `run/*-2026-09-12` rows were measured on 2026-09-14,
-when they crossed the checker's 24h declaration grace and reddened this branch's `contract`. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
+Twenty-three branches are ahead of `main`. Nineteen were read branch by branch and re-measured
+tree to tree on 2026-09-09; the three `run/*-2026-09-12` rows were measured on 2026-09-14 and
+`run/lichess-move-rnd-recursive-2026-09-13` on 2026-09-15, each when it crossed the checker's
+24h declaration grace and reddened this branch's `contract`. `docs/BRANCH_INVENTORY.md` holds the tips, new-file counts and what
 each contains; `scripts/check_branch_inventory.py --live` fails when this table and that
 inventory disagree with the actual remote, and now also when a published count or a named
 successor does not survive a tree-to-tree check.
@@ -66,6 +67,7 @@ successor does not survive a tree-to-tree check.
 | `run/construct-separation-audit-2026-09-12` | the construct-separation audit task and its Copilot workflow, beside the TPOAE UX-reasoning task | `STRANDED`, no pull request |
 | `run/nico-ux-paired-2026-09-12` | three Copilot workflows, five best-effort task definitions and the 205-line `skills/evidence-bounded-best-effort-runtime/skill.md` | `STRANDED`, no pull request |
 | `run/tpoae-rnd-best-effort-2026-09-12` | the TPOAE R&D best-effort run: two workflows and four task definitions | `SUPERSEDED` by `run/nico-ux-paired-2026-09-12`, verified by path and content |
+| `run/lichess-move-rnd-recursive-2026-09-13` | four workflows, the framework-fit v1 and v2 experiments and their recorded result, a move-sequence evidence script, the lichess-move diagnosis task and the best-effort Copilot resource adapter | `STRANDED`, no pull request |
 | `run/delta-v02-batch-2026-09-08` | v0.2 Copilot adapter and the first Neta yield batch | `STRANDED`, no pull request |
 | `run/lichess-whitepaper-calibration-2026-09-06` | lichess white-paper and commercial-roadmap calibration | `STRANDED`, no pull request |
 | `run/claude-prerelease-prompt-telos-2026-09-06` | live Calibration Loop run against an external object, plus ten frozen `RND_TELOS_*` and narrow-benchmark documents | `STRANDED`, `FAILED_EXECUTION`, no adapter credential in environment |
