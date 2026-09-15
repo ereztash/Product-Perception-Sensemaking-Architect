@@ -2,7 +2,8 @@
 
 Status: `CANDIDATE_AMENDMENT_NOT_PROMOTED`
 
-Parent implementation candidate: `prompts/RND_AGENT_V0_2_CANDIDATE.md`.
+Pre-change baseline: `prompts/RND_AGENT_V0_2_PRE_AMENDMENT_BASELINE.md`.
+Runtime compatibility path: `prompts/RND_AGENT_V0_2_CANDIDATE.md`.
 Candidate implementation: `prompts/RND_AGENT_V0_2_1_CANDIDATE.md`.
 
 ## Why this amendment exists
