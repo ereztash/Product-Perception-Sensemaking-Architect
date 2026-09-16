@@ -31,21 +31,34 @@ def model_for(resource: str) -> str:
     return os.environ.get(f"CALIBRATION_{resource}_OLLAMA_MODEL", DEFAULT_MODEL)
 
 
-def _nonempty_string() -> dict:
-    return {"type": "string", "minLength": 1}
+def _nonempty_string(max_length: int | None = None) -> dict:
+    schema: dict = {"type": "string", "minLength": 1}
+    if max_length is not None:
+        schema["maxLength"] = max_length
+    return schema
 
 
-def _string_array() -> dict:
-    return {"type": "array", "items": {"type": "string"}}
+def _string_array(max_items: int | None = None, item_max_length: int | None = None) -> dict:
+    schema: dict = {
+        "type": "array",
+        "items": _nonempty_string(item_max_length) if item_max_length else {"type": "string"},
+    }
+    if max_items is not None:
+        schema["maxItems"] = max_items
+    return schema
 
 
-def schema_for(resource: str, phase: object) -> dict:
+def schema_for(resource: str, request: dict) -> dict:
     """Return the exact semantic JSON schema expected by the canonical bridge.
 
     Ollama accepts a JSON Schema object in `format`. Using it here constrains only
     serialization/shape; the resource's native prompt still supplies the reasoning
-    role and authority boundary.
+    role and authority boundary. For synthesis, the schema also binds resource
+    deltas to the peers actually invoked by the deterministic router so R&D cannot
+    accidentally report itself as a peer or spend its budget restating the task.
     """
+    phase = request.get("phase")
+
     if resource in {"NETA", "SCAFFOLD"}:
         return {
             "type": "object",
@@ -53,10 +66,10 @@ def schema_for(resource: str, phase: object) -> dict:
             "required": ["resource", "summary", "unique_delta", "evidence_refs", "limitations"],
             "properties": {
                 "resource": {"type": "string", "enum": [resource]},
-                "summary": _nonempty_string(),
-                "unique_delta": _nonempty_string(),
-                "evidence_refs": _string_array(),
-                "limitations": _string_array(),
+                "summary": _nonempty_string(700),
+                "unique_delta": _nonempty_string(420),
+                "evidence_refs": _string_array(max_items=8, item_max_length=180),
+                "limitations": _string_array(max_items=6, item_max_length=220),
             },
         }
 
@@ -84,20 +97,21 @@ def schema_for(resource: str, phase: object) -> dict:
             "additionalProperties": False,
             "required": ["material_question", "bottleneck", "resource_assessment", "candidate_moves", "needs", "rationale"],
             "properties": {
-                "material_question": _nonempty_string(),
-                "bottleneck": _nonempty_string(),
+                "material_question": _nonempty_string(420),
+                "bottleneck": _nonempty_string(520),
                 "resource_assessment": {
                     "type": "array",
                     "minItems": 1,
+                    "maxItems": 7,
                     "items": {
                         "type": "object",
                         "additionalProperties": False,
                         "required": ["resource", "expected_contribution", "authority_ceiling", "uncertainty", "expected_delta"],
                         "properties": {
-                            "resource": _nonempty_string(),
-                            "expected_contribution": _nonempty_string(),
-                            "authority_ceiling": _nonempty_string(),
-                            "uncertainty": _nonempty_string(),
+                            "resource": _nonempty_string(40),
+                            "expected_contribution": _nonempty_string(320),
+                            "authority_ceiling": _nonempty_string(260),
+                            "uncertainty": _nonempty_string(280),
                             "expected_delta": {
                                 "type": "object",
                                 "additionalProperties": False,
@@ -110,15 +124,16 @@ def schema_for(resource: str, phase: object) -> dict:
                 "candidate_moves": {
                     "type": "array",
                     "minItems": 1,
+                    "maxItems": 5,
                     "items": {
                         "type": "object",
                         "additionalProperties": False,
                         "required": ["move", "resource", "expected_decision_value", "reversibility"],
                         "properties": {
-                            "move": _nonempty_string(),
-                            "resource": _nonempty_string(),
-                            "expected_decision_value": _nonempty_string(),
-                            "reversibility": _nonempty_string(),
+                            "move": _nonempty_string(360),
+                            "resource": _nonempty_string(40),
+                            "expected_decision_value": _nonempty_string(320),
+                            "reversibility": _nonempty_string(240),
                         },
                     },
                 },
@@ -128,14 +143,73 @@ def schema_for(resource: str, phase: object) -> dict:
                     "required": list(needs_keys),
                     "properties": {key: {"type": "boolean"} for key in needs_keys},
                 },
-                "rationale": _nonempty_string(),
+                "rationale": _nonempty_string(700),
             },
         }
 
     if resource == "RND" and phase == "SYNTHESIZE":
+        expected_resources = [
+            item.get("resource")
+            for item in request.get("resource_results", [])
+            if isinstance(item, dict) and isinstance(item.get("resource"), str) and item.get("resource")
+        ]
         observed_props = {
-            key: {"anyOf": [{"type": "null"}, _nonempty_string()]}
+            key: {"anyOf": [{"type": "null"}, _nonempty_string(240)]}
             for key in ("decision", "action", "reversal", "evidence", "allocation", "distinction")
+        }
+        resource_schema = (
+            {"type": "string", "enum": expected_resources}
+            if expected_resources
+            else _nonempty_string(40)
+        )
+        resource_deltas: dict = {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["resource", "material", "unique_delta", "observed_delta"],
+                "properties": {
+                    "resource": resource_schema,
+                    "material": {"type": "boolean"},
+                    "unique_delta": _nonempty_string(320),
+                    "observed_delta": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": list(observed_props),
+                        "properties": observed_props,
+                    },
+                },
+            },
+        }
+        if expected_resources:
+            resource_deltas["minItems"] = len(expected_resources)
+            resource_deltas["maxItems"] = len(expected_resources)
+        else:
+            resource_deltas["maxItems"] = 0
+
+        compact_learning_record = {
+            "type": "object",
+            "maxProperties": 4,
+            "additionalProperties": {
+                "anyOf": [
+                    {"type": "null"},
+                    {"type": "boolean"},
+                    {"type": "number"},
+                    {"type": "string", "maxLength": 280},
+                ]
+            },
+        }
+        compact_amendment = {
+            "type": "object",
+            "maxProperties": 4,
+            "additionalProperties": {
+                "anyOf": [
+                    {"type": "null"},
+                    {"type": "boolean"},
+                    {"type": "number"},
+                    {"type": "string", "maxLength": 280},
+                ]
+            },
         }
         return {
             "type": "object",
@@ -150,31 +224,23 @@ def schema_for(resource: str, phase: object) -> dict:
                 "routing_amendment_proposed",
             ],
             "properties": {
-                "decision_before": {"type": "string"},
-                "decision_after": {"type": "string"},
-                "next_move": {"type": "string"},
-                "resource_deltas": {
+                "decision_before": _nonempty_string(360),
+                "decision_after": _nonempty_string(420),
+                "next_move": _nonempty_string(520),
+                "resource_deltas": resource_deltas,
+                "learning_records": {
                     "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": False,
-                        "required": ["resource", "material", "unique_delta", "observed_delta"],
-                        "properties": {
-                            "resource": _nonempty_string(),
-                            "material": {"type": "boolean"},
-                            "unique_delta": _nonempty_string(),
-                            "observed_delta": {
-                                "type": "object",
-                                "additionalProperties": False,
-                                "required": list(observed_props),
-                                "properties": observed_props,
-                            },
-                        },
-                    },
+                    "maxItems": 3,
+                    "items": compact_learning_record,
                 },
-                "learning_records": {"type": "array", "items": {"type": "object"}},
                 "stop_or_continue": {"type": "string", "enum": ["STOP", "CONTINUE"]},
-                "routing_amendment_proposed": {"anyOf": [{"type": "null"}, {"type": "object"}, {"type": "string"}]},
+                "routing_amendment_proposed": {
+                    "anyOf": [
+                        {"type": "null"},
+                        {"type": "string", "maxLength": 360},
+                        compact_amendment,
+                    ]
+                },
             },
         }
 
@@ -182,10 +248,15 @@ def schema_for(resource: str, phase: object) -> dict:
 
 
 def build_payload(resource: str, request: dict) -> dict:
+    phase = request.get("phase")
+    if resource == "RND" and phase == "SYNTHESIZE":
+        num_predict = int(os.environ.get("OLLAMA_SYNTH_NUM_PREDICT", os.environ.get("OLLAMA_NUM_PREDICT", "2200")))
+    else:
+        num_predict = int(os.environ.get("OLLAMA_NUM_PREDICT", "1600"))
     return {
         "model": model_for(resource),
         "stream": False,
-        "format": schema_for(resource, request.get("phase")),
+        "format": schema_for(resource, request),
         "messages": [
             {"role": "system", "content": prompt_for(resource, request)},
             {
@@ -196,7 +267,7 @@ def build_payload(resource: str, request: dict) -> dict:
         "options": {
             "temperature": 0.1,
             "num_ctx": int(os.environ.get("OLLAMA_NUM_CTX", "32768")),
-            "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "1600")),
+            "num_predict": num_predict,
         },
     }
 
