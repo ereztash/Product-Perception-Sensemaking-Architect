@@ -1,6 +1,6 @@
 {
   "calibration_version": "0.1",
-  "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-COMPACT-RERUN-2026-09-16",
+  "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-COMPACT-SCHEMA-RERUN-2026-09-16",
   "telos": {
     "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
     "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
