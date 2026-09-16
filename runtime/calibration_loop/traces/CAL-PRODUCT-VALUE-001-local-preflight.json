@@ -1,0 +1,7 @@
+{
+  "runtime_version": "0.1",
+  "rnd_telos_version": "0.2-candidate",
+  "task_ref": "fixtures/calibration-product-value-completion-2026-09-06.json",
+  "final_state": "FAILED_EXECUTION",
+  "failure": "RND adapter failed: {\"adapter_error\": \"OPENAI_API_KEY is required for live adapter execution\"}"
+}
