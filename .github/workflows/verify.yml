@@ -57,6 +57,13 @@ jobs:
         # moved or is in fact ahead of `main`, or when docs/CANONICAL_STATE.md and the
         # inventory disagree about which branches are ahead. Declaring a new branch is a
         # two-line edit to the inventory; see docs/REPOSITORY_MAP.md rule 8.
+        #
+        # It also recomputes the inventory's published numbers rather than trusting them:
+        # each row's new-file count, tree to tree, branch at its declared tip against
+        # `main` at the declared anchor; each SUPERSEDED row's named successor, which must
+        # carry every path the branch holds AND hold each at the branch's content or at a
+        # version its own history contains; and each declared relocation, which must exist
+        # on `main` at the canonical path and not at the old one. Needs fetch-depth: 0.
         run: python scripts/check_branch_inventory.py --live
 
       - name: Run Neta agent contract and positive controls

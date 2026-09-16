@@ -152,7 +152,16 @@ branches were ahead of `main` against two declared, and sixty-nine files existed
 canonical path. Rule 8 exists because the others had no instrument.
 
 `scripts/check_branch_inventory.py --live` compares the declaration against the actual
-remote and fails on any disagreement. Retirement of a contained branch is an `OWNER` action
+remote and fails on any disagreement. It also recomputes the numbers the declaration
+publishes. A count in that file is measured tree to tree, `git ls-tree -r --name-only` on
+both sides; never `git diff main...branch`, which compares against the merge base and
+answers a different question. Eleven of sixteen rows were wrong for three days because the
+published number and the prose describing it came from different commands, and nothing
+compared either to the repository.
+
+`SUPERSEDED` is checked the same way. The named successor must carry every path the branch
+holds and hold each at the branch's content or at a version its own history contains. Paths
+alone would license deleting a branch whose refinement a successor never took. Retirement of a contained branch is an `OWNER` action
 executed outside an agent session: `docs/BRANCH_RETIREMENT_RUNBOOK.md`.
 
 ## Where a new file goes
