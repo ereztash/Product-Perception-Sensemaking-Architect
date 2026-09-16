@@ -1,0 +1,58 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ORG-DIAG-COMPETITIVE-FRICTION-2026-09-16",
+  "telos": {
+    "statement": "Reduce the uncertainty and non-value friction that prevents an organizational decision-maker from paying for the Organizational Diagnostic System, while preserving epistemic integrity, useful friction, client ownership and real diagnostic discrimination.",
+    "success_condition": "Compare the current free→paid architecture against credible competing diagnostic architectures; identify which uncertainties each competitor removes before payment; distinguish removable brakes from useful traction; choose the smallest architectural change worth testing before or inside Experiment 001; and state the cheapest evidence that could reverse that choice."
+  },
+  "current_state": {
+    "summary": "The product currently uses PUBLIC EVIDENCE -> FREE PROOF OF SIGHT -> PAID VALIDATION JOB -> DECISION OUTPUT -> OPTIONAL INTERVENTION. Engine v0.5 is frozen. The paid Validation Job v0.1 is bounded to one decision question, up to three competing mechanisms, an internal evidence contract, up to five internal evidence items, up to two evidence conversations, and a Decision Memo/Evidence Map/Decision Session. Experiment 001 is preregistered but not started: N=18, 6/6/6 across three reveal architectures, primary outcome QUALIFIED_CONTINUATION, with evidence-sharing, price inquiry, explicit WTP and payment downstream. Experimental price is NIS 4,500 + VAT. The commercial architecture is DISCOVERY_ONLY / EXECUTED_TRACE, not market-confirmed.",
+    "known_constraints": [
+      "Do not weaken public-evidence caveats or present outside-in inference as internal truth.",
+      "Do not manufacture scarcity by hiding reasoning that has already been earned publicly.",
+      "Do not assume less friction is always better; preserve friction that creates trust, ownership, discrimination, commitment or decision quality.",
+      "Do not modify engine v0.5 unless competitive evidence identifies the engine itself as the bottleneck.",
+      "Separate architecture effects from brand/reputation effects: McKinsey/EY trust cannot be copied by changing a page.",
+      "Separate uncertainty reduction from giving away the paid job. The free layer may reduce purchase risk while still leaving a real internal decision unresolved.",
+      "Treat competitor claims as marketing evidence unless independently validated.",
+      "If Experiment 001 no longer tests the most decision-useful uncertainty, propose an explicit preregistration amendment rather than silently changing it."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Before Experiment 001 starts, what product/sales architecture should be frozen so a qualified buyer has the least avoidable uncertainty about paying for the bounded Validation Job, and which uncertainty should remain intentionally unresolved until paid internal validation?",
+    "current_default": "Keep current three-arm reveal experiment and fixed Validation Job, price, email channel and one-page artifact; do not add more product surface before field evidence.",
+    "reversal_condition": "Amend the current default if competitor architecture evidence shows a different pre-payment uncertainty—such as scope, price, deliverable visibility, trust/auditability, effort, privacy, reversibility, champion defensibility, or time-to-value—is more plausibly the dominant brake than reveal architecture itself."
+  },
+  "signals": [
+    "FRAME_SETH_2026: Seth Godin argues that business purchases are driven in part by avoid-blame, claim-credit and reduce-uncertainty; he also distinguishes useless impediments from friction that provides traction. Treat this as a candidate lens, not authority. Sources: https://seths.blog/2026/05/ai-together/ and https://seths.blog/2026/04/the-right-sort-of-friction/",
+    "CURRENT_RESIDUAL_UNCERTAINTIES: Before paying NIS 4,500, a buyer may still be uncertain about whether the finding is actually new, whether the problem is material, whether internal evidence will resolve it, what exact work happens, what the final memo looks like, how much of their time is required, whether the result can be WRONG/NO-GO, whether data remains safe, whether the champion can defend the purchase internally, whether implementation is included, and whether the price is proportionate to likely decision value.",
+    "RIVINGTON_ARCHITECTURE: Free 3-minute/10-question Workflow Friction Check, transparent rule-based scoring, then one-workflow three-week fixed-fee AI Workflow Diagnostic at $9,500 producing redesign + 90-day implementation plan. It reduces scope, method, time, price and deliverable uncertainty before purchase. Source: https://rivingtonsolutions.com/diagnostic",
+    "MELIO_ARCHITECTURE: Free 3-minute 90-Day Absence Test; sample report visible; paid diagnostic is $2,499 one-time with full assessment/report/90-day roadmap; $4,999 package adds facilitated alignment workshop. It reduces outcome-preview, price, package and next-step uncertainty. Source: https://www.melioprism.com/",
+    "VERINGS_ARCHITECTURE: Self-serve; exact one-time price by audience size ($1k/$2k/$5k/$10k); no sales call; exact deliverables are diagnostic readout + drafted intervention plan; explicit confidentiality/privacy architecture; buyer sees exact price before launch. It aggressively removes price, negotiation, scope, deliverable, privacy and process uncertainty. Sources: https://www.verings.com/pricing and https://www.verings.com/faq",
+    "ASSESSMENTCLOUD_ARCHITECTURE: Demo data/sample readout runs in browser; flat public pricing from $49/month, email signup only/no credit card; explicit benchmark rails, prioritized action plan and repeated disclaimer that output is diagnostic input, not certified audit. It reduces interface/output, price, benchmark and claim-boundary uncertainty. Source: https://assessmentcloud.com/",
+    "ORGSIGHT_ARCHITECTURE: Promises one-morning diagnosis, board-ready output, visible platform walkthrough and evidence drawers behind conclusions; beta offer states 4-6 hours of team time over one week. It reduces time-to-value, output, evidence-auditability and effort uncertainty; monetary price is not public, so commercial uncertainty remains. Source: https://www.orgsight.ai/",
+    "EY_ARCHITECTURE: EY Assess emphasizes self-assessment, peer benchmarking, real-time insights, AI evidence analysis, case examples and easy setup, while conversion begins with Request a Demo. A related EY GBS tool offers a free swift evaluation + automated benchmark report. It reduces method/benchmark/enterprise-legitimacy uncertainty but retains sales/pricing friction. Sources: https://www.ey.com/en_us/services/consulting/ey-assess-maturity-assessment-platform and https://www.ey.com/en_ae/services/consulting/global-business-services-maturity-assessment",
+    "MCKINSEY_OHI_ARCHITECTURE: Standardized 20-25 minute survey, 20+ years of research, 8M+ responses/2600+ clients, explicit benchmark and management-practice model, followed by tailored change journey. It reduces methodological/benchmark/brand-risk uncertainty through accumulated evidence and reputation, but uses contact-led sales and a standardized ontology. Source: https://www.mckinsey.com/solutions/orgsolutions/overview/organizational-health-index/how-ohi-works",
+    "COMPETITOR_PATTERN_1: The strongest low-friction competitors expose more of the buying contract before payment: exact scope, time, price, sample output, evidence method, privacy boundary and next step. They often leave the substantive company-specific answer unresolved, rather than leaving the commercial contract unresolved.",
+    "COMPETITOR_PATTERN_2: Several competitors use a small free diagnostic not primarily to solve the whole problem, but to let the buyer experience the method/output and self-identify the problem. This is different from our current unsolicited outside-in Proof of Sight, which proves analyst perception but may not yet prove the paid experience.",
+    "COMPETITOR_PATTERN_3: Standardized survey/benchmark products reduce epistemic uncertainty with a known instrument and comparison set; our open-world method may have stronger specificity but higher explainability/trust uncertainty because the buyer cannot rely on a familiar score or benchmark.",
+    "COMPETITOR_PATTERN_4: Fixed-fee and fixed-time architectures make the purchase internally defensible. A champion can say what it costs, how long it takes, what team effort is needed and what artifact arrives. Our Validation Job has scope and price frozen experimentally but the client-facing proof of those boundaries may still be insufficient.",
+    "USEFUL_FRICTION_CANDIDATES: Asking the buyer to supply the decisive internal evidence, choose/confirm the decision owner, and participate in the decision session may increase ownership and evidence quality; removing these steps could reduce value even if conversion rises.",
+    "REMOVABLE_BRAKE_CANDIDATES: hidden/ambiguous deliverable, uncertain effort, unclear data handling, unclear wrong/no-go outcome, unclear timeline, lack of sample output, lack of guarantee about evidence ceiling, unclear difference between free finding and paid job, and weak champion-ready internal justification.",
+    "EXPERIMENT_RISK: Experiment 001 currently varies reveal architecture A/B/C while holding price/outreach constant. If purchase-contract uncertainty dominates, all three arms may fail similarly and the experiment will correctly return NO_WINNER, but it may spend 18 high-cost diagnoses learning something competitor architecture could have made cheaper to test first.",
+    "CHEAP_PRETEST_OPTION: Before changing Experiment 001, test a common client-facing Purchase Contract card against 4-6 qualified recipients or past buyers: exact question, exact inputs, exact effort, exact timeline, exact possible outcomes including WRONG/NO-GO, sample anonymized Decision Memo, data boundary, exact price, and what is explicitly not included. Measure whether objections shift from 'what exactly am I buying?' to substantive value/materiality questions.",
+    "ANTI_COPY: Do not copy scores, maturity ladders, dashboards or benchmarks merely because competitors use them. Ask which uncertainty each element resolves and whether the same uncertainty can be resolved more honestly with our architecture."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+    "runtime/calibration_loop/README.md",
+    "ereztash/organizational-diagnostic-system CURRENT_STATE.md",
+    "ereztash/organizational-diagnostic-system experiments/free_to_paid/EXPERIMENT_001_PREREGISTRATION.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
