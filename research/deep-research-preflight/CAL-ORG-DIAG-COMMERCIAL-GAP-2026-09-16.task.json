@@ -1,0 +1,68 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-2026-09-16",
+  "telos": {
+    "statement": "Improve the commercial conversion architecture of the organizational diagnostic product so that a free external diagnostic artifact proves distinctive sight and epistemic credibility while preserving a clearly valuable paid next step, without degrading truthfulness or withholding information manipulatively.",
+    "success_condition": "Identify the smallest evidence-backed changes to artifact structure, reveal boundary, paid product definition and CTA that most plausibly raise qualified continuation and willingness-to-pay while preserving the diagnostic engine's epistemic integrity; define the cheapest tests that can discriminate among candidate commercial architectures before more system-building."
+  },
+  "current_state": {
+    "summary": "The organizational diagnostic system currently produces high-quality outside-in diagnostics from public information. On the Amarel run, diagnostic quality was assessed around 8.6/10, with strong epistemic discipline, falsification and decision linkage. However, as a commercial artifact whose job is to make a relevant executive want to pay for continuation, the current output was assessed around 6.5/10. The main reason is not weak finding quality but reveal/allocation mismatch: the artifact already gives the finding, mechanism, why it matters, a falsifier, suggested owner set and a concrete next action, allowing the recipient to say 'interesting, we'll check internally' without purchasing. The current commercial concept is two-stage: free outside-in signal/hypothesis -> paid internal validation/diagnosis -> optional intervention. The desired free artifact should prove 'they see something non-obvious about us' while stopping at the boundary where public evidence cannot resolve competing internal explanations. The paid layer should earn payment by resolving whether the hypothesis is true, locating the bottleneck, estimating materiality/economic impact, clarifying ownership and defining the cheapest action or experiment. The system already distinguishes public evidence from internal uncertainty and can issue EVIDENCE_CEILING. Recent temporal shadow testing suggests not every sophistication should become a core rule; changes should earn Decision/Action/Evidence/Allocation/Distinction delta rather than merely improve prose.",
+    "known_constraints": [
+      "Do not optimize for clickbait, artificial scarcity or intentionally obscure reasoning. The free artifact must remain substantively useful and truthful.",
+      "Do not reduce epistemic caveats merely to increase conversion.",
+      "Do not assume that hiding more creates willingness-to-pay; the reveal boundary must maximize trust and perceived unique value while preserving a real unresolved decision.",
+      "Do not treat internal analytical completeness as the same thing as client-facing completeness.",
+      "Do not build a new agent, dashboard or product layer unless a cheaper format/process experiment cannot answer the commercial question.",
+      "Commercial success must be measured externally: reply, qualified conversation, request for more, willingness to share internal evidence, willingness to pay, and eventual purchase. Internal ratings are discovery-only.",
+      "Preserve the distinction between opportunity, diagnosis and validated bottleneck. Outside-in work cannot silently claim internal causal truth.",
+      "The strongest composed baseline is not 'send half a report'. It is a free proof-of-sight artifact that includes evidence, one non-obvious tension/hypothesis, why it matters now, explicit evidence boundary, and a paid continuation that resolves internal alternatives.",
+      "Do not overfit to Amarel; propose tests across multiple companies and finding types.",
+      "Prefer reversible field tests over further framework elaboration when additional reasoning is unlikely to change the commercial decision."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What is the smallest change to the diagnostic product's free-to-paid architecture that is worth testing now to close the gap between strong diagnostic quality and mediocre commercial conversion?",
+    "current_default": "Do not modify the core diagnostic engine. Separate INTERNAL_FULL_DIAGNOSIS from CLIENT_FACING_PREVIEW, and test a small number of reveal-boundary/paid-continuation variants in real outbound before building additional machinery.",
+    "reversal_condition": "Reverse or materially change this default if R&D identifies a different bottleneck—such as weak economic materiality, insufficient novelty, wrong recipient, weak timing, or low willingness-to-pay for diagnosis itself—that dominates reveal-boundary design and would make preview optimization a local rather than causal fix."
+  },
+  "signals": [
+    "CURRENT_SCORE_SPLIT: diagnostic quality ~8.6/10; commercial conversion artifact ~6.5/10. The gap is the live calibration target, not the diagnostic engine as a whole.",
+    "GAP_1_REVEAL: Current artifact often exposes finding + mechanism + recommendation + falsifier + owners + next action, reducing the need for paid continuation.",
+    "GAP_2_PAID_VALUE: The recipient is not yet shown crisply what the paid product can determine that the free artifact cannot.",
+    "GAP_3_ECONOMIC_TRANSLATION: Findings may be strategically meaningful without being translated into money/time/risk/opportunity cost strongly enough to justify budget.",
+    "GAP_4_URGENCY: Timing language may exist, but a concrete decision window or cost of delay is often not proven.",
+    "GAP_5_NOVELTY_UNKNOWN: The biggest commercial risk is that an internal owner already knows the finding. Public novelty cannot establish recipient novelty.",
+    "GAP_6_CTA: 'Want the full report?' is weak. A stronger continuation is a specific validation step that resolves uncertainty created by the artifact.",
+    "AMAREL_EXAMPLE: The free artifact can credibly show that Amarel's unusual field execution footprint may be a strategic HOWIX evidence asset. Public information cannot establish whether such a loop already exists, whether data rights permit it, where it breaks, or whether it is the actual bottleneck. Those are plausible paid-validation objects.",
+    "COMMERCIAL_ARCHITECTURE_CANDIDATE_A: Free Diagnostic Signal -> Paid Validated Diagnosis -> Higher-value Decision/Intervention.",
+    "COMMERCIAL_ARCHITECTURE_CANDIDATE_B: Free proof-of-sight with 2-3 competing internal explanations -> paid falsification/resolution of those explanations.",
+    "COMMERCIAL_ARCHITECTURE_CANDIDATE_C: Free finding + explicit evidence ceiling + one decision question -> paid evidence contract that combines internal interviews/data and produces a go/no-go decision memo.",
+    "POTENTIAL_REVEAL_RULE: Reveal evidence and tension; withhold only conclusions not earned by public evidence and implementation detail whose value depends on internal validation. This is a candidate rule, not validated.",
+    "POTENTIAL_PAID_VALUE_OBJECTS: internal falsification; bottleneck location; impact quantification; ownership map; competing mechanism resolution; sequence/decision-window; intervention design; evidence contract; prioritization against alternatives.",
+    "FIELD_METRICS: OPENED/READ when observable; REPLY; 'already knew'; 'new connection'; 'wrong'; asks for more; agrees to 20-30 min validation; shares internal evidence; asks price; pays; conversion to intervention.",
+    "ANTI_METRIC: Do not optimize only for reply rate; curiosity without decision relevance can produce false commercial positives.",
+    "ANTI_BUILD: No need yet for a portal, scoring dashboard, auto-paywall, large report generator or extra agent. A document/message architecture plus field experiment may be sufficient.",
+    "OWNER_INTENT: The product is meant to send part of a diagnostic to a company so that, if the recipient wants resolution/full value, they pay for the next layer.",
+    "CORE_COMMERCIAL_HYPOTHESIS: The strongest free artifact is not a truncated full report but a deliberately complete proof-of-sight that terminates at a real epistemic boundary and creates a paid decision-resolution job.",
+    "STRONG_ALTERNATIVE_1: Reveal architecture is not the main bottleneck; recipients may simply not value outside-in diagnosis enough to pay regardless of packaging.",
+    "STRONG_ALTERNATIVE_2: The paid layer may be too abstract; buyers may pay only when diagnosis is bundled with implementation, facilitation or measurable operational change.",
+    "STRONG_ALTERNATIVE_3: The main bottleneck may be distribution/recipient selection rather than artifact content.",
+    "STRONG_ALTERNATIVE_4: Economic impact evidence may need to appear earlier; without a credible cost-of-status-quo, a strong finding still has low budget priority.",
+    "CHEAP_TEST_CANDIDATE: On 12-20 matched companies, freeze diagnostic engine and recipient criteria; randomize 2-3 client-facing preview architectures while keeping the underlying finding constant where possible; compare qualified continuation rather than raw replies. Use interviews/replies to code whether failure was novelty, materiality, trust, paid-value clarity, recipient mismatch or urgency.",
+    "SUCCESS_CRITERION_FOR_CHANGE: A proposed commercial change must produce a plausible and testable delta in Action, Allocation, Evidence or Decision—not merely make the report feel more polished."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "research/deep-research-preflight/CAL-ORG-DIAG-TIME-2026-09-16.task.json",
+    "docs/CANONICAL_STATE.md",
+    "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+    "runtime/calibration_loop/README.md",
+    "organizational_diagnostic_system_v0_5_END_TO_END_2026-09-16(1).zip (conversation artifact)",
+    "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+  ],
+  "budget": {
+    "max_resource_calls": 5,
+    "max_parallel_calls": 2
+  }
+}
