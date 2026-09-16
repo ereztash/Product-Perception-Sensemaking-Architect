@@ -1,0 +1,68 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ORG-DIAG-TIME-2026-09-16",
+  "telos": {
+    "statement": "Improve the organizational diagnostic system's ability to discover decision-changing, evidence-bounded findings that survive falsification and create commercially useful external diagnostics, without adding machinery that has not earned its cost.",
+    "success_condition": "Determine whether the current v0.5 system is materially miscalibrated because temporal sequence, lag, decision windows or path dependence are not first-class enough; return the smallest justified next move (including TEST, ADAPT, WAIT or STOP), the evidence boundary, and the cheapest discriminating test before any core rule is promoted."
+  },
+  "current_state": {
+    "summary": "A full local preflight scanned all 45 readable source/text files in organizational_diagnostic_system_v0_5_END_TO_END_2026-09-16(1).zip, excluding only compiled __pycache__ binaries. The package is v0.5 Recursive Active Research. Architecture: acquisition -> evidence atomization -> provisional open-world world model -> competing/null hypotheses -> question frontier -> targeted search -> falsification/update -> diagnostic gates -> current-best comparison -> stopping -> customer output -> outcome ledger. The engine maximizes decision value discovered, not source count or novelty. Evidence atoms already record date/effective period; the world model explicitly includes time/temporal states; decision delta may change sequence. However research_state.schema.json has no explicit temporal fields on hypotheses, questions or findings, and recursive_controller.py ranks questions only by effect tier, falsification strength, hypotheses discriminated, source specificity and cost. Diagnostic gates have no explicit temporal-causal/decision-window gate. Successful/reference findings nevertheless repeatedly depend on timing: TASC says define the evidence contract before HUB roadmap/data model harden; the structural-gate experiment's strongest exploratory signal is a new/changing capacity class entering an incumbent allocator; current Amarel work similarly depends on acting before HOWIX product/GTM harden. Validation state: 30-company baseline produced SEND 3/30, EVIDENCE_CEILING 10/30, known-work/architecture NO_SEND 17/30. Multiple adaptive targeting experiments did not validate a universal targeting rule. The 15-company structural-gate cohort improved structural fit and yielded 4/15 SEND, but the package explicitly marks the new/changing-capacity trigger exploratory and unvalidated. Current pilot-readiness says diagnostic depth/evidence discipline/falsification/search adaptivity are strong; targeting, novelty to internal owners, and commercial willingness to pay are unvalidated. It explicitly recommends freezing diagnostic rules during a small real-world send pilot because more adaptive internal targeting R&D risks post-hoc fitting. Deterministic local smoke tests for recursive_controller.py pass and reproduce the TASC SEND recommendation. The package's R&D lineage already killed predefined pathology classifiers and composite/severity diagnosis, moved to Decision Delta, then primitive/open-world reasoning, active research, and recursive current-best search. The key live question is therefore not whether time can be represented at all, but whether making temporal causality first-class adds decision value beyond the strongest composed current baseline and is worth changing now relative to the external-validation bottleneck.",
+    "known_constraints": [
+      "Do not invent an OWNER-owned objective or silently rewrite peer/kernel rules.",
+      "Do not promote a new named heuristic or temporal rule from one attractive case, competitor comparison, or same-model agreement.",
+      "The current package explicitly says the next highest-value ground truth is internal-owner reaction and willingness to continue/pay, and warns that further adaptive rule discovery before that risks fitting targeting logic to seen cases.",
+      "The strongest composed baseline is current v0.5 as-is: atomic date/effective-period evidence + temporal states in the open world model + premise/consequence/function/allocation recursion + sequence as an allowed decision delta. Do not compare against a weakened timeless strawman.",
+      "Keep DISCOVERY_ONLY, EXECUTED_TRACE, DURABLE_EVIDENCE, CONFIRMATORY_EVIDENCE and DECISION_EFFECT distinct.",
+      "A temporally richer explanation is not sufficient. A proposed change must plausibly produce delta in decision, action, reversal, evidence, allocation or distinction, or materially improve falsification/stopping/target selection under a frozen comparison.",
+      "Do not let known future outcomes leak into historical-cutoff tests.",
+      "Do not treat R&D/Neta/Scaffold agreement as independent empirical confirmation.",
+      "Do not hard-code Adaptiv/Meridian's ontology into this open-world engine merely because its public case studies make time explicit.",
+      "Build/adapt only if the missing function cannot be supplied more cheaply by current resources or a bounded test/instrumentation layer."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "Should the v0.5 organizational diagnostic system be changed now so that time becomes a first-class causal/decision object, and if so what is the minimum earned change rather than a broad temporal rebuild?",
+    "current_default": "Do not change canonical diagnostic rules yet. Treat temporal explicitness as a research hypothesis and continue the real-world pilot, because the package's documented bottleneck is external ground truth/novelty/WTP rather than internal diagnostic sophistication.",
+    "reversal_condition": "Reverse the default if a bounded comparison shows that an explicit temporal contract produces material decision-state delta beyond current v0.5—for example changes the selected finding/decision, kills a false mechanism, exposes a materially different decision window or recipient, changes SEND/EVIDENCE_CEILING/NO_SEND, or prevents a timing/path-dependence error—at a cost justified relative to the pilot and without outcome leakage."
+  },
+  "signals": [
+    "ZIP_SCAN: 45 readable text/source files were inspected across 00_START_HERE, 01_SYSTEM, 02_REFERENCE_RUNS, 03_VALIDATION_EXPERIMENTS, 04_PILOT_READINESS and 05_RND_LINEAGE. Compiled .pyc files were excluded as redundant binary artifacts.",
+    "SYSTEM_OBJECTIVE: Recursive Active Research Engine v0.5 maximizes decision value discovered. A useful finding must be evidence-bounded, material, non-trivial to recipient, tied to an actual decision/rule, falsifiable, stronger than the best alternative, and worth acting on relative to research cost.",
+    "OPEN_WORLD: No diagnostic-pattern library may constrain discovery. Existing concepts are retrieval aids only after candidates emerge. The world model scaffold includes objectives/telos, resources/allocations, functions, activities/products/bets, commitments, metrics/outcomes, actors/authority, dependencies/constraints, decisions/premises, role architecture, temporal states and contradictions.",
+    "TIME_ALREADY_PRESENT_1: Evidence atoms require date/effective period.",
+    "TIME_ALREADY_PRESENT_2: Acquisition explicitly spans governance and time; the provisional world model explicitly includes temporal states.",
+    "TIME_NOT_FIRST_CLASS_1: research_state.schema.json gives hypotheses only id, statement, status, diagnostic_candidate, decision_if_true and recipient; findings only status, decision_delta, materiality, decision, recipient and reason; questions have effect tier/discrimination/falsification/source specificity/cost. No decision window, transition, lag, path dependence, expected outcome horizon or causal ordering fields exist.",
+    "TIME_NOT_FIRST_CLASS_2: recursive_controller.py ranks questions lexicographically by effect tier, falsification strength, number of discriminated live hypotheses, source specificity and inverse cost. Time sensitivity/decision-window expiry does not alter priority or stopping.",
+    "TIME_NOT_FIRST_CLASS_3: Diagnostic gates cover evidence link, alternatives, known work, decision delta, materiality, recipient fit, specificity, falsifiability, public-evidence boundary and recursive dominance; no explicit temporal-validity or causal-sequence gate exists.",
+    "REFERENCE_TASC: The surviving TASC decision is to define the minimum project evidence contract before HUB roadmap/data model harden. This is a high-Decision-Delta temporal/sequence claim expressed in prose, not schema.",
+    "REFERENCE_PALO_ALTO: Recursion killed/softened several attractive acquisition/platform findings and found a measurement/incentive architecture issue; the R&D result says the value came from reopening the telos and continuing beyond early plausible findings.",
+    "VALIDATION_BASELINE: 30-company distribution: SEND 3/30 (10%), EVIDENCE_CEILING 10/30, NO_SEND known work 14/30, NO_SEND known architecture 3/30. Conservative baseline remains rare SEND.",
+    "TARGETING_HISTORY: Dual-system, strict reconciliation, cross-sector allocator and capacity-marketplace cohorts repeatedly narrowed candidate targeting mechanisms. The package records failures rather than retroactively calling them successes.",
+    "STRUCTURAL_GATE: Pre-admission gate requires allocation authority, high frequency, semi-independent capacity, incomplete provider choice, non-zero replenishment cost, and endogenous future capacity. Passing the gate does not imply SEND; Uber is a canonical falsifier because it exposes long-term marketplace-balance logic.",
+    "EXPLORATORY_TEMPORAL_SIGNAL: The structural-gate cohort's strongest updated candidate is that external diagnostic yield may be higher when a NEW OR CHANGING capacity class enters an existing central allocator while an incumbent class remains strategically necessary and the public reconciliation rule is absent. The package explicitly says this is exploratory, sector-concentrated and must not be hard-coded.",
+    "PILOT_BOUNDARY: Current State 2026-09-16 says the engine is ready for a small real-world send pilot and that more adaptive internal targeting R&D now carries meaningful post-hoc-fitting risk. It says freeze diagnostic rules during the pilot.",
+    "COMMERCIAL_GROUND_TRUTH: Pilot protocol records KNOWN_ALREADY/NEW_CONNECTION/WRONG, DECISION_CHANGED_OR_REOPENED, WANTS_MORE_EXTERNAL_DIAGNOSIS, WANTS_INTERNAL_RESOLUTION and WILLING_TO_PAY. The first commercial validation signal is an internal owner saying: We had the facts, but had not connected them into this decision.",
+    "OWNER_OBSERVATION_TO_TEST: After comparing the system with Adaptiv/Meridian, the owner suspects the time vector is critical to understanding context. Treat this as a live claim, not an instruction to change the architecture.",
+    "EXTERNAL_CHALLENGER_DISCOVERY_ONLY: Adaptiv/Meridian publicly describes finding and dating the mechanism carrying the weight, showing how many years passed before accounts agreed, comparing a competitor that met similar conditions but chose differently, and asking what an outsider could actually have seen at the time. This is challenger evidence for a temporal hypothesis, not validation of this system change.",
+    "EXTERNAL_RESEARCH_DISCOVERY_ONLY: Organizational routine research describes paths as time-ordered sequences of actions/events linking actions to patterns; path-dependence research treats self-reinforcing sequences and lock-in as dynamically staged. These support testing temporal representation but do not establish unique incremental value over v0.5.",
+    "STRONGEST_COMPOSED_BASELINE_CLAIM: Current v0.5 may already contain enough temporal expressivity in natural-language reasoning that adding explicit fields/rules produces only nicer explanations and no decision-state delta.",
+    "CANDIDATE_RESIDUAL_CLAIM: If a unique gap survives, it may be narrower than 'add time': temporal sequence may need to become explicit only at hypothesis/finding comparison and test design, especially to separate transition-state evidence from stable-state evidence, expose expiring decision windows, and prevent outcome-lag confusion.",
+    "CHEAP_TEST_CANDIDATE: Freeze 6-10 cases and evidence cutoffs, run current v0.5 versus a minimal temporal-contract challenger using identical evidence, and adjudicate only material changes in finding/decision/falsifier/recipient/terminal state—not prose quality. Historical outcome knowledge must be hidden from both arms until outputs are frozen.",
+    "ANTI_BUILD: A full temporal ontology, new agent, new composite score or new targeting heuristic is not earned by the current evidence."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "organizational_diagnostic_system_v0_5_END_TO_END_2026-09-16(1).zip local scan sha256=available in run notes",
+    "docs/CANONICAL_STATE.md",
+    "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+    "runtime/calibration_loop/README.md",
+    "https://www.weareadaptiv.net/company-profiles",
+    "https://journals.aom.org/doi/10.5465/amj.2018.0042",
+    "https://www.cambridge.org/core/books/abs/cambridge-handbook-of-routine-dynamics/path-dependence-and-routine-dynamics/48641A81FC95D5C55D46A79D4FA10F15"
+  ],
+  "budget": {
+    "max_resource_calls": 5,
+    "max_parallel_calls": 2
+  }
+}
