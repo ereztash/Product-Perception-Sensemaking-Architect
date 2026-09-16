@@ -114,5 +114,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rnd-trace-${{ github.sha }}
-          path: runtime/execution_traces/DR-${GITHUB_SHA}.json
+          path: runtime/execution_traces/DR-${{ github.sha }}.json
           if-no-files-found: warn
