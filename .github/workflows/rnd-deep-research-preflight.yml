@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  models: read
 
 jobs:
   run-rnd:
@@ -18,6 +19,8 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || vars.OPENAI_API_KEY || secrets.OPENAI_KEY || vars.OPENAI_KEY }}
       OPENAI_MODEL: gpt-5.6-sol
       OPENAI_REASONING_EFFORT: high
+      GITHUB_MODELS_TOKEN: ${{ github.token }}
+      GITHUB_MODELS_MODEL: openai/gpt-5
       CALIBRATION_RND_WEB_SEARCH: '0'
       CALIBRATION_NETA_WEB_SEARCH: '0'
       CALIBRATION_SCAFFOLD_WEB_SEARCH: '0'
@@ -37,12 +40,21 @@ jobs:
           echo "task=$TASK" >> "$GITHUB_OUTPUT"
           echo "Resolved task: $TASK"
 
-      - name: Verify live adapter credential
+      - name: Select live adapter provider
+        id: provider
         shell: bash
         run: |
           set -euo pipefail
-          test -n "${OPENAI_API_KEY:-}"
-          echo "Live adapter credential is present"
+          if [ -n "${OPENAI_API_KEY:-}" ]; then
+            echo "config=runtime/calibration_loop/openai-config.example.json" >> "$GITHUB_OUTPUT"
+            echo "provider=openai" >> "$GITHUB_OUTPUT"
+            echo "Using OpenAI Responses adapter"
+          else
+            test -n "${GITHUB_MODELS_TOKEN:-}"
+            echo "config=runtime/calibration_loop/github-models-config.example.json" >> "$GITHUB_OUTPUT"
+            echo "provider=github-models" >> "$GITHUB_OUTPUT"
+            echo "Using GitHub Models adapter with automatic GITHUB_TOKEN"
+          fi
 
       - name: Validate task contract
         shell: bash
@@ -55,9 +67,10 @@ jobs:
           set -euo pipefail
           OUT="runtime/execution_traces/DR-${GITHUB_SHA}.json"
           echo "out=$OUT" >> "$GITHUB_OUTPUT"
+          echo "Provider: ${{ steps.provider.outputs.provider }}"
           python runtime/calibration_loop/run.py \
             "${{ steps.task.outputs.task }}" \
-            --config runtime/calibration_loop/openai-config.example.json \
+            --config "${{ steps.provider.outputs.config }}" \
             --strict \
             --output "$OUT"
 
