@@ -1,0 +1,61 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-DECISION-LAB-TELOS-AUDIT-2026-09-16",
+  "telos": {
+    "statement": "Determine the strongest non-human audit that can reveal whether Decision Lab has a complete, behaviorally plausible and culturally robust path from a chess player's desire to improve to a tested change in how they improve and decide in future games.",
+    "success_condition": "Produce one bounded audit protocol with explicit units of analysis, competing mechanisms, micro/meso/macro and cross-cultural stress tests, evidence classes, failure conditions and a stopping rule; identify which uncertainties can be resolved from repository/UI evidence alone and which must remain FIELD-required, without pretending that theoretical coherence validates human behavior."
+  },
+  "current_state": {
+    "summary": "Decision Lab is a chess-learning product whose strongest current architecture captures a player's decision evidence before engine feedback, accumulates evidence across games, tests recurring structures, compares them against expected player-level behavior, isolates candidate personal residuals, and can prospectively test claims/rules. The repository is unusually strong on epistemic provenance and explicitly does not claim Elo improvement. A 40-state screenshot inventory now covers the canonical walk, Blitz, commitment, reveal/explore/reflect, position-source/import overlays, 404 and key responsive breakpoints. However the owner rejects the current telos spine as insufficiently precise: the product may have a strong measurement/diagnosis architecture without a comparably explicit path from diagnosis to self-authored learning action, practice, transfer to real play, and recalibration of what to work on next. Previous discussion surfaced D29 question ownership and R-31 concurrent drills, but the owner explicitly says those are downstream and not the present core question. The live decision is how to audit the entire telos spine without human participants before deciding what, if anything, to redesign or send to FIELD.",
+    "known_constraints": [
+      "Do not treat screen completeness, route coverage, test coverage or repository rigor as evidence that the user-level telos is complete.",
+      "Do not collapse measurement, interpretation, persuasion, learning, behavior change and transfer into one mechanism.",
+      "Do not assume that asking the player to articulate a decision is a passive measurement; measurement reactivity/question-behavior effects are plausible rival mechanisms.",
+      "Do not assume an analytic, individualistic, verbal self-model is culturally universal; use cross-cultural theories as stress tests rather than national stereotypes.",
+      "Do not convert theory agreement into FIELD evidence. Same-model synthesis is discovery/decision support only.",
+      "Do not produce a composite UX score that can average away one fatal transition failure.",
+      "Prefer falsification and deletion tests over accumulating more lenses for their own sake.",
+      "The audit must distinguish what can be settled from code, screenshots, state machines, copy, data contracts and causal/logical structure from what requires real human behavior.",
+      "The final method should have enough discrimination power to tell apart at least: a coherent but behaviorally inert product; a persuasive but epistemically contaminating product; a measuring instrument that accidentally trains; a training product that cannot transfer; and a genuine improvement-loop product.",
+      "The owner wants cross-cultural research, micro/meso/macro analysis, multiple behavioral-science lenses, persuasion theories, learning science and transfer represented only where they change an audit decision."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What exact non-human audit should be run now on Decision Lab to determine whether its telos spine is structurally complete enough to justify the next product decision, before involving human users?",
+    "current_default": "Do not redesign yet. Audit transitions rather than screens, tracing backward and forward from the desired real-world outcome, and stress-test each transition against rival behavioral, learning, persuasion and cultural mechanisms while preserving a strict boundary between repository-resolvable uncertainty and FIELD-only uncertainty.",
+    "reversal_condition": "Replace this default if the run shows that another unit of analysis or evidence-allocation strategy has higher discrimination power, lower cost, or prevents a material category error that transition-level falsification would miss."
+  },
+  "signals": [
+    "TELOS_UNCERTAINTY: the owner does not accept the current statement of the product telos as precise enough to audit against.",
+    "MEASUREMENT_STRENGTH: pre-engine capture and evidence provenance are comparatively mature.",
+    "CHANGE_PATH_UNCERTAINTY: diagnosis -> user-owned target -> operation -> practice -> transfer -> recalibration is less explicit than measurement -> claim -> prospective test.",
+    "MEASUREMENT_REACTIVITY: articulation, confidence and counterfactual questions may themselves alter later decisions; instrument and intervention may be entangled.",
+    "OWNERSHIP_RISK: a system-found claim is not automatically a user-owned learning project; precision of formulation is not ownership of conclusion.",
+    "PERSUASION_RISK: authority, engine output, interface salience or normative language may cause compliance without evidence-based adoption.",
+    "TRANSFER_RISK: performance inside a deliberate drill or untimed commitment loop may not transfer to rated Blitz under time pressure.",
+    "EXPERTISE_REVERSAL_RISK: scaffolding useful to weaker players may become friction or distort natural play for stronger players.",
+    "ECOLOGY_RISK: the product exists inside a learning ecology that includes Lichess/Chess.com, engines, coaches, YouTube, puzzles and self-analysis; value can fail at the meso level even if each in-app transition is coherent.",
+    "CULTURAL_ROBUSTNESS_RISK: self-construal, analytic/holistic cognition, authority orientation, norm tightness and preferred verbalization can change whether a mechanism is plausible; these dimensions should challenge assumptions, not label countries.",
+    "MOTIVATION_RISK: comprehension and available next action do not establish motivation, self-efficacy, autonomy or persistence.",
+    "INTENTION_ACTION_GAP: a player can accept a finding and intend to change without executing the operation in a live game.",
+    "COGNITIVE_LOAD_RISK: the interaction may spend working memory on the instrument rather than the chess decision or learning target.",
+    "40_STATE_INVENTORY: current captures provide enough UI/state material for a structural audit, but no human response data.",
+    "ANTI_BUILD: the desired output is not a larger framework; it is the smallest audit architecture that can kill wrong product stories and identify the next decision-changing uncertainty.",
+    "TARGET_DISCRIMINATION: the method should explicitly distinguish structural contradiction, unsupported human assumption, theoretical rivalry, implementation gap, evidence gap and FIELD-only unknown."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "ereztash/decision-lab README.md and docs/NAVIGATION.md (live product/research authority)",
+    "ereztash/decision-lab shared/promise.ts, shared/interaction-mode.ts, shared/next-action.ts",
+    "ereztash/decision-lab docs/MASTER_PRODUCT_DEBT.md and docs/INERTIAL_UX_LAWS.md",
+    "ereztash/decision-lab 40-state UI screenshot inventory on ops/ui-screenshot-capture-20260916",
+    "Decision Lab prior product principle: player decides before machine speaks; research findings do not silently become product behavior",
+    "Cross-disciplinary lenses requested by OWNER: COM-B/behavior-change capability-opportunity-motivation; self-determination/autonomy; reactance; self-efficacy; implementation intentions/intention-action gap; persuasion/ELM and authority effects; cognitive load/expertise reversal; metacognition; transfer/situated learning; ecological/meso fit; cross-cultural self-construal, analytic-holistic cognition and tight-loose norms",
+    "runtime/calibration_loop/README.md"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
