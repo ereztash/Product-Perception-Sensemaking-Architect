@@ -21,7 +21,7 @@ jobs:
       OPENAI_REASONING_EFFORT: high
       OLLAMA_MODEL: qwen2.5:1.5b-instruct
       OLLAMA_NUM_CTX: '16384'
-      OLLAMA_NUM_PREDICT: '2200'
+      OLLAMA_NUM_PREDICT: '3600'
       OLLAMA_TIMEOUT_SECONDS: '900'
       CALIBRATION_RND_WEB_SEARCH: '0'
       CALIBRATION_NETA_WEB_SEARCH: '0'
@@ -114,5 +114,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rnd-trace-${{ github.sha }}
-          path: runtime/execution_traces/DR-${{ github.sha }}.json
+          path: runtime/execution_traces/DR-${GITHUB_SHA}.json
           if-no-files-found: warn
