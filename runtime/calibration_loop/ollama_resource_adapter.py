@@ -46,6 +46,7 @@ def build_payload(resource: str, request: dict) -> dict:
         "options": {
             "temperature": 0.1,
             "num_ctx": int(os.environ.get("OLLAMA_NUM_CTX", "32768")),
+            "num_predict": int(os.environ.get("OLLAMA_NUM_PREDICT", "1600")),
         },
     }
 
