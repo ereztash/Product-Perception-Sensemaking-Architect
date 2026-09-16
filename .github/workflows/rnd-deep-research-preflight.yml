@@ -14,13 +14,14 @@ jobs:
   run-rnd:
     runs-on: ubuntu-latest
     environment: production
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || vars.OPENAI_API_KEY || secrets.OPENAI_KEY || vars.OPENAI_KEY }}
       OPENAI_MODEL: gpt-5.6-sol
       OPENAI_REASONING_EFFORT: high
-      GITHUB_MODELS_TOKEN: ${{ github.token }}
-      GITHUB_MODELS_MODEL: openai/gpt-5
+      OLLAMA_MODEL: qwen3:4b-instruct
+      OLLAMA_NUM_CTX: '32768'
+      OLLAMA_TIMEOUT_SECONDS: '900'
       CALIBRATION_RND_WEB_SEARCH: '0'
       CALIBRATION_NETA_WEB_SEARCH: '0'
       CALIBRATION_SCAFFOLD_WEB_SEARCH: '0'
@@ -50,11 +51,27 @@ jobs:
             echo "provider=openai" >> "$GITHUB_OUTPUT"
             echo "Using OpenAI Responses adapter"
           else
-            test -n "${GITHUB_MODELS_TOKEN:-}"
-            echo "config=runtime/calibration_loop/github-models-config.example.json" >> "$GITHUB_OUTPUT"
-            echo "provider=github-models" >> "$GITHUB_OUTPUT"
-            echo "Using GitHub Models adapter with automatic GITHUB_TOKEN"
+            echo "config=runtime/calibration_loop/ollama-config.example.json" >> "$GITHUB_OUTPUT"
+            echo "provider=ollama-local" >> "$GITHUB_OUTPUT"
+            echo "Using local Ollama adapter; no external credential required"
           fi
+
+      - name: Start local Ollama provider
+        if: steps.provider.outputs.provider == 'ollama-local'
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://ollama.com/install.sh | sh
+          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+          ollama pull "${OLLAMA_MODEL}"
+          ollama list
 
       - name: Validate task contract
         shell: bash
@@ -73,6 +90,14 @@ jobs:
             --config "${{ steps.provider.outputs.config }}" \
             --strict \
             --output "$OUT"
+
+      - name: Print Ollama log on failure
+        if: failure() && steps.provider.outputs.provider == 'ollama-local'
+        shell: bash
+        run: |
+          if [ -f /tmp/ollama.log ]; then
+            tail -n 200 /tmp/ollama.log
+          fi
 
       - name: Print execution trace
         if: always()
