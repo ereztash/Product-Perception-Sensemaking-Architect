@@ -51,7 +51,7 @@
     "STRONG_ALTERNATIVE_4: Economic impact evidence may need to appear earlier; without a credible cost-of-status-quo, a strong finding still has low budget priority.",
     "CHEAP_TEST_CANDIDATE: On 12-20 matched companies, freeze diagnostic engine and recipient criteria; randomize 2-3 client-facing preview architectures while keeping the underlying finding constant where possible; compare qualified continuation rather than raw replies. Use interviews/replies to code whether failure was novelty, materiality, trust, paid-value clarity, recipient mismatch or urgency.",
     "SUCCESS_CRITERION_FOR_CHANGE: A proposed commercial change must produce a plausible and testable delta in Action, Allocation, Evidence or Decision—not merely make the report feel more polished.",
-    "EXECUTION_PATH_UPDATE: Canonical Calibration Loop can now fall back to GitHub Models via the automatic GitHub Actions GITHUB_TOKEN with models:read when OPENAI_API_KEY is absent; provider substitution must be retained in execution provenance and must not be mistaken for independent confirmation."
+    "EXECUTION_PATH_UPDATE: The canonical Calibration Loop will run with a local Ollama qwen3:4b-instruct provider inside the GitHub Actions runner when no OpenAI key exists. Provider substitution is execution plumbing, not independent confirmation, and model limits must remain visible in the trace interpretation."
   ],
   "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
   "context_refs": [
@@ -59,7 +59,7 @@
     "docs/CANONICAL_STATE.md",
     "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
     "runtime/calibration_loop/README.md",
-    "runtime/calibration_loop/github_models_resource_adapter.py",
+    "runtime/calibration_loop/ollama_resource_adapter.py",
     "organizational_diagnostic_system_v0_5_END_TO_END_2026-09-16(1).zip (conversation artifact)",
     "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
   ],
