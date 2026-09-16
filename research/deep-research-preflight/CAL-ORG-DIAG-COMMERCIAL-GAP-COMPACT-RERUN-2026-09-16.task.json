@@ -1,0 +1,52 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-COMPACT-RERUN-2026-09-16",
+  "telos": {
+    "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
+    "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
+  },
+  "current_state": {
+    "summary": "The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional intervention. The core engine already separates public evidence from internal uncertainty and can stop at EVIDENCE_CEILING. No field evidence yet establishes which commercial bottleneck dominates.",
+    "known_constraints": [
+      "Do not use artificial scarcity, hide earned public reasoning manipulatively, or weaken caveats to improve conversion.",
+      "Do not modify the core diagnostic engine unless commercial evidence requires it.",
+      "Do not assume reveal boundary is causal; compare it against novelty, economic materiality, recipient/distribution, urgency and low willingness-to-pay for diagnosis itself.",
+      "Prefer a reversible document/message field test to building a portal, dashboard, scoring system or new agent.",
+      "Measure qualified continuation, internal evidence sharing, price inquiry and payment; raw reply rate is insufficient.",
+      "Outside-in output is a hypothesis/opportunity until internal evidence validates a bottleneck.",
+      "Same-model or local-model agreement is discovery only, not independent confirmation."
+    ],
+    "available_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"]
+  },
+  "decision_blocked": {
+    "statement": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+    "current_default": "Keep the diagnostic engine frozen; separate internal full diagnosis from client preview and test preview/paid-continuation variants in real outbound.",
+    "reversal_condition": "Change this default if another bottleneck—novelty, economic materiality, recipient/distribution, urgency, or low willingness-to-pay for diagnosis—dominates reveal design."
+  },
+  "signals": [
+    "REVEAL_GAP: free artifact currently exposes enough mechanism/recommendation to enable internal self-resolution.",
+    "PAID_VALUE_GAP: what payment uniquely resolves is not yet crisp.",
+    "ECONOMIC_GAP: strategic relevance is not always translated into money/time/risk/opportunity cost.",
+    "NOVELTY_GAP: public novelty does not prove novelty to the internal owner.",
+    "CTA_GAP: 'want the full report?' is weaker than a bounded validation job with a defined decision output.",
+    "AMAREL: public evidence supports a non-obvious HOWIX/field-execution hypothesis, but cannot tell whether the loop already exists, is legally feasible, is the bottleneck, or what impact it has; those are possible paid-resolution objects.",
+    "CANDIDATE_A: free signal -> paid validated diagnosis -> intervention.",
+    "CANDIDATE_B: free proof-of-sight + 2-3 competing internal mechanisms -> paid falsification/resolution.",
+    "CANDIDATE_C: free finding + evidence ceiling + decision question -> paid internal evidence contract and go/no-go memo.",
+    "STRONG_ALT_1: buyers may not pay for diagnosis alone regardless of reveal design.",
+    "STRONG_ALT_2: recipient/distribution may dominate artifact design.",
+    "STRONG_ALT_3: credible cost-of-status-quo may need to precede any paid ask.",
+    "CHEAP_TEST: freeze engine and recipient criteria; across 12-20 matched companies randomize 2-3 preview/paid-job variants; code failure reason and compare qualified continuation, evidence sharing, price inquiry and payment.",
+    "ANTI_BUILD: first earn a commercial decision delta in the field."
+  ],
+  "allowed_resources": ["RND", "NETA", "SCAFFOLD", "OWNER", "REPO", "ENVIRONMENT", "FIELD"],
+  "context_refs": [
+    "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+    "runtime/calibration_loop/README.md",
+    "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+  ],
+  "budget": {
+    "max_resource_calls": 4,
+    "max_parallel_calls": 2
+  }
+}
