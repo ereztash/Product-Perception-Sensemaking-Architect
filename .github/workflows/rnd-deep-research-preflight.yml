@@ -14,15 +14,15 @@ jobs:
   run-rnd:
     runs-on: ubuntu-latest
     environment: production
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || vars.OPENAI_API_KEY || secrets.OPENAI_KEY || vars.OPENAI_KEY }}
       OPENAI_MODEL: gpt-5.6-sol
       OPENAI_REASONING_EFFORT: high
-      OLLAMA_MODEL: qwen2.5:1.5b-instruct
+      OLLAMA_MODEL: qwen2.5:3b-instruct
       OLLAMA_NUM_CTX: '16384'
       OLLAMA_NUM_PREDICT: '3600'
-      OLLAMA_TIMEOUT_SECONDS: '900'
+      OLLAMA_TIMEOUT_SECONDS: '1500'
       CALIBRATION_RND_WEB_SEARCH: '0'
       CALIBRATION_NETA_WEB_SEARCH: '0'
       CALIBRATION_SCAFFOLD_WEB_SEARCH: '0'
@@ -63,7 +63,9 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsSL https://ollama.com/install.sh | sh
-          nohup ollama serve > /tmp/ollama.log 2>&1 &
+          if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            nohup ollama serve > /tmp/ollama.log 2>&1 &
+          fi
           for i in $(seq 1 30); do
             if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
               break
