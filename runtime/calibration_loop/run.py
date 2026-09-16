@@ -313,7 +313,22 @@ def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:
         "final_state": None,
         "failure": None,
     }
+    try:
+        return _run(task, trace, adapters, mock, strict)
+    except Exception as exc:
+        # A FAILED RUN KEPT WHAT IT ALREADY PAID FOR.
+        #
+        # `main` used to build a fresh two-line trace on any exception, so a run that reached the
+        # R&D synthesis and failed its shape check discarded the diagnosis, the routing decision and
+        # every peer result underneath it -- the expensive part, thrown away at the cheapest step.
+        # The failure is still a failure and the exit code is unchanged; what is preserved is the
+        # evidence of how far the loop got, which is what makes the next attempt cheaper than the
+        # last. The exception type is not swallowed: it is re-raised carrying the partial trace.
+        exc.partial_trace = trace  # type: ignore[attr-defined]
+        raise
 
+
+def _run(task: dict, trace: dict, adapters: dict, mock: bool, strict: bool) -> dict:
     diagnosis, diag_request = rnd_diagnose(task, adapters, mock)
     trace["resource_invocations"].append({
         "resource": "RND",
@@ -423,13 +438,17 @@ def main() -> int:
         config = load_config(args.config)
         trace = run(task, config=config, mock=args.mock, strict=args.strict)
     except (OSError, json.JSONDecodeError, ContractError, AdapterError, RuntimeErrorBounded, ValueError) as exc:
-        trace = {
+        # Whatever the run reached before it failed, when it reached anything at all. A task that
+        # could not be read or a config that would not parse has no partial trace and falls back to
+        # the two-line shape this always wrote.
+        partial = getattr(exc, "partial_trace", None)
+        trace = dict(partial) if isinstance(partial, dict) else {
             "runtime_version": "0.2",
             "rnd_telos_version": "0.2-candidate",
-            "task_ref": str(args.task),
-            "final_state": "FAILED_EXECUTION",
-            "failure": str(exc),
         }
+        trace["task_ref"] = str(args.task)
+        trace["final_state"] = "FAILED_EXECUTION"
+        trace["failure"] = str(exc)
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(trace, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
