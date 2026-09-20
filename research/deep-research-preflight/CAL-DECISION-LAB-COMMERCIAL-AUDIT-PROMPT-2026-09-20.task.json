@@ -1,0 +1,58 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "CAL-DECISION-LAB-COMMERCIAL-AUDIT-PROMPT-2026-09-20",
+  "telos": {
+    "statement": "Determine the most decision-useful instruction for producing a current, evidence-bounded commercial/value audit of Decision Lab without importing a stale product purpose or prematurely fixing a buyer, sellable object, or revenue model.",
+    "success_condition": "The resulting prompt should force the audit to reconstruct current product telos and unit of value from the current decision-lab repository, distinguish historical commercial evidence from current product authority, allocate external research only after the product object is identified, and terminate in the cheapest discriminating commercial experiment rather than a broad strategy narrative."
+  },
+  "current_state": {
+    "summary": "A draft continuation prompt has been proposed to replace the stale 2026-09-06 Build-to-Revenue framing. The draft instructs a future audit to reconstruct Decision Lab's current telos, unit of value and value loop from the current repository before market research; treat the old lichess_app commercial audit as historical evidence; derive candidate sellable objects rather than assuming report/coach/subscription/Game Review; then perform buyer, substitute, WTP and revenue-model research, distinguish technological/user/commercial value, create evidence-labelled OLD→CURRENT comparisons and G1/G2/G3 gates, and end with one highest-Expected-Decision-Value commercial experiment. The immediate task is NOT to run that audit. It is to decide whether this prompt itself is correctly scoped, sequenced and calibrated before spending the research effort.",
+    "known_constraints": [
+      "Evaluate the prompt itself, not the commercial thesis it would later investigate.",
+      "Do not assume the assistant's current interpretation of Decision Lab's telos is correct; the future audit must earn that interpretation from current repository authority.",
+      "Do not let the old Build-to-Revenue audit define the current product merely because it contains useful historical market and pricing research.",
+      "Do not select a buyer, sellable object or business model before the current unit of value is reconstructed.",
+      "Do not expand the prompt merely for completeness; prefer the smallest instruction that preserves discrimination power and prevents the main category errors.",
+      "Separate repository-solvable questions, external market research, OWNER decisions and FIELD evidence.",
+      "The output of this R&D run should say whether to USE, ADAPT, NARROW, SPLIT, or STOP the draft prompt, and identify the cheapest change that materially improves the later audit.",
+      "The exact draft prompt under review is preserved verbatim in decision_blocked.current_default."
+    ],
+    "available_resources": [
+      "RND",
+      "NETA",
+      "SCAFFOLD",
+      "OWNER",
+      "REPO",
+      "ENVIRONMENT",
+      "FIELD"
+    ]
+  },
+  "decision_blocked": {
+    "statement": "Should the proposed CURRENT_BUILD_TO_REVENUE_AND_VALUE_AUDIT prompt be used as written, or changed before we spend a full repository and market-research pass on it?",
+    "current_default": "קרא מחדש את ereztash/decision-lab על main כאילו אינך יודע מה המוצר אמור להיות. בנה מתוך ה-repository עצמו את התכלית הנוכחית של Decision Lab, את יחידת הערך שהוא מייצר למשתמש ואת מנגנון הערך שמחבר בין פעולה של המשתמש לתוצאה שהוא מקבל.\n\nלאחר מכן קרא את docs/BUILD_TO_REVENUE_AUDIT.md ואת המחקרים המסחריים והמתודולוגיים שהגיעו מ-lichess_app, אבל התייחס אליהם כאל historical evidence, לא כאל הגדרת המוצר הנוכחית.\n\nהמטרה היא ליצור מסמך חדש שמחליף את ה-Build-to-Revenue Audit הישן, ולא לעדכן אותו קוסמטית.\n\nלפני מחקר שוק או תמחור, הכריע מתוך הראיות בריפו:\n1. מה ה-telos הנוכחי של Decision Lab?\n2. מה הדבר הקטן ביותר שהמוצר מייצר שיש לו ערך בפני עצמו?\n3. מהו ה-value loop בפועל: user action → evidence → interpretation → next action/value?\n4. איזה ערך מתקבל אחרי החלטה אחת, איזה ערך דורש הצטברות, ואיזה ערך עדיין רק היפותזה?\n5. מה השתנה מאז ה-Build-to-Revenue Audit של 6.9.2026?\n6. אילו הנחות מסחריות ישנות עדיין תקפות, אילו אינן תקפות, ואילו פשוט עדיין לא נבדקו?\n7. אל תניח מראש שהמוצר הוא report, כלי למאמן, subscription, game-review product או even chess-learning product. הסק את ה-sellable object מתוך המוצר הנוכחי.\n\nרק אחרי זה בצע מחקר שוק עדכני כדי לזהות:\n- מי כבר משלם על בעיה קרובה;\n- מה התחליפים האמיתיים;\n- מי נהנה כלכלית מהמידע הייחודי ש-Decision Lab מייצר;\n- מה אי אפשר לקבל מ-PGN/Stockfish/Game Review בדיעבד;\n- אילו buyer segments מתאימים לכל אחת מיחידות הערך;\n- מהן נקודות העיגון הסבירות ל-WTP;\n- ואיפה קיים פער בין technological value, user value ו-commercial value.\n\nאל תבחר buyer או business model לפי אינטואיציה. לכל אפשרות הצג evidence for, evidence against, missing evidence, cheapest falsification test, ומה ההחלטה שתשתנה לפי התוצאה.\n\nהמסמך הסופי צריך להיקרא CURRENT_BUILD_TO_REVENUE_AND_VALUE_AUDIT.md והוא צריך לכלול לפחות:\n- Current Product Telos\n- Current Unit of Value\n- Current Value Loop\n- What Changed Since the Previous Commercial Audit\n- Evidence Already Established\n- Evidence Ceiling / Claims Not Yet Licensed\n- Candidate Sellable Objects\n- Buyer × Value-Object Map\n- Competitive/Substitute Analysis\n- WTP and Pricing Hypotheses\n- Revenue Models Worth Testing\n- Strategic/IP Value vs Business Value\n- Cheapest Commercial Experiments\n- G1/G2/G3-style gates with explicit pass/fail criteria\n- Updated valuation implications under each evidence milestone\n- What should not be built before the next commercial evidence\n\nבכל טענה סמן אחת מהקטגוריות:\nREPO_EVIDENCE, EXTERNAL_EVIDENCE, INFERENCE, COMMERCIAL_HYPOTHESIS, PRICING_HYPOTHESIS, FIELD_REQUIRED, OWNER_REQUIRED.\n\nבנוסף, בנה טבלת OLD → CURRENT שמראה איפה התכלית, יחידת הערך, buyer hypothesis, sellable object, differentiation ו-revenue logic השתנו.\n\nאם ה-repository הנוכחי סותר את ה-audit הישן, ה-repository הנוכחי גובר. אל תנסה ליישב את הסתירה באמצעות ניסוח.\n\nבסוף, אל תיתן \"המלצת שיווק\" כללית. תן הכרעה אופרטיבית אחת:\nמהו הניסוי המסחרי בעל ה-Expected Decision Value הגבוה ביותר שאפשר לבצע עכשיו, ומה בדיוק נדע אחריו שלא ידענו קודם?",
+    "reversal_condition": "Change the draft before execution if the R&D run identifies a material category error, authority inversion, unnecessary research burden, missing discriminator, sequencing defect, or a cheaper instruction that would change the quality of the eventual commercial decision."
+  },
+  "signals": [
+    "The previous commercial audit is dated 2026-09-06 and may describe an earlier product purpose.",
+    "The current Decision Lab repository now frames the live product around prospective pre-engine decision evidence, longitudinal accumulation and bounded inference, while older commercial work centered a population-corrected report.",
+    "The user wants a new decision-useful document, not a cosmetic refresh of the old audit.",
+    "A long prompt can itself become resource misallocation if it prescribes deliverables before identifying the live commercial decision.",
+    "There is a risk of meta-overengineering: building a comprehensive valuation/market document before knowing which uncertainty actually changes the next allocation decision.",
+    "There is also an opposite risk: narrowing too early could preserve the old buyer or sellable-object assumptions by omission.",
+    "The prompt currently asks for valuation implications; valuation may be downstream of demand evidence and could create false precision if not explicitly conditional."
+  ],
+  "allowed_resources": [
+    "RND"
+  ],
+  "context_refs": [
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+    "ereztash/decision-lab current main as future audit authority",
+    "ereztash/decision-lab/docs/BUILD_TO_REVENUE_AUDIT.md as historical commercial evidence",
+    "the verbatim draft prompt in decision_blocked.current_default"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
