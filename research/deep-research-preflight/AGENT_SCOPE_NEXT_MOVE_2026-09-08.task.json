@@ -1,0 +1,59 @@
+{
+  "calibration_version": "0.1",
+  "task_id": "RND-AGENT-SCOPE-NEXT-MOVE-2026-09-08",
+  "telos": {
+    "statement": "Decide the owner's next move on productizing the system, given that the asset is the ability to scope an agent to boundaries the owner chooses, and given that the two patterns people pay for are reduced user friction and increased certainty for a decision maker.",
+    "success_condition": "Name the smallest next action that can change the allocation decision, the authority that owns it, and what it would cost. A recommendation to build, to research further, or to add a capability must survive the encodability gate. Naming a scope without naming the observation that would qualify or disqualify it is not success."
+  },
+  "current_state": {
+    "summary": "Date 2026-09-08. Two earned peers exist, Neta for product and design sensemaking and R&D for resource to telos calibration. research/agent-discovery/AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md screened twelve candidate agents against Decision Quality, NASA Systems Engineering and SEBoK/ISO 15288 as completeness probes, recorded NEW_AGENT_PROMOTED = NONE and BROAD_AGENT_DISCOVERY = CLOSED, and gave every candidate a non-agent form factor such as gate, lens, observatory, modifier or infrastructure. MEASURED EVIDENCE. GitHub Wave 1 adjudicated 48 real OSS repositories with 16 holdout, recorded 37 Neta versus baseline build-restraint cases of which 14 fully survived adjudication and 8 partially, and found 1 clean Neta failure; minimum viable evidence was not reached because 3 clean failures were required and only 1 was observed. The Question Discovery lane ran a capability profile on 12 natural owner prompts with conditions frozen before running, which fired 3 of 12, correctly preserved the stated question 9 of 12 and over-reframed 0 of 12, and whose ablation attributed the first material delta to commitment inspection in 2 of 3 cases, to decision identification in 1 of 3 and to question selection in 0 of 3. An 8 case question-space challenge produced 0 of 8 clear unique wins for question search. A 20 case Yishumi holdout on a corpus external to the repository, created before the hypothesis existed and selected mechanically, recorded 95 percent routing agreement, 0 of 11 false bypass, 8 of 8 material case recall and 0 of 20 authority violations. That lane refuted the broad claim that the capability is especially good at finding the highest leverage question, and replaced it with the surviving claim that it detects when a reasonable question has committed to a next move before the evidence has earned that commitment. Every one of those corpora consists of decisions made by humans, not outputs produced by agents; the 12 natural prompts are the owner's own questions and the corpus examples include a price cut proposed in response to being told a product is too expensive, daily posting proposed in response to low inbound, hiring a salesperson proposed in response to founder overload, and a CRM migration proposed in response to tooling friction. TWO MARKET RESEARCH RUNS COMPLETED TODAY on whether a separate assurance layer over agent output is purchasable. Arm A, seven sub-questions, concluded EXISTS_BUT_ONLY_AS_A_BUNDLED_FEATURE and confirmed four of its six preregistered waste-of-time conditions: the agent vendor bundles assurance, platforms already ship it and it is converging to free, regulation creates an internal obligation with nothing to buy, and demonstrated buyers are all far larger than 300 employees. Arm B, four kill conditions, confirmed 2 of 4: platform absorption CONFIRMED, and the deployment blocker being something other than output trust CONFIRMED, while bundled-feature and buyer-size mismatch returned NOT_CONFIRMED on vendor-published case studies. The two arms reached opposite conclusions on whether trust in agent output is the binding deployment blocker: Arm A cited readiness-gap surveys and concluded trust is a co-equal blocker, Arm B cited a 300-executive survey where only 28 percent named output trust in their top three, a RAND study attributing 80 to 95 percent of pilot failures to stakeholder misalignment and data quality, and a first-person engineering post-mortem naming idempotency, stale internal data and permission boundaries as the lethal issues. Observed pricing splits by buyer: evaluation and observability tools sold to engineers price per trace or per span at tens to hundreds of dollars per month, while agents sold to finance leaders price against outcomes such as a 40 percent cost reduction and a three times faster month-end close. OWNER POSITION. The owner states that the asset held is the ability to scope an agent to boundaries the owner decides, that the open question is which scope creates enough value, and that the two patterns people pay for are reduced friction for the user and increased certainty for the decision maker. CONSTRAINTS ON REALITY. No external operator has ever run the method. No field contact of any kind has occurred. The lichess field instrument is built, verified runnable and records outcome authority FIELD with status FIELD_REQUIRED, and its frozen recruitment package of five to eight cold contacts has never been run. This environment holds no adapter credential. The owner's stated buyer is a COO, CFO or VP People at a 50 to 300 employee growth-stage company in cybersecurity, fintech or healthtech.",
+    "known_constraints": [
+      "Broad agent discovery is closed at saturation. Adding a peer requires new evidence of a recurring residual outside the existing map, not an attractive case.",
+      "The encodability-bias gate applies. Name the live claim a capability resolves, its authority, the cheaper alternative, the contamination risk and the reversal condition, or do not propose building it.",
+      "Willingness to pay by the named buyer resolves to FIELD and cannot be settled by any repository, environment or public-source observation.",
+      "Cold contacts in the owner's ICP are non-renewable and must not be spent before cheaper instruments have had their chance.",
+      "Do not privilege BUILD among the candidate moves.",
+      "Do not treat the owner's framing of two payment patterns as established. It is an owner hypothesis, not evidence.",
+      "Preserve the disagreement between the two research arms rather than averaging it.",
+      "Agreement between resources of one model lineage is not independent triangulation and contributes zero confirmatory N."
+    ],
+    "available_resources": [
+      "RND",
+      "NETA",
+      "OWNER",
+      "REPO",
+      "FIELD"
+    ]
+  },
+  "decision_blocked": {
+    "statement": "Which agent scope, if any, should receive the owner's next unit of effort, and what is the cheapest admissible observation that would qualify or disqualify that scope before any building occurs?",
+    "current_default": "No scope has been selected and no build has been authorized. The default is to continue consulting while the question stays open.",
+    "reversal_condition": "Change the default if a named scope has both a measured behavioural property in the existing corpora and a cheap admissible observation that could establish or destroy its value to the named buyer, or if the analysis shows the material question is a different allocation entirely."
+  },
+  "signals": [
+    "All measured selectivity evidence in this repository was produced on human decisions, while both market research runs were scoped to agent outputs.",
+    "Evaluation tooling and finance-facing agents are priced on different bases, per trace versus per outcome, and are sold to different buyers.",
+    "Arm B confirmed that the deployment blocker is something other than output trust, which if correct removes the premise from an output-assurance product.",
+    "The owner has never contacted an external person about any of this, and a frozen field instrument has sat unrun since it was built.",
+    "The system has repeatedly reached operational handoff and then produced another internal artifact instead of spending the handoff."
+  ],
+  "allowed_resources": [
+    "RND",
+    "NETA"
+  ],
+  "context_refs": [
+    "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+    "research/agent-discovery/AGENT_DISCOVERY_CLOSEOUT_2026-09-06.md",
+    "research/question-discovery/QD_CAPABILITY_PROFILE_V2_RUN.md",
+    "research/question-discovery/QD_YISHUMI_HOLDOUT_V0_ADJUDICATION.md",
+    "eval/github-benchmark/WAVE1_CLOSEOUT.json",
+    "docs/LESSONS_COVERAGE_AUDIT.md",
+    "docs/REALITY_AUTHORITY_PERMISSION.md",
+    "research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md",
+    "CLAUDE.md"
+  ],
+  "budget": {
+    "max_resource_calls": 2,
+    "max_parallel_calls": 1
+  }
+}
