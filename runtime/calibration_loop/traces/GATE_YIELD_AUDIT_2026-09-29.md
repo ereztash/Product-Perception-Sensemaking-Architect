@@ -76,6 +76,8 @@ Deterministic validator changes only, no new capability:
 
 Counterfactual on the archived traces: all 7 successful runs would stop after DIAGNOSE, i.e. 7 model calls instead of 26.
 
+Implemented 2026-09-29 in `runtime/calibration_loop/run.py`, with synthetic and archived-trace positive controls in `scripts/check_calibration_loop.py`. The DIAGNOSE instruction sent to the model was deliberately **not** changed in the same step, so the re-run measures the gate alone; telling the model about the saturation rule is a separate, later intervention.
+
 Then re-run 2 existing tasks on the same model.
 
 ## Reversal conditions
