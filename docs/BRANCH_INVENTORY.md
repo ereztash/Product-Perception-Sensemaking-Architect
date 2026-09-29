@@ -113,6 +113,40 @@ receive commits, and `scripts/check_branch_inventory.py --live` reports such mov
 without failing. A `RETIRABLE` tip is pinned: the runbook would be about to delete that
 ref, and a ref that moved since capture may no longer be contained in `main`.
 
+### Declared 2026-09-29
+
+Ten branches had crossed the 24-hour grace undeclared and reddened `--live` on `main` and on
+every pull request. Two more, pushed 2026-09-29, would cross it within a day. These rows are
+counted against `main` @ `316c86b92752c899e954301a123cae78582572bb`, not against the anchor
+above. `New files` here means paths in the branch tree that are absent from the `main` tree,
+compared tree to tree, not `git diff --diff-filter=A main...branch`, which misses squash-absorbed
+work (the defect PR 22 documents).
+
+| Branch | Tip | Ahead | New files | Disposition |
+|---|---|---|---|---|
+| `claude/elegant-brahmagupta-lbtcjj` | `daca151b66` | 2 | 14 | `OPEN_PR_TO_MAIN` |
+| `claude/ux-ui-analysis-v6ao5u` | `17ccc75033` | 19 | 10 | `OPEN_PR_TO_MAIN` |
+| `feat/rnd-composed-baseline-claim-lineage-v0-2-1` | `a17188cdca` | 6 | 0 | `STRANDED` |
+| `open-portfolio-v1-2026-09-29` | `d0f7bbede4` | 2 | 1 | `OPEN_PR_TO_MAIN` |
+| `research/rnd-self-triangulation-adjudication-2026-09-08` | `dd59bf7ae1` | 13 | 13 | `STRANDED` |
+| `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | `45e4019676` | 15 | 15 | `STRANDED` |
+| `research/rnd-self-triangulation-anti-challenges-2026-09-08` | `3b51465235` | 23 | 23 | `STRANDED` |
+| `research/rnd-self-triangulation-challenges-2026-09-08` | `9756465715` | 18 | 18 | `STRANDED` |
+| `run/construct-separation-audit-2026-09-12` | `ec8c193024` | 5 | 4 | `STRANDED` |
+| `run/lichess-move-rnd-recursive-2026-09-13` | `5fe0f74361` | 18 | 12 | `STRANDED` |
+| `run/nico-ux-paired-2026-09-12` | `07ddf30252` | 20 | 12 | `STRANDED` |
+| `run/tpoae-rnd-best-effort-2026-09-12` | `25ec110ab8` | 16 | 10 | `STRANDED` |
+
+`feat/rnd-composed-baseline-claim-lineage-v0-2-1` holds no path `main` lacks: its PR 24 was
+closed and the same amendment reached `main` as `34b68c75fc`. It is still ahead, so under the
+current four-term vocabulary it is `STRANDED`, not `RETIRABLE`.
+
+Open PR 22 (`claude/repo-cleanup-590u82`) re-declares every branch above except the two pushed
+on 2026-09-29, adds a `SUPERSEDED` disposition verified by path and content, and makes
+`--live` recompute these counts. Its counts agree with the ones here on every branch both
+tables name. These rows use the current checker's vocabulary so `--live` can pass today; they
+do not decide between PR 22's dispositions and these, and PR 22 replaces them where it lands.
+
 ### PR 19 cannot reach `main`
 
 PR 19 has head `claude/product-value-completion-run-if7ito` and base

@@ -79,10 +79,20 @@ def validate_expected_delta(value: object, context: str) -> None:
 def validate_observed_delta(value: object, context: str) -> None:
     if not isinstance(value, dict) or set(value) != set(DELTA_DIMENSIONS):
         raise RuntimeErrorBounded(f"{context} must contain exactly delta dimensions {list(DELTA_DIMENSIONS)}")
+    seen_text: dict[str, str] = {}
     for key in DELTA_DIMENSIONS:
         item = value[key]
-        if item is not None and not _nonempty(item):
+        if item is None:
+            continue
+        if not _nonempty(item):
             raise RuntimeErrorBounded(f"{context}.{key} must be null or a non-empty string")
+        normalized = " ".join(item.split()).casefold()
+        if normalized in seen_text:
+            raise RuntimeErrorBounded(
+                f"{context} repeats identical text in {seen_text[normalized]} and {key}; "
+                "each changed dimension must name its own state change"
+            )
+        seen_text[normalized] = key
 
 
 def delta_is_material(observed_delta: dict) -> bool:
@@ -137,6 +147,11 @@ def validate_diagnosis(payload: dict) -> None:
         raise RuntimeErrorBounded(f"R&D diagnosis needs drift: missing={sorted(missing)} extra={sorted(extra)}")
     if not all(isinstance(v, bool) for v in needs.values()):
         raise RuntimeErrorBounded("all R&D diagnosis needs must be booleans")
+    if all(needs.values()):
+        raise RuntimeErrorBounded(
+            "R&D diagnosis needs are saturated: every routing flag is true, so the routing gate cannot discriminate; "
+            "rule out at least one need or decompose the task"
+        )
 
 
 def expected_delta_for_resource(diagnosis: dict, resource: str) -> dict:
@@ -297,6 +312,7 @@ def annotate_peer_invocations(trace: dict, synthesis: dict) -> None:
         delta = by_resource[invocation["resource"]]
         invocation["observed_delta"] = delta["observed_delta"]
         invocation["material"] = delta["material"]
+        invocation["expectation_mismatch"] = delta["material"] and not any(invocation["expected_delta"].values())
 
 
 def run(task: dict, config: dict, mock: bool, strict: bool) -> dict:

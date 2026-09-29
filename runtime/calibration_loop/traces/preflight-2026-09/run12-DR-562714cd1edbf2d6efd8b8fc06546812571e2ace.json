@@ -1,0 +1,7 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task_ref": "research/deep-research-preflight/CAL-ORG-DIAG-COMMERCIAL-GAP-FAST-2026-09-16.task.json",
+  "final_state": "FAILED_EXECUTION",
+  "failure": "candidate_moves[0] values must be non-empty strings"
+}

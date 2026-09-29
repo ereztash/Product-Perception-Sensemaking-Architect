@@ -89,6 +89,16 @@ This produces a reusable delta vocabulary:
 
 A distinction may therefore be material without changing the top-level decision, but only if it changes the reusable decision state rather than merely restating or elaborating an existing point.
 
+### Gate-input controls (2026-09-29)
+
+Added after `traces/GATE_YIELD_AUDIT_2026-09-29.md` found that the live traces could not be gated:
+
+- **Saturated needs are rejected.** A diagnosis with every `needs` flag `true` gives the deterministic router nothing to decide on: it invokes every allowed peer and every authority. The runtime rejects it before any peer is called. Rule out at least one need or decompose the task.
+- **Repeated delta text is rejected.** An `observed_delta` that places the same text (ignoring case and whitespace) in more than one dimension is not accepted as material. Each changed dimension must name its own state change.
+- **Expectation mismatch is marked, not rejected.** After synthesis, each peer invocation carries `expectation_mismatch: true` when R&D committed ex ante that the resource could change nothing (all-false `expected_delta`) and the observed result is material. This keeps surprising deltas visible for later yield analysis without deciding whether the expectation or the observation was wrong.
+
+The archived live traces in `traces/preflight-2026-09/` serve as positive controls in `scripts/check_calibration_loop.py`: all 7 diagnoses must fail on saturation, the 4 syntheses with repeated text must fail on repetition, and re-annotation must mark 5 mismatches.
+
 ### Independence guardrail
 
 `expected_delta` is stored in the trace and in the R&D diagnosis, but it is **not sent to Neta or Scaffold**. The peer receives the task and fired focus only. This keeps the ex-ante expectation from becoming a self-fulfilling evaluation target.
@@ -208,7 +218,7 @@ Every v0.2 run returns a single JSON envelope containing:
 - routing decision and fired triggers;
 - each peer request/result;
 - `expected_delta` on every routed peer invocation;
-- `observed_delta` and derived-compatible `material` after synthesis;
+- `observed_delta`, derived-compatible `material` and `expectation_mismatch` after synthesis;
 - R&D synthesis or pending synthesis request;
 - `resource_deltas` when synthesis exists;
 - a final state of `COMPLETE`, `PENDING_RESOURCE`, `AUTHORITY_STOP`, or `FAILED_EXECUTION`.

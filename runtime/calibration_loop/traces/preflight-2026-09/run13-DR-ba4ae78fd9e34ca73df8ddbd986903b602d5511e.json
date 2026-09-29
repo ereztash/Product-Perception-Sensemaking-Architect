@@ -1,0 +1,7 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task_ref": "research/deep-research-preflight/CAL-ORG-DIAG-COMMERCIAL-GAP-COMPACT-2026-09-16.task.json",
+  "final_state": "FAILED_EXECUTION",
+  "failure": "RND adapter failed: {\"adapter_error\": \"model returned non-JSON semantic output: {\\n  \\\"material_question\\\": \\\"What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?\\\",\\n  \\\"bottleneck\\\": \\\"The current commercial product architecture of the organizational diagnostic tool is weak in conversion, making it difficult to achieve a strong diagnostic quality without compromising epistemic integrity.\\\",\\n  \\\"resource_assessment\\\": [\\n    {\\n      \\\"resource\\\": \\\"RND\\\",\\n      \\\"expected_contribution\\\": \\\"Improves the diagnostic quality of the tool by identifying the smallest commercial-product change that can close the gap between strong diagnostic quality and weak free-to-paid conversion.\\\",\\n      \\\"authority_ceiling\\\": \\\"The R&D agent has the authority to propose and evaluate potential changes to the commercial product architecture.\\\",\\n      \\\"uncertainty\\\": \\\"The R&D agent must evaluate the feasibility and impact of the proposed changes.\\\",\\n      \\\"expected_delta\\\": {\\n        \\\"decision\\\": true,\\n        \\\"action\\\"\"}"
+}

@@ -39,7 +39,7 @@ A question that requires opening a side branch to discover current truth indicat
 
 ### Active branches
 
-Fourteen branches are ahead of `main`. The full inventory, with tips, dispositions and the
+Twenty-six branches are ahead of `main`. The full inventory, with tips, dispositions and the
 forked artifacts that exist on no branch canonically, is `docs/BRANCH_INVENTORY.md`.
 `scripts/check_branch_inventory.py --live` fails when this table and that inventory
 disagree with the actual remote.
@@ -60,6 +60,18 @@ disagree with the actual remote.
 | `skill/evidence-bounded-best-effort-runtime` | evidence-bounded best-effort runtime skill | `STRANDED`, no pull request |
 | `claude/repo-cleanup-590u82` | branch inventory, live enforcement and the retirement runbook | open pull request against `main` |
 | `research/rnd-self-triangulation-2026-09-08` | R&D self-triangulation preflight and its v0.2 Copilot adapter | `STRANDED`, no pull request |
+| `claude/elegant-brahmagupta-lbtcjj` | Calibration Loop gate-yield audit, archived preflight traces, saturation and repeated-delta controls (PR 26) | open pull request against `main` |
+| `claude/ux-ui-analysis-v6ao5u` | seven lichess decision traces, two runtime defects, a refused owner hypothesis (PR 23) | open pull request against `main` |
+| `feat/rnd-composed-baseline-claim-lineage-v0-2-1` | R&D v0.2.1 composed-baseline and claim-lineage candidate | `STRANDED`, PR 24 closed; content already on `main` as `34b68c75fc` |
+| `open-portfolio-v1-2026-09-29` | public release readiness for Open Portfolio v1 (PR 25) | open pull request against `main` |
+| `research/rnd-self-triangulation-adjudication-2026-09-08` | frozen blind-challenge adjudication rubric and R&D self-triangulation synthesis | `STRANDED`, no pull request |
+| `research/rnd-self-triangulation-anti-adjudication-2026-09-08` | matched anti-case adjudication rubric and discrimination result | `STRANDED`, no pull request |
+| `research/rnd-self-triangulation-anti-challenges-2026-09-08` | blind anti-cases A1–A4 and their discrimination matrix run | `STRANDED`, no pull request |
+| `research/rnd-self-triangulation-challenges-2026-09-08` | blind challenges C1–C4 and their result | `STRANDED`, no pull request |
+| `run/construct-separation-audit-2026-09-12` | construct-separation audit task and its Copilot adapter | `STRANDED`, no pull request |
+| `run/lichess-move-rnd-recursive-2026-09-13` | lichess move diagnosis and framework-fit experiments v1/v2 | `STRANDED`, no pull request |
+| `run/nico-ux-paired-2026-09-12` | Nico-grounded UX paired comparison through the Calibration Loop | `STRANDED`, no pull request |
+| `run/tpoae-rnd-best-effort-2026-09-12` | TPOAE reasoning and best-effort counterfactual replay via Copilot | `STRANDED`, no pull request |
 
 No branch above holds a research result. They hold experiment inputs, run traces, adapters,
 one skill definition and unexecuted protocols. Recovery, archival or abandonment of each is
