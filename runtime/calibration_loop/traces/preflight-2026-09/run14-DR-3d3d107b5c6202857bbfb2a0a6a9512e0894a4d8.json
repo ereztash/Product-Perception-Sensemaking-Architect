@@ -1,0 +1,7 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task_ref": "research/deep-research-preflight/CAL-ORG-DIAG-COMMERCIAL-GAP-COMPACT-RERUN-2026-09-16.task.json",
+  "final_state": "FAILED_EXECUTION",
+  "failure": "NETA adapter failed: {\"adapter_error\": \"NETA semantic fields drift: ['decision_blocked', 'evidence_refs', 'independence_rule', 'limitations', 'phase', 'prompt_ref', 'requested_focus', 'role_boundary', 'signals', 'summary', 'task', 'unique_delta']\"}"
+}

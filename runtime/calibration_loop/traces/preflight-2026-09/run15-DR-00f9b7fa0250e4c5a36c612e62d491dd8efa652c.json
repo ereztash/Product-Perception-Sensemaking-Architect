@@ -1,0 +1,7 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task_ref": "research/deep-research-preflight/CAL-ORG-DIAG-COMMERCIAL-GAP-COMPACT-RERUN-2026-09-16.task.json",
+  "final_state": "FAILED_EXECUTION",
+  "failure": "RND adapter failed: {\"adapter_error\": \"model returned non-JSON semantic output: {\\n  \\\"decision_before\\\": \\\"The current commercial product architecture is not optimal for conversion, leading to weak free-to-paid evidence.\\\",\\n  \\\"decision_after\\\": \\\"The smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion is to improve the ability to internalize external reasoning and adapt to new capabilities.\\\",\\n  \\\"next_move\\\": \\\"USE_EXISTING\\\",\\n  \\\"resource_deltas\\\": [\\n    {\\n      \\\"resource\\\": \\\"RND\\\",\\n      \\\"material\\\": true,\\n      \\\"unique_delta\\\": \\\"The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional interventi\"}"
+}

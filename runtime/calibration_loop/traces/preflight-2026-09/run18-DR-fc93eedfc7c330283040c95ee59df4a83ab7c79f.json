@@ -1,0 +1,922 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task": {
+    "calibration_version": "0.1",
+    "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-QWEN3B-RERUN-2026-09-16",
+    "telos": {
+      "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
+      "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
+    },
+    "current_state": {
+      "summary": "The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional intervention. The core engine already separates public evidence from internal uncertainty and can stop at EVIDENCE_CEILING. No field evidence yet establishes which commercial bottleneck dominates.",
+      "known_constraints": [
+        "Do not use artificial scarcity, hide earned public reasoning manipulatively, or weaken caveats to improve conversion.",
+        "Do not modify the core diagnostic engine unless commercial evidence requires it.",
+        "Do not assume reveal boundary is causal; compare it against novelty, economic materiality, recipient/distribution, urgency and low willingness-to-pay for diagnosis itself.",
+        "Prefer a reversible document/message field test to building a portal, dashboard, scoring system or new agent.",
+        "Measure qualified continuation, internal evidence sharing, price inquiry and payment; raw reply rate is insufficient.",
+        "Outside-in output is a hypothesis/opportunity until internal evidence validates a bottleneck.",
+        "Same-model or local-model agreement is discovery only, not independent confirmation."
+      ],
+      "available_resources": [
+        "RND",
+        "NETA",
+        "SCAFFOLD",
+        "OWNER",
+        "REPO",
+        "ENVIRONMENT",
+        "FIELD"
+      ]
+    },
+    "decision_blocked": {
+      "statement": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+      "current_default": "Keep the diagnostic engine frozen; separate internal full diagnosis from client preview and test preview/paid-continuation variants in real outbound.",
+      "reversal_condition": "Change this default if another bottleneck—novelty, economic materiality, recipient/distribution, urgency, or low willingness-to-pay for diagnosis—dominates reveal design."
+    },
+    "signals": [
+      "REVEAL_GAP: free artifact currently exposes enough mechanism/recommendation to enable internal self-resolution.",
+      "PAID_VALUE_GAP: what payment uniquely resolves is not yet crisp.",
+      "ECONOMIC_GAP: strategic relevance is not always translated into money/time/risk/opportunity cost.",
+      "NOVELTY_GAP: public novelty does not prove novelty to the internal owner.",
+      "CTA_GAP: 'want the full report?' is weaker than a bounded validation job with a defined decision output.",
+      "AMAREL: public evidence supports a non-obvious HOWIX/field-execution hypothesis, but cannot tell whether the loop already exists, is legally feasible, is the bottleneck, or what impact it has; those are possible paid-resolution objects.",
+      "CANDIDATE_A: free signal -> paid validated diagnosis -> intervention.",
+      "CANDIDATE_B: free proof-of-sight + 2-3 competing internal mechanisms -> paid falsification/resolution.",
+      "CANDIDATE_C: free finding + evidence ceiling + decision question -> paid internal evidence contract and go/no-go memo.",
+      "STRONG_ALT_1: buyers may not pay for diagnosis alone regardless of reveal design.",
+      "STRONG_ALT_2: recipient/distribution may dominate artifact design.",
+      "STRONG_ALT_3: credible cost-of-status-quo may need to precede any paid ask.",
+      "CHEAP_TEST: freeze engine and recipient criteria; across 12-20 matched companies randomize 2-3 preview/paid-job variants; code failure reason and compare qualified continuation, evidence sharing, price inquiry and payment.",
+      "ANTI_BUILD: first earn a commercial decision delta in the field."
+    ],
+    "allowed_resources": [
+      "RND",
+      "NETA",
+      "SCAFFOLD",
+      "OWNER",
+      "REPO",
+      "ENVIRONMENT",
+      "FIELD"
+    ],
+    "context_refs": [
+      "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+      "runtime/calibration_loop/README.md",
+      "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+    ],
+    "budget": {
+      "max_resource_calls": 4,
+      "max_parallel_calls": 2
+    }
+  },
+  "diagnosis": {
+    "material_question": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+    "bottleneck": "The free-to-paid commercial architecture of the organizational diagnostic product",
+    "resource_assessment": [
+      {
+        "resource": "RND",
+        "expected_contribution": "Identify and prioritize resource moves",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": true,
+          "action": true,
+          "reversal": false,
+          "evidence": true,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "NETA",
+        "expected_contribution": "Provide insights and recommendations",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Moderate",
+        "expected_delta": {
+          "decision": true,
+          "action": true,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "SCAFFOLD",
+        "expected_contribution": "Offer external reasoning support",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "OWNER",
+        "expected_contribution": "Provide authority and oversight",
+        "authority_ceiling": "Owner",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "REPO",
+        "expected_contribution": "Provide literature and evidence",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "ENVIRONMENT",
+        "expected_contribution": "Provide contextual information",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "FIELD",
+        "expected_contribution": "Provide field-specific insights",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      }
+    ],
+    "candidate_moves": [
+      {
+        "move": "Use existing capability",
+        "resource": "RND",
+        "expected_decision_value": "Identify and prioritize resource moves",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Invoke Neta",
+        "resource": "NETA",
+        "expected_decision_value": "Provide insights and recommendations",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Use external reasoning scaffold",
+        "resource": "SCAFFOLD",
+        "expected_decision_value": "Offer external reasoning support",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Search/recover prior work",
+        "resource": "RND",
+        "expected_decision_value": "Identify and prioritize resource moves",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Run research",
+        "resource": "RND",
+        "expected_decision_value": "Identify and prioritize resource moves",
+        "reversibility": "Yes"
+      }
+    ],
+    "needs": {
+      "signal_interpretation_ambiguity": true,
+      "multiple_plausible_mechanisms": true,
+      "proxy_substitution_risk": true,
+      "research_to_intervention_transition": true,
+      "broad_reasoning_needed": true,
+      "architecture_alternatives_needed": true,
+      "novel_synthesis_needed": true,
+      "external_research_needed": true,
+      "owner_authority_needed": true,
+      "repo_authority_needed": true,
+      "environment_authority_needed": true,
+      "field_authority_needed": true
+    },
+    "rationale": "The R&D Agent exists to improve the fit between the system's resources and its telos, given the state from which the system is actually starting. The current state includes available resources such as RND, Neta, SCAFFOLD, OWNER, REPO, ENVIRONMENT, and FIELD. The telos is to improve the free-to-paid commercial architecture of the organizational diagnostic product. The resource moves identified are using existing capabilities (RND), invoking Neta (NETA), using external reasoning scaffolds (SCAFFOLD), searching/recovering prior work (RND), and running research (RND). The needs identified are signal interpretation ambiguity, multiple plausible mechanisms, proxy substitution risk, research to an\n"
+  },
+  "routing": {
+    "resources": [
+      "NETA",
+      "SCAFFOLD"
+    ],
+    "fired": {
+      "NETA": [
+        "multiple_plausible_mechanisms",
+        "proxy_substitution_risk",
+        "research_to_intervention_transition",
+        "signal_interpretation_ambiguity"
+      ],
+      "SCAFFOLD": [
+        "architecture_alternatives_needed",
+        "broad_reasoning_needed",
+        "novel_synthesis_needed"
+      ],
+      "RND_RESEARCH": [
+        "external_research_needed"
+      ],
+      "AUTHORITY": [
+        "owner_authority_needed",
+        "repo_authority_needed",
+        "environment_authority_needed",
+        "field_authority_needed"
+      ]
+    },
+    "authority_handoffs": [
+      "ENVIRONMENT",
+      "FIELD",
+      "OWNER",
+      "REPO"
+    ]
+  },
+  "resource_invocations": [
+    {
+      "resource": "RND",
+      "phase": "DIAGNOSE",
+      "request": {
+        "resource": "RND",
+        "phase": "DIAGNOSE",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-QWEN3B-RERUN-2026-09-16",
+          "telos": {
+            "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
+            "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
+          },
+          "current_state": {
+            "summary": "The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional intervention. The core engine already separates public evidence from internal uncertainty and can stop at EVIDENCE_CEILING. No field evidence yet establishes which commercial bottleneck dominates.",
+            "known_constraints": [
+              "Do not use artificial scarcity, hide earned public reasoning manipulatively, or weaken caveats to improve conversion.",
+              "Do not modify the core diagnostic engine unless commercial evidence requires it.",
+              "Do not assume reveal boundary is causal; compare it against novelty, economic materiality, recipient/distribution, urgency and low willingness-to-pay for diagnosis itself.",
+              "Prefer a reversible document/message field test to building a portal, dashboard, scoring system or new agent.",
+              "Measure qualified continuation, internal evidence sharing, price inquiry and payment; raw reply rate is insufficient.",
+              "Outside-in output is a hypothesis/opportunity until internal evidence validates a bottleneck.",
+              "Same-model or local-model agreement is discovery only, not independent confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+            "current_default": "Keep the diagnostic engine frozen; separate internal full diagnosis from client preview and test preview/paid-continuation variants in real outbound.",
+            "reversal_condition": "Change this default if another bottleneck—novelty, economic materiality, recipient/distribution, urgency, or low willingness-to-pay for diagnosis—dominates reveal design."
+          },
+          "signals": [
+            "REVEAL_GAP: free artifact currently exposes enough mechanism/recommendation to enable internal self-resolution.",
+            "PAID_VALUE_GAP: what payment uniquely resolves is not yet crisp.",
+            "ECONOMIC_GAP: strategic relevance is not always translated into money/time/risk/opportunity cost.",
+            "NOVELTY_GAP: public novelty does not prove novelty to the internal owner.",
+            "CTA_GAP: 'want the full report?' is weaker than a bounded validation job with a defined decision output.",
+            "AMAREL: public evidence supports a non-obvious HOWIX/field-execution hypothesis, but cannot tell whether the loop already exists, is legally feasible, is the bottleneck, or what impact it has; those are possible paid-resolution objects.",
+            "CANDIDATE_A: free signal -> paid validated diagnosis -> intervention.",
+            "CANDIDATE_B: free proof-of-sight + 2-3 competing internal mechanisms -> paid falsification/resolution.",
+            "CANDIDATE_C: free finding + evidence ceiling + decision question -> paid internal evidence contract and go/no-go memo.",
+            "STRONG_ALT_1: buyers may not pay for diagnosis alone regardless of reveal design.",
+            "STRONG_ALT_2: recipient/distribution may dominate artifact design.",
+            "STRONG_ALT_3: credible cost-of-status-quo may need to precede any paid ask.",
+            "CHEAP_TEST: freeze engine and recipient criteria; across 12-20 matched companies randomize 2-3 preview/paid-job variants; code failure reason and compare qualified continuation, evidence sharing, price inquiry and payment.",
+            "ANTI_BUILD: first earn a commercial decision delta in the field."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "instruction": "Diagnose resource↔telos miscalibration, map candidate resource moves, commit ex ante to which decision-state dimensions each assessed resource could change, and return exactly the Calibration Loop v0.2 diagnosis shape."
+      },
+      "state": "COMPLETE"
+    },
+    {
+      "resource": "NETA",
+      "phase": "ANALYZE",
+      "request": {
+        "resource": "NETA",
+        "phase": "ANALYZE",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-QWEN3B-RERUN-2026-09-16",
+          "telos": {
+            "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
+            "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
+          },
+          "current_state": {
+            "summary": "The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional intervention. The core engine already separates public evidence from internal uncertainty and can stop at EVIDENCE_CEILING. No field evidence yet establishes which commercial bottleneck dominates.",
+            "known_constraints": [
+              "Do not use artificial scarcity, hide earned public reasoning manipulatively, or weaken caveats to improve conversion.",
+              "Do not modify the core diagnostic engine unless commercial evidence requires it.",
+              "Do not assume reveal boundary is causal; compare it against novelty, economic materiality, recipient/distribution, urgency and low willingness-to-pay for diagnosis itself.",
+              "Prefer a reversible document/message field test to building a portal, dashboard, scoring system or new agent.",
+              "Measure qualified continuation, internal evidence sharing, price inquiry and payment; raw reply rate is insufficient.",
+              "Outside-in output is a hypothesis/opportunity until internal evidence validates a bottleneck.",
+              "Same-model or local-model agreement is discovery only, not independent confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+            "current_default": "Keep the diagnostic engine frozen; separate internal full diagnosis from client preview and test preview/paid-continuation variants in real outbound.",
+            "reversal_condition": "Change this default if another bottleneck—novelty, economic materiality, recipient/distribution, urgency, or low willingness-to-pay for diagnosis—dominates reveal design."
+          },
+          "signals": [
+            "REVEAL_GAP: free artifact currently exposes enough mechanism/recommendation to enable internal self-resolution.",
+            "PAID_VALUE_GAP: what payment uniquely resolves is not yet crisp.",
+            "ECONOMIC_GAP: strategic relevance is not always translated into money/time/risk/opportunity cost.",
+            "NOVELTY_GAP: public novelty does not prove novelty to the internal owner.",
+            "CTA_GAP: 'want the full report?' is weaker than a bounded validation job with a defined decision output.",
+            "AMAREL: public evidence supports a non-obvious HOWIX/field-execution hypothesis, but cannot tell whether the loop already exists, is legally feasible, is the bottleneck, or what impact it has; those are possible paid-resolution objects.",
+            "CANDIDATE_A: free signal -> paid validated diagnosis -> intervention.",
+            "CANDIDATE_B: free proof-of-sight + 2-3 competing internal mechanisms -> paid falsification/resolution.",
+            "CANDIDATE_C: free finding + evidence ceiling + decision question -> paid internal evidence contract and go/no-go memo.",
+            "STRONG_ALT_1: buyers may not pay for diagnosis alone regardless of reveal design.",
+            "STRONG_ALT_2: recipient/distribution may dominate artifact design.",
+            "STRONG_ALT_3: credible cost-of-status-quo may need to precede any paid ask.",
+            "CHEAP_TEST: freeze engine and recipient criteria; across 12-20 matched companies randomize 2-3 preview/paid-job variants; code failure reason and compare qualified continuation, evidence sharing, price inquiry and payment.",
+            "ANTI_BUILD: first earn a commercial decision delta in the field."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "requested_focus": [
+          "multiple_plausible_mechanisms",
+          "proxy_substitution_risk",
+          "research_to_intervention_transition",
+          "signal_interpretation_ambiguity"
+        ],
+        "independence_rule": "Analyze the task independently. Do not infer another resource's conclusion and do not turn agreement into independent evidence.",
+        "prompt_ref": "prompts/SYSTEM.md",
+        "role_boundary": "Challenge framing, proxy substitution, mechanism collapse and premature intervention. Do not decide external research validity or architecture doctrine."
+      },
+      "expected_delta": {
+        "decision": true,
+        "action": true,
+        "reversal": false,
+        "evidence": false,
+        "allocation": false,
+        "distinction": false
+      },
+      "observed_delta": {
+        "decision": "Propose a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output.",
+        "action": null,
+        "reversal": null,
+        "evidence": null,
+        "allocation": null,
+        "distinction": null
+      },
+      "material": true,
+      "result": {
+        "resource": "NETA",
+        "summary": "The current free-to-paid architecture gap is significant, with the free artifact providing enough mechanism/recommendation for internal self-resolution but lacking a clear, crisp resolution for paid customers. The primary challenge is in defining the unique value proposition for paid customers and ensuring the commercial viability of the paid resolution.",
+        "unique_delta": "Propose a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output.",
+        "evidence_refs": [],
+        "limitations": [
+          "Requires a clear understanding of the unique value proposition for paid customers.",
+          "Needs to validate the feasibility and impact of the proposed paid validation job in the field.",
+          "The hybrid approach may not fully address the economic materiality gap, which could still be a bottleneck."
+        ],
+        "_adapter_meta": {
+          "provider": "ollama-local",
+          "model": "qwen2.5:3b-instruct",
+          "prompt_eval_count": 3780,
+          "eval_count": 178
+        }
+      },
+      "state": "COMPLETE"
+    },
+    {
+      "resource": "SCAFFOLD",
+      "phase": "ANALYZE",
+      "request": {
+        "resource": "SCAFFOLD",
+        "phase": "ANALYZE",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-QWEN3B-RERUN-2026-09-16",
+          "telos": {
+            "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
+            "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
+          },
+          "current_state": {
+            "summary": "The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional intervention. The core engine already separates public evidence from internal uncertainty and can stop at EVIDENCE_CEILING. No field evidence yet establishes which commercial bottleneck dominates.",
+            "known_constraints": [
+              "Do not use artificial scarcity, hide earned public reasoning manipulatively, or weaken caveats to improve conversion.",
+              "Do not modify the core diagnostic engine unless commercial evidence requires it.",
+              "Do not assume reveal boundary is causal; compare it against novelty, economic materiality, recipient/distribution, urgency and low willingness-to-pay for diagnosis itself.",
+              "Prefer a reversible document/message field test to building a portal, dashboard, scoring system or new agent.",
+              "Measure qualified continuation, internal evidence sharing, price inquiry and payment; raw reply rate is insufficient.",
+              "Outside-in output is a hypothesis/opportunity until internal evidence validates a bottleneck.",
+              "Same-model or local-model agreement is discovery only, not independent confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+            "current_default": "Keep the diagnostic engine frozen; separate internal full diagnosis from client preview and test preview/paid-continuation variants in real outbound.",
+            "reversal_condition": "Change this default if another bottleneck—novelty, economic materiality, recipient/distribution, urgency, or low willingness-to-pay for diagnosis—dominates reveal design."
+          },
+          "signals": [
+            "REVEAL_GAP: free artifact currently exposes enough mechanism/recommendation to enable internal self-resolution.",
+            "PAID_VALUE_GAP: what payment uniquely resolves is not yet crisp.",
+            "ECONOMIC_GAP: strategic relevance is not always translated into money/time/risk/opportunity cost.",
+            "NOVELTY_GAP: public novelty does not prove novelty to the internal owner.",
+            "CTA_GAP: 'want the full report?' is weaker than a bounded validation job with a defined decision output.",
+            "AMAREL: public evidence supports a non-obvious HOWIX/field-execution hypothesis, but cannot tell whether the loop already exists, is legally feasible, is the bottleneck, or what impact it has; those are possible paid-resolution objects.",
+            "CANDIDATE_A: free signal -> paid validated diagnosis -> intervention.",
+            "CANDIDATE_B: free proof-of-sight + 2-3 competing internal mechanisms -> paid falsification/resolution.",
+            "CANDIDATE_C: free finding + evidence ceiling + decision question -> paid internal evidence contract and go/no-go memo.",
+            "STRONG_ALT_1: buyers may not pay for diagnosis alone regardless of reveal design.",
+            "STRONG_ALT_2: recipient/distribution may dominate artifact design.",
+            "STRONG_ALT_3: credible cost-of-status-quo may need to precede any paid ask.",
+            "CHEAP_TEST: freeze engine and recipient criteria; across 12-20 matched companies randomize 2-3 preview/paid-job variants; code failure reason and compare qualified continuation, evidence sharing, price inquiry and payment.",
+            "ANTI_BUILD: first earn a commercial decision delta in the field."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "requested_focus": [
+          "architecture_alternatives_needed",
+          "broad_reasoning_needed",
+          "novel_synthesis_needed"
+        ],
+        "independence_rule": "Analyze the task independently. Do not infer another resource's conclusion and do not turn agreement into independent evidence.",
+        "role_boundary": "Provide broad expert reasoning and candidate alternatives. Treat your output as a scaffold/candidate source, not ground truth."
+      },
+      "expected_delta": {
+        "decision": false,
+        "action": false,
+        "reversal": false,
+        "evidence": false,
+        "allocation": false,
+        "distinction": false
+      },
+      "observed_delta": {
+        "decision": "Explore alternative architectures that could bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion, such as offering a paid validation job with a defined decision output.",
+        "action": null,
+        "reversal": null,
+        "evidence": null,
+        "allocation": null,
+        "distinction": null
+      },
+      "material": true,
+      "result": {
+        "resource": "SCAFFOLD",
+        "summary": "The current architecture is focused on separating public evidence from internal uncertainty, but there are multiple alternatives that could be explored to improve the conversion from free to paid.",
+        "unique_delta": "Explore alternative architectures that could bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion, such as offering a paid validation job with a defined decision output.",
+        "evidence_refs": [],
+        "limitations": [
+          "The current architecture already separates public evidence from internal uncertainty, so any alternative must be evaluated for its potential to improve the conversion without weakening epistemic integrity.",
+          "The specific alternative to explore (paid validation job) is a hypothesis and would require further research and evidence to validate its effectiveness.",
+          "The current constraints and known constraints do not provide enough information to definitively choose between the alternatives without further analysis."
+        ],
+        "_adapter_meta": {
+          "provider": "ollama-local",
+          "model": "qwen2.5:3b-instruct",
+          "prompt_eval_count": 1511,
+          "eval_count": 186
+        }
+      },
+      "state": "COMPLETE"
+    },
+    {
+      "resource": "RND",
+      "phase": "SYNTHESIZE",
+      "request": {
+        "resource": "RND",
+        "phase": "SYNTHESIZE",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-COMMERCIAL-GAP-QWEN3B-RERUN-2026-09-16",
+          "telos": {
+            "statement": "Improve the free-to-paid commercial architecture of the organizational diagnostic product without weakening epistemic integrity.",
+            "success_condition": "Choose the smallest testable change most likely to increase qualified continuation and willingness-to-pay, and specify the cheapest field evidence that could reverse that choice."
+          },
+          "current_state": {
+            "summary": "The public-evidence diagnostic engine is strong (~8.6/10 on the Amarel case) but the client-facing artifact is weaker as a conversion product (~6.5/10). The free output often already gives finding, mechanism, importance, falsifier, owners and next action, so a recipient can act internally without paying. Current candidate architecture is: INTERNAL_FULL_DIAGNOSIS -> free CLIENT_PREVIEW/proof-of-sight -> paid VALIDATED_DIAGNOSIS/decision resolution -> optional intervention. The core engine already separates public evidence from internal uncertainty and can stop at EVIDENCE_CEILING. No field evidence yet establishes which commercial bottleneck dominates.",
+            "known_constraints": [
+              "Do not use artificial scarcity, hide earned public reasoning manipulatively, or weaken caveats to improve conversion.",
+              "Do not modify the core diagnostic engine unless commercial evidence requires it.",
+              "Do not assume reveal boundary is causal; compare it against novelty, economic materiality, recipient/distribution, urgency and low willingness-to-pay for diagnosis itself.",
+              "Prefer a reversible document/message field test to building a portal, dashboard, scoring system or new agent.",
+              "Measure qualified continuation, internal evidence sharing, price inquiry and payment; raw reply rate is insufficient.",
+              "Outside-in output is a hypothesis/opportunity until internal evidence validates a bottleneck.",
+              "Same-model or local-model agreement is discovery only, not independent confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+            "current_default": "Keep the diagnostic engine frozen; separate internal full diagnosis from client preview and test preview/paid-continuation variants in real outbound.",
+            "reversal_condition": "Change this default if another bottleneck—novelty, economic materiality, recipient/distribution, urgency, or low willingness-to-pay for diagnosis—dominates reveal design."
+          },
+          "signals": [
+            "REVEAL_GAP: free artifact currently exposes enough mechanism/recommendation to enable internal self-resolution.",
+            "PAID_VALUE_GAP: what payment uniquely resolves is not yet crisp.",
+            "ECONOMIC_GAP: strategic relevance is not always translated into money/time/risk/opportunity cost.",
+            "NOVELTY_GAP: public novelty does not prove novelty to the internal owner.",
+            "CTA_GAP: 'want the full report?' is weaker than a bounded validation job with a defined decision output.",
+            "AMAREL: public evidence supports a non-obvious HOWIX/field-execution hypothesis, but cannot tell whether the loop already exists, is legally feasible, is the bottleneck, or what impact it has; those are possible paid-resolution objects.",
+            "CANDIDATE_A: free signal -> paid validated diagnosis -> intervention.",
+            "CANDIDATE_B: free proof-of-sight + 2-3 competing internal mechanisms -> paid falsification/resolution.",
+            "CANDIDATE_C: free finding + evidence ceiling + decision question -> paid internal evidence contract and go/no-go memo.",
+            "STRONG_ALT_1: buyers may not pay for diagnosis alone regardless of reveal design.",
+            "STRONG_ALT_2: recipient/distribution may dominate artifact design.",
+            "STRONG_ALT_3: credible cost-of-status-quo may need to precede any paid ask.",
+            "CHEAP_TEST: freeze engine and recipient criteria; across 12-20 matched companies randomize 2-3 preview/paid-job variants; code failure reason and compare qualified continuation, evidence sharing, price inquiry and payment.",
+            "ANTI_BUILD: first earn a commercial decision delta in the field."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "AMAREL_RUN_v0_5_2026-09-16/03_FINAL_DIAGNOSTIC.md (conversation artifact)"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "diagnosis": {
+          "material_question": "What is the smallest commercial-product change worth testing now to close the gap between strong diagnostic quality and weak free-to-paid conversion?",
+          "bottleneck": "The free-to-paid commercial architecture of the organizational diagnostic product",
+          "resource_assessment": [
+            {
+              "resource": "RND",
+              "expected_contribution": "Identify and prioritize resource moves",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": true,
+                "action": true,
+                "reversal": false,
+                "evidence": true,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "NETA",
+              "expected_contribution": "Provide insights and recommendations",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Moderate",
+              "expected_delta": {
+                "decision": true,
+                "action": true,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "SCAFFOLD",
+              "expected_contribution": "Offer external reasoning support",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "OWNER",
+              "expected_contribution": "Provide authority and oversight",
+              "authority_ceiling": "Owner",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "REPO",
+              "expected_contribution": "Provide literature and evidence",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "ENVIRONMENT",
+              "expected_contribution": "Provide contextual information",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "FIELD",
+              "expected_contribution": "Provide field-specific insights",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            }
+          ],
+          "candidate_moves": [
+            {
+              "move": "Use existing capability",
+              "resource": "RND",
+              "expected_decision_value": "Identify and prioritize resource moves",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Invoke Neta",
+              "resource": "NETA",
+              "expected_decision_value": "Provide insights and recommendations",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Use external reasoning scaffold",
+              "resource": "SCAFFOLD",
+              "expected_decision_value": "Offer external reasoning support",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Search/recover prior work",
+              "resource": "RND",
+              "expected_decision_value": "Identify and prioritize resource moves",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Run research",
+              "resource": "RND",
+              "expected_decision_value": "Identify and prioritize resource moves",
+              "reversibility": "Yes"
+            }
+          ],
+          "needs": {
+            "signal_interpretation_ambiguity": true,
+            "multiple_plausible_mechanisms": true,
+            "proxy_substitution_risk": true,
+            "research_to_intervention_transition": true,
+            "broad_reasoning_needed": true,
+            "architecture_alternatives_needed": true,
+            "novel_synthesis_needed": true,
+            "external_research_needed": true,
+            "owner_authority_needed": true,
+            "repo_authority_needed": true,
+            "environment_authority_needed": true,
+            "field_authority_needed": true
+          },
+          "rationale": "The R&D Agent exists to improve the fit between the system's resources and its telos, given the state from which the system is actually starting. The current state includes available resources such as RND, Neta, SCAFFOLD, OWNER, REPO, ENVIRONMENT, and FIELD. The telos is to improve the free-to-paid commercial architecture of the organizational diagnostic product. The resource moves identified are using existing capabilities (RND), invoking Neta (NETA), using external reasoning scaffolds (SCAFFOLD), searching/recovering prior work (RND), and running research (RND). The needs identified are signal interpretation ambiguity, multiple plausible mechanisms, proxy substitution risk, research to an\n"
+        },
+        "routing": {
+          "resources": [
+            "NETA",
+            "SCAFFOLD"
+          ],
+          "fired": {
+            "NETA": [
+              "multiple_plausible_mechanisms",
+              "proxy_substitution_risk",
+              "research_to_intervention_transition",
+              "signal_interpretation_ambiguity"
+            ],
+            "SCAFFOLD": [
+              "architecture_alternatives_needed",
+              "broad_reasoning_needed",
+              "novel_synthesis_needed"
+            ],
+            "RND_RESEARCH": [
+              "external_research_needed"
+            ],
+            "AUTHORITY": [
+              "owner_authority_needed",
+              "repo_authority_needed",
+              "environment_authority_needed",
+              "field_authority_needed"
+            ]
+          },
+          "authority_handoffs": [
+            "ENVIRONMENT",
+            "FIELD",
+            "OWNER",
+            "REPO"
+          ]
+        },
+        "resource_results": [
+          {
+            "resource": "NETA",
+            "summary": "The current free-to-paid architecture gap is significant, with the free artifact providing enough mechanism/recommendation for internal self-resolution but lacking a clear, crisp resolution for paid customers. The primary challenge is in defining the unique value proposition for paid customers and ensuring the commercial viability of the paid resolution.",
+            "unique_delta": "Propose a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output.",
+            "evidence_refs": [],
+            "limitations": [
+              "Requires a clear understanding of the unique value proposition for paid customers.",
+              "Needs to validate the feasibility and impact of the proposed paid validation job in the field.",
+              "The hybrid approach may not fully address the economic materiality gap, which could still be a bottleneck."
+            ],
+            "_adapter_meta": {
+              "provider": "ollama-local",
+              "model": "qwen2.5:3b-instruct",
+              "prompt_eval_count": 3780,
+              "eval_count": 178
+            }
+          },
+          {
+            "resource": "SCAFFOLD",
+            "summary": "The current architecture is focused on separating public evidence from internal uncertainty, but there are multiple alternatives that could be explored to improve the conversion from free to paid.",
+            "unique_delta": "Explore alternative architectures that could bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion, such as offering a paid validation job with a defined decision output.",
+            "evidence_refs": [],
+            "limitations": [
+              "The current architecture already separates public evidence from internal uncertainty, so any alternative must be evaluated for its potential to improve the conversion without weakening epistemic integrity.",
+              "The specific alternative to explore (paid validation job) is a hypothesis and would require further research and evidence to validate its effectiveness.",
+              "The current constraints and known constraints do not provide enough information to definitively choose between the alternatives without further analysis."
+            ],
+            "_adapter_meta": {
+              "provider": "ollama-local",
+              "model": "qwen2.5:3b-instruct",
+              "prompt_eval_count": 1511,
+              "eval_count": 186
+            }
+          }
+        ],
+        "instruction": "Compare resource deltas against the ex-ante expected_delta commitments, update the blocked decision, choose the cheapest next calibration move, and record what the system learned about future resource allocation. For each invoked resource, report observed_delta by decision/action/reversal/evidence/allocation/distinction. Do not average disagreements away."
+      },
+      "state": "COMPLETE"
+    }
+  ],
+  "synthesis": {
+    "decision_before": "The free-to-paid commercial architecture of the organizational diagnostic product is currently strong in quality but weak in conversion. The free artifact provides enough mechanism and recommendation for internal self-resolution but lacks a clear, crisp resolution for paid customers. The primary challenge is in defining the unique value proposition for paid,",
+    "decision_after": "The R&D Agent proposes a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output. This approach aims to bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion.",
+    "next_move": "Run research",
+    "resource_deltas": [
+      {
+        "resource": "NETA",
+        "material": true,
+        "unique_delta": "Propose a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output.",
+        "observed_delta": {
+          "decision": "Propose a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output.",
+          "action": null,
+          "reversal": null,
+          "evidence": null,
+          "allocation": null,
+          "distinction": null
+        }
+      },
+      {
+        "resource": "SCAFFOLD",
+        "material": true,
+        "unique_delta": "Explore alternative architectures that could bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion, such as offering a paid validation job with a defined decision output.",
+        "observed_delta": {
+          "decision": "Explore alternative architectures that could bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion, such as offering a paid validation job with a defined decision output.",
+          "action": null,
+          "reversal": null,
+          "evidence": null,
+          "allocation": null,
+          "distinction": null
+        }
+      }
+    ],
+    "learning_records": [
+      {
+        "expected_vs_observed": "The proposed hybrid approach combining a free proof-of-sight with a paid validation job was expected to bridge the gap between the strong diagnostic engine and the weak free-to-paid conversion. The observed delta shows that the R&D Agent proposed this hybrid approach, which align",
+        "expected": "The R&D Agent proposed a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output.",
+        "observed": "The R&D Agent proposed a hybrid approach combining a free proof-of-sight with a paid validation job, offering a bounded resolution with a defined decision output."
+      }
+    ],
+    "stop_or_continue": "CONTINUE",
+    "routing_amendment_proposed": null
+  },
+  "final_state": "COMPLETE",
+  "failure": null
+}

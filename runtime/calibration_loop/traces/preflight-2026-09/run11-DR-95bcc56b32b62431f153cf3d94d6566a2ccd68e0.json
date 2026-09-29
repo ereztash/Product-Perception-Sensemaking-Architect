@@ -1,0 +1,7 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task_ref": "research/deep-research-preflight/CAL-ORG-DIAG-COMMERCIAL-GAP-2026-09-16.task.json",
+  "final_state": "FAILED_EXECUTION",
+  "failure": "RND adapter failed: {\"adapter_error\": \"timed out\"}"
+}

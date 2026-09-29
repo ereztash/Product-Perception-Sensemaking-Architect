@@ -1,0 +1,1011 @@
+{
+  "runtime_version": "0.2",
+  "rnd_telos_version": "0.2-candidate",
+  "task": {
+    "calibration_version": "0.1",
+    "task_id": "CAL-ORG-DIAG-ACCIDENTAL-MOAT-2026-09-16",
+    "telos": {
+      "statement": "Determine whether the Organizational Diagnostic System's commercially inefficient research path accidentally created a real product differentiation or moat, and identify the smallest customer-visible capability worth preserving and testing.",
+      "success_condition": "Falsify or retain candidate differentiators by tracing each accidental capability to a customer consequence, comparing it against the strongest plausible composed competitor baseline, identifying copyability/path-dependence and commercial cost, and specifying the cheapest field evidence that could reverse the conclusion."
+    },
+    "current_state": {
+      "summary": "The product path optimized epistemic integrity before buyability. The resulting v0.5 engine is open-world, recursive, falsification-aware and allows NO_SEND/EVIDENCE_CEILING. The 30-company frozen distribution yielded 3/30 SEND, 10/30 evidence ceiling and 17/30 known-work/known-architecture rejection. A later capacity-marketplace cohort yielded 0/20 SEND because 14/20 targets did not instantiate the assumed central-allocation mechanism, leading to a structural pre-admission gate. Amarel showed a full path where obvious GTM advice was killed as known work, another branch hit evidence ceiling, a field-execution learning-loop hypothesis emerged later, and generic measurement advice was killed as known work. Commercial architecture is now free Proof of Sight -> paid bounded Validation Job -> Decision Output. Competitor research shows adjacent products often trade open-world search for fixed ontology/benchmark while making purchase scope, price, duration, sample output and effort highly legible.",
+      "known_constraints": [
+        "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+        "Do not call something differentiated merely because named competitors do not market it explicitly.",
+        "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract.",
+        "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+        "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+        "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay.",
+        "Do not weaken the current truth engine in order to manufacture a cleaner marketing claim.",
+        "Treat all R&D/NETA/SCAFFOLD agreement as EXECUTED_TRACE/DISCOVERY_ONLY, not market confirmation."
+      ],
+      "available_resources": [
+        "RND",
+        "NETA",
+        "SCAFFOLD",
+        "OWNER",
+        "REPO",
+        "ENVIRONMENT",
+        "FIELD"
+      ]
+    },
+    "decision_blocked": {
+      "statement": "Which, if any, capability created by the non-optimal research path should become the core differentiated product promise, and what evidence would show that it matters to buyers rather than merely to us?",
+      "current_default": "Candidate differentiation: the system does not score an organization against a predefined model; it searches an open hypothesis space, tries to falsify candidate problems, rejects known work, allows no-finding/evidence-ceiling outcomes, and only surfaces a finding that survives as decision-relevant. Preserve this truth engine and make the buying contract predictable around it.",
+      "reversal_condition": "Reject or narrow this differentiation if a strong composed competitor baseline can reproduce the same customer-relevant output with materially less complexity/cost, if the capability does not change buyer trust/decision quality/WTP, or if most apparent advantage comes from analyst skill rather than architecture."
+    },
+    "signals": [
+      "ACCIDENTAL_1_OPEN_WORLD: Avoiding a fixed pathology/maturity taxonomy forced evidence -> hypotheses -> discriminating questions -> targeted search. Candidate consequence: can discover an organization-specific decision problem not represented in a predefined instrument.",
+      "ACCIDENTAL_2_LEGAL_NO_FINDING: SEND is not required; NO_SEND and EVIDENCE_CEILING are valid terminal states. Candidate consequence: surviving findings may carry more trust because the system is allowed to conclude there is nothing defensible to send.",
+      "ACCIDENTAL_3_RECURSION_AFTER_GOOD_FINDING: A strong first finding is only CURRENT_BEST; research continues while a higher-Decision-Delta branch remains plausible. Candidate consequence: lower first-explanation lock-in and ability to outperform the first attractive consulting narrative.",
+      "ACCIDENTAL_4_KNOWN_WORK_REJECTION: Findings are killed when the organization already recognizes or has architected the issue. Candidate consequence: less risk of selling clients what they already know and more emphasis on genuinely decision-changing residuals.",
+      "ACCIDENTAL_5_FALSIFIER_AND_EVIDENCE_CEILING: Each sendable finding carries strongest alternative, falsifier and cheapest internal evidence. Candidate consequence: paid work can be framed as adjudication rather than persuasion, with a legitimate WRONG/NO-GO outcome.",
+      "ACCIDENTAL_6_OUTSIDE_IN_BEFORE_CLIENT_INPUT: The engine can produce a company-specific Proof of Sight from public evidence before surveys/interviews. Candidate consequence: client effort begins only after evidence of relevance, unlike products that require participation before any organization-specific value appears.",
+      "ACCIDENTAL_7_STRUCTURAL_ADMISSION: Failed targeting cohorts created pre-admission structural tests; the engine can reject a target before expensive recursive research when the assumed mechanism is absent. Candidate consequence: lower false-positive research spend and more selective outreach.",
+      "VALIDATION_30: Frozen 30-company cohort produced SEND 3/30, evidence ceiling 10/30, known-work/known-architecture rejection 17/30. This supports selectivity but does NOT show buyers value selectivity.",
+      "VALIDATION_CAPACITY_20: Frozen capacity-marketplace test produced 0/20 SEND; 14/20 lacked the assumed central allocator. The failure separated discovery/ranking, bid/self-selection and central-allocation mechanisms and led to a pre-admission gate. This supports falsification/learning but does NOT show market value.",
+      "AMAREL_TRACE: The run killed obvious GTM advice as known work, retained ownership only at evidence ceiling, later surfaced field-execution as a stronger hypothesis, and killed generic measurement as known work before stabilizing. This is a concrete example of recursion changing the candidate finding.",
+      "COMPETITOR_RIVINGTON: Fixed workflow ontology + free screen + transparent score + one workflow/three weeks/fixed fee diagnostic. Strong buyability, narrower search space.",
+      "COMPETITOR_MELIO: Fixed multi-layer instrument + sample report + fixed packages. Strong output/process certainty, diagnosis constrained by instrument.",
+      "COMPETITOR_VERINGS: Internal AI interview architecture + exact pricing/privacy/readout. Strong purchase/champion certainty, organization-specific truth requires internal participation first.",
+      "COMPETITOR_ENTERPRISE: EY/McKinsey reduce uncertainty via standardized maturity/health models, benchmarks, brand and accumulated datasets. Strong legitimacy/comparability, constrained ontology.",
+      "STRONG_COMPOSED_BASELINE: Assume a competent competitor combines fixed ontology where useful, a large benchmark corpus, LLM + expert open-text analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. Do not claim moat unless the residual survives this baseline.",
+      "PATH_DEPENDENCE_CANDIDATE: Competitors optimized for standardized, repeatable assessment economics; our path optimized open-world elimination and selective non-output. Candidate moat may be organizational/economic path dependence: copying the mechanism could reduce their benchmark comparability, deterministic output yield or scalable assessment economics. This is a hypothesis, not evidence.",
+      "COMMERCIAL_COST: Our architecture has higher research cost, lower SEND yield, less predictable content and higher method-legibility burden. Any differentiation claim must show that the customer consequence justifies these costs.",
+      "BUYABILITY_LESSON: Do not copy competitor certainty into the truth search. Candidate architecture is to make scope/time/price/effort/privacy/deliverable predictable around an internally open investigation.",
+      "CORE_CANDIDATE_PROMISE: Not 'we diagnose better' but 'we are allowed to find nothing; we try to kill the problem before asking you to act; what survives is the uncertainty worth resolving internally.' Test whether this is understandable, valuable and defensible.",
+      "CHEAP_FIELD_TEST: Compare buyer reaction to two framings of the same real case: generic outside-in diagnostic vs falsification-first/selective diagnostic. Ask whether the distinction changes trust, willingness to share internal evidence, perceived uniqueness, willingness to pay and perceived risk. Include a sample NO_SEND/WRONG outcome to test whether negative-result legitimacy increases or decreases value."
+    ],
+    "allowed_resources": [
+      "RND",
+      "NETA",
+      "SCAFFOLD",
+      "OWNER",
+      "REPO",
+      "ENVIRONMENT",
+      "FIELD"
+    ],
+    "context_refs": [
+      "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+      "runtime/calibration_loop/README.md",
+      "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+      "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+      "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+      "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+      "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+    ],
+    "budget": {
+      "max_resource_calls": 4,
+      "max_parallel_calls": 2
+    }
+  },
+  "diagnosis": {
+    "material_question": "Identify the smallest current mismatch that materially slows or distorts progress toward the telos of improving the fit between the system's resources and its telos, given the state from which the system is actually starting.",
+    "bottleneck": "The current state of the system is optimized for epistemic integrity before buyability, with a truth engine that allows no-finding/evidence-ceiling outcomes. This leads to a lack of clear differentiation and a risk of selling clients what they already know.",
+    "resource_assessment": [
+      {
+        "resource": "RND",
+        "expected_contribution": "Acquire the cheapest admissible information that can change a decision, test alternative ways of working, and develop/adapt/retire capabilities when justified.",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "High",
+        "expected_delta": {
+          "decision": true,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": true
+        }
+      },
+      {
+        "resource": "NETA",
+        "expected_contribution": "Provide insights and interpretations that can change a decision.",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Moderate",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": true
+        }
+      },
+      {
+        "resource": "SCAFFOLD",
+        "expected_contribution": "Use external reasoning scaffolds to borrow cognitive support when needed.",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "OWNER",
+        "expected_contribution": "Provide judgment and authority for decisions.",
+        "authority_ceiling": "Owner",
+        "uncertainty": "Low",
+        "expected_delta": {
+          "decision": true,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "REPO",
+        "expected_contribution": "Use existing repositories and instruments to inform decisions.",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Moderate",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "ENVIRONMENT",
+        "expected_contribution": "Use runtime and environmental observations to inform decisions.",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Moderate",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      },
+      {
+        "resource": "FIELD",
+        "expected_contribution": "Use field access to inform decisions.",
+        "authority_ceiling": "R&D Agent",
+        "uncertainty": "Moderate",
+        "expected_delta": {
+          "decision": false,
+          "action": false,
+          "reversal": false,
+          "evidence": false,
+          "allocation": false,
+          "distinction": false
+        }
+      }
+    ],
+    "candidate_moves": [
+      {
+        "move": "Use RND",
+        "resource": "RND",
+        "expected_decision_value": "Change how resources should be allocated toward the telos.",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Invoke Neta",
+        "resource": "NETA",
+        "expected_decision_value": "Provide insights and interpretations that can change a decision.",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Use SCAFFOLD",
+        "resource": "SCAFFOLD",
+        "expected_decision_value": "Borrow external reasoning support when needed.",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Recover prior work",
+        "resource": "NO_SEND",
+        "expected_decision_value": "Use existing knowledge and evidence to inform decisions.",
+        "reversibility": "Yes"
+      },
+      {
+        "move": "Run research",
+        "resource": "RESEARCH",
+        "expected_decision_value": "Run research to inform decisions.",
+        "reversibility": "Yes"
+      }
+    ],
+    "needs": {
+      "signal_interpretation_ambiguity": true,
+      "multiple_plausible_mechanisms": true,
+      "proxy_substitution_risk": true,
+      "research_to_intervention_transition": true,
+      "broad_reasoning_needed": true,
+      "architecture_alternatives_needed": true,
+      "novel_synthesis_needed": true,
+      "external_research_needed": true,
+      "owner_authority_needed": true,
+      "repo_authority_needed": true,
+      "environment_authority_needed": true,
+      "field_authority_needed": true
+    },
+    "rationale": "The current state of the system is optimized for epistemic integrity before buyability, with a truth engine that allows no-finding/evidence-ceiling outcomes. This leads to a lack of clear differentiation and a risk of selling clients what they already know. The R&D Agent exists to improve the fit between the system's resources and its telos, given the state from which the system is actually starting. The strongest composed baseline for R&D is a competent competitor that combines a standardized assessment, benchmark corpus, LLM/human analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. The R&D Agent should focus R"
+  },
+  "routing": {
+    "resources": [
+      "NETA",
+      "SCAFFOLD"
+    ],
+    "fired": {
+      "NETA": [
+        "multiple_plausible_mechanisms",
+        "proxy_substitution_risk",
+        "research_to_intervention_transition",
+        "signal_interpretation_ambiguity"
+      ],
+      "SCAFFOLD": [
+        "architecture_alternatives_needed",
+        "broad_reasoning_needed",
+        "novel_synthesis_needed"
+      ],
+      "RND_RESEARCH": [
+        "external_research_needed"
+      ],
+      "AUTHORITY": [
+        "owner_authority_needed",
+        "repo_authority_needed",
+        "environment_authority_needed",
+        "field_authority_needed"
+      ]
+    },
+    "authority_handoffs": [
+      "ENVIRONMENT",
+      "FIELD",
+      "OWNER",
+      "REPO"
+    ]
+  },
+  "resource_invocations": [
+    {
+      "resource": "RND",
+      "phase": "DIAGNOSE",
+      "request": {
+        "resource": "RND",
+        "phase": "DIAGNOSE",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-ACCIDENTAL-MOAT-2026-09-16",
+          "telos": {
+            "statement": "Determine whether the Organizational Diagnostic System's commercially inefficient research path accidentally created a real product differentiation or moat, and identify the smallest customer-visible capability worth preserving and testing.",
+            "success_condition": "Falsify or retain candidate differentiators by tracing each accidental capability to a customer consequence, comparing it against the strongest plausible composed competitor baseline, identifying copyability/path-dependence and commercial cost, and specifying the cheapest field evidence that could reverse the conclusion."
+          },
+          "current_state": {
+            "summary": "The product path optimized epistemic integrity before buyability. The resulting v0.5 engine is open-world, recursive, falsification-aware and allows NO_SEND/EVIDENCE_CEILING. The 30-company frozen distribution yielded 3/30 SEND, 10/30 evidence ceiling and 17/30 known-work/known-architecture rejection. A later capacity-marketplace cohort yielded 0/20 SEND because 14/20 targets did not instantiate the assumed central-allocation mechanism, leading to a structural pre-admission gate. Amarel showed a full path where obvious GTM advice was killed as known work, another branch hit evidence ceiling, a field-execution learning-loop hypothesis emerged later, and generic measurement advice was killed as known work. Commercial architecture is now free Proof of Sight -> paid bounded Validation Job -> Decision Output. Competitor research shows adjacent products often trade open-world search for fixed ontology/benchmark while making purchase scope, price, duration, sample output and effort highly legible.",
+            "known_constraints": [
+              "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+              "Do not call something differentiated merely because named competitors do not market it explicitly.",
+              "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract.",
+              "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+              "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+              "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay.",
+              "Do not weaken the current truth engine in order to manufacture a cleaner marketing claim.",
+              "Treat all R&D/NETA/SCAFFOLD agreement as EXECUTED_TRACE/DISCOVERY_ONLY, not market confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "Which, if any, capability created by the non-optimal research path should become the core differentiated product promise, and what evidence would show that it matters to buyers rather than merely to us?",
+            "current_default": "Candidate differentiation: the system does not score an organization against a predefined model; it searches an open hypothesis space, tries to falsify candidate problems, rejects known work, allows no-finding/evidence-ceiling outcomes, and only surfaces a finding that survives as decision-relevant. Preserve this truth engine and make the buying contract predictable around it.",
+            "reversal_condition": "Reject or narrow this differentiation if a strong composed competitor baseline can reproduce the same customer-relevant output with materially less complexity/cost, if the capability does not change buyer trust/decision quality/WTP, or if most apparent advantage comes from analyst skill rather than architecture."
+          },
+          "signals": [
+            "ACCIDENTAL_1_OPEN_WORLD: Avoiding a fixed pathology/maturity taxonomy forced evidence -> hypotheses -> discriminating questions -> targeted search. Candidate consequence: can discover an organization-specific decision problem not represented in a predefined instrument.",
+            "ACCIDENTAL_2_LEGAL_NO_FINDING: SEND is not required; NO_SEND and EVIDENCE_CEILING are valid terminal states. Candidate consequence: surviving findings may carry more trust because the system is allowed to conclude there is nothing defensible to send.",
+            "ACCIDENTAL_3_RECURSION_AFTER_GOOD_FINDING: A strong first finding is only CURRENT_BEST; research continues while a higher-Decision-Delta branch remains plausible. Candidate consequence: lower first-explanation lock-in and ability to outperform the first attractive consulting narrative.",
+            "ACCIDENTAL_4_KNOWN_WORK_REJECTION: Findings are killed when the organization already recognizes or has architected the issue. Candidate consequence: less risk of selling clients what they already know and more emphasis on genuinely decision-changing residuals.",
+            "ACCIDENTAL_5_FALSIFIER_AND_EVIDENCE_CEILING: Each sendable finding carries strongest alternative, falsifier and cheapest internal evidence. Candidate consequence: paid work can be framed as adjudication rather than persuasion, with a legitimate WRONG/NO-GO outcome.",
+            "ACCIDENTAL_6_OUTSIDE_IN_BEFORE_CLIENT_INPUT: The engine can produce a company-specific Proof of Sight from public evidence before surveys/interviews. Candidate consequence: client effort begins only after evidence of relevance, unlike products that require participation before any organization-specific value appears.",
+            "ACCIDENTAL_7_STRUCTURAL_ADMISSION: Failed targeting cohorts created pre-admission structural tests; the engine can reject a target before expensive recursive research when the assumed mechanism is absent. Candidate consequence: lower false-positive research spend and more selective outreach.",
+            "VALIDATION_30: Frozen 30-company cohort produced SEND 3/30, evidence ceiling 10/30, known-work/known-architecture rejection 17/30. This supports selectivity but does NOT show buyers value selectivity.",
+            "VALIDATION_CAPACITY_20: Frozen capacity-marketplace test produced 0/20 SEND; 14/20 lacked the assumed central allocator. The failure separated discovery/ranking, bid/self-selection and central-allocation mechanisms and led to a pre-admission gate. This supports falsification/learning but does NOT show market value.",
+            "AMAREL_TRACE: The run killed obvious GTM advice as known work, retained ownership only at evidence ceiling, later surfaced field-execution as a stronger hypothesis, and killed generic measurement as known work before stabilizing. This is a concrete example of recursion changing the candidate finding.",
+            "COMPETITOR_RIVINGTON: Fixed workflow ontology + free screen + transparent score + one workflow/three weeks/fixed fee diagnostic. Strong buyability, narrower search space.",
+            "COMPETITOR_MELIO: Fixed multi-layer instrument + sample report + fixed packages. Strong output/process certainty, diagnosis constrained by instrument.",
+            "COMPETITOR_VERINGS: Internal AI interview architecture + exact pricing/privacy/readout. Strong purchase/champion certainty, organization-specific truth requires internal participation first.",
+            "COMPETITOR_ENTERPRISE: EY/McKinsey reduce uncertainty via standardized maturity/health models, benchmarks, brand and accumulated datasets. Strong legitimacy/comparability, constrained ontology.",
+            "STRONG_COMPOSED_BASELINE: Assume a competent competitor combines fixed ontology where useful, a large benchmark corpus, LLM + expert open-text analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. Do not claim moat unless the residual survives this baseline.",
+            "PATH_DEPENDENCE_CANDIDATE: Competitors optimized for standardized, repeatable assessment economics; our path optimized open-world elimination and selective non-output. Candidate moat may be organizational/economic path dependence: copying the mechanism could reduce their benchmark comparability, deterministic output yield or scalable assessment economics. This is a hypothesis, not evidence.",
+            "COMMERCIAL_COST: Our architecture has higher research cost, lower SEND yield, less predictable content and higher method-legibility burden. Any differentiation claim must show that the customer consequence justifies these costs.",
+            "BUYABILITY_LESSON: Do not copy competitor certainty into the truth search. Candidate architecture is to make scope/time/price/effort/privacy/deliverable predictable around an internally open investigation.",
+            "CORE_CANDIDATE_PROMISE: Not 'we diagnose better' but 'we are allowed to find nothing; we try to kill the problem before asking you to act; what survives is the uncertainty worth resolving internally.' Test whether this is understandable, valuable and defensible.",
+            "CHEAP_FIELD_TEST: Compare buyer reaction to two framings of the same real case: generic outside-in diagnostic vs falsification-first/selective diagnostic. Ask whether the distinction changes trust, willingness to share internal evidence, perceived uniqueness, willingness to pay and perceived risk. Include a sample NO_SEND/WRONG outcome to test whether negative-result legitimacy increases or decreases value."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+            "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "instruction": "Diagnose resource↔telos miscalibration, map candidate resource moves, commit ex ante to which decision-state dimensions each assessed resource could change, and return exactly the Calibration Loop v0.2 diagnosis shape."
+      },
+      "state": "COMPLETE"
+    },
+    {
+      "resource": "NETA",
+      "phase": "ANALYZE",
+      "request": {
+        "resource": "NETA",
+        "phase": "ANALYZE",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-ACCIDENTAL-MOAT-2026-09-16",
+          "telos": {
+            "statement": "Determine whether the Organizational Diagnostic System's commercially inefficient research path accidentally created a real product differentiation or moat, and identify the smallest customer-visible capability worth preserving and testing.",
+            "success_condition": "Falsify or retain candidate differentiators by tracing each accidental capability to a customer consequence, comparing it against the strongest plausible composed competitor baseline, identifying copyability/path-dependence and commercial cost, and specifying the cheapest field evidence that could reverse the conclusion."
+          },
+          "current_state": {
+            "summary": "The product path optimized epistemic integrity before buyability. The resulting v0.5 engine is open-world, recursive, falsification-aware and allows NO_SEND/EVIDENCE_CEILING. The 30-company frozen distribution yielded 3/30 SEND, 10/30 evidence ceiling and 17/30 known-work/known-architecture rejection. A later capacity-marketplace cohort yielded 0/20 SEND because 14/20 targets did not instantiate the assumed central-allocation mechanism, leading to a structural pre-admission gate. Amarel showed a full path where obvious GTM advice was killed as known work, another branch hit evidence ceiling, a field-execution learning-loop hypothesis emerged later, and generic measurement advice was killed as known work. Commercial architecture is now free Proof of Sight -> paid bounded Validation Job -> Decision Output. Competitor research shows adjacent products often trade open-world search for fixed ontology/benchmark while making purchase scope, price, duration, sample output and effort highly legible.",
+            "known_constraints": [
+              "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+              "Do not call something differentiated merely because named competitors do not market it explicitly.",
+              "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract.",
+              "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+              "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+              "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay.",
+              "Do not weaken the current truth engine in order to manufacture a cleaner marketing claim.",
+              "Treat all R&D/NETA/SCAFFOLD agreement as EXECUTED_TRACE/DISCOVERY_ONLY, not market confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "Which, if any, capability created by the non-optimal research path should become the core differentiated product promise, and what evidence would show that it matters to buyers rather than merely to us?",
+            "current_default": "Candidate differentiation: the system does not score an organization against a predefined model; it searches an open hypothesis space, tries to falsify candidate problems, rejects known work, allows no-finding/evidence-ceiling outcomes, and only surfaces a finding that survives as decision-relevant. Preserve this truth engine and make the buying contract predictable around it.",
+            "reversal_condition": "Reject or narrow this differentiation if a strong composed competitor baseline can reproduce the same customer-relevant output with materially less complexity/cost, if the capability does not change buyer trust/decision quality/WTP, or if most apparent advantage comes from analyst skill rather than architecture."
+          },
+          "signals": [
+            "ACCIDENTAL_1_OPEN_WORLD: Avoiding a fixed pathology/maturity taxonomy forced evidence -> hypotheses -> discriminating questions -> targeted search. Candidate consequence: can discover an organization-specific decision problem not represented in a predefined instrument.",
+            "ACCIDENTAL_2_LEGAL_NO_FINDING: SEND is not required; NO_SEND and EVIDENCE_CEILING are valid terminal states. Candidate consequence: surviving findings may carry more trust because the system is allowed to conclude there is nothing defensible to send.",
+            "ACCIDENTAL_3_RECURSION_AFTER_GOOD_FINDING: A strong first finding is only CURRENT_BEST; research continues while a higher-Decision-Delta branch remains plausible. Candidate consequence: lower first-explanation lock-in and ability to outperform the first attractive consulting narrative.",
+            "ACCIDENTAL_4_KNOWN_WORK_REJECTION: Findings are killed when the organization already recognizes or has architected the issue. Candidate consequence: less risk of selling clients what they already know and more emphasis on genuinely decision-changing residuals.",
+            "ACCIDENTAL_5_FALSIFIER_AND_EVIDENCE_CEILING: Each sendable finding carries strongest alternative, falsifier and cheapest internal evidence. Candidate consequence: paid work can be framed as adjudication rather than persuasion, with a legitimate WRONG/NO-GO outcome.",
+            "ACCIDENTAL_6_OUTSIDE_IN_BEFORE_CLIENT_INPUT: The engine can produce a company-specific Proof of Sight from public evidence before surveys/interviews. Candidate consequence: client effort begins only after evidence of relevance, unlike products that require participation before any organization-specific value appears.",
+            "ACCIDENTAL_7_STRUCTURAL_ADMISSION: Failed targeting cohorts created pre-admission structural tests; the engine can reject a target before expensive recursive research when the assumed mechanism is absent. Candidate consequence: lower false-positive research spend and more selective outreach.",
+            "VALIDATION_30: Frozen 30-company cohort produced SEND 3/30, evidence ceiling 10/30, known-work/known-architecture rejection 17/30. This supports selectivity but does NOT show buyers value selectivity.",
+            "VALIDATION_CAPACITY_20: Frozen capacity-marketplace test produced 0/20 SEND; 14/20 lacked the assumed central allocator. The failure separated discovery/ranking, bid/self-selection and central-allocation mechanisms and led to a pre-admission gate. This supports falsification/learning but does NOT show market value.",
+            "AMAREL_TRACE: The run killed obvious GTM advice as known work, retained ownership only at evidence ceiling, later surfaced field-execution as a stronger hypothesis, and killed generic measurement as known work before stabilizing. This is a concrete example of recursion changing the candidate finding.",
+            "COMPETITOR_RIVINGTON: Fixed workflow ontology + free screen + transparent score + one workflow/three weeks/fixed fee diagnostic. Strong buyability, narrower search space.",
+            "COMPETITOR_MELIO: Fixed multi-layer instrument + sample report + fixed packages. Strong output/process certainty, diagnosis constrained by instrument.",
+            "COMPETITOR_VERINGS: Internal AI interview architecture + exact pricing/privacy/readout. Strong purchase/champion certainty, organization-specific truth requires internal participation first.",
+            "COMPETITOR_ENTERPRISE: EY/McKinsey reduce uncertainty via standardized maturity/health models, benchmarks, brand and accumulated datasets. Strong legitimacy/comparability, constrained ontology.",
+            "STRONG_COMPOSED_BASELINE: Assume a competent competitor combines fixed ontology where useful, a large benchmark corpus, LLM + expert open-text analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. Do not claim moat unless the residual survives this baseline.",
+            "PATH_DEPENDENCE_CANDIDATE: Competitors optimized for standardized, repeatable assessment economics; our path optimized open-world elimination and selective non-output. Candidate moat may be organizational/economic path dependence: copying the mechanism could reduce their benchmark comparability, deterministic output yield or scalable assessment economics. This is a hypothesis, not evidence.",
+            "COMMERCIAL_COST: Our architecture has higher research cost, lower SEND yield, less predictable content and higher method-legibility burden. Any differentiation claim must show that the customer consequence justifies these costs.",
+            "BUYABILITY_LESSON: Do not copy competitor certainty into the truth search. Candidate architecture is to make scope/time/price/effort/privacy/deliverable predictable around an internally open investigation.",
+            "CORE_CANDIDATE_PROMISE: Not 'we diagnose better' but 'we are allowed to find nothing; we try to kill the problem before asking you to act; what survives is the uncertainty worth resolving internally.' Test whether this is understandable, valuable and defensible.",
+            "CHEAP_FIELD_TEST: Compare buyer reaction to two framings of the same real case: generic outside-in diagnostic vs falsification-first/selective diagnostic. Ask whether the distinction changes trust, willingness to share internal evidence, perceived uniqueness, willingness to pay and perceived risk. Include a sample NO_SEND/WRONG outcome to test whether negative-result legitimacy increases or decreases value."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+            "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "requested_focus": [
+          "multiple_plausible_mechanisms",
+          "proxy_substitution_risk",
+          "research_to_intervention_transition",
+          "signal_interpretation_ambiguity"
+        ],
+        "independence_rule": "Analyze the task independently. Do not infer another resource's conclusion and do not turn agreement into independent evidence.",
+        "prompt_ref": "prompts/SYSTEM.md",
+        "role_boundary": "Challenge framing, proxy substitution, mechanism collapse and premature intervention. Do not decide external research validity or architecture doctrine."
+      },
+      "expected_delta": {
+        "decision": false,
+        "action": false,
+        "reversal": false,
+        "evidence": false,
+        "allocation": false,
+        "distinction": true
+      },
+      "observed_delta": {
+        "decision": null,
+        "action": null,
+        "reversal": null,
+        "evidence": null,
+        "allocation": null,
+        "distinction": null
+      },
+      "material": false,
+      "result": {
+        "resource": "NETA",
+        "summary": "Analyzing the task to determine whether the Organizational Diagnostic System's research path has inadvertently created a real product differentiation or moat, and identifying the smallest customer-visible capability worth preserving and testing.",
+        "unique_delta": "Examining the task to identify the smallest customer-visible capability worth preserving and testing, given the accidental nature of the differentiation and the need to compare against a strong composed competitor baseline.",
+        "evidence_refs": [
+          "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+          "runtime/calibration_loop/README.md",
+          "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+          "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+          "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+          "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+          "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+        ],
+        "limitations": [
+          "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+          "Do not call something differentiated merely because named competitors do not market it explicitly.",
+          "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract",
+          "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+          "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+          "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay."
+        ],
+        "_adapter_meta": {
+          "provider": "ollama-local",
+          "model": "qwen2.5:3b-instruct",
+          "prompt_eval_count": 4850,
+          "eval_count": 468
+        }
+      },
+      "state": "COMPLETE"
+    },
+    {
+      "resource": "SCAFFOLD",
+      "phase": "ANALYZE",
+      "request": {
+        "resource": "SCAFFOLD",
+        "phase": "ANALYZE",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-ACCIDENTAL-MOAT-2026-09-16",
+          "telos": {
+            "statement": "Determine whether the Organizational Diagnostic System's commercially inefficient research path accidentally created a real product differentiation or moat, and identify the smallest customer-visible capability worth preserving and testing.",
+            "success_condition": "Falsify or retain candidate differentiators by tracing each accidental capability to a customer consequence, comparing it against the strongest plausible composed competitor baseline, identifying copyability/path-dependence and commercial cost, and specifying the cheapest field evidence that could reverse the conclusion."
+          },
+          "current_state": {
+            "summary": "The product path optimized epistemic integrity before buyability. The resulting v0.5 engine is open-world, recursive, falsification-aware and allows NO_SEND/EVIDENCE_CEILING. The 30-company frozen distribution yielded 3/30 SEND, 10/30 evidence ceiling and 17/30 known-work/known-architecture rejection. A later capacity-marketplace cohort yielded 0/20 SEND because 14/20 targets did not instantiate the assumed central-allocation mechanism, leading to a structural pre-admission gate. Amarel showed a full path where obvious GTM advice was killed as known work, another branch hit evidence ceiling, a field-execution learning-loop hypothesis emerged later, and generic measurement advice was killed as known work. Commercial architecture is now free Proof of Sight -> paid bounded Validation Job -> Decision Output. Competitor research shows adjacent products often trade open-world search for fixed ontology/benchmark while making purchase scope, price, duration, sample output and effort highly legible.",
+            "known_constraints": [
+              "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+              "Do not call something differentiated merely because named competitors do not market it explicitly.",
+              "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract.",
+              "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+              "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+              "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay.",
+              "Do not weaken the current truth engine in order to manufacture a cleaner marketing claim.",
+              "Treat all R&D/NETA/SCAFFOLD agreement as EXECUTED_TRACE/DISCOVERY_ONLY, not market confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "Which, if any, capability created by the non-optimal research path should become the core differentiated product promise, and what evidence would show that it matters to buyers rather than merely to us?",
+            "current_default": "Candidate differentiation: the system does not score an organization against a predefined model; it searches an open hypothesis space, tries to falsify candidate problems, rejects known work, allows no-finding/evidence-ceiling outcomes, and only surfaces a finding that survives as decision-relevant. Preserve this truth engine and make the buying contract predictable around it.",
+            "reversal_condition": "Reject or narrow this differentiation if a strong composed competitor baseline can reproduce the same customer-relevant output with materially less complexity/cost, if the capability does not change buyer trust/decision quality/WTP, or if most apparent advantage comes from analyst skill rather than architecture."
+          },
+          "signals": [
+            "ACCIDENTAL_1_OPEN_WORLD: Avoiding a fixed pathology/maturity taxonomy forced evidence -> hypotheses -> discriminating questions -> targeted search. Candidate consequence: can discover an organization-specific decision problem not represented in a predefined instrument.",
+            "ACCIDENTAL_2_LEGAL_NO_FINDING: SEND is not required; NO_SEND and EVIDENCE_CEILING are valid terminal states. Candidate consequence: surviving findings may carry more trust because the system is allowed to conclude there is nothing defensible to send.",
+            "ACCIDENTAL_3_RECURSION_AFTER_GOOD_FINDING: A strong first finding is only CURRENT_BEST; research continues while a higher-Decision-Delta branch remains plausible. Candidate consequence: lower first-explanation lock-in and ability to outperform the first attractive consulting narrative.",
+            "ACCIDENTAL_4_KNOWN_WORK_REJECTION: Findings are killed when the organization already recognizes or has architected the issue. Candidate consequence: less risk of selling clients what they already know and more emphasis on genuinely decision-changing residuals.",
+            "ACCIDENTAL_5_FALSIFIER_AND_EVIDENCE_CEILING: Each sendable finding carries strongest alternative, falsifier and cheapest internal evidence. Candidate consequence: paid work can be framed as adjudication rather than persuasion, with a legitimate WRONG/NO-GO outcome.",
+            "ACCIDENTAL_6_OUTSIDE_IN_BEFORE_CLIENT_INPUT: The engine can produce a company-specific Proof of Sight from public evidence before surveys/interviews. Candidate consequence: client effort begins only after evidence of relevance, unlike products that require participation before any organization-specific value appears.",
+            "ACCIDENTAL_7_STRUCTURAL_ADMISSION: Failed targeting cohorts created pre-admission structural tests; the engine can reject a target before expensive recursive research when the assumed mechanism is absent. Candidate consequence: lower false-positive research spend and more selective outreach.",
+            "VALIDATION_30: Frozen 30-company cohort produced SEND 3/30, evidence ceiling 10/30, known-work/known-architecture rejection 17/30. This supports selectivity but does NOT show buyers value selectivity.",
+            "VALIDATION_CAPACITY_20: Frozen capacity-marketplace test produced 0/20 SEND; 14/20 lacked the assumed central allocator. The failure separated discovery/ranking, bid/self-selection and central-allocation mechanisms and led to a pre-admission gate. This supports falsification/learning but does NOT show market value.",
+            "AMAREL_TRACE: The run killed obvious GTM advice as known work, retained ownership only at evidence ceiling, later surfaced field-execution as a stronger hypothesis, and killed generic measurement as known work before stabilizing. This is a concrete example of recursion changing the candidate finding.",
+            "COMPETITOR_RIVINGTON: Fixed workflow ontology + free screen + transparent score + one workflow/three weeks/fixed fee diagnostic. Strong buyability, narrower search space.",
+            "COMPETITOR_MELIO: Fixed multi-layer instrument + sample report + fixed packages. Strong output/process certainty, diagnosis constrained by instrument.",
+            "COMPETITOR_VERINGS: Internal AI interview architecture + exact pricing/privacy/readout. Strong purchase/champion certainty, organization-specific truth requires internal participation first.",
+            "COMPETITOR_ENTERPRISE: EY/McKinsey reduce uncertainty via standardized maturity/health models, benchmarks, brand and accumulated datasets. Strong legitimacy/comparability, constrained ontology.",
+            "STRONG_COMPOSED_BASELINE: Assume a competent competitor combines fixed ontology where useful, a large benchmark corpus, LLM + expert open-text analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. Do not claim moat unless the residual survives this baseline.",
+            "PATH_DEPENDENCE_CANDIDATE: Competitors optimized for standardized, repeatable assessment economics; our path optimized open-world elimination and selective non-output. Candidate moat may be organizational/economic path dependence: copying the mechanism could reduce their benchmark comparability, deterministic output yield or scalable assessment economics. This is a hypothesis, not evidence.",
+            "COMMERCIAL_COST: Our architecture has higher research cost, lower SEND yield, less predictable content and higher method-legibility burden. Any differentiation claim must show that the customer consequence justifies these costs.",
+            "BUYABILITY_LESSON: Do not copy competitor certainty into the truth search. Candidate architecture is to make scope/time/price/effort/privacy/deliverable predictable around an internally open investigation.",
+            "CORE_CANDIDATE_PROMISE: Not 'we diagnose better' but 'we are allowed to find nothing; we try to kill the problem before asking you to act; what survives is the uncertainty worth resolving internally.' Test whether this is understandable, valuable and defensible.",
+            "CHEAP_FIELD_TEST: Compare buyer reaction to two framings of the same real case: generic outside-in diagnostic vs falsification-first/selective diagnostic. Ask whether the distinction changes trust, willingness to share internal evidence, perceived uniqueness, willingness to pay and perceived risk. Include a sample NO_SEND/WRONG outcome to test whether negative-result legitimacy increases or decreases value."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+            "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "requested_focus": [
+          "architecture_alternatives_needed",
+          "broad_reasoning_needed",
+          "novel_synthesis_needed"
+        ],
+        "independence_rule": "Analyze the task independently. Do not infer another resource's conclusion and do not turn agreement into independent evidence.",
+        "role_boundary": "Provide broad expert reasoning and candidate alternatives. Treat your output as a scaffold/candidate source, not ground truth."
+      },
+      "expected_delta": {
+        "decision": false,
+        "action": false,
+        "reversal": false,
+        "evidence": false,
+        "allocation": false,
+        "distinction": false
+      },
+      "observed_delta": {
+        "decision": null,
+        "action": null,
+        "reversal": null,
+        "evidence": null,
+        "allocation": null,
+        "distinction": null
+      },
+      "material": false,
+      "result": {
+        "resource": "SCAFFOLD",
+        "summary": "The task requires identifying whether the Organizational Diagnostic System's research path has created a real differentiation or moat, and specifying the smallest customer-visible capability worth preserving and testing.",
+        "unique_delta": "Analyze the architecture alternatives and their implications for differentiation and moat creation, considering the strengths and weaknesses of the current architecture compared to a composed competitor baseline.",
+        "evidence_refs": [
+          "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+          "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+          "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+        ],
+        "limitations": [
+          "Assumptions about the strength of the composed competitor baseline are based on the provided research matrix and case studies.",
+          "The analysis is focused on architecture alternatives and does not include specific evidence or customer feedback."
+        ],
+        "_adapter_meta": {
+          "provider": "ollama-local",
+          "model": "qwen2.5:3b-instruct",
+          "prompt_eval_count": 2581,
+          "eval_count": 241
+        }
+      },
+      "state": "COMPLETE"
+    },
+    {
+      "resource": "RND",
+      "phase": "SYNTHESIZE",
+      "request": {
+        "resource": "RND",
+        "phase": "SYNTHESIZE",
+        "prompt_ref": "prompts/RND_AGENT_V0_2_CANDIDATE.md",
+        "telos_ref": "research/RND_AGENT_TELOS_REFOUNDATION_V0_2.md",
+        "task": {
+          "calibration_version": "0.1",
+          "task_id": "CAL-ORG-DIAG-ACCIDENTAL-MOAT-2026-09-16",
+          "telos": {
+            "statement": "Determine whether the Organizational Diagnostic System's commercially inefficient research path accidentally created a real product differentiation or moat, and identify the smallest customer-visible capability worth preserving and testing.",
+            "success_condition": "Falsify or retain candidate differentiators by tracing each accidental capability to a customer consequence, comparing it against the strongest plausible composed competitor baseline, identifying copyability/path-dependence and commercial cost, and specifying the cheapest field evidence that could reverse the conclusion."
+          },
+          "current_state": {
+            "summary": "The product path optimized epistemic integrity before buyability. The resulting v0.5 engine is open-world, recursive, falsification-aware and allows NO_SEND/EVIDENCE_CEILING. The 30-company frozen distribution yielded 3/30 SEND, 10/30 evidence ceiling and 17/30 known-work/known-architecture rejection. A later capacity-marketplace cohort yielded 0/20 SEND because 14/20 targets did not instantiate the assumed central-allocation mechanism, leading to a structural pre-admission gate. Amarel showed a full path where obvious GTM advice was killed as known work, another branch hit evidence ceiling, a field-execution learning-loop hypothesis emerged later, and generic measurement advice was killed as known work. Commercial architecture is now free Proof of Sight -> paid bounded Validation Job -> Decision Output. Competitor research shows adjacent products often trade open-world search for fixed ontology/benchmark while making purchase scope, price, duration, sample output and effort highly legible.",
+            "known_constraints": [
+              "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+              "Do not call something differentiated merely because named competitors do not market it explicitly.",
+              "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract.",
+              "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+              "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+              "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay.",
+              "Do not weaken the current truth engine in order to manufacture a cleaner marketing claim.",
+              "Treat all R&D/NETA/SCAFFOLD agreement as EXECUTED_TRACE/DISCOVERY_ONLY, not market confirmation."
+            ],
+            "available_resources": [
+              "RND",
+              "NETA",
+              "SCAFFOLD",
+              "OWNER",
+              "REPO",
+              "ENVIRONMENT",
+              "FIELD"
+            ]
+          },
+          "decision_blocked": {
+            "statement": "Which, if any, capability created by the non-optimal research path should become the core differentiated product promise, and what evidence would show that it matters to buyers rather than merely to us?",
+            "current_default": "Candidate differentiation: the system does not score an organization against a predefined model; it searches an open hypothesis space, tries to falsify candidate problems, rejects known work, allows no-finding/evidence-ceiling outcomes, and only surfaces a finding that survives as decision-relevant. Preserve this truth engine and make the buying contract predictable around it.",
+            "reversal_condition": "Reject or narrow this differentiation if a strong composed competitor baseline can reproduce the same customer-relevant output with materially less complexity/cost, if the capability does not change buyer trust/decision quality/WTP, or if most apparent advantage comes from analyst skill rather than architecture."
+          },
+          "signals": [
+            "ACCIDENTAL_1_OPEN_WORLD: Avoiding a fixed pathology/maturity taxonomy forced evidence -> hypotheses -> discriminating questions -> targeted search. Candidate consequence: can discover an organization-specific decision problem not represented in a predefined instrument.",
+            "ACCIDENTAL_2_LEGAL_NO_FINDING: SEND is not required; NO_SEND and EVIDENCE_CEILING are valid terminal states. Candidate consequence: surviving findings may carry more trust because the system is allowed to conclude there is nothing defensible to send.",
+            "ACCIDENTAL_3_RECURSION_AFTER_GOOD_FINDING: A strong first finding is only CURRENT_BEST; research continues while a higher-Decision-Delta branch remains plausible. Candidate consequence: lower first-explanation lock-in and ability to outperform the first attractive consulting narrative.",
+            "ACCIDENTAL_4_KNOWN_WORK_REJECTION: Findings are killed when the organization already recognizes or has architected the issue. Candidate consequence: less risk of selling clients what they already know and more emphasis on genuinely decision-changing residuals.",
+            "ACCIDENTAL_5_FALSIFIER_AND_EVIDENCE_CEILING: Each sendable finding carries strongest alternative, falsifier and cheapest internal evidence. Candidate consequence: paid work can be framed as adjudication rather than persuasion, with a legitimate WRONG/NO-GO outcome.",
+            "ACCIDENTAL_6_OUTSIDE_IN_BEFORE_CLIENT_INPUT: The engine can produce a company-specific Proof of Sight from public evidence before surveys/interviews. Candidate consequence: client effort begins only after evidence of relevance, unlike products that require participation before any organization-specific value appears.",
+            "ACCIDENTAL_7_STRUCTURAL_ADMISSION: Failed targeting cohorts created pre-admission structural tests; the engine can reject a target before expensive recursive research when the assumed mechanism is absent. Candidate consequence: lower false-positive research spend and more selective outreach.",
+            "VALIDATION_30: Frozen 30-company cohort produced SEND 3/30, evidence ceiling 10/30, known-work/known-architecture rejection 17/30. This supports selectivity but does NOT show buyers value selectivity.",
+            "VALIDATION_CAPACITY_20: Frozen capacity-marketplace test produced 0/20 SEND; 14/20 lacked the assumed central allocator. The failure separated discovery/ranking, bid/self-selection and central-allocation mechanisms and led to a pre-admission gate. This supports falsification/learning but does NOT show market value.",
+            "AMAREL_TRACE: The run killed obvious GTM advice as known work, retained ownership only at evidence ceiling, later surfaced field-execution as a stronger hypothesis, and killed generic measurement as known work before stabilizing. This is a concrete example of recursion changing the candidate finding.",
+            "COMPETITOR_RIVINGTON: Fixed workflow ontology + free screen + transparent score + one workflow/three weeks/fixed fee diagnostic. Strong buyability, narrower search space.",
+            "COMPETITOR_MELIO: Fixed multi-layer instrument + sample report + fixed packages. Strong output/process certainty, diagnosis constrained by instrument.",
+            "COMPETITOR_VERINGS: Internal AI interview architecture + exact pricing/privacy/readout. Strong purchase/champion certainty, organization-specific truth requires internal participation first.",
+            "COMPETITOR_ENTERPRISE: EY/McKinsey reduce uncertainty via standardized maturity/health models, benchmarks, brand and accumulated datasets. Strong legitimacy/comparability, constrained ontology.",
+            "STRONG_COMPOSED_BASELINE: Assume a competent competitor combines fixed ontology where useful, a large benchmark corpus, LLM + expert open-text analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. Do not claim moat unless the residual survives this baseline.",
+            "PATH_DEPENDENCE_CANDIDATE: Competitors optimized for standardized, repeatable assessment economics; our path optimized open-world elimination and selective non-output. Candidate moat may be organizational/economic path dependence: copying the mechanism could reduce their benchmark comparability, deterministic output yield or scalable assessment economics. This is a hypothesis, not evidence.",
+            "COMMERCIAL_COST: Our architecture has higher research cost, lower SEND yield, less predictable content and higher method-legibility burden. Any differentiation claim must show that the customer consequence justifies these costs.",
+            "BUYABILITY_LESSON: Do not copy competitor certainty into the truth search. Candidate architecture is to make scope/time/price/effort/privacy/deliverable predictable around an internally open investigation.",
+            "CORE_CANDIDATE_PROMISE: Not 'we diagnose better' but 'we are allowed to find nothing; we try to kill the problem before asking you to act; what survives is the uncertainty worth resolving internally.' Test whether this is understandable, valuable and defensible.",
+            "CHEAP_FIELD_TEST: Compare buyer reaction to two framings of the same real case: generic outside-in diagnostic vs falsification-first/selective diagnostic. Ask whether the distinction changes trust, willingness to share internal evidence, perceived uniqueness, willingness to pay and perceived risk. Include a sample NO_SEND/WRONG outcome to test whether negative-result legitimacy increases or decreases value."
+          ],
+          "allowed_resources": [
+            "RND",
+            "NETA",
+            "SCAFFOLD",
+            "OWNER",
+            "REPO",
+            "ENVIRONMENT",
+            "FIELD"
+          ],
+          "context_refs": [
+            "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+            "runtime/calibration_loop/README.md",
+            "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+            "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+            "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+          ],
+          "budget": {
+            "max_resource_calls": 4,
+            "max_parallel_calls": 2
+          }
+        },
+        "diagnosis": {
+          "material_question": "Identify the smallest current mismatch that materially slows or distorts progress toward the telos of improving the fit between the system's resources and its telos, given the state from which the system is actually starting.",
+          "bottleneck": "The current state of the system is optimized for epistemic integrity before buyability, with a truth engine that allows no-finding/evidence-ceiling outcomes. This leads to a lack of clear differentiation and a risk of selling clients what they already know.",
+          "resource_assessment": [
+            {
+              "resource": "RND",
+              "expected_contribution": "Acquire the cheapest admissible information that can change a decision, test alternative ways of working, and develop/adapt/retire capabilities when justified.",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "High",
+              "expected_delta": {
+                "decision": true,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": true
+              }
+            },
+            {
+              "resource": "NETA",
+              "expected_contribution": "Provide insights and interpretations that can change a decision.",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Moderate",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": true
+              }
+            },
+            {
+              "resource": "SCAFFOLD",
+              "expected_contribution": "Use external reasoning scaffolds to borrow cognitive support when needed.",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "OWNER",
+              "expected_contribution": "Provide judgment and authority for decisions.",
+              "authority_ceiling": "Owner",
+              "uncertainty": "Low",
+              "expected_delta": {
+                "decision": true,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "REPO",
+              "expected_contribution": "Use existing repositories and instruments to inform decisions.",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Moderate",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "ENVIRONMENT",
+              "expected_contribution": "Use runtime and environmental observations to inform decisions.",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Moderate",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            },
+            {
+              "resource": "FIELD",
+              "expected_contribution": "Use field access to inform decisions.",
+              "authority_ceiling": "R&D Agent",
+              "uncertainty": "Moderate",
+              "expected_delta": {
+                "decision": false,
+                "action": false,
+                "reversal": false,
+                "evidence": false,
+                "allocation": false,
+                "distinction": false
+              }
+            }
+          ],
+          "candidate_moves": [
+            {
+              "move": "Use RND",
+              "resource": "RND",
+              "expected_decision_value": "Change how resources should be allocated toward the telos.",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Invoke Neta",
+              "resource": "NETA",
+              "expected_decision_value": "Provide insights and interpretations that can change a decision.",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Use SCAFFOLD",
+              "resource": "SCAFFOLD",
+              "expected_decision_value": "Borrow external reasoning support when needed.",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Recover prior work",
+              "resource": "NO_SEND",
+              "expected_decision_value": "Use existing knowledge and evidence to inform decisions.",
+              "reversibility": "Yes"
+            },
+            {
+              "move": "Run research",
+              "resource": "RESEARCH",
+              "expected_decision_value": "Run research to inform decisions.",
+              "reversibility": "Yes"
+            }
+          ],
+          "needs": {
+            "signal_interpretation_ambiguity": true,
+            "multiple_plausible_mechanisms": true,
+            "proxy_substitution_risk": true,
+            "research_to_intervention_transition": true,
+            "broad_reasoning_needed": true,
+            "architecture_alternatives_needed": true,
+            "novel_synthesis_needed": true,
+            "external_research_needed": true,
+            "owner_authority_needed": true,
+            "repo_authority_needed": true,
+            "environment_authority_needed": true,
+            "field_authority_needed": true
+          },
+          "rationale": "The current state of the system is optimized for epistemic integrity before buyability, with a truth engine that allows no-finding/evidence-ceiling outcomes. This leads to a lack of clear differentiation and a risk of selling clients what they already know. The R&D Agent exists to improve the fit between the system's resources and its telos, given the state from which the system is actually starting. The strongest composed baseline for R&D is a competent competitor that combines a standardized assessment, benchmark corpus, LLM/human analysis, explicit evidence drawers/falsifiers, a free teaser, fixed price/time/scope, sample output and strong privacy/procurement. The R&D Agent should focus R"
+        },
+        "routing": {
+          "resources": [
+            "NETA",
+            "SCAFFOLD"
+          ],
+          "fired": {
+            "NETA": [
+              "multiple_plausible_mechanisms",
+              "proxy_substitution_risk",
+              "research_to_intervention_transition",
+              "signal_interpretation_ambiguity"
+            ],
+            "SCAFFOLD": [
+              "architecture_alternatives_needed",
+              "broad_reasoning_needed",
+              "novel_synthesis_needed"
+            ],
+            "RND_RESEARCH": [
+              "external_research_needed"
+            ],
+            "AUTHORITY": [
+              "owner_authority_needed",
+              "repo_authority_needed",
+              "environment_authority_needed",
+              "field_authority_needed"
+            ]
+          },
+          "authority_handoffs": [
+            "ENVIRONMENT",
+            "FIELD",
+            "OWNER",
+            "REPO"
+          ]
+        },
+        "resource_results": [
+          {
+            "resource": "NETA",
+            "summary": "Analyzing the task to determine whether the Organizational Diagnostic System's research path has inadvertently created a real product differentiation or moat, and identifying the smallest customer-visible capability worth preserving and testing.",
+            "unique_delta": "Examining the task to identify the smallest customer-visible capability worth preserving and testing, given the accidental nature of the differentiation and the need to compare against a strong composed competitor baseline.",
+            "evidence_refs": [
+              "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+              "runtime/calibration_loop/README.md",
+              "ereztash/organizational-diagnostic-system/research/lineage/RESEARCH_PATH_AUDIT_2026-09-16.md",
+              "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+              "ereztash/organizational-diagnostic-system/evidence/archive/validation/01_30_COMPANY_DISTRIBUTION.md",
+              "ereztash/organizational-diagnostic-system/evidence/archive/validation/05_CAPACITY_MARKETPLACE_20.md",
+              "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+            ],
+            "limitations": [
+              "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+              "Do not call something differentiated merely because named competitors do not market it explicitly.",
+              "Compare against the strongest plausible composed baseline: a competent competitor can combine a standardized assessment, benchmark corpus, LLM/human analysis, transparent evidence, free teaser and fixed purchase contract",
+              "Separate uniqueness from value: a unique mechanism with no material buyer consequence is not differentiation.",
+              "Separate value from defensibility: a valuable feature that a competitor can copy cheaply is not a moat, though it may still be positioning.",
+              "Count NO_SEND/EVIDENCE_CEILING as potential value only if buyers benefit from selectivity enough to change trust, decisions or willingness-to-pay."
+            ],
+            "_adapter_meta": {
+              "provider": "ollama-local",
+              "model": "qwen2.5:3b-instruct",
+              "prompt_eval_count": 4850,
+              "eval_count": 468
+            }
+          },
+          {
+            "resource": "SCAFFOLD",
+            "summary": "The task requires identifying whether the Organizational Diagnostic System's research path has created a real differentiation or moat, and specifying the smallest customer-visible capability worth preserving and testing.",
+            "unique_delta": "Analyze the architecture alternatives and their implications for differentiation and moat creation, considering the strengths and weaknesses of the current architecture compared to a composed competitor baseline.",
+            "evidence_refs": [
+              "prompts/RND_AGENT_V0_2_1_CANDIDATE.md",
+              "ereztash/organizational-diagnostic-system/research/competitive_architecture/UNCERTAINTY_COVERAGE_MATRIX_2026-09-16.md",
+              "ereztash/organizational-diagnostic-system/cases/amarel/2026-09-16/02_RECURSIVE_RUN.md"
+            ],
+            "limitations": [
+              "Assumptions about the strength of the composed competitor baseline are based on the provided research matrix and case studies.",
+              "The analysis is focused on architecture alternatives and does not include specific evidence or customer feedback."
+            ],
+            "_adapter_meta": {
+              "provider": "ollama-local",
+              "model": "qwen2.5:3b-instruct",
+              "prompt_eval_count": 2581,
+              "eval_count": 241
+            }
+          }
+        ],
+        "instruction": "Compare resource deltas against the ex-ante expected_delta commitments, update the blocked decision, choose the cheapest next calibration move, and record what the system learned about future resource allocation. For each invoked resource, report observed_delta by decision/action/reversal/evidence/allocation/distinction. Do not average disagreements away."
+      },
+      "state": "COMPLETE"
+    }
+  ],
+  "synthesis": {
+    "decision_before": "The current state of the system is optimized for epistemic integrity before buyability, with a truth engine that allows no-finding/evidence-ceiling outcomes. This leads to a lack of clear differentiation and a risk of selling clients what they already know.",
+    "decision_after": "The R&D Agent should focus R&D on identifying the smallest customer-visible capability worth preserving and testing, given the accidental nature of the differentiation and the need to compare against a strong composed competitor baseline.",
+    "next_move": "Use RND",
+    "resource_deltas": [
+      {
+        "resource": "NETA",
+        "material": false,
+        "unique_delta": "Analyze the architecture alternatives and their implications for differentiation and moat creation, considering the strengths and weaknesses of the current architecture compared to a composed competitor baseline.",
+        "observed_delta": {
+          "decision": null,
+          "action": null,
+          "reversal": null,
+          "evidence": null,
+          "allocation": null,
+          "distinction": null
+        }
+      },
+      {
+        "resource": "SCAFFOLD",
+        "material": false,
+        "unique_delta": "Analyze the architecture alternatives and their implications for differentiation and moat creation, considering the strengths and weaknesses of the current architecture compared to a composed competitor baseline.",
+        "observed_delta": {
+          "decision": null,
+          "action": null,
+          "reversal": null,
+          "evidence": null,
+          "allocation": null,
+          "distinction": null
+        }
+      }
+    ],
+    "learning_records": [
+      {
+        "expected_vs_observed_mismatch": "The analysis did not identify any actionable architectural alternatives or evidence that the current architecture is distinct from a strong composed competitor baseline. The task requires identifying the smallest customer-visible capability worth preserving and testing, given the"
+      },
+      {
+        "statement": "Do not call something differentiated merely because named competitors do not market it explicitly.",
+        "expected_vs_observed_mismatch": "The analysis did not identify any actionable architectural alternatives or evidence that the current architecture is distinct from a strong composed competitor baseline. The task requires identifying the smallest customer-visible capability worth preserving and testing, given the"
+      },
+      {
+        "statement": "Do not treat complexity, research depth or engineering effort as a moat unless it causes a customer-visible decision advantage.",
+        "expected_vs_observed_mismatch": "The analysis did not identify any actionable architectural alternatives or evidence that the current architecture is distinct from a strong composed competitor baseline. The task requires identifying the smallest customer-visible capability worth preserving and testing, given the"
+      }
+    ],
+    "stop_or_continue": "CONTINUE",
+    "routing_amendment_proposed": null
+  },
+  "final_state": "COMPLETE",
+  "failure": null
+}
