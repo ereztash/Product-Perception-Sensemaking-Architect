@@ -1,5 +1,8 @@
 # Evidence-Bounded Peer-Agent System
 
+
+> **Public release status:** source is publicly visible; an open-source license has not yet been verified. See [`docs/PUBLIC_RELEASE_READINESS.md`](docs/PUBLIC_RELEASE_READINESS.md) before describing or redistributing this repository as open source.
+
 Two peer agents under one shared epistemic constitution, with a deterministic coordination runtime and no orchestrator.
 
 > **`main` is the only source of truth.**
