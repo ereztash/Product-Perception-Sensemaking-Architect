@@ -1,0 +1,14 @@
+{
+  "reader_id": "PILOT-B",
+  "admissibility": "INADMISSIBLE_FOR_DISCRIMINATION",
+  "admissibility_reason": "Reader is Anthropic Claude, the same model lineage that produced and operated the artifacts. Protocol v0 section 3 clause 2 excludes it. This record is an instrument observation only.",
+  "artifact_shown": "runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md",
+  "question_asked": "Read this document. In your own words: what decision was made, and what would reverse it?",
+  "context_given": "None. Fresh subprocess, neutral working directory, all tools disabled, no repository access, no glossary, no follow-up.",
+  "served_model": [
+    "claude-opus-5"
+  ],
+  "num_turns": 1,
+  "asked_for_clarification": false,
+  "answer_verbatim": "**The decision:** Don't build a full Architecture Agent yet. Instead, build a much cheaper thing first — an \"Architecture Decision Discriminator\" capability contract: a specification and evaluation layer, not an autonomous agent.\n\nThe reasoning behind it: the phrase \"we need an Architecture Agent\" turned out to be a proposed *solution* wearing the costume of a diagnosis. Nobody had yet shown that architecture-specific judgment is actually missing. The gap could just as easily be continuity — losing prior architecture decisions and invariants across sessions — or simply not using the existing resources (the scaffold, repo facts, environment facts) in a structured way. Building an agent would spend a lot on a problem that hasn't been identified.\n\nSo the immediate work is: write the discriminator spec, add controls for architecture-specific failure traps, pull 8–15 real historical architecture decisions from existing repos, and run a baseline comparison — the current setup versus the candidate discriminator. Targeted outside research comes only for distinctions that survive that test.\n\nThe document is also explicit that this run's internal agreement proves nothing: the three passes (R&D, Neta, Scaffold) were role-separated but ran in one session on one model lineage, so their consensus isn't independent corroboration.\n\n**What would reverse it:** repeated real cases showing that the architecture decision contract yields material decisions that you *can't* get as cheaply or reliably from the scaffold plus R&D plus repository and environment facts. That's the promotion condition toward a full agent. If the historical cases show no unique delta — no decision-relevant distinction that the contract adds — the agent doesn't get built at all."
+}

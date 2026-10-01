@@ -1,0 +1,29 @@
+{
+  "handoff_id": "HANDOFF-REGISTER-TEST-FIELD-001",
+  "from_agent": "RND",
+  "to_agent": "FIELD",
+  "live_claim_id": "N3-REGISTER-TEST / M-B-LEGIBILITY-REGISTER",
+  "question": "Can one person who is not the owner, has not read this repository, and holds none of its vocabulary read exactly one existing artifact and state, in their own words, what decision was made and what would reverse it?",
+  "why_peer_is_needed": "The claim is about how a non-owner reads an artifact. No repository, environment or research observation can settle it, and no model of the lineage that produced the artifacts is admissible under the frozen protocol. Only an external human reader can close it.",
+  "current_evidence_refs": [
+    "research/product-value-completion/N3_REGISTER_TEST_PROTOCOL_V0_FROZEN.md",
+    "research/product-value-completion/N3_REGISTER_TEST_PILOT_2026-09-06.md",
+    "research/product-value-completion/n3-register-test-pilot/READER_A.json",
+    "research/product-value-completion/n3-register-test-pilot/READER_B.json",
+    "runtime/calibration_loop/traces/CAL-PRODUCT-VALUE-001-claude-cli.json",
+    "runtime/execution_traces/DEL-LICHESS-FIELD-INSTRUMENT-002.json",
+    "runtime/calibration_loop/traces/CAL-ARCH-001-MANUAL-2026-09-05.md"
+  ],
+  "current_claim_state": "UNRESOLVED",
+  "resolution_authority": "FIELD",
+  "requested_return": "One reader's verbatim answer to the single frozen question, plus the reader's admissibility attestation: not the owner, not Anthropic Claude, has not read this repository, received no orientation and no follow-up help. Scored against the frozen rubric by whoever administers it, with the KEY_SCAN flag recorded.",
+  "must_not_infer": [
+    "That a pass establishes comprehension by any population beyond the single reader.",
+    "That a pass or a failure establishes comparative decision improvement, repeat use or willingness to pay.",
+    "That this probe says anything about M-C JOB ABSENCE, which no reading task can reach.",
+    "That the pilot readers, being of the artifacts' own model lineage, contribute any discrimination.",
+    "That any outcome moves CONFIRMATORY_N, which stays 0.",
+    "That a passing answer which merely restates a labelled field demonstrates register."
+  ],
+  "stop_condition": "Stop after one admissible reader, or after two if the first failure is plausibly attributable to artifact selection rather than register. Do not repeat to obtain a preferred outcome. Do not coach a reader past a failure; a coached run is void and must be restarted with a new reader."
+}
