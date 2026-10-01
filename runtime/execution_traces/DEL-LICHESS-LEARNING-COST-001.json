@@ -1,0 +1,62 @@
+{
+  "trace_version": "0.1",
+  "trace_id": "DEL-LICHESS-LEARNING-COST-001",
+  "decision": {
+    "statement": "Cut the words a stranger must read on the primary journey of ereztash/lichess_app, under the owner's rule that the player's attention goes to the position and not to learning the product, without moving any event, denominator, threshold, gate, or the reveal's order; measure the cut on the built app before and after, and hold it with a ceiling that only comes down.",
+    "decision_owner": "OWNER",
+    "resolution_authority": "REPO",
+    "evidence_refs": [
+      "ereztash/lichess_app docs/learning-cost/README.md",
+      "ereztash/lichess_app docs/learning-cost/evidence/before.json, measured on 06828af",
+      "ereztash/lichess_app docs/learning-cost/evidence/after.json, measured on the candidate",
+      "ereztash/lichess_app tests/layout/learning-cost.ts",
+      "ereztash/lichess_app tests/layout/the-words-a-stranger-must-read.layout.test.ts",
+      "ereztash/lichess_app docs/VALUE_CLARITY_FIELD_PROTOCOL.md, the limits-order question and the Mechanism gate"
+    ],
+    "reversal_condition": "Arm B of the frozen field protocol shows a participant who, on the shorter screens, cannot reconstruct why the engine waits or cannot say that one decision is not a pattern; the per-participant row names which cut was load-bearing, and that sentence returns. A weak Arm B result is a result and is not a licence to restore every sentence."
+  },
+  "execution": {
+    "executor_type": "AGENT",
+    "planned_action": "Build one walk of the stranger's journey (front door, handed-over position, commitment, reveal, shared-set commitment) that counts visible words in main with the board, the move list and closed disclosures excluded; measure the pre-change tree at 06828af with it; cut copy under four rules (do not teach the form before the task; the steps are the instruction; say the limit, not the paragraph about it; an empty record is empty); remeasure; hold the reading as ceilings; run the repository's full verification.",
+    "completed_action": "Measured 06828af with the corrected counter, desktop 1440x900: front door 187 words, decide 140, commitment 151, reveal 270, shared-set commitment 207. After the pass on the same instrument: 137, 97, 107, 199, 172. Words before the one primary control on the decide screen 88 to 58; on the reveal 221 to 163. The phone's first screen on decide 73 to 44 words. Changes were copy in shared/promise.ts, shared/reveal.ts, the commitment screen, the reveal panel, the front door, seven board notices, the storage notice, new-game notes, blitz setup, the outcome footnote and the position-source detail, plus one condition: loopPosition returns a one-line position for a record with no decision and no narrowed search instead of announcing the detector's floor and the import shortcut. The reveal's order, the reason the engine waits, the help overlay, the quiet-window arm, every failure sentence and Home.tsx were deliberately not touched. Deposited under docs/learning-cost/ with the two readings, and pushed on branch claude/ux-ui-analysis-v6ao5u.",
+    "status": "COMPLETED",
+    "artifact_refs": [
+      "ereztash/lichess_app branch claude/ux-ui-analysis-v6ao5u",
+      "ereztash/lichess_app docs/learning-cost/README.md",
+      "ereztash/lichess_app docs/learning-cost/evidence/before.json",
+      "ereztash/lichess_app docs/learning-cost/evidence/after.json",
+      "ereztash/lichess_app scripts/measure-learning-cost.ts, npm run learning-cost"
+    ]
+  },
+  "verified_state": {
+    "authority": "REPO",
+    "expected_state": "npm run verify is green on the tree: typecheck, production build, the full suite including the two stranger walks and the new ceiling walk in Chromium against the built assets with the shipped engine, every gate, every positive control red on its fixture, and the bundle under budget.",
+    "observed_state": "npm run verify green on the branch tip: typecheck and build clean, the suite passed with the new layout test included, 36 gates pass, 36 positive controls fail as they must, bundle within budget. The repository gates that read copy (GATE-SAID-ONCE, GATE-ENGINE-FAILURE-DISTINCT, GATE-DENOM, GATE-GRADE, GATE-ONE-PRIMARY-ACTION, GATE-NO-DUPLICATE-ACTION) pass unchanged.",
+    "status": "MATCH",
+    "evidence_refs": [
+      "npm run verify on ereztash/lichess_app claude/ux-ui-analysis-v6ao5u",
+      "ereztash/lichess_app docs/learning-cost/evidence/after.json"
+    ]
+  },
+  "outcome": {
+    "authority": "FIELD",
+    "target": "A stranger reaches a first decision and a reveal spending attention on the position rather than on the product, and Arm B of the frozen protocol reconstructs the mechanism and the limitation at the preregistered thresholds on the shorter screens.",
+    "observation": "",
+    "status": "FIELD_REQUIRED",
+    "evidence_refs": [
+      "research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md",
+      "runtime/handoffs/HANDOFF-LICHESS-FIELD-001.json"
+    ]
+  },
+  "learning": {
+    "decision_delta": "The candidate a recruiter would send a stranger to is no longer byte-identical to the one walked on 07ccd11: this pass changes client bytes. The in-repo runnability walks pass on the new tree; the deployed-origin probe belongs to the next deployed.yml run after it ships, and DEL-LICHESS-FIELD-INSTRUMENT-002's carry-forward argument does not carry across this change.",
+    "claim_updates": [
+      "A word count is a cost proxy and not comprehension: the ceiling holds the cost of each screen as text, and FIELD holds whether the shorter screen is understood.",
+      "An empty record announcing a sixty-decision floor and an import shortcut above the board was a countdown on the one screen where attention is the measurement; the ribbon now says the record is empty until the first decision, and the distance arrives with the record it is about.",
+      "The instruction sentence above the commitment accordion was the step list said twice; removing it moved no gate and left the one sentence the steps cannot say for themselves, the reason the engine waits, which the Mechanism gate asks for."
+    ],
+    "resource_delta": "One walk under tests/layout/learning-cost.ts serves both a deposit script and a ratchet test, so the number a ceiling holds is the number the evidence shows. No new gate, no telemetry, no explanation surface, no change to the frozen protocol's sections 1 to 6.",
+    "next_move": "FIELD recruits per research/lichess-prerelease/FIELD_RUN_SHEET_TRIAL1.md against the new candidate once it is on main and deployed, and the pre-release audit is dispatched against that candidate rather than read from 07ccd11.",
+    "stop_or_continue": "STOP"
+  }
+}
